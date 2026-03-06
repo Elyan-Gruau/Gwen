@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom'
 
-export default function ProfilePage() {
+const ProfilePage = () => {
     const {userId} = useParams<{ userId: string }>()
 
     return (
@@ -10,4 +10,6 @@ export default function ProfilePage() {
         </div>
     )
 }
+
+export default ProfilePage;
 
