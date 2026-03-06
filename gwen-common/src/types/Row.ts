@@ -7,11 +7,13 @@ export class Row {
     private readonly range: RangeType;
     private readonly cards: CharacterCard[]
     private modifierCard: RowModifierCard | undefined
+    private score: number;
 
     constructor(range: RangeType) {
         this.range = range;
         this.cards = [];
         this.modifierCard = undefined;
+        this.score = 0;
     }
 
     public setModifierCard(modifierCard: RowModifierCard) {
@@ -21,10 +23,6 @@ export class Row {
 
     public addCard(card: CharacterCard) {
         this.cards.push(card)
-    }
-
-    public getCards(): CharacterCard[] {
-        return this.cards
     }
 
     public findCardById(id: string): CharacterCard {
@@ -40,9 +38,22 @@ export class Row {
         this.modifierCard = undefined;
     }
 
-    getScore(): number {
+    updateScore(): number {
         let total = 0;
         this.cards.forEach((c) => c.getPower());
+        this.score = total;
         return total;
+    }
+
+    getScore(): number {
+        return this.score;
+    }
+
+    getCards(): CharacterCard[] {
+        return this.cards
+    }
+
+    getRange() {
+        return this.range;
     }
 }

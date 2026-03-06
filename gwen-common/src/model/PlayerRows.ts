@@ -9,17 +9,21 @@ export class PlayerRows {
         this.userId = userId;
         this.score = 0;
         this.rows = [
-            new Row("melee"),
-            new Row("range"),
-            new Row("siege")
+            new Row("MELEE"),
+            new Row("RANGE"),
+            new Row("SIEGE")
         ]
     }
 
     public updateScore(): number {
         let total = 0;
-        this.rows.forEach((r) => total += r.getScore());
+        this.rows.forEach((r) => total += r.updateScore());
         this.score = total;
         return total;
+    }
+
+    getScore() {
+        return this.score;
     }
 
 
