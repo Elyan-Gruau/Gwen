@@ -3,10 +3,19 @@ import LoginPage from './pages/LoginPage'
 import LogoutPage from './pages/LogoutPage'
 import SignInPage from './pages/SignInPage'
 import ProfilePage from './pages/ProfilePage'
-import GamePage from "./pages/GamePage";
-import MatchmakingPage from "./pages/MatchmakingPage";
+import GamePage from './pages/GamePage'
+import MatchmakingPage from './pages/MatchmakingPage'
+import HomePage from './pages/HomePage'
 
 export const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <HomePage/>,
+    },
+    {
+        path: '/home',
+        element: <HomePage/>,
+    },
     {
         path: '/login',
         element: <LoginPage/>,
