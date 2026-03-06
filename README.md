@@ -2,18 +2,16 @@
 
 A gwent like game with parodic cards.
 
-
 - Inscription sur le site
-- Profil 
+- Profil
 - Connexion
-- Matchmaking -> Elo 
-
+- Matchmaking -> Elo
 
 # Client
 
 React
 
-## Gwent rules 
+## Gwent rules
 
 - 2 players
 - 3 rounds
@@ -26,10 +24,10 @@ Gameplay : https://www.youtube.com/watch?v=sphmZC2U06Y
 
 ## Architecture
 
-Un objet de config de base, ou est definis les factions, les cartes ... 
+Un objet de config de base, ou est definis les factions, les cartes ...
 Ainsi le jeu est modulaire et facilement extensible.
 
-## Backend 
+## Backend
 
 - Websockets
-- Authentication 
+- Authentication

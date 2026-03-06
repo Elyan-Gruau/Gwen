@@ -4,12 +4,30 @@
   "version": "0.0.0",
   "workspaces": [
     "gwen-client",
-    "gwen-common"
+    "gwen-common",
+    "gwen-server"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=gwen-client",
-    "build": "npm run build --workspace=gwen-common && npm run build --workspace=gwen-client",
-    "lint": "npm run lint --workspace=gwen-client"
+    "dev": "run-p dev:common dev:client dev:server",
+    "dev:client": "npm run dev --workspace=gwen-client",
+    "dev:server": "npm run dev --workspace=gwen-server",
+    "dev:common": "npm run dev --workspace=gwen-common",
+    "build": "run-s build:common build:client build:server",
+    "build:common": "npm run build --workspace=gwen-common",
+    "build:client": "npm run build --workspace=gwen-client",
+    "build:server": "npm run build --workspace=gwen-server",
+    "start": "run-p start:client start:server",
+    "start:client": "npm run preview --workspace=gwen-client",
+    "start:server": "npm run start --workspace=gwen-server",
+    "lint": "run-p lint:client lint:server",
+    "lint:client": "npm run lint --workspace=gwen-client",
+    "lint:server": "npm run lint --workspace=gwen-server",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\""
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "10.1.8",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "3.8.1"
   }
 }
-
