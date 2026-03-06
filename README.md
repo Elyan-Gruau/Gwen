@@ -10,7 +10,9 @@ A gwent like game with parodic cards.
 
 
 # Client
+
 React
+
 ## Gwent rules 
 
 - 2 players
@@ -22,6 +24,8 @@ React
 
 ## Architecture
 
+Un objet de config de base, ou est definis les factions, les cartes ... 
+Ainsi le jeu est modulaire et facilement extensible.
 
 ## Backend 
 
