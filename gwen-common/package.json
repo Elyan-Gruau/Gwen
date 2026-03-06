@@ -13,7 +13,9 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "dev": "tsc --project tsconfig.json --watch"
+    "dev": "tsc --project tsconfig.json --watch",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\""
   },
   "devDependencies": {
     "typescript": "~5.9.3"
