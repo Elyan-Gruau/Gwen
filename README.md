@@ -22,6 +22,8 @@ React
 - Each card has a power value and a type (melee, range, siege)
 - The player with the highest total power at the end of the round wins the round
 
+Gameplay : https://www.youtube.com/watch?v=sphmZC2U06Y
+
 ## Architecture
 
 Un objet de config de base, ou est definis les factions, les cartes ... 
