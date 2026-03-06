@@ -1,0 +1,15 @@
+{
+  "name": "gwen",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "gwen-client",
+    "gwen-common"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=gwen-client",
+    "build": "npm run build --workspace=gwen-common && npm run build --workspace=gwen-client",
+    "lint": "npm run lint --workspace=gwen-client"
+  }
+}
+
