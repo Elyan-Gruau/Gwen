@@ -1,4 +1,4 @@
-import type {CharacterCard} from '../types/CharacterCard.js'
+import type {CharacterCard} from '../types/CharacterCard'
 
 export class Player {
     private readonly id: string

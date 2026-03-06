@@ -1,6 +1,6 @@
-import type {RowModifierStrategy} from '../ModifierStrategy.js'
-import type {RowModifierStrategyType} from '../types/RowModifierCard.js'
-import {StormRowModifierStrategy} from "./strategies/StormRowModifierStrategy";
+import type {RowModifierStrategy} from '../ModifierStrategy'
+import type {RowModifierStrategyType} from '../types/RowModifierCard'
+import {StormRowModifierStrategy} from './strategies/StormRowModifierStrategy';
 
 export class RowModifierStrategyFactory {
     public static createStrategy(strategyType: RowModifierStrategyType): RowModifierStrategy {

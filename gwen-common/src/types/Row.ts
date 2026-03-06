@@ -39,10 +39,9 @@ export class Row {
     }
 
     updateScore(): number {
-        let total = 0;
-        this.cards.forEach((c) => c.getPower());
-        this.score = total;
-        return total;
+        const total = this.cards.reduce((sum, c) => sum + c.getPower(), 0)
+        this.score = total
+        return total
     }
 
     getScore(): number {
