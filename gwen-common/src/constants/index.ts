@@ -1,5 +1,3 @@
-import type {CardType} from '../types/index.js'
-
 // --- Regles de base ---
 
 /** Nombre de vies initiales par joueur */
@@ -17,9 +15,6 @@ export const MAX_REDRAW_COUNT = 2
 /** Taille minimale d'un deck */
 export const MIN_DECK_SIZE = 22
 
-// --- Rangees ---
-
-export const ROW_TYPES: Exclude<CardType, 'special'>[] = ['melee', 'range', 'siege']
 
 // --- Scores ---
 

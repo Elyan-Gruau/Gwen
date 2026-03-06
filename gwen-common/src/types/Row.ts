@@ -1,10 +1,18 @@
 import type {CharacterCard} from './CharacterCard'
 import type {RowModifierCard} from './RowModifierCard'
+import type {RangeType} from "./RangeType";
 
 export class Row {
 
-    private cards: CharacterCard[]
+    private readonly range: RangeType;
+    private readonly cards: CharacterCard[]
     private modifierCard: RowModifierCard | undefined
+
+    constructor(range: RangeType) {
+        this.range = range;
+        this.cards = [];
+        this.modifierCard = undefined;
+    }
 
     public setModifierCard(modifierCard: RowModifierCard) {
         this.modifierCard = modifierCard
@@ -25,5 +33,16 @@ export class Row {
             throw new Error(`Card with id ${id} not found in row`)
         }
         return maybeCard
+    }
+
+    public flush() {
+        this.cards.slice(0, 0);
+        this.modifierCard = undefined;
+    }
+
+    getScore(): number {
+        let total = 0;
+        this.cards.forEach((c) => c.getPower());
+        return total;
     }
 }
