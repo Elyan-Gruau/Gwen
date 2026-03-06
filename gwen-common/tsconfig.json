@@ -10,8 +10,12 @@
     "rootDir": "./src",
     "composite": true,
     "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "skipLibCheck": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
