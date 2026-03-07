@@ -37,3 +37,7 @@ Ainsi le jeu est modulaire et facilement extensible.
 
 - Websockets
 - Authentication
+
+TODO
+
+- [ ] Add a builder to build the real objects from the config.
