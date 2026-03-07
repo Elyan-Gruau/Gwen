@@ -22,6 +22,12 @@ React
 
 Gameplay : https://www.youtube.com/watch?v=sphmZC2U06Y
 
+Cards effects :
+
+- Moral boost : +1 power to all cards in the same row (excluding himself)
+- Commander's horn : Double the strength of all cards in the same row
+-
+
 ## Architecture
 
 Un objet de config de base, ou est definis les factions, les cartes ...
