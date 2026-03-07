@@ -1,15 +1,18 @@
 import { PlayerRows } from './PlayerRows';
 import { Player } from './Player';
+import { Weather } from '../Weather';
 
 export class Game {
   private phase: GamePhase;
   private players: Player[];
   private playerRows: PlayerRows[];
+  private weather: Weather;
 
   constructor() {
     this.phase = 'WAITING_FOR_PLAYERS';
     this.players = [new Player('player1'), new Player('player2')];
     this.playerRows = this.players.map((player) => new PlayerRows(player.getUserId()));
+    this.weather = new Weather();
   }
 
   getPlayers(): Player[] {
