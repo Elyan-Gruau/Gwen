@@ -1,4 +1,5 @@
 import type { CharacterCard } from 'gwen-common';
+import CardContainer from './CardContainer';
 
 type CharacterCardViewProps = {
   card: CharacterCard;
@@ -6,11 +7,13 @@ type CharacterCardViewProps = {
 
 export default function CharacterCardView({ card }: CharacterCardViewProps) {
   return (
-    <img
-      src={`/data-packs/the-witcher/${card.getImageUrl()}`}
-      alt={card.getName()}
-      title={`${card.getName()} — ${card.getPower()} pts`}
-      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-    />
+    <CardContainer>
+      <img
+        src={`/data-packs/the-witcher/${card.getImageUrl()}`}
+        alt={card.getName()}
+        title={`${card.getName()} — ${card.getPower()} pts`}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+      />
+    </CardContainer>
   );
 }
