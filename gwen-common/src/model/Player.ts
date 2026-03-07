@@ -4,12 +4,14 @@ import { INITIAL_GEMS } from '../constants';
 export class Player {
   private readonly userId: string;
   private gems: number;
+  private passed: boolean;
   private deck: Deck;
 
   constructor(id: string) {
     this.userId = id;
     this.deck = new Deck();
     this.gems = INITIAL_GEMS;
+    this.passed = false;
   }
 
   getUserId(): string {
@@ -26,5 +28,13 @@ export class Player {
 
   getDeck(): Deck {
     return this.deck;
+  }
+
+  pass() {
+    this.passed = true;
+  }
+
+  hasPassed(): boolean {
+    return this.passed;
   }
 }
