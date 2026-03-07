@@ -1,0 +1,24 @@
+@use '@styles/tokens' as tokens;
+
+.boardRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #2d45c0;
+  min-height: tokens.$spacing-xl;
+  min-width: 200px;
+  width: 100%;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid white;
+  width: 100%;
+  height: 100%;
+  min-height: tokens.$spacing-xl;
+}

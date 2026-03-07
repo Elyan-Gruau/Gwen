@@ -1,12 +1,14 @@
-const GameView = () => {
+import styles from './GameView.module.scss';
+import UserGame from './user-game/UserGame';
 
-    return (
-        <div>
-            <span>
-                GameView!
-            </span>
-        </div>
-    )
-}
+const GameView = () => {
+  return (
+    <div className={styles.gameView}>
+      <UserGame isCurrentPlayer={false} />
+      <span>SEPARATOR</span>
+      <UserGame isCurrentPlayer={true} />
+    </div>
+  );
+};
 
 export default GameView;

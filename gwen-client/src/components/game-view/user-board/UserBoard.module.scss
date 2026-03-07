@@ -1,0 +1,7 @@
+@use '@styles/tokens' as tokens;
+
+.userBoard {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-md;
+}
