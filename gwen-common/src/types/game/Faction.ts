@@ -1,7 +1,7 @@
-import { CharacterCard } from '../CharacterCard';
+import { type CharacterCardConfig } from '../CharacterCard';
 
 export type Faction = {
   name: string;
   iconUrl: string;
-  characters: CharacterCard[];
+  characters: CharacterCardConfig[];
 };

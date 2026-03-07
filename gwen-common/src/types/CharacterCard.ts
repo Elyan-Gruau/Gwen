@@ -74,6 +74,6 @@ export type CharacterCardConfig = {
   power: number;
   description: string;
   isHero: boolean;
-  ranges: RangeType[];
+  ranges: RangeType | RangeType[];
   imageUrl: string;
 };
