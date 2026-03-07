@@ -1,4 +1,4 @@
-import type { FactionConfig } from '../../types/game/FactionConfig';
+import type { FactionConfig } from '../../../types/game/FactionConfig';
 
 export const NORTHERN_REALMS: FactionConfig = {
   name: 'Northern Realms',

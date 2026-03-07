@@ -1,4 +1,4 @@
-import type { FactionConfig } from '../../types/game/FactionConfig';
+import type { FactionConfig } from '../../../types/game/FactionConfig';
 
 export const MONSTERS: FactionConfig = {
   name: 'Monsters',
@@ -19,7 +19,7 @@ export const MONSTERS: FactionConfig = {
       description: 'Summons all Arachas cards from your deck.',
       isHero: false,
       ranges: 'MELEE',
-      ability: 'MASTER',
+      ability: 'MUSTER',
       imageUrl: '/cards/monsters/arachas.png',
     },
     {
@@ -28,7 +28,7 @@ export const MONSTERS: FactionConfig = {
       description: 'Summons all Arachas cards from your deck.',
       isHero: false,
       ranges: 'MELEE',
-      ability: 'MASTER',
+      ability: 'MUSTER',
       imageUrl: '/cards/monsters/arachas.png',
     },
 
@@ -38,7 +38,7 @@ export const MONSTERS: FactionConfig = {
       description: 'Summons all Arachas Behemoth cards from your deck.',
       isHero: false,
       ranges: 'SIEGE',
-      ability: 'MASTER',
+      ability: 'MUSTER',
       imageUrl: '/cards/monsters/arachas_behemoth.png',
     },
 
