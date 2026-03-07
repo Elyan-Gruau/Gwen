@@ -1,10 +1,3 @@
-export type LeaderCardConfig = {
-  name: string;
-  description: string;
-  imageUrl: string;
-  ability: LeaderAbilityType;
-};
-
 export type LeaderAbilityType =
   // NORTHERN REALMS
   | 'PLAY_FOG_FROM_DECK' // Pick an Impenetrable Fog card from your deck and play it instantly.

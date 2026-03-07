@@ -1,6 +1,6 @@
-import type { Faction } from '../../types/game/Faction';
+import type { FactionConfig } from '../../types/game/FactionConfig';
 
-export const MONSTERS: Faction = {
+export const MONSTERS: FactionConfig = {
   name: 'Monsters',
   iconUrl: '',
   characters: [],

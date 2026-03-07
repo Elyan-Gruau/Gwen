@@ -1,5 +1,5 @@
 import type { RangeType } from './RangeType';
-import type { CharacterCardAbilityType } from './CharacterCardAbilityType';
+import type { CharacterCardConfig } from './game/configs/CharacterCardConfig';
 
 export class CharacterCard {
   private readonly id: string;
@@ -19,10 +19,10 @@ export class CharacterCard {
     this.basePower = config.power;
     this.description = config.description;
     /*
-    A hero is not affected by modifers or other cards.
+    A hero is not affected by modifiers or other cards.
      */
     this.isHero = config.isHero;
-    this.ranges = config.ranges;
+    this.ranges = Array.isArray(config.ranges) ? config.ranges : [config.ranges];
     this.imageUrl = config.imageUrl;
   }
 
@@ -69,13 +69,3 @@ export class CharacterCard {
     return this.id;
   }
 }
-
-export type CharacterCardConfig = {
-  name: string;
-  power: number;
-  description: string;
-  isHero: boolean;
-  ranges: RangeType | RangeType[];
-  ability?: CharacterCardAbilityType;
-  imageUrl: string;
-};

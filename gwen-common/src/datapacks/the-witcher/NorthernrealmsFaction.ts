@@ -1,6 +1,6 @@
-import type { Faction } from '../../types/game/Faction';
+import type { FactionConfig } from '../../types/game/FactionConfig';
 
-export const NORTHERN_REALMS: Faction = {
+export const NORTHERN_REALMS: FactionConfig = {
   name: 'Northern Realms',
   iconUrl: '',
   characters: [
@@ -191,6 +191,41 @@ export const NORTHERN_REALMS: Faction = {
       isHero: false,
       ranges: 'SIEGE',
       imageUrl: '/cards/northern-realms/trebuchet.png',
+    },
+  ],
+  leaders: [
+    {
+      name: 'Foltest – The Siegemaster',
+      description:
+        "Doubles the strength of all your Siege units (unless a Commander's Horn is also present on that row).",
+      imageUrl: '/leaders/northern-realms/foltest_siegemaster.png',
+      ability: 'HORN_SIEGE',
+    },
+    {
+      name: 'Foltest – King of Temeria',
+      description: 'Pick an Impenetrable Fog card from your deck and play it instantly.',
+      imageUrl: '/leaders/northern-realms/foltest_king_of_temeria.png',
+      ability: 'PLAY_FOG_FROM_DECK',
+    },
+    {
+      name: 'Foltest – The Steel-Forged',
+      description:
+        "Destroy your enemy's strongest Siege unit(s) if the combined strength of all his or her Siege units is 10 or more.",
+      imageUrl: '/leaders/northern-realms/foltest_steel_forged.png',
+      ability: 'SCORCH_SIEGE',
+    },
+    {
+      name: 'Foltest – Son of Medell',
+      description:
+        "Destroy your enemy's strongest Ranged Combat unit(s) if the combined strength of all his or her Ranged Combat units is 10 or more.",
+      imageUrl: '/leaders/northern-realms/foltest_son_of_medell.png',
+      ability: 'SCORCH_RANGED',
+    },
+    {
+      name: 'Foltest – Lord Commander of the North',
+      description: 'Clear any weather effects currently in play.',
+      imageUrl: '/leaders/northern-realms/foltest_lord_commander.png',
+      ability: 'CLEAR_WEATHER',
     },
   ],
 };
