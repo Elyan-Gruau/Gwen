@@ -1,5 +1,5 @@
-import type { RangeType } from '../types/RangeType';
-import type { CharacterCardConfig } from '../types/game/configs/CharacterCardConfig';
+import type { RangeType } from '../../types/RangeType';
+import type { CharacterCardConfig } from '../../types/game/configs/CharacterCardConfig';
 import { Card } from './Card';
 
 export class CharacterCard extends Card {

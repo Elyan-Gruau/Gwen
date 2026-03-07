@@ -1,5 +1,5 @@
 import { Card } from './Card';
-import type { LeaderCardConfig } from '../types/game/configs/LeaderCardConfig';
+import type { LeaderCardConfig } from '../../types/game/configs/LeaderCardConfig';
 
 export class LeaderCard extends Card {
   constructor(config: LeaderCardConfig) {

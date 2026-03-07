@@ -1,4 +1,4 @@
-import type { CharacterCard } from './CharacterCard';
+import type { CharacterCard } from './cards/CharacterCard';
 import type { RowModifierCard } from './RowModifierCard';
 import type { RangeType } from '../types/RangeType';
 

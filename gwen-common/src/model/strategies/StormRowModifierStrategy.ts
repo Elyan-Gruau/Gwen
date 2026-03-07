@@ -1,5 +1,5 @@
 import { RowModifierStrategy } from '../ModifierStrategy';
-import type { CharacterCard } from '../CharacterCard';
+import type { CharacterCard } from '../cards/CharacterCard';
 import type { Row } from '../Row';
 
 export class StormRowModifierStrategy extends RowModifierStrategy {
