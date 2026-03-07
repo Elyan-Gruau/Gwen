@@ -1,37 +1,26 @@
 import type { RangeType } from '../types/RangeType';
 import type { CharacterCardConfig } from '../types/game/configs/CharacterCardConfig';
+import { Card } from './Card';
 
-export class CharacterCard {
-  private readonly id: string;
-  private readonly name: string;
+export class CharacterCard extends Card {
   private readonly basePower: number;
-  private readonly description: string;
+  /**
+   A hero is not affected by modifiers or other cards.
+   **/
   private readonly isHero: boolean;
   private readonly ranges: RangeType[];
-  private readonly imageUrl: string;
-
   private power: number;
 
   constructor(config: CharacterCardConfig) {
-    this.id = crypto.randomUUID();
-    this.name = config.name;
+    super(config.name, config.description, config.imageUrl);
     this.power = config.power;
     this.basePower = config.power;
-    this.description = config.description;
-    /*
-    A hero is not affected by modifiers or other cards.
-     */
     this.isHero = config.isHero;
     this.ranges = Array.isArray(config.ranges) ? config.ranges : [config.ranges];
-    this.imageUrl = config.imageUrl;
   }
 
   hasRange(range: RangeType): boolean {
     return this.ranges.includes(range);
-  }
-
-  getName(): string {
-    return this.name;
   }
 
   getBasePower() {
@@ -49,23 +38,11 @@ export class CharacterCard {
     this.power = newPower;
   }
 
-  getDescription(): string {
-    return this.description;
-  }
-
   getIsHero(): boolean {
     return this.isHero;
   }
 
   getRanges(): RangeType[] {
     return this.ranges;
-  }
-
-  getImageUrl(): string {
-    return this.imageUrl;
-  }
-
-  getId(): string {
-    return this.id;
   }
 }

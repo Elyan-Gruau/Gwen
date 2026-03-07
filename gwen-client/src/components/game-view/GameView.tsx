@@ -2,6 +2,7 @@ import styles from './GameView.module.scss';
 import UserGame from './user-game/UserGame';
 import { Game, type Player } from 'gwen-common';
 import { CategorisedPlayers } from '../../model/CategorisedPlayers';
+import PlayerHand from '../player-hand/PlayerHand';
 
 type GameViewProps = {
   game: Game;
@@ -23,6 +24,7 @@ const GameView = ({ game }: GameViewProps) => {
         player={categorisedPlayers.getCurrentPlayer()}
         isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
       />
+      <PlayerHand hand={categorisedPlayers.getCurrentPlayer().getDeck().getHand()} />
     </div>
   );
 };
