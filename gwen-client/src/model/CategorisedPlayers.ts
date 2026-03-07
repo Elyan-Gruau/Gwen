@@ -2,15 +2,15 @@ import type { Player } from 'gwen-common';
 
 export class CategorisedPlayers {
   private currentPlayer: Player;
-  private adversaries: Player[];
+  private opponents: Player[];
 
   constructor(players: Player[], currentPlayerId: String) {
-    this.adversaries = [];
+    this.opponents = [];
     let tempCurrentPlayer: Player | undefined;
 
     players.forEach((p) => {
       if (p.getUserId() != currentPlayerId) {
-        this.adversaries.push(p);
+        this.opponents.push(p);
       } else {
         tempCurrentPlayer = p;
       }
@@ -26,17 +26,17 @@ export class CategorisedPlayers {
     return this.currentPlayer;
   }
 
-  getAdversaries() {
-    return this.adversaries;
+  getOpponents() {
+    return this.opponents;
   }
 
-  getAdversary() {
-    if (this.adversaries.length === 0) {
-      throw new Error('No adversaries found.');
+  getOpponent() {
+    if (this.opponents.length === 0) {
+      throw new Error('No opponents found.');
     }
-    if (this.adversaries.length > 1) {
-      throw new Error('Multiple adversaries found.');
+    if (this.opponents.length > 1) {
+      throw new Error('Multiple opponents found.');
     }
-    return this.adversaries[0];
+    return this.opponents[0];
   }
 }

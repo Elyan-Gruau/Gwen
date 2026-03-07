@@ -2,21 +2,21 @@ import type { CharacterCard } from '../types/CharacterCard';
 
 export class Deck {
   private hand: CharacterCard[];
-  private deadHand: CharacterCard[];
+  private discarded: CharacterCard[];
   private pioche: CharacterCard[];
 
   constructor() {
     this.hand = [];
-    this.deadHand = [];
+    this.discarded = [];
     this.pioche = [];
   }
 
   resurrectCard(card: CharacterCard) {
-    const index = this.deadHand.findIndex((c) => c.getId() === card.getId());
+    const index = this.discarded.findIndex((c) => c.getId() === card.getId());
     if (index === -1) {
       throw new Error(`Card with id ${card.getId()} not found in dead hand`);
     }
-    this.deadHand.splice(index, 1);
+    this.discarded.splice(index, 1);
     this.hand.push(card);
   }
 
@@ -38,8 +38,8 @@ export class Deck {
     return this.hand;
   }
 
-  getDeadCards(): CharacterCard[] {
-    return this.deadHand;
+  getDiscarded(): CharacterCard[] {
+    return this.discarded;
   }
 
   getPioche(): CharacterCard[] {

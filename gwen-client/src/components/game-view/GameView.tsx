@@ -15,7 +15,7 @@ const GameView = ({ game }: GameViewProps) => {
   return (
     <div className={styles.gameView}>
       <UserGame
-        player={categorisedPlayers.getAdversary()}
+        player={categorisedPlayers.getOpponent()}
         isCurrentPlayer={currentUserId == game.getPlayers()[0].getUserId()}
       />
       <span>SEPARATOR</span>
