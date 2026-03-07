@@ -27,9 +27,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "gwen-common": [
-        "../gwen-common/src/index.ts"
-      ]
+      "gwen-common": ["../gwen-common/src/index.ts"],
+      "@styles/*": ["./src/styles/*"]
     }
   },
   "include": [
