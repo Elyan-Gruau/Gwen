@@ -1,15 +1,15 @@
-import type {RowModifierStrategy} from '../ModifierStrategy'
-import type {RowModifierStrategyType} from '../types/RowModifierCard'
-import {StormRowModifierStrategy} from './strategies/StormRowModifierStrategy';
+import type { RowModifierStrategy } from '../ModifierStrategy';
+import type { RowModifierStrategyType } from '../types/RowModifierCard';
+import { StormRowModifierStrategy } from './strategies/StormRowModifierStrategy';
 
 export class RowModifierStrategyFactory {
-    public static createStrategy(strategyType: RowModifierStrategyType): RowModifierStrategy {
-        switch (strategyType) {
-            case 'STORM':
-                return new StormRowModifierStrategy();
-            default :
-                // TODO HANDLE OTHER CASES
-                return new StormRowModifierStrategy();
-        }
+  public static createStrategy(strategyType: RowModifierStrategyType): RowModifierStrategy {
+    switch (strategyType) {
+      case 'STORM':
+        return new StormRowModifierStrategy();
+      default:
+        // TODO HANDLE OTHER CASES
+        return new StormRowModifierStrategy();
     }
+  }
 }

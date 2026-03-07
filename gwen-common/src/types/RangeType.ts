@@ -1,1 +1,1 @@
-export type RangeType = 'MELEE' | 'RANGE' | 'SIEGE'
+export type RangeType = 'MELEE' | 'RANGE' | 'SIEGE';

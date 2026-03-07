@@ -26,4 +26,3 @@ export class PlayerRows {
     return this.userId;
   }
 }
-

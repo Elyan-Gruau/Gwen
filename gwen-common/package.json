@@ -15,7 +15,7 @@
     "build": "tsc --project tsconfig.json",
     "dev": "tsc --project tsconfig.json --watch",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format:fix": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\""
   },
   "devDependencies": {

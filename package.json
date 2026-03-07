@@ -23,7 +23,7 @@
     "lint:common": "npm run lint --workspace=gwen-common",
     "lint:client": "npm run lint --workspace=gwen-client",
     "lint:server": "npm run lint --workspace=gwen-server",
-    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "format:fix": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\""
   },
   "devDependencies": {
