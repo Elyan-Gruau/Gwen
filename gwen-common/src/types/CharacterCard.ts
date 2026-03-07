@@ -6,7 +6,7 @@ export class CharacterCard {
   private readonly basePower: number;
   private readonly description: string;
   private readonly isHero: boolean;
-  private readonly range: RangeType;
+  private readonly ranges: RangeType[];
   private readonly imageUrl: string;
 
   private power: number;
@@ -17,9 +17,16 @@ export class CharacterCard {
     this.power = config.power;
     this.basePower = config.power;
     this.description = config.description;
+    /*
+    A hero is not affected by modifers or other cards.
+     */
     this.isHero = config.isHero;
-    this.range = config.range;
+    this.ranges = config.ranges;
     this.imageUrl = config.imageUrl;
+  }
+
+  hasRange(range: RangeType): boolean {
+    return this.ranges.includes(range);
   }
 
   getName(): string {
@@ -31,6 +38,9 @@ export class CharacterCard {
   }
 
   getPower(): number {
+    if (this.isHero) {
+      return this.basePower;
+    }
     return this.power;
   }
 
@@ -46,8 +56,8 @@ export class CharacterCard {
     return this.isHero;
   }
 
-  getRange(): RangeType {
-    return this.range;
+  getRanges(): RangeType[] {
+    return this.ranges;
   }
 
   getImageUrl(): string {
@@ -64,6 +74,6 @@ export type CharacterCardConfig = {
   power: number;
   description: string;
   isHero: boolean;
-  range: RangeType;
+  ranges: RangeType[];
   imageUrl: string;
 };
