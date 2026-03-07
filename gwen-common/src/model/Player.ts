@@ -1,4 +1,4 @@
-import { Deck } from '../Deck';
+import { Deck } from './Deck';
 import { INITIAL_GEMS } from '../constants';
 
 export class Player {

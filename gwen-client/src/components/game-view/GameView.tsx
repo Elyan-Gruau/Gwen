@@ -1,6 +1,10 @@
 import styles from './GameView.module.scss';
 import UserGame from './user-game/UserGame';
 
+type GameViewProps = {
+  // game: Game;
+};
+
 const GameView = () => {
   return (
     <div className={styles.gameView}>

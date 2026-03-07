@@ -2,6 +2,3 @@ export * from './types/CharacterCard.js';
 export * from './types/RangeType.js';
 export * from './types/Row.js';
 export * from './types/RowModifierCard.js';
-export * from './model/Player.js';
-export * from './model/PlayerRows.js';
-export * from './model/RowModifierStrategyFactory.js';
