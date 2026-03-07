@@ -1,4 +1,4 @@
-import type { CharacterCard } from './CharacterCard';
+import type { CharacterCard } from './cards/CharacterCard';
 
 export class Deck {
   private hand: CharacterCard[];
