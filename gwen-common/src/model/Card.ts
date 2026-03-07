@@ -11,6 +11,10 @@ export abstract class Card {
     this.imageUrl = imageUrl;
   }
 
+  public getId(): string {
+    return this.id;
+  }
+
   public getName(): string {
     return this.name;
   }
