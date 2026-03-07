@@ -30,6 +30,10 @@ export class Deck {
     return card;
   }
 
+  addAllToHands(cards: CharacterCard[]) {
+    this.hand.push(...cards);
+  }
+
   hasEmptyHand(): boolean {
     return this.hand.length === 0;
   }

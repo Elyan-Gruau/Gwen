@@ -10,7 +10,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       ranges: 'MELEE',
-      imageUrl: '/cards/northern-realms/geralt_of_rivia.png',
+      imageUrl: '/northern-realms/geralt_of_rivia.png',
     },
     {
       name: 'Cirilla Fiona Elen Riannon',
@@ -18,7 +18,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       ranges: 'MELEE',
-      imageUrl: '/cards/northern-realms/ciri.png',
+      imageUrl: '/northern-realms/ciri.png',
     },
     {
       name: 'Vernon Roche',
@@ -26,7 +26,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       ranges: 'MELEE',
-      imageUrl: '/cards/northern-realms/vernon_roche.png',
+      imageUrl: '/northern-realms/vernon_roche.png',
     },
     {
       name: 'John Natalis',
@@ -34,7 +34,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       ranges: 'MELEE',
-      imageUrl: '/cards/northern-realms/john_natalis.png',
+      imageUrl: '/northern-realms/john_natalis.png',
     },
     {
       name: 'Philippa Eilhart',
@@ -42,7 +42,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       ranges: 'RANGED',
-      imageUrl: '/cards/northern-realms/philippa_eilhart.png',
+      imageUrl: '/northern-realms/philippa_eilhart.png',
     },
     {
       name: 'Esterad Thyssen',
@@ -50,7 +50,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       ranges: 'RANGED',
-      imageUrl: '/cards/northern-realms/esterad_thyssen.png',
+      imageUrl: '/northern-realms/esterad_thyssen.png',
     },
     {
       name: 'Yarpen Zigrin',
@@ -58,7 +58,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       ranges: 'MELEE',
-      imageUrl: '/cards/northern-realms/yarpen_zigrin.png',
+      imageUrl: '/northern-realms/yarpen_zigrin.png',
     },
     {
       name: 'Prince Stennis',
@@ -67,7 +67,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'MELEE',
       ability: 'SPY',
-      imageUrl: '/cards/northern-realms/prince_stennis.png',
+      imageUrl: '/northern-realms/prince_stennis.png',
     },
     {
       name: 'Sigismund Dijkstra',
@@ -76,7 +76,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'RANGED',
       ability: 'SPY',
-      imageUrl: '/cards/northern-realms/dijkstra.png',
+      imageUrl: '/northern-realms/dijkstra.png',
     },
     {
       name: 'Thaler',
@@ -85,7 +85,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'SIEGE',
       ability: 'SPY',
-      imageUrl: '/cards/northern-realms/thaler.png',
+      imageUrl: '/northern-realms/thaler.png',
     },
     {
       name: 'Dun Banner Medic',
@@ -94,7 +94,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'SIEGE',
       ability: 'MEDIC',
-      imageUrl: '/cards/northern-realms/dun_banner_medic.png',
+      imageUrl: '/northern-realms/dun_banner_medic.png',
     },
     {
       name: 'Blue Stripes Commando',
@@ -103,7 +103,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/blue_stripes_commando.png',
+      imageUrl: '/northern-realms/blue_stripes_commando_1.png',
     },
     {
       name: 'Blue Stripes Commando',
@@ -112,7 +112,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/blue_stripes_commando.png',
+      imageUrl: '/northern-realms/blue_stripes_commando_2.png',
     },
     {
       name: 'Blue Stripes Commando',
@@ -121,7 +121,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/blue_stripes_commando.png',
+      imageUrl: '/northern-realms/blue_stripes_commando_3.png',
     },
     {
       name: 'Crinfrid Reavers Dragon Hunter',
@@ -130,7 +130,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'RANGED',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/crinfrid_reavers.png',
+      imageUrl: '/northern-realms/crinfrid_reavers_1.png',
     },
     {
       name: 'Crinfrid Reavers Dragon Hunter',
@@ -139,7 +139,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'RANGED',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/crinfrid_reavers.png',
+      imageUrl: '/northern-realms/crinfrid_reavers_2.png',
     },
     {
       name: 'Crinfrid Reavers Dragon Hunter',
@@ -148,7 +148,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'RANGED',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/crinfrid_reavers.png',
+      imageUrl: '/northern-realms/crinfrid_reavers_3.png',
     },
     {
       name: 'Catapult',
@@ -157,7 +157,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'SIEGE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/catapult.png',
+      imageUrl: '/northern-realms/catapult_1.png',
     },
     {
       name: 'Catapult',
@@ -166,7 +166,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       isHero: false,
       ranges: 'SIEGE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/northern-realms/catapult.png',
+      imageUrl: '/northern-realms/catapult_2.png',
     },
     {
       name: 'Ballista',
@@ -174,7 +174,15 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       ranges: 'SIEGE',
-      imageUrl: '/cards/northern-realms/ballista.png',
+      imageUrl: '/northern-realms/ballista_1.png',
+    },
+    {
+      name: 'Ballista',
+      power: 6,
+      description: 'No special ability.',
+      isHero: false,
+      ranges: 'SIEGE',
+      imageUrl: '/northern-realms/ballista_2.png',
     },
     {
       name: 'Trebuchet',
@@ -182,7 +190,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       ranges: 'SIEGE',
-      imageUrl: '/cards/northern-realms/trebuchet.png',
+      imageUrl: '/northern-realms/trebuchet_1.png',
     },
     {
       name: 'Trebuchet',
@@ -190,7 +198,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       ranges: 'SIEGE',
-      imageUrl: '/cards/northern-realms/trebuchet.png',
+      imageUrl: '/northern-realms/trebuchet_2.png',
     },
   ],
   leaders: [

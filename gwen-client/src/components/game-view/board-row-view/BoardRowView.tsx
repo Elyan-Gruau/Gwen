@@ -1,6 +1,7 @@
 import styles from './BoardRowView.module.scss';
 import type { Row } from 'gwen-common';
 import ModifierSlot from './modifier-slot/ModifierSlot';
+import CharacterCardView from '../../card/CharacterCardView';
 
 export type BoardRowViewProps = {
   row: Row;
@@ -18,8 +19,8 @@ const BoardRowView = ({ row }: BoardRowViewProps) => {
       <ModifierSlot modifier={row.getModifierCard()} />
       <div></div>
       <div className={styles.cardsContainer}>
-        {row.getCards().map((card) => (
-          <div key={card.getId()}>{card.getName()}</div>
+        {row.getCards().map((card, index) => (
+          <CharacterCardView key={`${card.getName()}-${index}`} card={card} />
         ))}
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { PlayerRows } from './PlayerRows';
 import { Player } from './Player';
 import { Weather } from './Weather';
+import { Datapack } from './Datapack';
+import { THE_WITCHER_DATAPACK } from '../datapacks/the-witcher/WitcherDatapack';
 
 export class Game {
   private phase: GamePhase;
@@ -9,8 +11,10 @@ export class Game {
   private weather: Weather;
 
   constructor() {
+    const datapack = new Datapack(THE_WITCHER_DATAPACK);
     this.phase = 'WAITING_FOR_PLAYERS';
     this.players = [new Player('player1'), new Player('player2')];
+    this.players[0].getDeck().addAllToHands(datapack.getFactions()[0].getCharacters());
     this.playerRows = this.players.map((player) => new PlayerRows(player.getUserId()));
     this.weather = new Weather();
   }
@@ -25,6 +29,14 @@ export class Game {
       throw new Error(`Player rows for player with id ${userId} not found`);
     }
     return maybePlayerRows;
+  }
+
+  getWeather(): Weather {
+    return this.weather;
+  }
+
+  getPhase(): GamePhase {
+    return this.phase;
   }
 }
 
