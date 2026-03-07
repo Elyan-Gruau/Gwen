@@ -1,5 +1,6 @@
 import styles from './BoardRowView.module.scss';
 import type { Row } from 'gwen-common';
+import ModifierSlot from './modifier-slot/ModifierSlot';
 
 export type BoardRowViewProps = {
   row: Row;
@@ -13,7 +14,9 @@ export type BoardRowViewProps = {
 const BoardRowView = ({ row }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
-      <div>{row.getModifierCard()?.getName()}</div>
+      <div>{row.getScore()}</div>
+      <ModifierSlot modifier={row.getModifierCard()} />
+      <div></div>
       <div className={styles.cardsContainer}>
         {row.getCards().map((card) => (
           <div key={card.getId()}>{card.getName()}</div>
