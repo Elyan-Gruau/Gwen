@@ -1,0 +1,136 @@
+@use '../../styles/tokens' as t;
+
+// ─── Base ─────────────────────────────────────────────────────────────────────
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: t.$spacing-sm;
+  border: none;
+  border-radius: t.$border-radius-md;
+  font-family: t.$font-family-base;
+  font-weight: t.$font-weight-medium;
+  cursor: pointer;
+  transition: background-color t.$transition-fast,
+  box-shadow t.$transition-fast,
+  opacity t.$transition-fast;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// ─── Sizes ───────────────────────────────────────────────────────────────────
+
+.sm {
+  padding: t.$spacing-xs t.$spacing-md;
+  font-size: t.$font-size-sm;
+}
+
+.md {
+  padding: t.$spacing-sm t.$spacing-lg;
+  font-size: t.$font-size-md;
+}
+
+.lg {
+  padding: t.$spacing-md t.$spacing-xl;
+  font-size: t.$font-size-lg;
+}
+
+// ─── Variants ────────────────────────────────────────────────────────────────
+
+.primary {
+  background-color: t.$color-primary;
+  color: t.$color-white;
+  box-shadow: t.$shadow-sm;
+
+  &:hover {
+    background-color: t.$color-primary-hover;
+  }
+
+  &:active {
+    background-color: t.$color-primary-active;
+  }
+}
+
+.secondary {
+  background-color: t.$color-secondary;
+  color: t.$color-white;
+  box-shadow: t.$shadow-sm;
+
+  &:hover {
+    background-color: t.$color-secondary-hover;
+  }
+
+  &:active {
+    background-color: t.$color-secondary-active;
+  }
+}
+
+.danger {
+  background-color: t.$color-danger;
+  color: t.$color-white;
+  box-shadow: t.$shadow-sm;
+
+  &:hover {
+    background-color: t.$color-danger-hover;
+  }
+
+  &:active {
+    background-color: t.$color-danger-active;
+  }
+}
+
+.success {
+  background-color: t.$color-success;
+  color: t.$color-white;
+  box-shadow: t.$shadow-sm;
+
+  &:hover {
+    background-color: t.$color-success-hover;
+  }
+
+  &:active {
+    background-color: t.$color-success-active;
+  }
+}
+
+.warning {
+  background-color: t.$color-warning;
+  color: t.$color-text-dark;
+  box-shadow: t.$shadow-sm;
+
+  &:hover {
+    background-color: t.$color-warning-hover;
+  }
+
+  &:active {
+    background-color: t.$color-warning-active;
+  }
+}
+
+.ghost {
+  background-color: transparent;
+  color: t.$color-primary;
+  box-shadow: none;
+
+  &:hover {
+    background-color: rgba(t.$color-primary, 0.08);
+  }
+
+  &:active {
+    background-color: rgba(t.$color-primary, 0.16);
+  }
+}
+
+// ─── Full width ───────────────────────────────────────────────────────────────
+
+.fullWidth {
+  width: 100%;
+}
+
