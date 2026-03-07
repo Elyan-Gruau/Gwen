@@ -1,6 +1,6 @@
 import { PlayerRows } from './PlayerRows';
 import { Player } from './Player';
-import { Weather } from '../Weather';
+import { Weather } from './Weather';
 
 export class Game {
   private phase: GamePhase;

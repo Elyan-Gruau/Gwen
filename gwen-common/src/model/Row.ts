@@ -1,6 +1,6 @@
 import type { CharacterCard } from './CharacterCard';
 import type { RowModifierCard } from './RowModifierCard';
-import type { RangeType } from './RangeType';
+import type { RangeType } from '../types/RangeType';
 
 export class Row {
   private readonly range: RangeType;

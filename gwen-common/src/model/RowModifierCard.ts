@@ -1,6 +1,6 @@
-import type { RowModifierStrategy } from '../ModifierStrategy';
+import type { RowModifierStrategy } from './ModifierStrategy';
 import type { Row } from './Row';
-import { RowModifierStrategyFactory } from '../model/RowModifierStrategyFactory';
+import { RowModifierStrategyFactory } from './RowModifierStrategyFactory';
 
 export class RowModifierCard {
   private readonly name: string;

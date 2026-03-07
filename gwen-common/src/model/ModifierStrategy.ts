@@ -1,5 +1,5 @@
-import type { Row } from './types/Row';
-import type { CharacterCard } from './types/CharacterCard';
+import type { Row } from './Row';
+import type { CharacterCard } from './CharacterCard';
 
 export abstract class RowModifierStrategy {
   /**

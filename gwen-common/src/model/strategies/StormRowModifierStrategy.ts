@@ -1,6 +1,6 @@
-import { RowModifierStrategy } from '../../ModifierStrategy';
-import type { CharacterCard } from '../../types/CharacterCard';
-import type { Row } from '../../types/Row';
+import { RowModifierStrategy } from '../ModifierStrategy';
+import type { CharacterCard } from '../CharacterCard';
+import type { Row } from '../Row';
 
 export class StormRowModifierStrategy extends RowModifierStrategy {
   updateCardPower(_card: CharacterCard, _row: Row): number {

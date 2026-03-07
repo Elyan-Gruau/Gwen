@@ -1,4 +1,4 @@
-import { Row } from '../types/Row';
+import { Row } from './Row';
 
 export class PlayerRows {
   private readonly userId: string;

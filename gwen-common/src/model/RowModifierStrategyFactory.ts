@@ -1,5 +1,5 @@
-import type { RowModifierStrategy } from '../ModifierStrategy';
-import type { RowModifierStrategyType } from '../types/RowModifierCard';
+import type { RowModifierStrategy } from './ModifierStrategy';
+import type { RowModifierStrategyType } from './RowModifierCard';
 import { StormRowModifierStrategy } from './strategies/StormRowModifierStrategy';
 
 export class RowModifierStrategyFactory {

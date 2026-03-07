@@ -1,5 +1,5 @@
-import type { RangeType } from './RangeType';
-import type { CharacterCardConfig } from './game/configs/CharacterCardConfig';
+import type { RangeType } from '../types/RangeType';
+import type { CharacterCardConfig } from '../types/game/configs/CharacterCardConfig';
 
 export class CharacterCard {
   private readonly id: string;

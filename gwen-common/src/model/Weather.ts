@@ -1,4 +1,4 @@
-import type { RangeType } from './types/RangeType';
+import type { RangeType } from '../types/RangeType';
 
 export class Weather {
   private rowWeather: Record<RangeType, boolean> = {
