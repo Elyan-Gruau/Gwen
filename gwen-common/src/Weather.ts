@@ -3,7 +3,7 @@ import type { RangeType } from './types/RangeType';
 export class Weather {
   private rowWeather: Record<RangeType, boolean> = {
     MELEE: false,
-    RANGE: false,
+    RANGED: false,
     SIEGE: false,
   };
 
@@ -18,7 +18,7 @@ export class Weather {
   clearWeather() {
     this.rowWeather = {
       MELEE: false,
-      RANGE: false,
+      RANGED: false,
       SIEGE: false,
     };
   }

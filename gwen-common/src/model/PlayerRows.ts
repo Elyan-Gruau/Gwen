@@ -8,7 +8,7 @@ export class PlayerRows {
   constructor(userId: string) {
     this.userId = userId;
     this.score = 0;
-    this.rows = [new Row('MELEE'), new Row('RANGE'), new Row('SIEGE')];
+    this.rows = [new Row('MELEE'), new Row('RANGED'), new Row('SIEGE')];
   }
 
   public updateScore(): number {
