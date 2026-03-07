@@ -1,0 +1,7 @@
+@use '@styles/tokens' as tokens;
+
+.boardView {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-xl;
+}
