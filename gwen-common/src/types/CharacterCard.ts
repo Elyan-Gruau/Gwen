@@ -1,4 +1,5 @@
 import type { RangeType } from './RangeType';
+import type { CharacterCardAbilityType } from './CharacterCardAbilityType';
 
 export class CharacterCard {
   private readonly id: string;
@@ -75,5 +76,6 @@ export type CharacterCardConfig = {
   description: string;
   isHero: boolean;
   ranges: RangeType | RangeType[];
+  ability?: CharacterCardAbilityType;
   imageUrl: string;
 };
