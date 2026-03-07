@@ -9,12 +9,12 @@ type UserGameProps = {
   player: Player;
 };
 
-const UserGame = ({ isCurrentPlayer }: UserGameProps) => {
+const UserGame = ({ isCurrentPlayer, player }: UserGameProps) => {
   return (
     <div className={styles.userGame}>
-      <GameLeftPanel isCurrentPlayer={isCurrentPlayer} />
+      <GameLeftPanel isCurrentPlayer={isCurrentPlayer} player={player} />
       <UserBoard />
-      <GameRightPanel />
+      <GameRightPanel deck={player.getDeck()} />
     </div>
   );
 };

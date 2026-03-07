@@ -1,8 +1,11 @@
 import UserProfilePic from '../user-profile-pic/UserProfilePic';
 
-const UserView = () => {
-  const userId = 'toot';
-  const nickname = 'TOTO';
+export type UserViewProps = {
+  userId: string;
+  nickname: string;
+};
+
+const UserView = ({ userId, nickname }: UserViewProps) => {
   return (
     <div>
       <UserProfilePic userId={userId} />
