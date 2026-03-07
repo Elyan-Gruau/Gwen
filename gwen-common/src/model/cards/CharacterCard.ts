@@ -3,39 +3,39 @@ import type { CharacterCardConfig } from '../../types/game/configs/CharacterCard
 import { Card } from './Card';
 
 export class CharacterCard extends Card {
-  private readonly basePower: number;
+  private readonly baseStrength: number;
   /**
    A hero is not affected by modifiers or other cards.
    **/
   private readonly isHero: boolean;
   private readonly ranges: RangeType[];
-  private power: number;
+  private strength: number;
 
   constructor(config: CharacterCardConfig) {
     super(config.name, config.description, config.imageUrl);
-    this.power = config.power;
-    this.basePower = config.power;
-    this.isHero = config.isHero;
-    this.ranges = Array.isArray(config.ranges) ? config.ranges : [config.ranges];
+    this.strength = config.strength;
+    this.baseStrength = config.strength;
+    this.isHero = config.isHero ?? false;
+    this.ranges = Array.isArray(config.range) ? config.range : [config.range];
   }
 
   hasRange(range: RangeType): boolean {
     return this.ranges.includes(range);
   }
 
-  getBasePower() {
-    return this.basePower;
+  getBaseStrength() {
+    return this.baseStrength;
   }
 
-  getPower(): number {
+  getStrength(): number {
     if (this.isHero) {
-      return this.basePower;
+      return this.baseStrength;
     }
-    return this.power;
+    return this.strength;
   }
 
-  setPower(newPower: number) {
-    this.power = newPower;
+  setPower(newStrength: number) {
+    this.strength = newStrength;
   }
 
   getIsHero(): boolean {
