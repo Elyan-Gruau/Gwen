@@ -1,58 +1,61 @@
-import type {CharacterCard} from './CharacterCard'
-import type {RowModifierCard} from './RowModifierCard'
-import type {RangeType} from "./RangeType";
+import type { CharacterCard } from './CharacterCard';
+import type { RowModifierCard } from './RowModifierCard';
+import type { RangeType } from './RangeType';
 
 export class Row {
+  private readonly range: RangeType;
+  private readonly cards: CharacterCard[];
+  private modifierCard: RowModifierCard | undefined;
+  private score: number;
 
-    private readonly range: RangeType;
-    private readonly cards: CharacterCard[]
-    private modifierCard: RowModifierCard | undefined
-    private score: number;
+  constructor(range: RangeType) {
+    this.range = range;
+    this.cards = [];
+    this.modifierCard = undefined;
+    this.score = 0;
+  }
 
-    constructor(range: RangeType) {
-        this.range = range;
-        this.cards = [];
-        this.modifierCard = undefined;
-        this.score = 0;
+  public setModifierCard(modifierCard: RowModifierCard) {
+    this.modifierCard = modifierCard;
+    this.modifierCard.affectRow(this);
+  }
+
+  public addCard(card: CharacterCard) {
+    this.cards.push(card);
+  }
+
+  public findCardById(id: string): CharacterCard {
+    const maybeCard = this.cards.find((card) => card.getId() === id);
+    if (!maybeCard) {
+      throw new Error(`Card with id ${id} not found in row`);
     }
+    return maybeCard;
+  }
 
-    public setModifierCard(modifierCard: RowModifierCard) {
-        this.modifierCard = modifierCard
-        this.modifierCard.affectRow(this)
-    }
+  public flush() {
+    this.cards.slice(0, 0);
+    this.modifierCard = undefined;
+  }
 
-    public addCard(card: CharacterCard) {
-        this.cards.push(card)
-    }
+  updateScore(): number {
+    const total = this.cards.reduce((sum, c) => sum + c.getPower(), 0);
+    this.score = total;
+    return total;
+  }
 
-    public findCardById(id: string): CharacterCard {
-        const maybeCard = this.cards.find(card => card.getId() === id);
-        if (!maybeCard) {
-            throw new Error(`Card with id ${id} not found in row`)
-        }
-        return maybeCard
-    }
+  getScore(): number {
+    return this.score;
+  }
 
-    public flush() {
-        this.cards.slice(0, 0);
-        this.modifierCard = undefined;
-    }
+  getCards(): CharacterCard[] {
+    return this.cards;
+  }
 
-    updateScore(): number {
-        const total = this.cards.reduce((sum, c) => sum + c.getPower(), 0)
-        this.score = total
-        return total
-    }
+  getRange() {
+    return this.range;
+  }
 
-    getScore(): number {
-        return this.score;
-    }
-
-    getCards(): CharacterCard[] {
-        return this.cards
-    }
-
-    getRange() {
-        return this.range;
-    }
+  getModifierCard(): RowModifierCard | undefined {
+    return this.modifierCard;
+  }
 }
