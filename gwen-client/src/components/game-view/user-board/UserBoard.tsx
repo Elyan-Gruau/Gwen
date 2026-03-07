@@ -7,7 +7,7 @@ export type UserBoardProps = {};
 type UserBoardView = {};
 
 const UserBoard = ({}: UserBoardView) => {
-  const dummyRows = [new Row('MELEE'), new Row('RANGE'), new Row('SIEGE')];
+  const dummyRows = [new Row('MELEE'), new Row('RANGED'), new Row('SIEGE')];
 
   return (
     <div className={styles.userBoard}>
