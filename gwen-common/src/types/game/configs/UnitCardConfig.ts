@@ -1,10 +1,10 @@
 import type { UnitsRangeType } from '../../RangeType';
-import type { CharacterCardAbilityType } from '../../CharacterCardAbilityType';
+import type { UnitCardAbilityType } from '../../UnitCardAbilityType';
 import type { CardConfig } from './CardConfig';
 
-export type CharacterCardConfig = CardConfig & {
+export type UnitCardConfig = CardConfig & {
   strength: number;
   range: UnitsRangeType;
   isHero?: boolean;
-  ability?: CharacterCardAbilityType;
+  ability?: UnitCardAbilityType;
 };

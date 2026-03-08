@@ -1,5 +1,5 @@
 export * from './cards/Card';
-export * from './cards/CharacterCard';
+export * from './cards/UnitCard';
 export * from './cards/LeaderCard';
 export * from './Player.js';
 export * from './PlayerRows.js';

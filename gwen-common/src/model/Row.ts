@@ -1,10 +1,10 @@
-import type { CharacterCard } from './cards/CharacterCard';
+import type { UnitCard } from './cards/UnitCard';
 import type { RowModifierCard } from './RowModifierCard';
 import type { RangeType } from '../types/RangeType';
 
 export class Row {
   private readonly range: RangeType;
-  private readonly cards: CharacterCard[];
+  private readonly cards: UnitCard[];
   private modifierCard: RowModifierCard | undefined;
   private score: number;
 
@@ -20,11 +20,11 @@ export class Row {
     this.modifierCard.affectRow(this);
   }
 
-  public addCard(card: CharacterCard) {
+  public addCard(card: UnitCard) {
     this.cards.push(card);
   }
 
-  public findCardById(id: string): CharacterCard {
+  public findCardById(id: string): UnitCard {
     const maybeCard = this.cards.find((card) => card.getId() === id);
     if (!maybeCard) {
       throw new Error(`Card with id ${id} not found in row`);
@@ -47,7 +47,7 @@ export class Row {
     return this.score;
   }
 
-  getCards(): CharacterCard[] {
+  getCards(): UnitCard[] {
     return this.cards;
   }
 

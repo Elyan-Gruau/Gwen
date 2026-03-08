@@ -1,5 +1,5 @@
 import type { Row } from './Row';
-import type { CharacterCard } from './cards/CharacterCard';
+import type { UnitCard } from './cards/UnitCard';
 
 export abstract class RowModifierStrategy {
   /**
@@ -18,5 +18,5 @@ export abstract class RowModifierStrategy {
    * @param card The card whose power is to be updated.
    * @param row The row to which the card belongs, which may be needed for certain strategies that depend on the state of the row.
    */
-  public abstract updateCardPower(card: CharacterCard, row: Row): number;
+  public abstract updateCardPower(card: UnitCard, row: Row): number;
 }

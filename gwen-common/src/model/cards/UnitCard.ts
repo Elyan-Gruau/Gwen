@@ -1,16 +1,16 @@
 import type { UnitsRangeType } from '../../types/RangeType';
-import type { CharacterCardConfig } from '../../types/game/configs/CharacterCardConfig';
-import type { CharacterCardAbilityType } from '../../types/CharacterCardAbilityType';
+import type { UnitCardConfig } from '../../types/game/configs/UnitCardConfig';
+import type { UnitCardAbilityType } from '../../types/UnitCardAbilityType';
 import { Card } from './Card';
 
-export class CharacterCard extends Card {
+export class UnitCard extends Card {
   private readonly baseStrength: number;
   private readonly isHero: boolean;
   private readonly ranges: UnitsRangeType[];
-  private readonly ability?: CharacterCardAbilityType;
+  private readonly ability?: UnitCardAbilityType;
   private strength: number;
 
-  constructor(config: CharacterCardConfig) {
+  constructor(config: UnitCardConfig) {
     super(config.name, config.description, config.imageUrl);
     this.strength = config.strength;
     this.baseStrength = config.strength;
@@ -21,7 +21,7 @@ export class CharacterCard extends Card {
 
   // ...existing code...
 
-  getAbility(): CharacterCardAbilityType | undefined {
+  getAbility(): UnitCardAbilityType | undefined {
     return this.ability;
   }
 

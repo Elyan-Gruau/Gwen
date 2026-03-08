@@ -1,9 +1,9 @@
-import { CharacterCard } from 'gwen-common';
-import CharacterCardView from '../../card/CharacterCardView';
+import { UnitCard } from 'gwen-common';
+import UnitCardView from '../../card/UnitCardView';
 import styles from './CardCollection.module.scss';
 
 export type CardCollectionProps = {
-  cards: CharacterCard[];
+  cards: UnitCard[];
 };
 
 const CardCollection = ({ cards }: CardCollectionProps) => {
@@ -13,7 +13,7 @@ const CardCollection = ({ cards }: CardCollectionProps) => {
       <div>filters : All, melee, ranged, siege, hero, weather, WTF is this last category ?</div>
       <div className={styles.cardsContainer}>
         {cards.map((c) => {
-          return <CharacterCardView card={c} />;
+          return <UnitCardView card={c} />;
         })}
       </div>
       {/* Placeholder for card collection content */}

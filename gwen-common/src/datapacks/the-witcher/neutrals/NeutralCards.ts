@@ -1,6 +1,6 @@
-import type { CharacterCardConfig } from '../../../types/game/configs/CharacterCardConfig';
+import type { UnitCardConfig } from '../../../types/game/configs/UnitCardConfig';
 
-export const NEUTRAL_CARDS: CharacterCardConfig[] = [
+export const NEUTRAL_CARDS: UnitCardConfig[] = [
   {
     name: 'Geralt of Rivia',
     description:

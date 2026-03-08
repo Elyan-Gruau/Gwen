@@ -3,7 +3,7 @@ import type { FactionConfig } from '../../../types/game/FactionConfig';
 export const SCOIATAEL: FactionConfig = {
   name: 'Monsters',
   iconUrl: '',
-  characters: [
+  units: [
     {
       name: 'Barclay Els',
       strength: 6,

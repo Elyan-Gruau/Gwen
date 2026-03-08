@@ -1,4 +1,4 @@
-export type CharacterCardAbilityType =
+export type UnitCardAbilityType =
   | 'AGILE' // Can be placed on the melee or distance row
   | 'MEDIC' // Resurrects a card from the discard pile
   | 'MORAL_BOOST' // Gain +1 power for each card in the same row (excluding itself)

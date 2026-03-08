@@ -1,9 +1,9 @@
-import type { CharacterCard } from './cards/CharacterCard';
+import type { UnitCard } from './cards/UnitCard';
 
 export class Deck {
-  private hand: CharacterCard[];
-  private discarded: CharacterCard[];
-  private pioche: CharacterCard[];
+  private hand: UnitCard[];
+  private discarded: UnitCard[];
+  private pioche: UnitCard[];
 
   constructor() {
     this.hand = [];
@@ -11,7 +11,7 @@ export class Deck {
     this.pioche = [];
   }
 
-  resurrectCard(card: CharacterCard) {
+  resurrectCard(card: UnitCard) {
     const index = this.discarded.findIndex((c) => c.getId() === card.getId());
     if (index === -1) {
       throw new Error(`Card with id ${card.getId()} not found in dead hand`);
@@ -20,7 +20,7 @@ export class Deck {
     this.hand.push(card);
   }
 
-  drawRandomCard(): CharacterCard {
+  drawRandomCard(): UnitCard {
     if (this.pioche.length === 0) {
       throw new Error('No more cards to draw');
     }
@@ -30,7 +30,7 @@ export class Deck {
     return card;
   }
 
-  addAllToHands(cards: CharacterCard[]) {
+  addAllToHands(cards: UnitCard[]) {
     this.hand.push(...cards);
   }
 
@@ -38,15 +38,15 @@ export class Deck {
     return this.hand.length === 0;
   }
 
-  getHand(): CharacterCard[] {
+  getHand(): UnitCard[] {
     return this.hand;
   }
 
-  getDiscarded(): CharacterCard[] {
+  getDiscarded(): UnitCard[] {
     return this.discarded;
   }
 
-  getPioche(): CharacterCard[] {
+  getPioche(): UnitCard[] {
     return this.pioche;
   }
 }

@@ -3,7 +3,7 @@ import type { FactionConfig } from '../../../types/game/FactionConfig';
 export const NORTHERN_REALMS: FactionConfig = {
   name: 'Northern Realms',
   iconUrl: '',
-  characters: [
+  units: [
     {
       name: 'Vernon Roche',
       strength: 10,

@@ -1,9 +1,9 @@
-import type { CharacterCard } from 'gwen-common';
+import type { UnitCard } from 'gwen-common';
 import CardContainer from './CardContainer';
-import styles from './CharacterCardView.module.scss';
+import styles from './UnitCardView.module.scss';
 
-type CharacterCardViewProps = {
-  card: CharacterCard;
+type UnitCardViewProps = {
+  card: UnitCard;
 };
 
 const ABILITY_LABELS: Record<string, string> = {
@@ -25,7 +25,7 @@ const RANGE_LABELS: Record<string, string> = {
   AGILE: 'Agile',
 };
 
-export default function CharacterCardView({ card }: CharacterCardViewProps) {
+export default function UnitCardView({ card }: UnitCardViewProps) {
   const isHero = card.getIsHero();
   const ability = card.getAbility();
   const ranges = card.getRanges();

@@ -9,14 +9,14 @@ const DeckBuilder = () => {
       Faction selector
       <div>
         Faction cards
-        <CardCollection cards={dumyDatapack.getFactions()[0].getCharacters()} />
+        <CardCollection cards={dumyDatapack.getFactions()[0].getUnits()} />
       </div>
       <div>
         <FactionLeaderSelector />
       </div>
       <div>
         Cards in deck
-        <CardCollection cards={dumyDatapack.getFactions()[0].getCharacters()} />
+        <CardCollection cards={dumyDatapack.getFactions()[0].getUnits()} />
       </div>
     </div>
   );

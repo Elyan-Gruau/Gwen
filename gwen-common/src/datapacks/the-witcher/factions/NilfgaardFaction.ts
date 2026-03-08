@@ -35,7 +35,7 @@ export const NILFGAARD: FactionConfig = {
       ability: 'CANCEL_LEADER_ABILITY',
     },
   ],
-  characters: [
+  units: [
     {
       name: 'Albrich',
       strength: 2,
