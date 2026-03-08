@@ -9,7 +9,9 @@ export class Datapack {
   constructor(config: DatapackConfig) {
     this.name = config.name;
     this.description = config.description;
-    this.factions = config.factions.map((unitConf) => new Faction(unitConf, config.neutralUnits));
+    this.factions = config.factions.map(
+      (unitConf) => new Faction(unitConf, config.neutralUnits, config.neutrals),
+    );
   }
 
   getName(): string {

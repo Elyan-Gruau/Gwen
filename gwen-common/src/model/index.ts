@@ -1,6 +1,7 @@
 export * from './cards/Card';
 export * from './cards/UnitCard';
 export * from './cards/LeaderCard';
+export * from './cards/NeutralCard';
 export * from './Player.js';
 export * from './PlayerRows.js';
 export * from './Game.js';
