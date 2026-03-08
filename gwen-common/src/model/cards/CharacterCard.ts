@@ -1,14 +1,13 @@
-import type { RangeType } from '../../types/RangeType';
+import type { UnitsRangeType } from '../../types/RangeType';
 import type { CharacterCardConfig } from '../../types/game/configs/CharacterCardConfig';
+import type { CharacterCardAbilityType } from '../../types/CharacterCardAbilityType';
 import { Card } from './Card';
 
 export class CharacterCard extends Card {
   private readonly baseStrength: number;
-  /**
-   A hero is not affected by modifiers or other cards.
-   **/
   private readonly isHero: boolean;
-  private readonly ranges: RangeType[];
+  private readonly ranges: UnitsRangeType[];
+  private readonly ability?: CharacterCardAbilityType;
   private strength: number;
 
   constructor(config: CharacterCardConfig) {
@@ -17,9 +16,16 @@ export class CharacterCard extends Card {
     this.baseStrength = config.strength;
     this.isHero = config.isHero ?? false;
     this.ranges = Array.isArray(config.range) ? config.range : [config.range];
+    this.ability = config.ability;
   }
 
-  hasRange(range: RangeType): boolean {
+  // ...existing code...
+
+  getAbility(): CharacterCardAbilityType | undefined {
+    return this.ability;
+  }
+
+  hasRange(range: UnitsRangeType): boolean {
     return this.ranges.includes(range);
   }
 
@@ -42,7 +48,7 @@ export class CharacterCard extends Card {
     return this.isHero;
   }
 
-  getRanges(): RangeType[] {
+  getRanges(): UnitsRangeType[] {
     return this.ranges;
   }
 }
