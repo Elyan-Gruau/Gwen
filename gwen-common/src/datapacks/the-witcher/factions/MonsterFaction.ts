@@ -11,7 +11,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/arachas.png',
+      imageUrl: '/monsters/arachas_1.png',
     },
     {
       name: 'Arachas',
@@ -20,7 +20,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/arachas.png',
+      imageUrl: '/monsters/arachas_2.png',
     },
     {
       name: 'Arachas',
@@ -29,7 +29,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/arachas.png',
+      imageUrl: '/monsters/arachas_3.png',
     },
 
     {
@@ -39,7 +39,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'SIEGE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/arachas_behemoth.png',
+      imageUrl: '/monsters/arachas_behemoth.png',
     },
 
     {
@@ -48,7 +48,7 @@ export const MONSTERS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'MELEE',
-      imageUrl: '/cards/monsters/botchling.png',
+      imageUrl: '/monsters/botchling.png',
     },
 
     {
@@ -58,7 +58,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'AGILE',
       ability: 'AGILE',
-      imageUrl: '/cards/monsters/celaeno_harpy.png',
+      imageUrl: '/monsters/celaeno_harpy.png',
     },
 
     {
@@ -67,7 +67,7 @@ export const MONSTERS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'RANGED',
-      imageUrl: '/cards/monsters/cockatrice.png',
+      imageUrl: '/monsters/cockatrice.png',
     },
 
     {
@@ -77,7 +77,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/crone_brewess.png',
+      imageUrl: '/monsters/crone_brewess.png',
     },
     {
       name: 'Crone: Weavess',
@@ -86,7 +86,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/crone_weavess.png',
+      imageUrl: '/monsters/crone_weavess.png',
     },
     {
       name: 'Crone: Whispess',
@@ -95,7 +95,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/crone_whispess.png',
+      imageUrl: '/monsters/crone_whispess.png',
     },
 
     {
@@ -104,7 +104,7 @@ export const MONSTERS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       range: 'MELEE',
-      imageUrl: '/cards/monsters/draug.png',
+      imageUrl: '/monsters/draug.png',
     },
 
     {
@@ -113,7 +113,7 @@ export const MONSTERS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'SIEGE',
-      imageUrl: '/cards/monsters/earth_elemental.png',
+      imageUrl: '/monsters/earth_elemental.png',
     },
 
     {
@@ -123,7 +123,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'AGILE',
       ability: 'AGILE',
-      imageUrl: '/cards/monsters/harpy.png',
+      imageUrl: '/monsters/harpy.png',
     },
 
     {
@@ -132,7 +132,7 @@ export const MONSTERS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'SIEGE',
-      imageUrl: '/cards/monsters/ice_giant.png',
+      imageUrl: '/monsters/ice_giant.png',
     },
 
     {
@@ -141,7 +141,7 @@ export const MONSTERS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       range: 'MELEE',
-      imageUrl: '/cards/monsters/imlerith.png',
+      imageUrl: '/monsters/imlerith.png',
     },
 
     {
@@ -151,7 +151,7 @@ export const MONSTERS: FactionConfig = {
       isHero: true,
       range: 'AGILE',
       ability: 'MORAL_BOOST',
-      imageUrl: '/cards/monsters/kayran.png',
+      imageUrl: '/monsters/kayran.png',
     },
 
     {
@@ -160,7 +160,7 @@ export const MONSTERS: FactionConfig = {
       description: 'Hero. Immune to special cards and abilities.',
       isHero: true,
       range: 'RANGED',
-      imageUrl: '/cards/monsters/leshen.png',
+      imageUrl: '/monsters/leshen.png',
     },
 
     {
@@ -170,7 +170,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/nekker.png',
+      imageUrl: '/monsters/nekker_1.png',
     },
     {
       name: 'Nekker',
@@ -179,7 +179,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/nekker.png',
+      imageUrl: '/monsters/nekker_2.png',
     },
     {
       name: 'Nekker',
@@ -188,7 +188,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'MUSTER',
-      imageUrl: '/cards/monsters/nekker.png',
+      imageUrl: '/monsters/nekker_3.png',
     },
 
     {
@@ -197,7 +197,7 @@ export const MONSTERS: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'MELEE',
-      imageUrl: '/cards/monsters/plague_maiden.png',
+      imageUrl: '/monsters/plague_maiden.png',
     },
 
     {
@@ -207,7 +207,7 @@ export const MONSTERS: FactionConfig = {
       isHero: false,
       range: 'RANGED',
       ability: 'SCORCH',
-      imageUrl: '/cards/monsters/toad.png',
+      imageUrl: '/monsters/toad.png',
     },
   ],
   leaders: [
