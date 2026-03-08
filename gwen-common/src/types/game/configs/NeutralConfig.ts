@@ -11,4 +11,6 @@ export type NeutralType =
 
 export type NeutralConfig = CardConfig & {
   type: NeutralType;
+  /** Number of copies of this card in the deck. Defaults to 1. */
+  count?: number;
 };

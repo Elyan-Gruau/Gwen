@@ -18,7 +18,9 @@ export class Faction {
     this.leaders = config.leaders.map((conf) => new LeaderCard(conf));
     this.units = config.units.map((conf) => new UnitCard(conf));
     this.units.push(...neutralUnits.map((conf) => new UnitCard(conf)));
-    this.neutrals = neutrals.map((conf) => new NeutralCard(conf));
+    this.neutrals = neutrals.flatMap((conf) =>
+      Array.from({ length: conf.count ?? 1 }, () => new NeutralCard(conf)),
+    );
   }
 
   getName(): string {
