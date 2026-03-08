@@ -4,19 +4,20 @@ import FactionLeaderSelector from './FactionLeaderSelector';
 
 const DeckBuilder = () => {
   const dumyDatapack = new Datapack(THE_WITCHER_DATAPACK);
+  const faction = dumyDatapack.getFactions()[0];
   return (
     <div>
       Faction selector
       <div>
         Faction cards
-        <CardCollection cards={dumyDatapack.getFactions()[0].getUnits()} />
+        <CardCollection faction={faction} />
       </div>
       <div>
         <FactionLeaderSelector />
       </div>
       <div>
         Cards in deck
-        <CardCollection cards={dumyDatapack.getFactions()[0].getUnits()} />
+        <CardCollection faction={faction} />
       </div>
     </div>
   );

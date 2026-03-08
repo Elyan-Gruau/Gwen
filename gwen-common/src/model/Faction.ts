@@ -40,4 +40,8 @@ export class Faction {
   getNeutrals(): NeutralCard[] {
     return this.neutrals;
   }
+
+  getPlayableCards(): (UnitCard | NeutralCard)[] {
+    return [...this.units, ...this.neutrals];
+  }
 }
