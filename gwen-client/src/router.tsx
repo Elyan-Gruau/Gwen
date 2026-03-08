@@ -6,6 +6,7 @@ import ProfilePage from './pages/ProfilePage';
 import GamePage from './pages/GamePage';
 import MatchmakingPage from './pages/MatchmakingPage';
 import HomePage from './pages/HomePage';
+import DeckBuilder from './components/deck-builder/DeckBuilder';
 
 export const router = createBrowserRouter([
   {
@@ -39,5 +40,9 @@ export const router = createBrowserRouter([
   {
     path: '/play',
     element: <MatchmakingPage />,
+  },
+  {
+    path: '/deck-builder',
+    element: <DeckBuilder />,
   },
 ]);
