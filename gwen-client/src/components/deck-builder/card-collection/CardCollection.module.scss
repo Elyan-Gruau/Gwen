@@ -1,5 +1,56 @@
+@use '@styles/tokens' as t;
+
+.cardCollection {
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-md;
+}
+
+// ─── Filters ─────────────────────────────────────────────────────────────────
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.$spacing-xs;
+}
+
+.filterBtn {
+  padding: t.$spacing-xs t.$spacing-md;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: t.$border-radius-pill;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-sm;
+  font-weight: t.$font-weight-medium;
+  cursor: pointer;
+  transition: background-color t.$transition-fast,
+  color t.$transition-fast,
+  border-color t.$transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.filterBtnActive {
+  background: t.$color-primary;
+  border-color: t.$color-primary;
+  color: t.$color-white;
+
+  &:hover {
+    background: t.$color-primary-hover;
+    border-color: t.$color-primary-hover;
+    color: t.$color-white;
+  }
+}
+
+// ─── Cards grid ──────────────────────────────────────────────────────────────
+
 .cardsContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: t.$spacing-sm;
 }
+
