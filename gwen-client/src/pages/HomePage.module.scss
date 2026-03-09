@@ -1,0 +1,31 @@
+@use '@styles/tokens' as t;
+
+.homePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: t.$spacing-md;
+}
+
+.title {
+  font-size: 2rem;
+  font-family: t.$font-family-base;
+  color: t.$color-white;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: t.$font-size-md;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: t.$spacing-md;
+  margin-top: t.$spacing-lg;
+}
+
+
