@@ -1,0 +1,22 @@
+@use '@styles/tokens' as t;
+
+.factionSelector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: t.$spacing-md;
+  padding: t.$spacing-sm t.$spacing-lg;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: t.$border-radius-md;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.factionName {
+  font-size: t.$font-size-lg;
+  font-weight: t.$font-weight-bold;
+  color: t.$color-text-light;
+  flex: 1;
+  text-align: center;
+}
+
