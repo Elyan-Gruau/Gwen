@@ -1,7 +1,7 @@
 import type { FactionConfig } from '../../../types/game/FactionConfig';
 
 export const SCOIATAEL: FactionConfig = {
-  name: 'Monsters',
+  name: 'Scoia’tael',
   iconUrl: '',
   units: [
     {
