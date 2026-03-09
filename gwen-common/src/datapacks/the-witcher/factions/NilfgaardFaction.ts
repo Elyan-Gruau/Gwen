@@ -1,7 +1,7 @@
 import type { FactionConfig } from '../../../types/game/FactionConfig';
 
 export const NILFGAARD: FactionConfig = {
-  name: 'Nilfgaard',
+  name: 'Nilfgaard Empire',
   iconUrl: '',
   leaders: [
     {
@@ -42,7 +42,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'RANGED',
-      imageUrl: '/cards/nilfgaard/albrich.png',
+      imageUrl: '/nilfgaardian-empire/albrich.png',
     },
     {
       name: 'Assire var Anahid',
@@ -51,7 +51,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'RANGED',
       ability: 'MEDIC',
-      imageUrl: '/cards/nilfgaard/assire_var_anahid.png',
+      imageUrl: '/nilfgaardian-empire/assire_var_anahid.png',
     },
     {
       name: 'Black Infantry Archer',
@@ -59,7 +59,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'RANGED',
-      imageUrl: '/cards/nilfgaard/black_infantry_archer.png',
+      imageUrl: '/nilfgaardian-empire/black_infantry_archer_1.png',
     },
     {
       name: 'Black Infantry Archer',
@@ -67,7 +67,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'RANGED',
-      imageUrl: '/cards/nilfgaard/black_infantry_archer.png',
+      imageUrl: '/nilfgaardian-empire/black_infantry_archer_2.png',
     },
     {
       name: 'Cahir Mawr Dyffryn aep Ceallach',
@@ -75,7 +75,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'MELEE',
-      imageUrl: '/cards/nilfgaard/cahir.png',
+      imageUrl: '/nilfgaardian-empire/cahir_mawr_dyffryn_aep_ceallach.png',
     },
     {
       name: 'Cynthia',
@@ -83,7 +83,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'RANGED',
-      imageUrl: '/cards/nilfgaard/cynthia.png',
+      imageUrl: '/nilfgaardian-empire/cynthia.png',
     },
     {
       name: 'Etolian Auxiliary Archers',
@@ -92,7 +92,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'RANGED',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/etolian_auxiliary_archers.png',
+      imageUrl: '/nilfgaardian-empire/etolian_auxiliary_archers_1.png',
     },
     {
       name: 'Etolian Auxiliary Archers',
@@ -101,7 +101,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'RANGED',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/etolian_auxiliary_archers.png',
+      imageUrl: '/nilfgaardian-empire/etolian_auxiliary_archers_2.png',
     },
     {
       name: 'Fringilla Vigo',
@@ -109,7 +109,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'RANGED',
-      imageUrl: '/cards/nilfgaard/fringilla_vigo.png',
+      imageUrl: '/nilfgaardian-empire/fringilla_vigo.png',
     },
     {
       name: 'Heavy Zerrikanian Fire Scorpion',
@@ -117,7 +117,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'No special ability.',
       isHero: false,
       range: 'SIEGE',
-      imageUrl: '/cards/nilfgaard/heavy_zerrikanian_fire_scorpion.png',
+      imageUrl: '/nilfgaardian-empire/heavy_zerrikanian_fire_scorpion.png',
     },
     {
       name: 'Impera Brigade Guard',
@@ -126,7 +126,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/impera_brigade_guard.png',
+      imageUrl: '/nilfgaardian-empire/impera_brigade_guard_1.png',
     },
     {
       name: 'Impera Brigade Guard',
@@ -135,7 +135,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/impera_brigade_guard.png',
+      imageUrl: '/nilfgaardian-empire/impera_brigade_guard_2.png',
     },
     {
       name: 'Impera Brigade Guard',
@@ -144,7 +144,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/impera_brigade_guard.png',
+      imageUrl: '/nilfgaardian-empire/impera_brigade_guard_3.png',
     },
     {
       name: 'Letho of Gulet',
@@ -152,7 +152,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'Hero.',
       isHero: true,
       range: 'MELEE',
-      imageUrl: '/cards/nilfgaard/letho_of_gulet.png',
+      imageUrl: '/nilfgaardian-empire/letho_of_gulet.png',
     },
     {
       name: 'Menno Coehoorn',
@@ -161,7 +161,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: true,
       range: 'MELEE',
       ability: 'MEDIC',
-      imageUrl: '/cards/nilfgaard/menno_coehoorn.png',
+      imageUrl: '/nilfgaardian-empire/menno_coehoorn.png',
     },
     {
       name: 'Morvran Voorhis',
@@ -169,7 +169,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'Hero.',
       isHero: true,
       range: 'MELEE',
-      imageUrl: '/cards/nilfgaard/morvran_voorhis.png',
+      imageUrl: '/nilfgaardian-empire/morvran_voorhis.png',
     },
     {
       name: 'Nausicaa Cavalry Rider',
@@ -178,7 +178,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/nausicaa_cavalry_rider.png',
+      imageUrl: '/nilfgaardian-empire/nausicaa_cavalry_rider_1.png',
     },
     {
       name: 'Nausicaa Cavalry Rider',
@@ -187,7 +187,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/nausicaa_cavalry_rider.png',
+      imageUrl: '/nilfgaardian-empire/nausicaa_cavalry_rider_2.png',
     },
     {
       name: 'Nausicaa Cavalry Rider',
@@ -196,7 +196,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/nausicaa_cavalry_rider.png',
+      imageUrl: '/nilfgaardian-empire/nausicaa_cavalry_rider_3.png',
     },
     {
       name: 'Shilard Fitz-Oesterlen',
@@ -205,7 +205,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'SPY',
-      imageUrl: '/cards/nilfgaard/shilard.png',
+      imageUrl: '/nilfgaardian-empire/shilard_fitz_oesterlen.png',
     },
     {
       name: 'Stefan Skellen',
@@ -214,7 +214,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'MELEE',
       ability: 'SPY',
-      imageUrl: '/cards/nilfgaard/stefan_skellen.png',
+      imageUrl: '/nilfgaardian-empire/stefan_skellen.png',
     },
     {
       name: 'Tibor Eggebracht',
@@ -222,7 +222,7 @@ export const NILFGAARD: FactionConfig = {
       description: 'Hero.',
       isHero: true,
       range: 'RANGED',
-      imageUrl: '/cards/nilfgaard/tibor_eggebracht.png',
+      imageUrl: '/nilfgaardian-empire/tibor_eggebracht.png',
     },
     {
       name: 'Vattier de Rideaux',
@@ -231,7 +231,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'RANGED',
       ability: 'SPY',
-      imageUrl: '/cards/nilfgaard/vattier_de_rideaux.png',
+      imageUrl: '/nilfgaardian-empire/vattier_de_rideaux.png',
     },
     {
       name: 'Young Emissary',
@@ -240,7 +240,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'RANGED',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/young_emissary.png',
+      imageUrl: '/nilfgaardian-empire/young_emissary_1.png',
     },
     {
       name: 'Young Emissary',
@@ -249,7 +249,7 @@ export const NILFGAARD: FactionConfig = {
       isHero: false,
       range: 'RANGED',
       ability: 'TIGHT_BOND',
-      imageUrl: '/cards/nilfgaard/young_emissary.png',
+      imageUrl: '/nilfgaardian-empire/young_emissary_2.png',
     },
   ],
 };
