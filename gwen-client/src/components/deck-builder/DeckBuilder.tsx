@@ -10,6 +10,7 @@ import {
 import CardCollection from './card-collection/CardCollection';
 import FactionLeaderSelector from './FactionLeaderSelector';
 import FactionSelector from './FactionSelector';
+import styles from './DeckBuilder.module.scss';
 
 const DeckBuilder = () => {
   const datapack = useMemo(() => new Datapack(THE_WITCHER_DATAPACK), []);
@@ -39,11 +40,9 @@ const DeckBuilder = () => {
 
   const handleAddCard = (card: UnitCard | NeutralCard) => {
     const next = new UserFactionDeck();
-    // Copy existing cards
     userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
     userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
     if (userDeck.getLeader()) next.setLeader(userDeck.getLeader()!);
-
     if (card instanceof NeutralCard) {
       next.addSpecialCard(card);
     } else {
@@ -57,7 +56,6 @@ const DeckBuilder = () => {
     userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
     userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
     if (userDeck.getLeader()) next.setLeader(userDeck.getLeader()!);
-
     if (card instanceof NeutralCard) {
       next.removeSpecialCard(card.getId());
     } else {
@@ -73,40 +71,57 @@ const DeckBuilder = () => {
   const isValid = userDeck.isValid();
 
   return (
-    <div>
-      <FactionSelector
-        factions={factions}
-        selectedIndex={selectedFactionIndex}
-        onIndexChange={setSelectedFactionIndex}
-      />
-      <div>
-        Faction cards
+    <div className={styles.deckBuilder}>
+      {/* ── Gauche : collection de la faction ── */}
+      <div className={styles.column}>
+        <FactionSelector
+          factions={factions}
+          selectedIndex={selectedFactionIndex}
+          onIndexChange={setSelectedFactionIndex}
+        />
         <CardCollection faction={faction} cards={availableCards} onCardClick={handleAddCard} />
       </div>
-      <div>
+
+      {/* ── Centre : leader + stats ── */}
+      <div className={styles.centerColumn}>
         <FactionLeaderSelector />
-      </div>
-      <div>
-        <div>
-          <span>Cards in deck — </span>
-          <span>
-            Units: {unitCount}/{USER_FACTION_DECK_RULES.MIN_UNIT_CARDS} min
-          </span>
-          {' | '}
-          <span>
-            Specials: {specialCount}/{USER_FACTION_DECK_RULES.MAX_SPECIAL_CARDS} max
-          </span>
-          {' | '}
-          <span>Heroes: {heroCount}</span>
-          {' | '}
-          <span>Total strength: {totalStrength}</span>
-          {' | '}
-          <span>Total: {userDeck.getTotalCards()}</span>
-          {' | '}
-          <span style={{ color: isValid ? 'green' : 'red' }}>
-            {isValid ? '✓ Valid' : '✗ Invalid'}
+
+        <div className={styles.deckStats}>
+          <div className={styles.statRow}>
+            <span>Unités</span>
+            <span className={styles.statValue}>
+              {unitCount} / {USER_FACTION_DECK_RULES.MIN_UNIT_CARDS} min
+            </span>
+          </div>
+          <div className={styles.statRow}>
+            <span>Spéciaux</span>
+            <span className={styles.statValue}>
+              {specialCount} / {USER_FACTION_DECK_RULES.MAX_SPECIAL_CARDS} max
+            </span>
+          </div>
+          <div className={styles.statRow}>
+            <span>Héros</span>
+            <span className={styles.statValue}>{heroCount}</span>
+          </div>
+          <div className={styles.statRow}>
+            <span>Force totale</span>
+            <span className={styles.statValue}>{totalStrength}</span>
+          </div>
+          <div className={styles.statRow}>
+            <span>Total cartes</span>
+            <span className={styles.statValue}>{userDeck.getTotalCards()}</span>
+          </div>
+          <span
+            className={`${styles.validBadge} ${isValid ? styles.validBadgeOk : styles.validBadgeKo}`}
+          >
+            {isValid ? '✓ Deck valide' : '✗ Deck invalide'}
           </span>
         </div>
+      </div>
+
+      {/* ── Droite : cartes du deck joueur ── */}
+      <div className={styles.column}>
+        <span className={styles.columnTitle}>Mon deck</span>
         <CardCollection faction={faction} cards={deckCards} onCardClick={handleRemoveCard} />
       </div>
     </div>

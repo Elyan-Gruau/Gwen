@@ -1,17 +1,25 @@
 @use '@styles/tokens' as t;
 
+// Largeur d'une carte (sync avec CardContainer.module.scss)
+$card-width: 120px;
+$col-gap: t.$spacing-sm;
+
 .cardCollection {
   display: flex;
   flex-direction: column;
-  gap: t.$spacing-md;
+  gap: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
-// ─── Filters ─────────────────────────────────────────────────────────────────
+// ─── Filters (sticky) ─────────────────────────────────────────────────────────
 
 .filters {
   display: flex;
   flex-wrap: wrap;
   gap: t.$spacing-xs;
+  flex-shrink: 0;
+  padding-bottom: t.$spacing-md;
 }
 
 .filterBtn {
@@ -46,12 +54,35 @@
   }
 }
 
-// ─── Cards grid ──────────────────────────────────────────────────────────────
+// ─── Cards grid (scrollable) ──────────────────────────────────────────────────
 
 .cardsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: t.$spacing-sm;
+  // max 3 colonnes exactement
+  display: grid;
+  grid-template-columns: repeat(3, $card-width);
+  gap: $col-gap;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  align-content: start;
+  padding-right: t.$spacing-xs; // espace pour la scrollbar
+
+  // scrollbar discrète
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: t.$border-radius-pill;
+  }
 }
 
 // ─── Card wrapper ─────────────────────────────────────────────────────────────
@@ -59,7 +90,8 @@
 .cardWrapper {
   position: relative;
   border-radius: t.$border-radius-md;
-  transition: transform t.$transition-fast, box-shadow t.$transition-fast;
+  transition: transform t.$transition-fast,
+  box-shadow t.$transition-fast;
 }
 
 .cardClickable {

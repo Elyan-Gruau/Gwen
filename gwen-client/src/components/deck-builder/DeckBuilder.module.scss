@@ -1,0 +1,91 @@
+@use '@styles/tokens' as t;
+
+// ─── Layout principal ─────────────────────────────────────────────────────────
+
+.deckBuilder {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: t.$spacing-xl;
+  height: 100vh;
+  padding: t.$spacing-xl;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+// ─── Colonnes gauche / droite ─────────────────────────────────────────────────
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-md;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.columnTitle {
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-lg;
+  font-weight: t.$font-weight-bold;
+  color: t.$color-text-light;
+  flex-shrink: 0;
+}
+
+// ─── Colonne centrale ─────────────────────────────────────────────────────────
+
+.centerColumn {
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-lg;
+  width: 260px;
+  flex-shrink: 0;
+}
+
+// ─── Stats du deck ────────────────────────────────────────────────────────────
+
+.deckStats {
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-sm;
+  padding: t.$spacing-md;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: t.$border-radius-lg;
+}
+
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-md;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.statValue {
+  font-weight: t.$font-weight-bold;
+  color: t.$color-text-light;
+}
+
+.validBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: t.$spacing-xs t.$spacing-md;
+  border-radius: t.$border-radius-pill;
+  font-size: t.$font-size-sm;
+  font-weight: t.$font-weight-bold;
+  margin-top: t.$spacing-xs;
+}
+
+.validBadgeOk {
+  background: rgba(46, 168, 74, 0.2);
+  border: 1px solid #2ea84a;
+  color: #2ea84a;
+}
+
+.validBadgeKo {
+  background: rgba(224, 62, 62, 0.2);
+  border: 1px solid #e03e3e;
+  color: #e03e3e;
+}
+

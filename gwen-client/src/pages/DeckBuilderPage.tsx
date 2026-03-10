@@ -1,12 +1,7 @@
 import DeckBuilder from '../components/deck-builder/DeckBuilder';
 
 const DeckBuilderPage = () => {
-  return (
-    <div>
-      <h1>DeckBuilder</h1>
-      <DeckBuilder />
-    </div>
-  );
+  return <DeckBuilder />;
 };
 
 export default DeckBuilderPage;
