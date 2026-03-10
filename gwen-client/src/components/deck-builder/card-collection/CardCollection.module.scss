@@ -54,3 +54,25 @@
   gap: t.$spacing-sm;
 }
 
+// ─── Card wrapper ─────────────────────────────────────────────────────────────
+
+.cardWrapper {
+  position: relative;
+  border-radius: t.$border-radius-md;
+  transition: transform t.$transition-fast, box-shadow t.$transition-fast;
+}
+
+.cardClickable {
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.cardSelected {
+  outline: 2px solid t.$color-primary;
+  outline-offset: 2px;
+  box-shadow: 0 0 12px rgba(t.$color-primary, 0.5);
+}

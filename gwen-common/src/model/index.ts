@@ -10,3 +10,4 @@ export * from './Deck.js';
 export * from './Weather.js';
 export * from './Datapack.js';
 export * from './Faction.js';
+export * from './UserFactionDeck.js';
