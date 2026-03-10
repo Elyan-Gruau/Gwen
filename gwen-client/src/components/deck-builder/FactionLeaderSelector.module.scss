@@ -1,0 +1,119 @@
+@use '@styles/tokens' as t;
+
+// ─── Placeholder ──────────────────────────────────────────────────────────────
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: t.$spacing-sm;
+  width: 100%;
+  padding: t.$spacing-lg;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: t.$border-radius-lg;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: background t.$transition-fast, border-color t.$transition-fast;
+  box-sizing: border-box;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+.placeholderIcon {
+  font-size: 2rem;
+  opacity: 0.4;
+}
+
+.placeholderLabel {
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-md;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+// ─── Sélecteur ouvert ─────────────────────────────────────────────────────────
+
+.selector {
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-md;
+  width: 100%;
+}
+
+.selectorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: t.$spacing-sm;
+  flex-shrink: 0;
+}
+
+.selectorTitle {
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-md;
+  font-weight: t.$font-weight-bold;
+  color: t.$color-text-light;
+}
+
+// ─── Carte sélectionnée (affichage compact) ───────────────────────────────────
+
+.selectedLeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: t.$spacing-sm;
+  cursor: pointer;
+  padding: t.$spacing-sm;
+  border-radius: t.$border-radius-lg;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  transition: background t.$transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+}
+
+.selectedLeaderName {
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-sm;
+  color: #c9a84c;
+  font-weight: t.$font-weight-medium;
+}
+
+// ─── Ability box ─────────────────────────────────────────────────────────────
+
+.abilityBox {
+  width: 100%;
+  min-height: 64px;
+  padding: t.$spacing-md;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: t.$border-radius-md;
+  background: rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-sm;
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+}
+
+// ─── Hint clavier ─────────────────────────────────────────────────────────────
+
+.keyHint {
+  text-align: center;
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-sm;
+  color: rgba(255, 255, 255, 0.3);
+
+  kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: t.$border-radius-sm;
+    font-size: 0.7rem;
+  }
+}
+
