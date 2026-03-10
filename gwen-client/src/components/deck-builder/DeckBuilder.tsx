@@ -84,7 +84,17 @@ const DeckBuilder = () => {
 
       {/* ── Centre : leader + stats ── */}
       <div className={styles.centerColumn}>
-        <FactionLeaderSelector />
+        <FactionLeaderSelector
+          leaders={faction.getLeaders()}
+          selectedLeader={userDeck.getLeader()}
+          onLeaderSelect={(leader) => {
+            const next = new UserFactionDeck();
+            userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
+            userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
+            next.setLeader(leader);
+            setUserDeck(next);
+          }}
+        />
 
         <div className={styles.deckStats}>
           <div className={styles.statRow}>
