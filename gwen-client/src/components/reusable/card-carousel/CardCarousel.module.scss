@@ -1,0 +1,64 @@
+@use '@styles/tokens' as t;
+
+$card-width: 120px;
+$card-height: 192px;
+
+// ─── Scène ────────────────────────────────────────────────────────────────────
+
+.scene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc($card-height + 32px); // padding vertical pour le glow + hover
+  perspective: 800px;
+}
+
+// ─── Piste ────────────────────────────────────────────────────────────────────
+
+.track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+// ─── Slot ─────────────────────────────────────────────────────────────────────
+
+.slot {
+  position: absolute;
+  width: $card-width;
+  height: $card-height;
+  border-radius: t.$border-radius-md;
+  cursor: pointer;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+  opacity 300ms ease,
+  box-shadow 300ms ease;
+  overflow: hidden;
+  user-select: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+}
+
+.slotActive {
+  box-shadow: 0 0 0 2px #c9a84c,
+  0 0 24px 8px rgba(201, 168, 76, 0.55),
+  0 8px 32px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.slotInactive {
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
