@@ -297,32 +297,32 @@ export const SCOIATAEL: FactionConfig = {
     {
       name: 'Francesca Findabair – Daisy of the Valley',
       description: 'Draw an extra card at the beginning of the battle.',
-      imageUrl: '/leaders/scoiatael/francesca_daisy_of_the_valley.png',
+      imageUrl: '/scoiatael/francesca_findabair_daisy_of_the_valle.png',
       ability: 'DRAW_EXTRA_CARD',
     },
     {
       name: 'Francesca Findabair – Hope of the Aen Seidhe',
       description: 'Move agile units to whichever row maximizes their strength.',
-      imageUrl: '/leaders/scoiatael/francesca_hope_of_the_aen_seidhe.png',
+      imageUrl: '/scoiatael/francesca_findabair_hope_of_the_aen_seidhe.png',
       ability: 'OPTIMIZE_AGILE_UNITS',
     },
     {
       name: 'Francesca Findabair – Pureblood Elf',
       description: 'Pick a Biting Frost card from your deck and play it instantly.',
-      imageUrl: '/leaders/scoiatael/francesca_pureblood_elf.png',
+      imageUrl: '/scoiatael/francesca_findabair_pureblood_elf.png',
       ability: 'PLAY_FROST_FROM_DECK',
     },
     {
       name: 'Francesca Findabair – Queen of Dol Blathanna',
       description:
         "Destroy your enemy's strongest Close Combat unit(s) if the combined strength of all his Close Combat units is 10 or more.",
-      imageUrl: '/leaders/scoiatael/francesca_queen_of_dol_blathanna.png',
+      imageUrl: '/scoiatael/francesca_findabair_queen_of_dol_blathanna.png',
       ability: 'SCORCH_MELEE',
     },
     {
       name: 'Francesca Findabair – The Beautiful',
       description: 'Doubles the strength of all your Ranged Combat units.',
-      imageUrl: '/leaders/scoiatael/francesca_the_beautiful.png',
+      imageUrl: '/scoiatael/francesca_findabair_the_beautiful.png',
       ability: 'HORN_RANGED',
     },
   ],
