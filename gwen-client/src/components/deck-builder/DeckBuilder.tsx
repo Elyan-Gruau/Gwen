@@ -19,7 +19,12 @@ const DeckBuilder = () => {
   const [selectedFactionIndex, setSelectedFactionIndex] = useState(0);
   const faction = factions[selectedFactionIndex];
 
-  const [userDeck, setUserDeck] = useState<UserFactionDeck>(() => new UserFactionDeck());
+  const [userDeck, setUserDeck] = useState<UserFactionDeck>(() => new UserFactionDeck(faction));
+
+  const handleFactionChange = (index: number) => {
+    setSelectedFactionIndex(index);
+    setUserDeck(new UserFactionDeck(factions[index]));
+  };
 
   const selectedCardIds = useMemo(() => {
     const ids = new Set<string>();
@@ -39,7 +44,7 @@ const DeckBuilder = () => {
   );
 
   const handleAddCard = (card: UnitCard | NeutralCard) => {
-    const next = new UserFactionDeck();
+    const next = new UserFactionDeck(faction);
     userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
     userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
     if (userDeck.getLeader()) next.setLeader(userDeck.getLeader()!);
@@ -52,7 +57,7 @@ const DeckBuilder = () => {
   };
 
   const handleRemoveCard = (card: UnitCard | NeutralCard) => {
-    const next = new UserFactionDeck();
+    const next = new UserFactionDeck(faction);
     userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
     userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
     if (userDeck.getLeader()) next.setLeader(userDeck.getLeader()!);
@@ -77,7 +82,7 @@ const DeckBuilder = () => {
         <FactionSelector
           factions={factions}
           selectedIndex={selectedFactionIndex}
-          onIndexChange={setSelectedFactionIndex}
+          onIndexChange={handleFactionChange}
         />
         <CardCollection faction={faction} cards={availableCards} onCardClick={handleAddCard} />
       </div>
@@ -88,7 +93,7 @@ const DeckBuilder = () => {
           leaders={faction.getLeaders()}
           selectedLeader={userDeck.getLeader()}
           onLeaderSelect={(leader) => {
-            const next = new UserFactionDeck();
+            const next = new UserFactionDeck(faction);
             userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
             userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
             next.setLeader(leader);
