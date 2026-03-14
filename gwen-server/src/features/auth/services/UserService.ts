@@ -1,6 +1,6 @@
-import { UserRepository } from '../repository/UserRepository';
-import type { DBUser } from '../model/DBUser';
-import { UserNotFoundException } from '../exceptions/UserNotFoundException';
+import { UserRepository } from '../repository/UserRepository.js';
+import type { DBUser } from '../model/DBUser.js';
+import { UserNotFoundException } from '../exceptions/UserNotFoundException.js';
 
 export interface PaginatedResult<T> {
   content: T[];

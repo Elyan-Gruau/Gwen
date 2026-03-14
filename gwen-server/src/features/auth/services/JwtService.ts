@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import type { DBUser } from '../model/DBUser';
+import type { DBUser } from '../model/DBUser.js';
 
 interface JwtPayload {
   userId: string;

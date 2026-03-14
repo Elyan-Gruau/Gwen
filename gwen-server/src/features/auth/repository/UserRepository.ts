@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import type { DBUser } from '../model/DBUser';
+import type { DBUser } from '../model/DBUser.js';
 
 // Define the Mongoose schema for the User model
 const UserSchema = new Schema<DBUser & Document>({

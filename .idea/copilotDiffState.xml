@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/gwen-server/src/features/auth/resources/auth-resource.ts">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/gwen-server/src/features/auth/resources/auth-resource.ts" />
+              <option name="originalContent" value="import { Router } from 'express';&#10;import { AuthService } from '../services/AuthService';&#10;&#10;const authRouter = Router();&#10;const authService = new AuthService();&#10;&#10;authRouter.post('/login', (req, res) =&gt; {&#10;  const { username, password } = req.body;&#10;&#10;  authService.login(username, password);&#10;});&#10;&#10;authRouter.post('/register', (req, res) =&gt; {&#10;  const { username, password } = req.body;&#10;&#10;  authService.register(username, password);&#10;});&#10;&#10;export default authRouter;&#10;" />
+              <option name="updatedContent" value="import { Router } from 'express';&#10;import { AuthService } from '../services/AuthService.js';&#10;import { UserService } from '../services/UserService.js';&#10;import { PasswordHasher } from '../services/PasswordHasher.js';&#10;import { JwtService } from '../services/JwtService.js';&#10;import { UserRepository } from '../repository/UserRepository.js';&#10;&#10;const authRouter = Router();&#10;&#10;// Initialize services&#10;const userRepository = new UserRepository();&#10;const userService = new UserService(userRepository);&#10;const passwordHasher = new PasswordHasher();&#10;const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';&#10;const jwtExpiration = parseInt(process.env.JWT_EXPIRATION || '3600000', 10); // 1 hour by default&#10;const jwtService = new JwtService(jwtSecret, jwtExpiration);&#10;const authService = new AuthService(userService, passwordHasher, jwtService, jwtExpiration);&#10;&#10;authRouter.post('/login', async (req, res) =&gt; {&#10;  try {&#10;    const { username, password } = req.body;&#10;    const response = await authService.login(username, password);&#10;    res.json(response);&#10;  } catch (error) {&#10;    res.status(401).json({ error: 'Invalid credentials' });&#10;  }&#10;});&#10;&#10;authRouter.post('/register', async (req, res) =&gt; {&#10;  try {&#10;    const { username, password, email } = req.body;&#10;    const response = await authService.register(username, email, password);&#10;    res.json(response);&#10;  } catch (error) {&#10;    res.status(400).json({ error: 'Registration failed' });&#10;  }&#10;});&#10;&#10;export default authRouter;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gwen-server/src/index.ts">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/gwen-server/src/index.ts" />
+              <option name="originalContent" value="import express from 'express';&#10;import authRouter from './features/auth/resources/auth-resource';&#10;&#10;const app = express();&#10;const PORT = process.env.PORT || 3000;&#10;&#10;// Middleware to parse json request&#10;app.use(express.json());&#10;&#10;// Mount the resources&#10;app.use('/api/auth', authRouter);&#10;&#10;// Starting server&#10;app.listen(PORT, () =&gt; {&#10;  console.log(`Serveur démarré sur http://localhost:${PORT}`);&#10;});&#10;" />
+              <option name="updatedContent" value="import express from 'express';&#10;import authRouter from './features/auth/resources/auth-resource.js';&#10;&#10;const app = express();&#10;const PORT = process.env.PORT || 3000;&#10;&#10;// Middleware to parse json request&#10;app.use(express.json());&#10;&#10;// Mount the resources&#10;app.use('/api/auth', authRouter);&#10;&#10;// Starting server&#10;app.listen(PORT, () =&gt; {&#10;  console.log(`Serveur démarré sur http://localhost:${PORT}`);&#10;});&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

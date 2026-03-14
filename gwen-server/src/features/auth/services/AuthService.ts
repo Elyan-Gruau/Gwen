@@ -1,14 +1,14 @@
-import type { UserService } from './UserService';
-import { UserNotFoundException } from '../exceptions/UserNotFoundException';
-import { InvalidCredentialException } from '../exceptions/InvalidCredentialException';
-import type { DBUser } from '../model/DBUser';
-import { IllegalUsernameException } from '../exceptions/IllegalUsernameException';
-import { IllegalEmailException } from '../exceptions/IllegalEmailException';
-import { DuplicateUsernameException } from '../exceptions/DuplicateUsernameException';
-import { DuplicateEmailException } from '../exceptions/DuplicateEmailException';
-import { DTOLoginResponse } from '../dtos/DTOLoginResponse';
-import type { JwtService } from './JwtService';
-import type { PasswordHasher } from './PasswordHasher';
+import type { UserService } from './UserService.js';
+import { UserNotFoundException } from '../exceptions/UserNotFoundException.js';
+import { InvalidCredentialException } from '../exceptions/InvalidCredentialException.js';
+import type { DBUser } from '../model/DBUser.js';
+import { IllegalUsernameException } from '../exceptions/IllegalUsernameException.js';
+import { IllegalEmailException } from '../exceptions/IllegalEmailException.js';
+import { DuplicateUsernameException } from '../exceptions/DuplicateUsernameException.js';
+import { DuplicateEmailException } from '../exceptions/DuplicateEmailException.js';
+import { DTOLoginResponse } from '../dtos/DTOLoginResponse.js';
+import type { JwtService } from './JwtService.js';
+import type { PasswordHasher } from './PasswordHasher.js';
 
 export class AuthService {
   private static readonly USERNAME_PATTERN = /^[a-zA-Z0-9_]+$/;
