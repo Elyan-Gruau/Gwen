@@ -52,7 +52,15 @@ export class UserService {
     limit: number,
     offset: number,
   ): Promise<PaginatedResult<DBUser>> {
-    return this.userRepository.findByUsernameStartingWith(username, { page: offset, limit });
+    const result = await this.userRepository.findByUsernameStartingWith(username, { page: offset, limit });
+
+    return {
+      content: result.content,
+      totalElements: result.totalElements,
+      totalPages: Math.ceil(result.totalElements / limit),
+      page: offset,
+      limit,
+    };
   }
 
   async existsByUUID(uuid: string): Promise<boolean> {
