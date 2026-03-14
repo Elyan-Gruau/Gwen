@@ -4,6 +4,7 @@ import styles from './UnitCardView.module.scss';
 
 type UnitCardViewProps = {
   card: UnitCard;
+  onClick?: (card: UnitCard) => void;
 };
 
 const ABILITY_LABELS: Record<string, string> = {
@@ -25,14 +26,18 @@ const RANGE_LABELS: Record<string, string> = {
   AGILE: 'Agile',
 };
 
-export default function UnitCardView({ card }: UnitCardViewProps) {
+export default function UnitCardView({ card, onClick }: UnitCardViewProps) {
   const isHero = card.getIsHero();
   const ability = card.getAbility();
   const ranges = card.getRanges();
 
+  const handleCardClicked = () => {
+    onClick?.(card);
+  };
+
   return (
     <CardContainer>
-      <div className={`${styles.wrapper} ${isHero ? styles.hero : ''}`}>
+      <div className={`${styles.wrapper} ${isHero ? styles.hero : ''}`} onClick={handleCardClicked}>
         {/* Image */}
         <img
           className={styles.image}

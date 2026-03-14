@@ -77,67 +77,65 @@ const DeckBuilder = () => {
 
   return (
     <div className={styles.deckBuilder}>
-      {/* ── Gauche : collection de la faction ── */}
+      <FactionSelector
+        factions={factions}
+        selectedIndex={selectedFactionIndex}
+        onIndexChange={handleFactionChange}
+      />
       <div className={styles.column}>
-        <FactionSelector
-          factions={factions}
-          selectedIndex={selectedFactionIndex}
-          onIndexChange={handleFactionChange}
-        />
         <CardCollection faction={faction} cards={availableCards} onCardClick={handleAddCard} />
-      </div>
+        {/* ── Centre : leader + stats ── */}
+        <div className={styles.centerColumn}>
+          <FactionLeaderSelector
+            leaders={faction.getLeaders()}
+            selectedLeader={userDeck.getLeader()}
+            onLeaderSelect={(leader) => {
+              const next = new UserFactionDeck(faction);
+              userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
+              userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
+              next.setLeader(leader);
+              setUserDeck(next);
+            }}
+          />
 
-      {/* ── Centre : leader + stats ── */}
-      <div className={styles.centerColumn}>
-        <FactionLeaderSelector
-          leaders={faction.getLeaders()}
-          selectedLeader={userDeck.getLeader()}
-          onLeaderSelect={(leader) => {
-            const next = new UserFactionDeck(faction);
-            userDeck.getUnitCards().forEach((c) => next.addUnitCard(c));
-            userDeck.getSpecialCards().forEach((c) => next.addSpecialCard(c));
-            next.setLeader(leader);
-            setUserDeck(next);
-          }}
-        />
-
-        <div className={styles.deckStats}>
-          <div className={styles.statRow}>
-            <span>Unités</span>
-            <span className={styles.statValue}>
-              {unitCount} / {USER_FACTION_DECK_RULES.MIN_UNIT_CARDS} min
+          <div className={styles.deckStats}>
+            <div className={styles.statRow}>
+              <span>Unités</span>
+              <span className={styles.statValue}>
+                {unitCount} / {USER_FACTION_DECK_RULES.MIN_UNIT_CARDS} min
+              </span>
+            </div>
+            <div className={styles.statRow}>
+              <span>Spéciaux</span>
+              <span className={styles.statValue}>
+                {specialCount} / {USER_FACTION_DECK_RULES.MAX_SPECIAL_CARDS} max
+              </span>
+            </div>
+            <div className={styles.statRow}>
+              <span>Héros</span>
+              <span className={styles.statValue}>{heroCount}</span>
+            </div>
+            <div className={styles.statRow}>
+              <span>Force totale</span>
+              <span className={styles.statValue}>{totalStrength}</span>
+            </div>
+            <div className={styles.statRow}>
+              <span>Total cartes</span>
+              <span className={styles.statValue}>{userDeck.getTotalCards()}</span>
+            </div>
+            <span
+              className={`${styles.validBadge} ${isValid ? styles.validBadgeOk : styles.validBadgeKo}`}
+            >
+              {isValid ? '✓ Deck valide' : '✗ Deck invalide'}
             </span>
           </div>
-          <div className={styles.statRow}>
-            <span>Spéciaux</span>
-            <span className={styles.statValue}>
-              {specialCount} / {USER_FACTION_DECK_RULES.MAX_SPECIAL_CARDS} max
-            </span>
-          </div>
-          <div className={styles.statRow}>
-            <span>Héros</span>
-            <span className={styles.statValue}>{heroCount}</span>
-          </div>
-          <div className={styles.statRow}>
-            <span>Force totale</span>
-            <span className={styles.statValue}>{totalStrength}</span>
-          </div>
-          <div className={styles.statRow}>
-            <span>Total cartes</span>
-            <span className={styles.statValue}>{userDeck.getTotalCards()}</span>
-          </div>
-          <span
-            className={`${styles.validBadge} ${isValid ? styles.validBadgeOk : styles.validBadgeKo}`}
-          >
-            {isValid ? '✓ Deck valide' : '✗ Deck invalide'}
-          </span>
         </div>
-      </div>
 
-      {/* ── Droite : cartes du deck joueur ── */}
-      <div className={styles.column}>
-        <span className={styles.columnTitle}>Mon deck</span>
-        <CardCollection faction={faction} cards={deckCards} onCardClick={handleRemoveCard} />
+        {/* ── Droite : cartes du deck joueur ── */}
+        <div className={styles.column}>
+          <span className={styles.columnTitle}>Mon deck</span>
+          <CardCollection faction={faction} cards={deckCards} onCardClick={handleRemoveCard} />
+        </div>
       </div>
     </div>
   );
