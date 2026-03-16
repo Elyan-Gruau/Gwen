@@ -1,21 +1,21 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: gwen-postgres
+  mongo:
+    image: mongo:7
+    container_name: gwen-mongo
     environment:
-      POSTGRES_USER: gwenuser
-      POSTGRES_PASSWORD: gwenpassword
-      POSTGRES_DB: gwendb
+      MONGO_INITDB_ROOT_USERNAME: gwen
+      MONGO_INITDB_ROOT_PASSWORD: gwendb
+      MONGO_INITDB_DATABASE: gwen
     ports:
-      - "5432:5432"
+      - "27017:27017"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - mongo_data:/data/db
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U gwenuser" ]
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   gwen-server:
     build:
@@ -27,16 +27,11 @@ services:
     environment:
       PORT: 3000
       NODE_ENV: production
-      MONGODB_URI: mongodb://mongo:27017/gwen
+      MONGODB_URI: mongodb://gwen:gwendb@mongo:27017/gwen?authSource=admin
       JWT_SECRET: your-secret-key-change-in-production
       JWT_EXPIRATION: 3600000
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: gwenuser
-      POSTGRES_PASSWORD: gwenpassword
-      POSTGRES_DB: gwendb
     depends_on:
-      postgres:
+      mongo:
         condition: service_healthy
     restart: unless-stopped
 
@@ -54,6 +49,6 @@ services:
     restart: unless-stopped
 
 volumes:
-  postgres_data:
+  mongo_data:
 
 

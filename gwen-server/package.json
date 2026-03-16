@@ -21,7 +21,6 @@
     "gwen-common": "file:../gwen-common",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.0",
-    "pg": "^8.11.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   },
@@ -30,7 +29,6 @@
     "@openapitools/openapi-generator-cli": "^2.13.0",
     "@types/express": "^5.0.6",
     "@types/node": "^22.0.0",
-    "@types/pg": "^8.18.0",
     "@types/swagger-ui-express": "^4.1.6",
     "mongodb": "^7.1.0",
     "ts-node": "^10.9.2",

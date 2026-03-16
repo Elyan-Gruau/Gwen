@@ -1,10 +1,12 @@
+import { ObjectId } from 'mongodb';
+
 export interface DBUserFactionDeck {
-  id?: number;
-  user_id: string; // MongoDB ObjectId as string
+  _id?: ObjectId;
+  user_id: string;
   faction_id: string;
   leader_card_id: string | null;
-  unit_card_ids: string[]; // Array of card IDs
-  special_card_ids: string[]; // Array of card IDs
+  unit_card_ids: string[];
+  special_card_ids: string[];
   created_at?: Date;
   updated_at?: Date;
 }
