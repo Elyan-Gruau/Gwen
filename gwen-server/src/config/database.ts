@@ -9,7 +9,7 @@ export const getPostgresPool = (): Pool => {
       password: process.env.POSTGRES_PASSWORD || 'gwenpassword',
       host: process.env.POSTGRES_HOST || 'localhost',
       port: parseInt(process.env.POSTGRES_PORT || '5432', 10),
-      database: process.env.POSTGRES_DB || 'gwenuser',
+      database: process.env.POSTGRES_DB || 'gwendb',
     });
 
     pool.on('error', (err: Error) => {
@@ -26,4 +26,3 @@ export const closePostgresPool = async (): Promise<void> => {
     pool = null;
   }
 };
-

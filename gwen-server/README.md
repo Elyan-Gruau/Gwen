@@ -30,7 +30,7 @@ POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_USER=gwenuser
 POSTGRES_PASSWORD=gwenpassword
-POSTGRES_DB=gwenuser
+POSTGRES_DB=gwendb
 
 # JWT
 JWT_SECRET=your-secret-key-change-in-production
