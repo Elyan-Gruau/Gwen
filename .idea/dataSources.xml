@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="gwendb@localhost [2]" uuid="601e9c28-b16f-45e5-93cb-ddc2adee477c">
+    <data-source source="LOCAL" name="gwendb@localhost" uuid="601e9c28-b16f-45e5-93cb-ddc2adee477c">
       <driver-ref>mongo.4</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
-      <jdbc-url>mongodb://localhost:27017/gwendb</jdbc-url>
+      <jdbc-url>mongodb://localhost:27017/gwen-db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
