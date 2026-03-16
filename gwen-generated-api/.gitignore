@@ -17,6 +17,11 @@ src/apis/index.ts
 !src/client.ts
 !src/index.ts
 
+# Keep OpenAPI spec - it's committed to track API evolution
+!openapi/
+!openapi/openapi.json
+!openapi/README.md
+
 # OS
 .DS_Store
 *.swp

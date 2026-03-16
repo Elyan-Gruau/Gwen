@@ -30,13 +30,19 @@ try {
 const generatedApiDir = path.join(__dirname, '../../gwen-generated-api');
 const dtosDir = path.join(generatedApiDir, 'src/dtos');
 const apisDir = path.join(generatedApiDir, 'src/apis');
+const openapiDir = path.join(generatedApiDir, 'openapi');
 
 // Create directories
-[dtosDir, apisDir].forEach(dir => {
+[dtosDir, apisDir, openapiDir].forEach(dir => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 });
+
+// Save OpenAPI spec
+const specPath = path.join(openapiDir, 'openapi.json');
+fs.writeFileSync(specPath, JSON.stringify(specs, null, 2));
+console.log(`✅ OpenAPI specification saved to: ${specPath}`);
 
 // Generate Auth DTOs
 const authDtoContent = `/**
@@ -292,7 +298,14 @@ fs.writeFileSync(path.join(apisDir, 'index.ts'), apisIndexContent);
 console.log('✅ Generated apis/index.ts');
 
 console.log('\n✅ API client source files generated successfully!');
+console.log('\n📊 Artifacts created:');
+console.log(`   - OpenAPI spec: openapi/openapi.json`);
+console.log(`   - DTOs: src/dtos/`);
+console.log(`   - APIs: src/apis/`);
 console.log('\n📝 Next steps:');
 console.log('   1. Run: npm run build --workspace=gwen-generated-api');
 console.log('   2. Your custom src/client.ts and src/index.ts are NOT touched');
-console.log('   3. Only src/dtos/ and src/apis/ are regenerated\n');
+console.log('   3. Only src/dtos/ and src/apis/ are regenerated');
+console.log('   4. OpenAPI spec is saved for version tracking\n');
+
+
