@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gwen-postgres
+    environment:
+      POSTGRES_USER: gwenuser
+      POSTGRES_PASSWORD: gwenpassword
+      POSTGRES_DB: gwenuser
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gwenuser"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  gwen-server:
+    build:
+      context: .
+      dockerfile: ./gwen-server/Dockerfile
+    container_name: gwen-server
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongo:27017/gwen
+      JWT_SECRET: your-secret-key-change-in-production
+      JWT_EXPIRATION: 3600000
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: gwenuser
+      POSTGRES_PASSWORD: gwenpassword
+      POSTGRES_DB: gwenuser
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  gwen-client:
+    build:
+      context: .
+      dockerfile: ./gwen-client/Dockerfile
+    container_name: gwen-client
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    depends_on:
+      - gwen-server
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+
