@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
 import { specs } from './config/swagger.js';
 import authRouter from './features/auth/resources/auth-resource.js';
@@ -6,6 +7,7 @@ import userFactionDeckRouter from './features/auth/resources/user-faction-deck-r
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://gwen-user:gwen-password@localhost:27017/gwen-db?authSource=admin';
 
 // Middleware to parse json request
 app.use(express.json());
@@ -22,7 +24,20 @@ app.get('/api/openapi.json', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/user', userFactionDeckRouter);
 
-// Starting server
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur http://localhost:${PORT}`);
-});
+// Initialize MongoDB and start server
+async function startServer() {
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log('✅ MongoDB connecté');
+    
+    app.listen(PORT, () => {
+      console.log(`Serveur démarré sur http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('❌ Erreur de connexion MongoDB:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
+
