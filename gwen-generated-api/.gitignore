@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Generated source files (regenerated on each build)
+src/dtos/auth.dto.ts
+src/dtos/user-faction-deck.dto.ts
+src/dtos/index.ts
+src/apis/auth.api.ts
+src/apis/user-faction-deck.api.ts
+src/apis/index.ts
+
+# Keep these files - they are manually maintained
+!src/client.ts
+!src/index.ts
+
+# OS
+.DS_Store
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.iml
+

@@ -1,4 +1,4 @@
-import { Pool, type QueryResult } from 'pg';
+import { Pool } from 'pg';
 import { getPostgresPool } from '../../../config/database.js';
 import type { DBUserFactionDeck } from '../model/DBUserFactionDeck.js';
 
@@ -96,5 +96,3 @@ export class UserFactionDeckRepository {
     };
   }
 }
-
-

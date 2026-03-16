@@ -1,0 +1,107 @@
+import swaggerJsdoc from 'swagger-jsdoc';
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Gwen API',
+      version: '0.0.0',
+      description: 'API for Gwen Game Server',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+        description: 'Development server',
+      },
+      {
+        url: 'https://api.gwen.example.com',
+        description: 'Production server',
+      },
+    ],
+    components: {
+      schemas: {
+        User: {
+          type: 'object',
+          properties: {
+            _id: {
+              type: 'string',
+              description: 'User unique identifier',
+            },
+            username: {
+              type: 'string',
+              description: 'Username',
+            },
+            email: {
+              type: 'string',
+              format: 'email',
+              description: 'User email address',
+            },
+            bio: {
+              type: 'string',
+              description: 'User biography',
+            },
+            profilePictureUrl: {
+              type: 'string',
+              nullable: true,
+              description: 'URL to user profile picture',
+            },
+          },
+        },
+        UserFactionDeck: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              description: 'Deck unique identifier',
+            },
+            user_id: {
+              type: 'string',
+              description: 'User ID (MongoDB ObjectId)',
+            },
+            faction_id: {
+              type: 'string',
+              description: 'Faction ID',
+            },
+            leader_card_id: {
+              type: 'string',
+              nullable: true,
+              description: 'ID of the leader card',
+            },
+            unit_card_ids: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Array of unit card IDs',
+            },
+            special_card_ids: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Array of special card IDs',
+            },
+            created_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Creation timestamp',
+            },
+            updated_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Last update timestamp',
+            },
+          },
+        },
+        Error: {
+          type: 'object',
+          properties: {
+            error: {
+              type: 'string',
+              description: 'Error message',
+            },
+          },
+        },
+      },
+    },
+  },
+  apis: ['./src/features/*/resources/*.ts'],
+};
+
+export const specs = swaggerJsdoc(options);
