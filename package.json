@@ -5,17 +5,20 @@
   "workspaces": [
     "gwen-client",
     "gwen-common",
-    "gwen-server"
+    "gwen-server",
+    "gwen-generated-api"
   ],
   "scripts": {
     "dev": "run-p dev:common dev:client dev:server",
     "dev:client": "npm run dev --workspace=gwen-client",
     "dev:server": "npm run dev --workspace=gwen-server",
     "dev:common": "npm run dev --workspace=gwen-common",
-    "build": "run-s build:common build:client build:server",
+    "build": "run-s build:common build:server build:generated-api build:client",
     "build:common": "npm run build --workspace=gwen-common",
     "build:client": "npm run build --workspace=gwen-client",
     "build:server": "npm run build --workspace=gwen-server",
+    "build:generated-api": "npm run build --workspace=gwen-generated-api",
+    "generate-api": "npm run generate-api --workspace=gwen-server",
     "start": "run-p start:client start:server",
     "start:client": "npm run preview --workspace=gwen-client",
     "start:server": "npm run start --workspace=gwen-server",

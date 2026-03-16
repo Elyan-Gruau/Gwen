@@ -1,4 +1,4 @@
-import { Pool, QueryResult } from 'pg';
+import { Pool, type QueryResult } from 'pg';
 import { getPostgresPool } from '../../../config/database.js';
 import type { DBUserFactionDeck } from '../model/DBUserFactionDeck.js';
 
