@@ -42,4 +42,18 @@ TODO
 
 - [x] Add a builder to build the real objects from the config.
 - [ ] Cache the images so that we don't have to load them every time.
--
+- [ ] Profile page
+    - [ ] Change username (if not already taken)
+    - [ ] Change password
+    - [ ] Change avatar
+    - [ ] See elo
+- [ ] Matchmaking
+    - [ ] Elo based matchmaking (Ranked)
+    - [ ] Casual matchmaking
+        - [ ] Find a match
+        - [ ] Create a game
+        - [ ] Join a game
+- [ ] Game logic
+    - [ ] Place a card
+    - [ ] End turn
+    - [ ] End game
