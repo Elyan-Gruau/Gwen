@@ -1,4 +1,4 @@
-import { Router, type Request, type Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { UserFactionDeckService } from '../services/UserFactionDeckService.js';
 
 const userFactionDeckRouter = Router();
@@ -167,6 +167,7 @@ userFactionDeckRouter.post('/:userId/decks', async (req: Request, res: Response)
     }
 
     const newDeck = await userFactionDeckService.createUserFactionDeck(userId, factionId);
+    console.info(`Created new user faction deck for user ${userId} and faction ${factionId}`);
     res.status(201).json(newDeck);
   } catch (error) {
     console.error('Error creating user faction deck:', error);
@@ -251,6 +252,7 @@ userFactionDeckRouter.put('/:userId/decks/:factionId', async (req: Request, res:
     };
 
     const result = await userFactionDeckService.updateUserFactionDeck(updatedDeck);
+    console.info(`Updated user faction deck for user ${userId} and faction ${factionId}`);
     res.json(result);
   } catch (error) {
     console.error('Error updating user faction deck:', error);
@@ -302,6 +304,7 @@ userFactionDeckRouter.delete('/:userId/decks/:factionId', async (req: Request, r
     if (!success) {
       return res.status(404).json({ error: 'Deck not found' });
     }
+    console.info(`Deleted user faction deck for user ${userId} and faction ${factionId}`);
     res.status(204).send();
   } catch (error) {
     console.error('Error deleting user faction deck:', error);

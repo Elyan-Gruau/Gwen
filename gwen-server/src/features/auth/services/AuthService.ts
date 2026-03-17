@@ -33,6 +33,7 @@ export class AuthService {
 
     const token = this.jwtService.generateToken(user);
 
+    console.info(`User ${user.username} logged in successfully with email ${user.email}`);
     return new DTOLoginResponse(
       token,
       user._id?.toString() || '',
@@ -45,11 +46,13 @@ export class AuthService {
 
   private async loginByEmail(email: string, plainPassword: string): Promise<DBUser> {
     if (!(await this.userService.isEmailTaken(email))) {
+      console.error(`Login failed for email ${email}: user not found`);
       throw new UserNotFoundException(email);
     }
 
     const user = await this.userService.getUserByEmail(email);
     if (!this.passwordHasher.verifyPassword(plainPassword, user.password)) {
+      console.error(`Login failed for email ${email}: invalid password`);
       throw new InvalidCredentialException(email);
     }
 
