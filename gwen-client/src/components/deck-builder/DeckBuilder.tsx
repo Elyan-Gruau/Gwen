@@ -7,12 +7,18 @@ import {
   USER_FACTION_DECK_RULES,
   UserFactionDeck,
 } from 'gwen-common';
+import { useSaveUserFactionDeck } from '../../hooks/apis/DeckBuilderAPI';
+import { useAuth } from '../../contexts/AuthContext';
 import CardCollection from './card-collection/CardCollection';
 import FactionLeaderSelector from './FactionLeaderSelector';
 import FactionSelector from './FactionSelector';
+import Button from '../reusable/button/Button';
 import styles from './DeckBuilder.module.scss';
 
 const DeckBuilder = () => {
+  const { user } = useAuth();
+  const { mutate: saveDeck, isPending } = useSaveUserFactionDeck();
+
   const datapack = useMemo(() => new Datapack(THE_WITCHER_DATAPACK), []);
   const factions = datapack.getFactions();
 
@@ -75,6 +81,20 @@ const DeckBuilder = () => {
   const heroCount = userDeck.getHeroCards().length;
   const isValid = userDeck.isValid();
 
+  const handleSaveDeck = () => {
+    if (!user) {
+      alert('Vous devez être connecté pour sauvegarder un deck');
+      return;
+    }
+
+    saveDeck({
+      factionId: faction.getName(),
+      leaderCardId: userDeck.getLeader()?.getId() || null,
+      unitCardIds: userDeck.getUnitCards().map((c) => c.getId()),
+      specialCardIds: userDeck.getSpecialCards().map((c) => c.getId()),
+    });
+  };
+
   return (
     <div className={styles.deckBuilder}>
       <FactionSelector
@@ -128,6 +148,15 @@ const DeckBuilder = () => {
             >
               {isValid ? '✓ Deck valide' : '✗ Deck invalide'}
             </span>
+            <Button
+              onClick={handleSaveDeck}
+              variant="success"
+              size="md"
+              fullWidth
+              disabled={!isValid || isPending || !user}
+            >
+              {isPending ? '💾 Sauvegarde...' : '💾 Sauvegarder le deck'}
+            </Button>
           </div>
         </div>
 
