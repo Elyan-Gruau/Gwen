@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.10",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "gwen-common": "file:../gwen-common",
     "jsonwebtoken": "^9.0.3",

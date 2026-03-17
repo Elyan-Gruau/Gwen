@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
 import { specs } from './config/swagger.js';
@@ -9,7 +10,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://gwen-user:gwen-password@localhost:27017/gwen-db?authSource=admin';
 
-// Middleware to parse json request
+// CORS Configuration
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Swagger/OpenAPI documentation
