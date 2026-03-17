@@ -8,6 +8,7 @@ import MatchmakingPage from './pages/matchmaking-page/MatchmakingPage';
 import HomePage from './pages/home-page/HomePage';
 import StatusPage from './pages/status-page/StatusPage';
 import DeckBuilder from './components/deck-builder/DeckBuilder';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import { ROUTES } from './constants/routes';
 
 export const router = createBrowserRouter([
@@ -17,8 +18,36 @@ export const router = createBrowserRouter([
   { path: ROUTES.LOGOUT, element: <LogoutPage /> },
   { path: ROUTES.SIGN_IN, element: <SignInPage /> },
   { path: ROUTES.STATUS, element: <StatusPage /> },
-  { path: ROUTES.PROFILE, element: <ProfilePage /> },
-  { path: ROUTES.PLAY_GAME, element: <GamePage /> },
-  { path: ROUTES.PLAY, element: <MatchmakingPage /> },
-  { path: ROUTES.DECK_BUILDER, element: <DeckBuilder /> },
+  {
+    path: ROUTES.PROFILE,
+    element: (
+      <ProtectedRoute>
+        <ProfilePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: ROUTES.PLAY_GAME,
+    element: (
+      <ProtectedRoute>
+        <GamePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: ROUTES.PLAY,
+    element: (
+      <ProtectedRoute>
+        <MatchmakingPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: ROUTES.DECK_BUILDER,
+    element: (
+      <ProtectedRoute>
+        <DeckBuilder />
+      </ProtectedRoute>
+    ),
+  },
 ]);
