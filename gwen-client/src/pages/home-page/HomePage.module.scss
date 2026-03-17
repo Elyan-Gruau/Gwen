@@ -1,4 +1,4 @@
-@use 'tokens' as t;
+@use '@styles/tokens' as tokens;
 
 .homePage {
   display: flex;
@@ -6,26 +6,26 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  gap: t.$spacing-md;
+  gap: tokens.$spacing-md;
 }
 
 .title {
   font-size: 2rem;
-  font-family: t.$font-family-base;
-  color: t.$color-white;
+  font-family: tokens.$font-family-base;
+  color: tokens.$color-white;
   margin: 0;
 }
 
 .subtitle {
-  font-size: t.$font-size-md;
+  font-size: tokens.$font-size-md;
   color: rgba(255, 255, 255, 0.6);
   margin: 0;
 }
 
 .actions {
   display: flex;
-  gap: t.$spacing-md;
-  margin-top: t.$spacing-lg;
+  gap: tokens.$spacing-md;
+  margin-top: tokens.$spacing-lg;
 }
 
 
