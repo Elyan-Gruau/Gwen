@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   Datapack,
+  Faction,
   NeutralCard,
   THE_WITCHER_DATAPACK,
   UnitCard,
@@ -14,6 +15,7 @@ import FactionLeaderSelector from '../faction-leader-selector/FactionLeaderSelec
 import FactionSelector from '../faction-selector/FactionSelector';
 import Button from '../../reusable/button/Button';
 import styles from './DeckBuilder.module.scss';
+import type { UserFactionDeckDTO } from 'gwen-generated-api';
 
 const DeckBuilder = () => {
   const { user } = useAuth();
@@ -31,39 +33,7 @@ const DeckBuilder = () => {
 
   useEffect(() => {
     if (loadedDeckData && !isLoading) {
-      const newDeck = new UserFactionDeck(faction);
-
-      // Load units
-      if (loadedDeckData.unit_card_ids && Array.isArray(loadedDeckData.unit_card_ids)) {
-        loadedDeckData.unit_card_ids.forEach((cardId) => {
-          const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
-          if (card instanceof UnitCard) {
-            newDeck.addUnitCard(card);
-          }
-        });
-      }
-
-      // Load special cards
-      if (loadedDeckData.special_card_ids && Array.isArray(loadedDeckData.special_card_ids)) {
-        loadedDeckData.special_card_ids.forEach((cardId) => {
-          const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
-          if (card instanceof NeutralCard) {
-            newDeck.addSpecialCard(card);
-          }
-        });
-      }
-
-      // Load leader
-      if (loadedDeckData.leader_card_id) {
-        const leader = faction
-          .getLeaders()
-          .find((l) => l.getId() === loadedDeckData.leader_card_id);
-        if (leader) {
-          newDeck.setLeader(leader);
-        }
-      }
-
-      setUserDeck(newDeck);
+      setUserDeck(fromDTOtoModel(faction, loadedDeckData));
     }
   }, [loadedDeckData, isLoading, faction]);
 
@@ -215,6 +185,41 @@ const DeckBuilder = () => {
       </div>
     </div>
   );
+};
+
+const fromDTOtoModel = (faction: Faction, loadedDeckData: UserFactionDeckDTO): UserFactionDeck => {
+  console.info('Loading user deck from) DTO:', loadedDeckData);
+  const newDeck = new UserFactionDeck(faction);
+
+  // Load units
+  if (loadedDeckData.unit_card_ids && Array.isArray(loadedDeckData.unit_card_ids)) {
+    loadedDeckData.unit_card_ids.forEach((cardId) => {
+      const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
+      if (card instanceof UnitCard) {
+        newDeck.addUnitCard(card);
+      }
+    });
+  }
+
+  // Load special cards
+  if (loadedDeckData.special_card_ids && Array.isArray(loadedDeckData.special_card_ids)) {
+    loadedDeckData.special_card_ids.forEach((cardId) => {
+      const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
+      if (card instanceof NeutralCard) {
+        newDeck.addSpecialCard(card);
+      }
+    });
+  }
+
+  // Load leader
+  if (loadedDeckData.leader_card_id) {
+    const leader = faction.getLeaders().find((l) => l.getId() === loadedDeckData.leader_card_id);
+    if (leader) {
+      newDeck.setLeader(leader);
+    }
+  }
+
+  return newDeck;
 };
 
 export default DeckBuilder;
