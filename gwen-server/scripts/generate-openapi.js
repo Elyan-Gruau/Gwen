@@ -33,7 +33,7 @@ const apisDir = path.join(generatedApiDir, 'src/apis');
 const openapiDir = path.join(generatedApiDir, 'openapi');
 
 // Create directories
-[dtosDir, apisDir, openapiDir].forEach(dir => {
+[dtosDir, apisDir, openapiDir].forEach((dir) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
@@ -307,5 +307,3 @@ console.log('   1. Run: npm run build --workspace=gwen-generated-api');
 console.log('   2. Your custom src/client.ts and src/index.ts are NOT touched');
 console.log('   3. Only src/dtos/ and src/apis/ are regenerated');
 console.log('   4. OpenAPI spec is saved for version tracking\n');
-
-

@@ -77,12 +77,14 @@ You DON'T need to regenerate when:
 ## Version Control
 
 ### Committed Files
+
 - `src/client.ts` - Custom client wrapper
 - `src/index.ts` - Exports
 - `dist/` - Compiled output (for reproducible builds)
 - `package.json`, `tsconfig.json`, `README.md`
 
 ### NOT Committed Files
+
 - `src/dtos/` - Auto-generated from server
 - `src/apis/` - Auto-generated from server
 - `node_modules/` - Installed dependencies
@@ -108,6 +110,7 @@ npm run build --workspace=gwen-generated-api
 ### Missing DTOs or APIs?
 
 Check that:
+
 1. The endpoint is documented in the server with JSDoc comments
 2. Server was built: `npm run build --workspace=gwen-server`
 3. Run generation script: `npm run generate-api`
@@ -120,5 +123,3 @@ npm run clean --workspace=gwen-server
 npm run clean --workspace=gwen-generated-api
 npm run build
 ```
-
-

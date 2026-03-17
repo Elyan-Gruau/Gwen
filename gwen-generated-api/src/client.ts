@@ -32,4 +32,3 @@ export class GwenApiClient {
 }
 
 export default GwenApiClient;
-

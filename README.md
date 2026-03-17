@@ -40,6 +40,6 @@ Ainsi le jeu est modulaire et facilement extensible.
 
 TODO
 
-- [X] Add a builder to build the real objects from the config.
+- [x] Add a builder to build the real objects from the config.
 - [ ] Cache the images so that we don't have to load them every time.
-- 
+-

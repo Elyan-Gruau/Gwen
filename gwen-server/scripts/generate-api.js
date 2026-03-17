@@ -38,4 +38,3 @@ if (fs.existsSync(generatedApiPackageJson)) {
 }
 
 console.log('✅ API generation complete!');
-

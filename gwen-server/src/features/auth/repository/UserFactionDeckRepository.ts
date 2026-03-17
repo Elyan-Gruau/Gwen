@@ -6,16 +6,11 @@ export class UserFactionDeckRepository {
     userId: string,
     factionId: string,
   ): Promise<DBUserFactionDeck | null> {
-    return UserFactionDeckModel.findOne({ user_id: userId, faction_id: factionId })
-      .lean()
-      .exec();
+    return UserFactionDeckModel.findOne({ user_id: userId, faction_id: factionId }).lean().exec();
   }
 
   async findAllByUserId(userId: string): Promise<DBUserFactionDeck[]> {
-    return UserFactionDeckModel.find({ user_id: userId })
-      .sort({ faction_id: 1 })
-      .lean()
-      .exec();
+    return UserFactionDeckModel.find({ user_id: userId }).sort({ faction_id: 1 }).lean().exec();
   }
 
   async create(deck: DBUserFactionDeck): Promise<DBUserFactionDeck> {
@@ -56,4 +51,3 @@ export class UserFactionDeckRepository {
     return result.deletedCount;
   }
 }
-

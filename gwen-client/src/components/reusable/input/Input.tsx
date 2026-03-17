@@ -38,8 +38,11 @@ export default function Input({
     <div className={styles.container}>
       {label && <label className={styles.label}>{label}</label>}
       <input className={classes} {...props} />
-      {helperText && <div className={`${styles.helperText} ${error ? styles.helperTextError : ''}`}>{helperText}</div>}
+      {helperText && (
+        <div className={`${styles.helperText} ${error ? styles.helperTextError : ''}`}>
+          {helperText}
+        </div>
+      )}
     </div>
   );
 }
-

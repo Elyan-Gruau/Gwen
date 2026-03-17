@@ -127,14 +127,14 @@ The `gwen-generated-api` package contains auto-generated API client and DTOs for
 ### Usage in React Client
 
 ```typescript
-import {GwenApiClient} from 'gwen-generated-api';
+import { GwenApiClient } from 'gwen-generated-api';
 
 const apiClient = new GwenApiClient('http://localhost:3000/api');
 
 // Login
 const response = await apiClient.auth.login({
-    username: 'player1',
-    password: 'password123',
+  username: 'player1',
+  password: 'password123',
 });
 
 // Set token for subsequent requests
@@ -186,4 +186,3 @@ Follow the project's linting and formatting standards:
 npm run lint
 npm run format:fix
 ```
-

@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Initialiser le token depuis le localStorage
     initializeAuth();
-    
+
     // Récupérer les données d'authentification du localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Ignorer les erreurs de parsing
       }
     }
-    
+
     setIsInitialized(true);
   }, []);
 
@@ -76,4 +76,3 @@ export function useAuth() {
   }
   return context;
 }
-

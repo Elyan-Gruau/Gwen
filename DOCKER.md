@@ -22,6 +22,7 @@ docker-compose up --build
 ```
 
 Cela va:
+
 - Construire les images Docker pour le serveur et le client
 - Démarrer PostgreSQL avec un volume de persistance
 - Démarrer le serveur API
@@ -125,4 +126,3 @@ lsof -i :5432
 ```bash
 docker-compose up --build --force-recreate
 ```
-

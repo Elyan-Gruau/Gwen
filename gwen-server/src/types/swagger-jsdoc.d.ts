@@ -11,4 +11,3 @@ declare module 'swagger-jsdoc' {
   export default swaggerJsdoc;
   export { Options };
 }
-

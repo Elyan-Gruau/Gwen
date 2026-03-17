@@ -10,12 +10,10 @@ import styles from './SignInForm.module.scss';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
-    .min(3, 'Le nom d\'utilisateur doit contenir au moins 3 caractères')
-    .max(20, 'Le nom d\'utilisateur ne peut pas dépasser 20 caractères')
-    .required('Nom d\'utilisateur requis'),
-  email: Yup.string()
-    .email('Email invalide')
-    .required('Email requis'),
+    .min(3, "Le nom d'utilisateur doit contenir au moins 3 caractères")
+    .max(20, "Le nom d'utilisateur ne peut pas dépasser 20 caractères")
+    .required("Nom d'utilisateur requis"),
+  email: Yup.string().email('Email invalide').required('Email requis'),
   password: Yup.string()
     .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
     .matches(/[A-Z]/, 'Le mot de passe doit contenir au moins une majuscule')
@@ -50,7 +48,7 @@ export default function SignInForm() {
           setUser(response.user);
           navigate(ROUTES.HOME);
         },
-      }
+      },
     );
   };
 
@@ -130,11 +128,10 @@ export default function SignInForm() {
             fullWidth
             disabled={isSubmitting || isPending}
           >
-            {isSubmitting || isPending ? 'Inscription en cours...' : 'S\'inscrire'}
+            {isSubmitting || isPending ? 'Inscription en cours...' : "S'inscrire"}
           </Button>
         </Form>
       )}
     </Formik>
   );
 }
-

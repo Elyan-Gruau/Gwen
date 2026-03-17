@@ -9,7 +9,7 @@ import Button from '../reusable/button/Button';
 import styles from './LoginForm.module.scss';
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required('Nom d\'utilisateur requis'),
+  username: Yup.string().required("Nom d'utilisateur requis"),
   password: Yup.string().required('Mot de passe requis'),
 });
 
@@ -31,7 +31,7 @@ export default function LoginForm() {
           setUser(response.user);
           navigate(ROUTES.HOME);
         },
-      }
+      },
     );
   };
 
@@ -92,4 +92,3 @@ export default function LoginForm() {
     </Formik>
   );
 }
-

@@ -6,4 +6,3 @@ export * from './apis/index.js';
 
 // Re-export main client
 export { default as GwenApiClient, GwenApiClient as default } from './client.js';
-

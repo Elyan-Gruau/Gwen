@@ -16,10 +16,7 @@ export class UserFactionDeckService {
     return this.repository.findAllByUserId(userId);
   }
 
-  async createUserFactionDeck(
-    userId: string,
-    factionId: string,
-  ): Promise<DBUserFactionDeck> {
+  async createUserFactionDeck(userId: string, factionId: string): Promise<DBUserFactionDeck> {
     const deck: DBUserFactionDeck = {
       user_id: userId,
       faction_id: factionId,
@@ -42,4 +39,3 @@ export class UserFactionDeckService {
     return this.repository.deleteAllByUserId(userId);
   }
 }
-

@@ -23,4 +23,3 @@ export const useServerHealth = (enabled: boolean = true) => {
     retryDelay: 1000,
   });
 };
-

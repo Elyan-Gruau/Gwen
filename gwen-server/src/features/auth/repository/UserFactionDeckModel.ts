@@ -22,4 +22,3 @@ const UserFactionDeckModel: Model<DBUserFactionDeck & Document> = mongoose.model
 );
 
 export { UserFactionDeckModel };
-
