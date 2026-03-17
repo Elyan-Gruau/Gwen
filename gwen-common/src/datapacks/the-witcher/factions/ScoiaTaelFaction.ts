@@ -3,6 +3,7 @@ import type { FactionConfig } from '../../../types/game/FactionConfig';
 export const SCOIATAEL: FactionConfig = {
   name: 'Scoia’tael',
   iconUrl: '',
+  cardBackIconUrl: '/back/scoiatael_back.jpg',
   units: [
     {
       name: 'Barclay Els',

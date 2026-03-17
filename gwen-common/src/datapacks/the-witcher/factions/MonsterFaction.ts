@@ -3,6 +3,7 @@ import type { FactionConfig } from '../../../types/game/FactionConfig';
 export const MONSTERS: FactionConfig = {
   name: 'Monsters',
   iconUrl: '',
+  cardBackIconUrl: '/back/monsters_back.png',
   units: [
     {
       name: 'Arachas',
