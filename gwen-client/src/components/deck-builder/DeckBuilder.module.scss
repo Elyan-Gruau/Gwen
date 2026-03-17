@@ -1,81 +1,99 @@
-@use '@styles/tokens' as t;
+@use '@styles/tokens' as tokens;
 
-// ─── Layout principal ─────────────────────────────────────────────────────────
 
 .deckBuilder {
   display: flex;
   flex-direction: column;
-  gap: t.$spacing-xl;
+  gap: tokens.$spacing-xl;
   height: 100vh;
-  padding: t.$spacing-xl;
+  padding: tokens.$spacing-xl;
   box-sizing: border-box;
   overflow: hidden;
+  position: relative;
 }
 
-// ─── Colonnes gauche / droite ─────────────────────────────────────────────────
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border-radius: tokens.$border-radius-lg;
+
+  p {
+    font-family: tokens.$font-family-base;
+    font-size: tokens.$font-size-lg;
+    font-weight: tokens.$font-weight-bold;
+    color: tokens.$color-text-light;
+  }
+}
+
 
 .column {
   display: flex;
   flex-direction: row;
-  gap: t.$spacing-md;
+  gap: tokens.$spacing-md;
   overflow: hidden;
   min-width: 0;
 }
 
 .columnTitle {
-  font-family: t.$font-family-base;
-  font-size: t.$font-size-lg;
-  font-weight: t.$font-weight-bold;
-  color: t.$color-text-light;
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-lg;
+  font-weight: tokens.$font-weight-bold;
+  color: tokens.$color-text-light;
   flex-shrink: 0;
 }
 
-// ─── Colonne centrale ─────────────────────────────────────────────────────────
 
 .centerColumn {
   display: flex;
   flex-direction: column;
-  gap: t.$spacing-lg;
+  gap: tokens.$spacing-lg;
   width: 260px;
   flex-shrink: 0;
 }
 
-// ─── Stats du deck ────────────────────────────────────────────────────────────
 
 .deckStats {
   display: flex;
   flex-direction: column;
-  gap: t.$spacing-sm;
-  padding: t.$spacing-md;
+  gap: tokens.$spacing-sm;
+  padding: tokens.$spacing-md;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: t.$border-radius-lg;
-  margin-bottom: t.$spacing-md;
+  border-radius: tokens.$border-radius-lg;
+  margin-bottom: tokens.$spacing-md;
 }
 
 .statRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: t.$font-family-base;
-  font-size: t.$font-size-md;
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-md;
   color: rgba(255, 255, 255, 0.75);
 }
 
 .statValue {
-  font-weight: t.$font-weight-bold;
-  color: t.$color-text-light;
+  font-weight: tokens.$font-weight-bold;
+  color: tokens.$color-text-light;
 }
 
 .validBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: t.$spacing-xs t.$spacing-md;
-  border-radius: t.$border-radius-pill;
-  font-size: t.$font-size-sm;
-  font-weight: t.$font-weight-bold;
-  margin-top: t.$spacing-xs;
+  padding: tokens.$spacing-xs tokens.$spacing-md;
+  border-radius: tokens.$border-radius-pill;
+  font-size: tokens.$font-size-sm;
+  font-weight: tokens.$font-weight-bold;
+  margin-top: tokens.$spacing-xs;
 }
 
 .validBadgeOk {

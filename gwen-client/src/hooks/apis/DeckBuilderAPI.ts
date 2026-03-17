@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-import { UserFactionDeckApi } from 'gwen-generated-api';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type { UpdateUserFactionDeckRequestDTO } from 'gwen-generated-api';
+import { UserFactionDeckApi } from 'gwen-generated-api';
 import { useAuth } from '../../contexts/AuthContext';
 
 const deckApi = new UserFactionDeckApi(import.meta.env.VITE_API_URL || 'http://localhost:3000/api');
@@ -11,6 +11,29 @@ interface SaveDeckData {
   unitCardIds: string[];
   specialCardIds: string[];
 }
+
+export const useLoadUserFactionDeck = (factionId: string | null) => {
+  const { user } = useAuth();
+
+  return useQuery({
+    queryKey: ['userFactionDeck', user?._id, factionId],
+    queryFn: async () => {
+      if (!user?._id || !factionId) {
+        return null;
+      }
+
+      try {
+        return await deckApi.getUserFactionDeck(user._id, factionId);
+      } catch {
+        // The deck does not exists
+        return null;
+      }
+    },
+    enabled: !!user?._id && !!factionId,
+    staleTime: Infinity,
+    gcTime: Infinity,
+  });
+};
 
 export const useSaveUserFactionDeck = () => {
   const { user } = useAuth();
