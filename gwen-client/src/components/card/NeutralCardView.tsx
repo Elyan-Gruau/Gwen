@@ -21,6 +21,7 @@ export default function NeutralCardView({ card }: NeutralCardViewProps) {
     <CardContainer>
       <div className={styles.wrapper}>
         <img
+          draggable={false}
           className={styles.image}
           src={`/data-packs/the-witcher${card.getImageUrl()}`}
           alt={card.getName()}

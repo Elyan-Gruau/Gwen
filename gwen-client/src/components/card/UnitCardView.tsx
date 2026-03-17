@@ -40,6 +40,7 @@ export default function UnitCardView({ card, onClick }: UnitCardViewProps) {
       <div className={`${styles.wrapper} ${isHero ? styles.hero : ''}`} onClick={handleCardClicked}>
         {/* Image */}
         <img
+          draggable={false}
           className={styles.image}
           src={`/data-packs/the-witcher${card.getImageUrl()}`}
           alt={card.getName()}
