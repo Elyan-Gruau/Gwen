@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Datapack,
   NeutralCard,
@@ -7,7 +7,7 @@ import {
   USER_FACTION_DECK_RULES,
   UserFactionDeck,
 } from 'gwen-common';
-import { useSaveUserFactionDeck } from '../../hooks/apis/DeckBuilderAPI';
+import { useLoadUserFactionDeck, useSaveUserFactionDeck } from '../../hooks/apis/DeckBuilderAPI';
 import { useAuth } from '../../contexts/AuthContext';
 import CardCollection from './card-collection/CardCollection';
 import FactionLeaderSelector from './FactionLeaderSelector';
@@ -27,8 +27,49 @@ const DeckBuilder = () => {
 
   const [userDeck, setUserDeck] = useState<UserFactionDeck>(() => new UserFactionDeck(faction));
 
+  const { data: loadedDeckData, isLoading } = useLoadUserFactionDeck(faction.getName());
+
+  useEffect(() => {
+    if (loadedDeckData && !isLoading) {
+      const newDeck = new UserFactionDeck(faction);
+
+      // Load units
+      if (loadedDeckData.unit_card_ids && Array.isArray(loadedDeckData.unit_card_ids)) {
+        loadedDeckData.unit_card_ids.forEach((cardId) => {
+          const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
+          if (card instanceof UnitCard) {
+            newDeck.addUnitCard(card);
+          }
+        });
+      }
+
+      // Load special cards
+      if (loadedDeckData.special_card_ids && Array.isArray(loadedDeckData.special_card_ids)) {
+        loadedDeckData.special_card_ids.forEach((cardId) => {
+          const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
+          if (card instanceof NeutralCard) {
+            newDeck.addSpecialCard(card);
+          }
+        });
+      }
+
+      // Load leader
+      if (loadedDeckData.leader_card_id) {
+        const leader = faction
+          .getLeaders()
+          .find((l) => l.getId() === loadedDeckData.leader_card_id);
+        if (leader) {
+          newDeck.setLeader(leader);
+        }
+      }
+
+      setUserDeck(newDeck);
+    }
+  }, [loadedDeckData, isLoading, faction]);
+
   const handleFactionChange = (index: number) => {
     setSelectedFactionIndex(index);
+    // Reset à une nouveau deck vide pour la faction
     setUserDeck(new UserFactionDeck(factions[index]));
   };
 
@@ -97,6 +138,12 @@ const DeckBuilder = () => {
 
   return (
     <div className={styles.deckBuilder}>
+      {isLoading && (
+        <div className={styles.loadingOverlay}>
+          <p>Loading deck...</p>
+        </div>
+      )}
+
       <FactionSelector
         factions={factions}
         selectedIndex={selectedFactionIndex}
