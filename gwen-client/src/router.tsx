@@ -18,6 +18,10 @@ export const router = createBrowserRouter([
   { path: ROUTES.LOGOUT, element: <LogoutPage /> },
   { path: ROUTES.SIGN_IN, element: <SignInPage /> },
   { path: ROUTES.STATUS, element: <StatusPage /> },
+  { path: ROUTES.PROFILE, element: <ProfilePage /> },
+  { path: ROUTES.PLAY_GAME, element: <GamePage /> },
+  { path: ROUTES.PLAY, element: <MatchmakingPage /> },
+  { path: ROUTES.DECK_BUILDER, element: <DeckBuilder /> },
   {
     path: ROUTES.PROFILE,
     element: (
