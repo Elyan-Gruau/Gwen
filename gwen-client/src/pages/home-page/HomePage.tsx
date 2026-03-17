@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../components/reusable/button/Button';
-import { ROUTES } from '../constants/routes';
+import Button from '../../components/reusable/button/Button';
+import { ROUTES } from '../../constants/routes';
 import styles from './HomePage.module.scss';
 
 export default function HomePage() {

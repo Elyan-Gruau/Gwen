@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import LogoutPage from './pages/LogoutPage';
-import SignInPage from './pages/SignInPage';
-import ProfilePage from './pages/ProfilePage';
-import GamePage from './pages/GamePage';
-import MatchmakingPage from './pages/MatchmakingPage';
-import HomePage from './pages/HomePage';
+import LoginPage from './pages/login-page/LoginPage';
+import LogoutPage from './pages/logout-page/LogoutPage';
+import SignInPage from './pages/sign-in-page/SignInPage';
+import ProfilePage from './pages/profile-page/ProfilePage';
+import GamePage from './pages/game-page/GamePage';
+import MatchmakingPage from './pages/matchmaking-page/MatchmakingPage';
+import HomePage from './pages/home-page/HomePage';
 import DeckBuilder from './components/deck-builder/DeckBuilder';
 import { ROUTES } from './constants/routes';
 

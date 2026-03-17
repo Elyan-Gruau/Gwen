@@ -1,4 +1,4 @@
-import DeckBuilder from '../components/deck-builder/DeckBuilder';
+import DeckBuilder from '../../components/deck-builder/DeckBuilder';
 
 const DeckBuilderPage = () => {
   return <DeckBuilder />;

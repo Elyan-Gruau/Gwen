@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import GameView from '../components/game-view/GameView';
+import GameView from '../../components/game-view/GameView';
 import { Game } from 'gwen-common';
 
 const GamePage = () => {

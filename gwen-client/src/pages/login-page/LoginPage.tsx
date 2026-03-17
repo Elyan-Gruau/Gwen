@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import LoginForm from '../components/auth/LoginForm';
-import { ROUTES } from '../constants/routes';
+import LoginForm from '../../components/auth/LoginForm';
+import { ROUTES } from '../../constants/routes';
 import styles from './LoginPage.module.scss';
 
 export default function LoginPage() {
@@ -19,7 +19,10 @@ export default function LoginPage() {
       <div className={styles.formWrapper}>
         <LoginForm onSubmit={handleLogin} />
         <p className={styles.signUpPrompt}>
-          Pas encore de compte ? <Link to={ROUTES.SIGN_IN} className={styles.link}>S'inscrire</Link>
+          Pas encore de compte ?{' '}
+          <Link to={ROUTES.SIGN_IN} className={styles.link}>
+            S'inscrire
+          </Link>
         </p>
       </div>
     </div>

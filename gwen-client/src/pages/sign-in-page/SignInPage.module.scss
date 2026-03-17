@@ -1,11 +1,11 @@
-@use '@styles/tokens' as tokens;
+@use 'tokens' as tokens;
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, tokens.$color-primary 0%, tokens.$color-secondary 100%);
+  background: linear-gradient(135deg, tokens.$color-success 0%, tokens.$color-primary 100%);
   padding: tokens.$spacing-lg;
 }
 
@@ -16,7 +16,7 @@
   gap: tokens.$spacing-md;
 }
 
-.signUpPrompt {
+.loginPrompt {
   margin: 0;
   font-size: tokens.$font-size-md;
   color: tokens.$color-white;
