@@ -1,21 +1,30 @@
+export interface DTOUser {
+  _id: string;
+  username: string;
+  email: string;
+  bio: string;
+  profilePictureUrl?: string | null;
+}
+
 export class DTOLoginResponse {
   public readonly token: string;
-  public readonly username: string;
-  public readonly email: string;
-  public readonly userId: string;
-  public readonly jwtExpiration: number;
+  public readonly user: DTOUser;
 
   constructor(
     token: string,
+    userId: string,
     username: string,
     email: string,
-    userId: string,
-    jwtExpiration: number,
+    bio: string = '',
+    profilePictureUrl?: string | null,
   ) {
     this.token = token;
-    this.username = username;
-    this.email = email;
-    this.userId = userId;
-    this.jwtExpiration = jwtExpiration;
+    this.user = {
+      _id: userId,
+      username,
+      email,
+      bio,
+      profilePictureUrl,
+    };
   }
 }

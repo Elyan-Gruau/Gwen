@@ -35,10 +35,10 @@ export class AuthService {
 
     return new DTOLoginResponse(
       token,
+      user._id?.toString() || '',
       user.username,
       user.email,
-      user._id?.toString() || '',
-      this.jwtExpiration,
+      user.bio || '',
     );
   }
 
@@ -55,7 +55,7 @@ export class AuthService {
     return user;
   }
 
-  async register(username: string, email: string, password: string): Promise<DBUser> {
+  async register(username: string, email: string, password: string): Promise<DTOLoginResponse> {
     if (!AuthService.USERNAME_PATTERN.test(username)) {
       throw new IllegalUsernameException(username);
     }
@@ -81,6 +81,15 @@ export class AuthService {
       bio: '',
     };
 
-    return this.userService.saveUser(newUser);
+    const savedUser = await this.userService.saveUser(newUser);
+    const token = this.jwtService.generateToken(savedUser);
+
+    return new DTOLoginResponse(
+      token,
+      savedUser._id?.toString() || '',
+      savedUser.username,
+      savedUser.email,
+      savedUser.bio || '',
+    );
   }
 }
