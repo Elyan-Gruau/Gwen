@@ -21,3 +21,13 @@
   text-align: center;
 }
 
+.error {
+  padding: tokens.$spacing-md;
+  background-color: rgba(tokens.$color-danger, 0.1);
+  border: 1px solid tokens.$color-danger;
+  border-radius: tokens.$border-radius-md;
+  color: tokens.$color-danger;
+  font-size: tokens.$font-size-md;
+  text-align: center;
+}
+

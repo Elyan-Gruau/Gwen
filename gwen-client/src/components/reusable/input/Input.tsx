@@ -2,11 +2,11 @@ import type { InputHTMLAttributes, ReactNode } from 'react';
 import styles from './Input.module.scss';
 
 type Variant = 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
-type Size = 'sm' | 'md' | 'lg';
+type InputSize = 'sm' | 'md' | 'lg';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   variant?: Variant;
-  size?: Size;
+  size?: InputSize;
   fullWidth?: boolean;
   label?: ReactNode;
   error?: boolean;

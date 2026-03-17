@@ -1,7 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import Input from '../../components/reusable/input/Input';
-import Button from '../../components/reusable/button/Button';
+import { useRegister } from '../../hooks/apis/AuthAPI';
+import { useAuth } from '../../contexts/AuthContext';
+import { ROUTES } from '../../constants/routes';
+import Input from '../reusable/input/Input';
+import Button from '../reusable/button/Button';
 import styles from './SignInForm.module.scss';
 
 const validationSchema = Yup.object().shape({
@@ -29,12 +33,27 @@ interface SignInFormValues {
   confirmPassword: string;
 }
 
-interface SignInFormProps {
-  onSubmit: (values: SignInFormValues) => void | Promise<void>;
-  isLoading?: boolean;
-}
+export default function SignInForm() {
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
+  const { mutate: register, isPending, isError, error } = useRegister();
 
-export default function SignInForm({ onSubmit, isLoading = false }: SignInFormProps) {
+  const handleSubmit = (values: SignInFormValues) => {
+    register(
+      {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      },
+      {
+        onSuccess: (response) => {
+          setUser(response.user);
+          navigate(ROUTES.HOME);
+        },
+      }
+    );
+  };
+
   return (
     <Formik
       initialValues={{
@@ -44,11 +63,17 @@ export default function SignInForm({ onSubmit, isLoading = false }: SignInFormPr
         confirmPassword: '',
       }}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       {({ errors, touched, isSubmitting }) => (
         <Form className={styles.form}>
           <h2 className={styles.title}>Créer un compte</h2>
+
+          {isError && (
+            <div className={styles.error}>
+              {error instanceof Error ? error.message : 'Une erreur est survenue'}
+            </div>
+          )}
 
           <Field
             name="username"
@@ -59,7 +84,7 @@ export default function SignInForm({ onSubmit, isLoading = false }: SignInFormPr
             fullWidth
             error={errors.username && touched.username}
             helperText={touched.username && errors.username}
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isPending}
           />
 
           <Field
@@ -71,7 +96,7 @@ export default function SignInForm({ onSubmit, isLoading = false }: SignInFormPr
             fullWidth
             error={errors.email && touched.email}
             helperText={touched.email && errors.email}
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isPending}
           />
 
           <Field
@@ -83,7 +108,7 @@ export default function SignInForm({ onSubmit, isLoading = false }: SignInFormPr
             fullWidth
             error={errors.password && touched.password}
             helperText={touched.password && errors.password}
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isPending}
           />
 
           <Field
@@ -95,7 +120,7 @@ export default function SignInForm({ onSubmit, isLoading = false }: SignInFormPr
             fullWidth
             error={errors.confirmPassword && touched.confirmPassword}
             helperText={touched.confirmPassword && errors.confirmPassword}
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isPending}
           />
 
           <Button
@@ -103,9 +128,9 @@ export default function SignInForm({ onSubmit, isLoading = false }: SignInFormPr
             variant="success"
             size="lg"
             fullWidth
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isPending}
           >
-            {isSubmitting || isLoading ? 'Inscription en cours...' : 'S\'inscrire'}
+            {isSubmitting || isPending ? 'Inscription en cours...' : 'S\'inscrire'}
           </Button>
         </Form>
       )}

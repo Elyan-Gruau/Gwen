@@ -1,52 +1,69 @@
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import Input from '../../components/reusable/input/Input';
-import Button from '../../components/reusable/button/Button';
+import { useLogin } from '../../hooks/apis/AuthAPI';
+import { useAuth } from '../../contexts/AuthContext';
+import { ROUTES } from '../../constants/routes';
+import Input from '../reusable/input/Input';
+import Button from '../reusable/button/Button';
 import styles from './LoginForm.module.scss';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Email invalide')
-    .required('Email requis'),
-  password: Yup.string()
-    .min(6, 'Le mot de passe doit contenir au moins 6 caractères')
-    .required('Mot de passe requis'),
+  username: Yup.string().required('Nom d\'utilisateur requis'),
+  password: Yup.string().required('Mot de passe requis'),
 });
 
 interface LoginFormValues {
-  email: string;
+  username: string;
   password: string;
 }
 
-interface LoginFormProps {
-  onSubmit: (values: LoginFormValues) => void | Promise<void>;
-  isLoading?: boolean;
-}
+export default function LoginForm() {
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
+  const { mutate: login, isPending, isError, error } = useLogin();
 
-export default function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
+  const handleSubmit = (values: LoginFormValues) => {
+    login(
+      { username: values.username, password: values.password },
+      {
+        onSuccess: (response) => {
+          setUser(response.user);
+          navigate(ROUTES.HOME);
+        },
+      }
+    );
+  };
+
   return (
     <Formik
       initialValues={{
-        email: '',
+        username: '',
         password: '',
       }}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       {({ errors, touched, isSubmitting }) => (
         <Form className={styles.form}>
           <h2 className={styles.title}>Connexion</h2>
 
+          {isError && (
+            <div className={styles.error}>
+              {error instanceof Error ? error.message : 'Une erreur est survenue'}
+            </div>
+          )}
+
           <Field
-            name="email"
+            name="username"
             as={Input}
-            label="Email"
-            type="email"
-            placeholder="votre@email.com"
+            label="Nom d'utilisateur ou Email"
+            type="text"
+            placeholder="votre_nom_utilisateur"
             fullWidth
-            error={errors.email && touched.email}
-            helperText={touched.email && errors.email}
-            disabled={isSubmitting || isLoading}
+            error={errors.username && touched.username}
+            helperText={touched.username && errors.username}
+            disabled={isSubmitting || isPending}
           />
 
           <Field
@@ -58,7 +75,7 @@ export default function LoginForm({ onSubmit, isLoading = false }: LoginFormProp
             fullWidth
             error={errors.password && touched.password}
             helperText={touched.password && errors.password}
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isPending}
           />
 
           <Button
@@ -66,9 +83,9 @@ export default function LoginForm({ onSubmit, isLoading = false }: LoginFormProp
             variant="primary"
             size="lg"
             fullWidth
-            disabled={isSubmitting || isLoading}
+            disabled={isSubmitting || isPending}
           >
-            {isSubmitting || isLoading ? 'Connexion en cours...' : 'Se connecter'}
+            {isSubmitting || isPending ? 'Connexion en cours...' : 'Se connecter'}
           </Button>
         </Form>
       )}
