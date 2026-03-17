@@ -7,4 +7,5 @@ export interface DBUser {
   password: string; // Never serialize to JSON responses
   bio: string;
   profilePictureUrl?: string | null;
+  elo: number; // Player ELO rating
 }

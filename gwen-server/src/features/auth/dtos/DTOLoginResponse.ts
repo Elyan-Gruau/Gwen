@@ -4,6 +4,7 @@ export interface DTOUser {
   email: string;
   bio: string;
   profilePictureUrl?: string | null;
+  elo: number;
 }
 
 export class DTOLoginResponse {
@@ -16,6 +17,7 @@ export class DTOLoginResponse {
     username: string,
     email: string,
     bio: string = '',
+    elo: number = 1200,
     profilePictureUrl?: string | null,
   ) {
     this.token = token;
@@ -24,6 +26,7 @@ export class DTOLoginResponse {
       username,
       email,
       bio,
+      elo,
       profilePictureUrl,
     };
   }

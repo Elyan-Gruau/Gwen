@@ -39,6 +39,7 @@ export class AuthService {
       user.username,
       user.email,
       user.bio || '',
+      user.elo || 1200,
     );
   }
 
@@ -79,6 +80,7 @@ export class AuthService {
       email,
       password: hashedPassword,
       bio: '',
+      elo: 1200,
     };
 
     const savedUser = await this.userService.saveUser(newUser);
@@ -90,6 +92,7 @@ export class AuthService {
       savedUser.username,
       savedUser.email,
       savedUser.bio || '',
+      savedUser.elo || 1200,
     );
   }
 }

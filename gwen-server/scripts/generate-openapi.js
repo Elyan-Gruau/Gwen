@@ -56,6 +56,7 @@ export interface UserDTO {
   email: string;
   bio: string;
   profilePictureUrl?: string | null;
+  elo: number;
 }
 
 export interface LoginRequestDTO {
