@@ -1,5 +1,5 @@
 import type { Faction } from 'gwen-common';
-import Button from '../reusable/button/Button';
+import Button from '../../reusable/button/Button';
 import styles from './FactionSelector.module.scss';
 
 type FactionSelectorProps = {

@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useLogin } from '../../hooks/apis/AuthAPI';
-import { useAuth } from '../../contexts/AuthContext';
-import { ROUTES } from '../../constants/routes';
-import Input from '../reusable/input/Input';
-import Button from '../reusable/button/Button';
+import { useLogin } from '../../../hooks/apis/AuthAPI';
+import { useAuth } from '../../../contexts/AuthContext';
+import { ROUTES } from '../../../constants/routes';
+import Input from '../../reusable/input/Input';
+import Button from '../../reusable/button/Button';
 import styles from './LoginForm.module.scss';
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required("Nom d'utilisateur requis"),
-  password: Yup.string().required('Mot de passe requis'),
+  username: Yup.string().required('Username is required'),
+  password: Yup.string().required('Password is required'),
 });
 
 interface LoginFormValues {
@@ -46,7 +46,7 @@ export default function LoginForm() {
     >
       {({ errors, touched, isSubmitting }) => (
         <Form className={styles.form}>
-          <h2 className={styles.title}>Connexion</h2>
+          <h2 className={styles.title}>Log in</h2>
 
           {isError && (
             <div className={styles.error}>
@@ -85,7 +85,7 @@ export default function LoginForm() {
             fullWidth
             disabled={isSubmitting || isPending}
           >
-            {isSubmitting || isPending ? 'Connexion en cours...' : 'Se connecter'}
+            {isSubmitting || isPending ? 'Login in ...' : 'login'}
           </Button>
         </Form>
       )}

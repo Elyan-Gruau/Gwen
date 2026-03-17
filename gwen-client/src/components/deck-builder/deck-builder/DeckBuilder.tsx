@@ -7,12 +7,12 @@ import {
   USER_FACTION_DECK_RULES,
   UserFactionDeck,
 } from 'gwen-common';
-import { useLoadUserFactionDeck, useSaveUserFactionDeck } from '../../hooks/apis/DeckBuilderAPI';
-import { useAuth } from '../../contexts/AuthContext';
-import CardCollection from './card-collection/CardCollection';
-import FactionLeaderSelector from './FactionLeaderSelector';
-import FactionSelector from './FactionSelector';
-import Button from '../reusable/button/Button';
+import { useLoadUserFactionDeck, useSaveUserFactionDeck } from '../../../hooks/apis/DeckBuilderAPI';
+import { useAuth } from '../../../contexts/AuthContext';
+import CardCollection from '../card-collection/CardCollection';
+import FactionLeaderSelector from '../faction-leader-selector/FactionLeaderSelector';
+import FactionSelector from '../faction-selector/FactionSelector';
+import Button from '../../reusable/button/Button';
 import styles from './DeckBuilder.module.scss';
 
 const DeckBuilder = () => {

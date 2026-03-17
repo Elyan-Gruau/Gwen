@@ -1,4 +1,4 @@
-@use '@styles/tokens' as t;
+@use '@styles/tokens' as tokens;
 
 $blue: #4a90d9;
 $blue-light: #a0c8f0;
@@ -16,7 +16,6 @@ $blue-light: #a0c8f0;
   display: block;
 }
 
-// ─── Badge type ───────────────────────────────────────────────────────────────
 
 .typeBadge {
   position: absolute;
@@ -31,9 +30,9 @@ $blue-light: #a0c8f0;
 }
 
 .typeLabel {
-  font-family: t.$font-family-base;
+  font-family: tokens.$font-family-base;
   font-size: 0.52rem;
-  font-weight: t.$font-weight-bold;
+  font-weight: tokens.$font-weight-bold;
   color: $blue-light;
   text-transform: uppercase;
   letter-spacing: 0.04em;

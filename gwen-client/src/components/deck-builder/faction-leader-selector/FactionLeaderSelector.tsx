@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { LeaderCard } from 'gwen-common';
-import CardCarousel from '../reusable/card-carousel/CardCarousel';
-import LeaderCardView from '../card/LeaderCardView';
-import Button from '../reusable/button/Button';
+import CardCarousel from '../../reusable/card-carousel/CardCarousel';
+import LeaderCardView from '../../card/LeaderCardView';
+import Button from '../../reusable/button/Button';
 import styles from './FactionLeaderSelector.module.scss';
 
 type FactionLeaderSelectorProps = {

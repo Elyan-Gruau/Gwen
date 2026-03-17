@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import SignInForm from '../../components/auth/SignInForm';
+import SignInForm from '../../components/auth/sign-in-form/SignInForm';
 import { ROUTES } from '../../constants/routes';
 import styles from './SignInPage.module.scss';
 

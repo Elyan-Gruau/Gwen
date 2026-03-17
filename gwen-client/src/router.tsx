@@ -7,7 +7,7 @@ import GamePage from './pages/game-page/GamePage';
 import MatchmakingPage from './pages/matchmaking-page/MatchmakingPage';
 import HomePage from './pages/home-page/HomePage';
 import StatusPage from './pages/status-page/StatusPage';
-import DeckBuilder from './components/deck-builder/DeckBuilder';
+import DeckBuilder from './components/deck-builder/deck-builder/DeckBuilder';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { ROUTES } from './constants/routes';
 

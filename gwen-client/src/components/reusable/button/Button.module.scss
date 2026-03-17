@@ -1,7 +1,5 @@
 @use '@styles/tokens' as tokens;
 
-// ─── Base ─────────────────────────────────────────────────────────────────────
-
 .button {
   display: inline-flex;
   align-items: center;
@@ -25,8 +23,6 @@
   }
 }
 
-// ─── Sizes ───────────────────────────────────────────────────────────────────
-
 .sm {
   padding: tokens.$spacing-xs tokens.$spacing-md;
   font-size: tokens.$font-size-sm;
@@ -41,8 +37,6 @@
   padding: tokens.$spacing-md tokens.$spacing-xl;
   font-size: tokens.$font-size-lg;
 }
-
-// ─── Variants ────────────────────────────────────────────────────────────────
 
 .primary {
   background-color: tokens.$color-primary;
@@ -127,8 +121,6 @@
     background-color: rgba(tokens.$color-primary, 0.16);
   }
 }
-
-// ─── Full width ───────────────────────────────────────────────────────────────
 
 .fullWidth {
   width: 100%;

@@ -1,10 +1,10 @@
-@use '@styles/tokens' as t;
+@use '@styles/tokens' as tokens;
 
 $gold: #c9a84c;
 $gold-light: #f0d080;
 $gold-glow: rgba(201, 168, 76, 0.6);
 
-// Toute la déco est en position absolute sur la carte
+
 .wrapper {
   position: relative;
   width: 100%;
@@ -20,7 +20,6 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   user-select: none;
 }
 
-// ─── Bordure dorée hero ───────────────────────────────────────────────────────
 
 .heroBorder {
   position: absolute;
@@ -33,7 +32,6 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   z-index: 3;
 }
 
-// ─── Badge strength ───────────────────────────────────────────────────────────
 
 .strength {
   position: absolute;
@@ -46,9 +44,9 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   background: #1a1a1a;
   border: 2px solid $gold;
   color: $gold-light;
-  font-family: t.$font-family-base;
+  font-family: tokens.$font-family-base;
   font-size: 0.7rem;
-  font-weight: t.$font-weight-bold;
+  font-weight: tokens.$font-weight-bold;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +59,6 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   }
 }
 
-// ─── Bas de carte : ability + range ──────────────────────────────────────────
 
 .footer {
   position: absolute;
@@ -78,9 +75,9 @@ $gold-glow: rgba(201, 168, 76, 0.6);
 }
 
 .ability {
-  font-family: t.$font-family-base;
+  font-family: tokens.$font-family-base;
   font-size: 0.52rem;
-  font-weight: t.$font-weight-bold;
+  font-weight: tokens.$font-weight-bold;
   color: #f0d080;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -94,12 +91,12 @@ $gold-glow: rgba(201, 168, 76, 0.6);
 }
 
 .range {
-  font-family: t.$font-family-base;
+  font-family: tokens.$font-family-base;
   font-size: 0.48rem;
-  font-weight: t.$font-weight-medium;
+  font-weight: tokens.$font-weight-medium;
   color: rgba(255, 255, 255, 0.75);
   background: rgba(255, 255, 255, 0.12);
-  border-radius: t.$border-radius-sm;
+  border-radius: tokens.$border-radius-sm;
   padding: 1px 4px;
   text-transform: uppercase;
   letter-spacing: 0.03em;

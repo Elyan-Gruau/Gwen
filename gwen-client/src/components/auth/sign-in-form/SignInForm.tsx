@@ -1,27 +1,27 @@
 import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useRegister } from '../../hooks/apis/AuthAPI';
-import { useAuth } from '../../contexts/AuthContext';
-import { ROUTES } from '../../constants/routes';
-import Input from '../reusable/input/Input';
-import Button from '../reusable/button/Button';
+import { useRegister } from '../../../hooks/apis/AuthAPI';
+import { useAuth } from '../../../contexts/AuthContext';
+import { ROUTES } from '../../../constants/routes';
+import Input from '../../reusable/input/Input';
+import Button from '../../reusable/button/Button';
 import styles from './SignInForm.module.scss';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
-    .min(3, "Le nom d'utilisateur doit contenir au moins 3 caractères")
-    .max(20, "Le nom d'utilisateur ne peut pas dépasser 20 caractères")
-    .required("Nom d'utilisateur requis"),
-  email: Yup.string().email('Email invalide').required('Email requis'),
+    .min(3, 'Username must contain at least 3 characters')
+    .max(20, 'Username cannot exceed 20 characters')
+    .required('Username is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string()
-    .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
-    .matches(/[A-Z]/, 'Le mot de passe doit contenir au moins une majuscule')
-    .matches(/[0-9]/, 'Le mot de passe doit contenir au moins un chiffre')
-    .required('Mot de passe requis'),
+    .min(8, 'Password must contain at least 8 characters')
+    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(/[0-9]/, 'Password must contain at least one digit')
+    .required('Password is required'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Les mots de passe ne correspondent pas')
-    .required('Confirmation du mot de passe requise'),
+    .oneOf([Yup.ref('password')], 'Passwords do not match')
+    .required('Password confirmation is required'),
 });
 
 interface SignInFormValues {
@@ -65,20 +65,20 @@ export default function SignInForm() {
     >
       {({ errors, touched, isSubmitting }) => (
         <Form className={styles.form}>
-          <h2 className={styles.title}>Créer un compte</h2>
+          <h2 className={styles.title}>Create an Account</h2>
 
           {isError && (
             <div className={styles.error}>
-              {error instanceof Error ? error.message : 'Une erreur est survenue'}
+              {error instanceof Error ? error.message : 'An error occurred'}
             </div>
           )}
 
           <Field
             name="username"
             as={Input}
-            label="Nom d'utilisateur"
+            label="Username"
             type="text"
-            placeholder="votre_nom_utilisateur"
+            placeholder="your_username"
             fullWidth
             error={errors.username && touched.username}
             helperText={touched.username && errors.username}
@@ -90,7 +90,7 @@ export default function SignInForm() {
             as={Input}
             label="Email"
             type="email"
-            placeholder="votre@email.com"
+            placeholder="your@email.com"
             fullWidth
             error={errors.email && touched.email}
             helperText={touched.email && errors.email}
@@ -100,7 +100,7 @@ export default function SignInForm() {
           <Field
             name="password"
             as={Input}
-            label="Mot de passe"
+            label="Password"
             type="password"
             placeholder="••••••••"
             fullWidth
@@ -112,7 +112,7 @@ export default function SignInForm() {
           <Field
             name="confirmPassword"
             as={Input}
-            label="Confirmer le mot de passe"
+            label="Confirm Password"
             type="password"
             placeholder="••••••••"
             fullWidth
@@ -128,7 +128,7 @@ export default function SignInForm() {
             fullWidth
             disabled={isSubmitting || isPending}
           >
-            {isSubmitting || isPending ? 'Inscription en cours...' : "S'inscrire"}
+            {isSubmitting || isPending ? 'Signing up...' : 'Sign up'}
           </Button>
         </Form>
       )}

@@ -1,8 +1,7 @@
-@use '@styles/tokens' as t;
+@use '@styles/tokens' as tokens;
 
-// Largeur d'une carte (sync avec CardContainer.module.scss)
 $card-width: 120px;
-$col-gap: t.$spacing-sm;
+$col-gap: tokens.$spacing-sm;
 
 .cardCollection {
   display: flex;
@@ -12,29 +11,27 @@ $col-gap: t.$spacing-sm;
   overflow: hidden;
 }
 
-// ─── Filters (sticky) ─────────────────────────────────────────────────────────
-
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: t.$spacing-xs;
+  gap: tokens.$spacing-xs;
   flex-shrink: 0;
-  padding-bottom: t.$spacing-md;
+  padding-bottom: tokens.$spacing-md;
 }
 
 .filterBtn {
-  padding: t.$spacing-xs t.$spacing-md;
+  padding: tokens.$spacing-xs tokens.$spacing-md;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: t.$border-radius-pill;
+  border-radius: tokens.$border-radius-pill;
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
-  font-family: t.$font-family-base;
-  font-size: t.$font-size-sm;
-  font-weight: t.$font-weight-medium;
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-sm;
+  font-weight: tokens.$font-weight-medium;
   cursor: pointer;
-  transition: background-color t.$transition-fast,
-  color t.$transition-fast,
-  border-color t.$transition-fast;
+  transition: background-color tokens.$transition-fast,
+  color tokens.$transition-fast,
+  border-color tokens.$transition-fast;
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);
@@ -43,21 +40,19 @@ $col-gap: t.$spacing-sm;
 }
 
 .filterBtnActive {
-  background: t.$color-primary;
-  border-color: t.$color-primary;
-  color: t.$color-white;
+  background: tokens.$color-primary;
+  border-color: tokens.$color-primary;
+  color: tokens.$color-white;
 
   &:hover {
-    background: t.$color-primary-hover;
-    border-color: t.$color-primary-hover;
-    color: t.$color-white;
+    background: tokens.$color-primary-hover;
+    border-color: tokens.$color-primary-hover;
+    color: tokens.$color-white;
   }
 }
 
-// ─── Cards grid (scrollable) ──────────────────────────────────────────────────
 
 .cardsContainer {
-  // max 3 colonnes exactement
   display: grid;
   grid-template-columns: repeat(3, $card-width);
   gap: $col-gap;
@@ -65,9 +60,9 @@ $col-gap: t.$spacing-sm;
   overflow-x: hidden;
   flex: 1;
   align-content: start;
-  padding-right: t.$spacing-xs; // espace pour la scrollbar
+  padding-right: tokens.$spacing-xs;
 
-  // scrollbar discrète
+  // Scrollbar
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 
@@ -81,17 +76,16 @@ $col-gap: t.$spacing-sm;
 
   &::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.2);
-    border-radius: t.$border-radius-pill;
+    border-radius: tokens.$border-radius-pill;
   }
 }
 
-// ─── Card wrapper ─────────────────────────────────────────────────────────────
 
 .cardWrapper {
   position: relative;
-  border-radius: t.$border-radius-md;
-  transition: transform t.$transition-fast,
-  box-shadow t.$transition-fast;
+  border-radius: tokens.$border-radius-md;
+  transition: transform tokens.$transition-fast,
+  box-shadow tokens.$transition-fast;
 }
 
 .cardClickable {
@@ -104,7 +98,7 @@ $col-gap: t.$spacing-sm;
 }
 
 .cardSelected {
-  outline: 2px solid t.$color-primary;
+  outline: 2px solid tokens.$color-primary;
   outline-offset: 2px;
-  box-shadow: 0 0 12px rgba(t.$color-primary, 0.5);
+  box-shadow: 0 0 12px rgba(tokens.$color-primary, 0.5);
 }

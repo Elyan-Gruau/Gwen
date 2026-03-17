@@ -1,0 +1,109 @@
+@use 'tokens' as tokens;
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: tokens.$spacing-sm;
+  width: 100%;
+  padding: tokens.$spacing-lg;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: tokens.$border-radius-lg;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: background tokens.$transition-fast, border-color tokens.$transition-fast;
+  box-sizing: border-box;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+.placeholderIcon {
+  font-size: 2rem;
+  opacity: 0.4;
+}
+
+.placeholderLabel {
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-md;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.selector {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-md;
+  width: 100%;
+}
+
+.selectorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: tokens.$spacing-sm;
+  flex-shrink: 0;
+}
+
+.selectorTitle {
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-md;
+  font-weight: tokens.$font-weight-bold;
+  color: tokens.$color-text-light;
+}
+
+.selectedLeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: tokens.$spacing-sm;
+  cursor: pointer;
+  padding: tokens.$spacing-sm;
+  border-radius: tokens.$border-radius-lg;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  transition: background tokens.$transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+}
+
+.selectedLeaderName {
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-sm;
+  color: #c9a84c;
+  font-weight: tokens.$font-weight-medium;
+}
+
+.abilityBox {
+  width: 100%;
+  min-height: 64px;
+  padding: tokens.$spacing-md;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: tokens.$border-radius-md;
+  background: rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-sm;
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+}
+
+.keyHint {
+  text-align: center;
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-sm;
+  color: rgba(255, 255, 255, 0.3);
+
+  kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: tokens.$border-radius-sm;
+    font-size: 0.7rem;
+  }
+}
+

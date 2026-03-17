@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import LoginForm from '../../components/auth/LoginForm';
+import LoginForm from '../../components/auth/login-form/LoginForm';
 import { ROUTES } from '../../constants/routes';
 import styles from './LoginPage.module.scss';
 
