@@ -1,0 +1,36 @@
+@use '@styles/tokens' as tokens;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, tokens.$color-success 0%, tokens.$color-primary 100%);
+  padding: tokens.$spacing-lg;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: tokens.$spacing-md;
+}
+
+.loginPrompt {
+  margin: 0;
+  font-size: tokens.$font-size-md;
+  color: tokens.$color-white;
+  text-align: center;
+}
+
+.link {
+  color: tokens.$color-white;
+  text-decoration: underline;
+  font-weight: tokens.$font-weight-bold;
+  transition: opacity tokens.$transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+

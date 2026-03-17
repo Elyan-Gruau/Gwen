@@ -1,0 +1,23 @@
+@use '@styles/tokens' as tokens;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-lg;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: tokens.$spacing-xl;
+  background-color: tokens.$color-white;
+  border-radius: tokens.$border-radius-lg;
+  box-shadow: tokens.$shadow-md;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: tokens.$font-weight-bold;
+  color: tokens.$color-text-dark;
+  text-align: center;
+}
+

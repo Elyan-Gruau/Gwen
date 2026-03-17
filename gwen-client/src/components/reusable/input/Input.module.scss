@@ -1,0 +1,176 @@
+@use '@styles/tokens' as tokens;
+
+// ─── Container ───────────────────────────────────────────────────────────────
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-sm;
+  width: fit-content;
+}
+
+// ─── Label ───────────────────────────────────────────────────────────────────
+
+.label {
+  display: block;
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-md;
+  font-weight: tokens.$font-weight-medium;
+  color: tokens.$color-text-dark;
+}
+
+// ─── Base ─────────────────────────────────────────────────────────────────────
+
+.input {
+  border: 1px solid tokens.$color-secondary;
+  border-radius: tokens.$border-radius-md;
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-md;
+  background-color: tokens.$color-white;
+  color: tokens.$color-text-dark;
+  transition: border-color tokens.$transition-fast,
+  box-shadow tokens.$transition-fast,
+  background-color tokens.$transition-fast;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &::placeholder {
+    color: tokens.$color-secondary;
+  }
+}
+
+// ─── Sizes ───────────────────────────────────────────────────────────────────
+
+.sm {
+  padding: tokens.$spacing-xs tokens.$spacing-md;
+  font-size: tokens.$font-size-sm;
+}
+
+.md {
+  padding: tokens.$spacing-sm tokens.$spacing-lg;
+  font-size: tokens.$font-size-md;
+}
+
+.lg {
+  padding: tokens.$spacing-md tokens.$spacing-xl;
+  font-size: tokens.$font-size-lg;
+}
+
+// ─── Variants ────────────────────────────────────────────────────────────────
+
+.primary {
+  border-color: tokens.$color-primary;
+
+  &:hover {
+    border-color: tokens.$color-primary-hover;
+    box-shadow: 0 0 0 2px rgba(tokens.$color-primary, 0.1);
+  }
+
+  &:focus {
+    border-color: tokens.$color-primary-hover;
+    box-shadow: 0 0 0 3px rgba(tokens.$color-primary, 0.2);
+  }
+}
+
+.secondary {
+  border-color: tokens.$color-secondary;
+
+  &:hover {
+    border-color: tokens.$color-secondary-hover;
+    box-shadow: 0 0 0 2px rgba(tokens.$color-secondary, 0.1);
+  }
+
+  &:focus {
+    border-color: tokens.$color-secondary-hover;
+    box-shadow: 0 0 0 3px rgba(tokens.$color-secondary, 0.2);
+  }
+}
+
+.danger {
+  border-color: tokens.$color-danger;
+
+  &:hover {
+    border-color: tokens.$color-danger-hover;
+    box-shadow: 0 0 0 2px rgba(tokens.$color-danger, 0.1);
+  }
+
+  &:focus {
+    border-color: tokens.$color-danger-hover;
+    box-shadow: 0 0 0 3px rgba(tokens.$color-danger, 0.2);
+  }
+}
+
+.success {
+  border-color: tokens.$color-success;
+
+  &:hover {
+    border-color: tokens.$color-success-hover;
+    box-shadow: 0 0 0 2px rgba(tokens.$color-success, 0.1);
+  }
+
+  &:focus {
+    border-color: tokens.$color-success-hover;
+    box-shadow: 0 0 0 3px rgba(tokens.$color-success, 0.2);
+  }
+}
+
+.warning {
+  border-color: tokens.$color-warning;
+
+  &:hover {
+    border-color: tokens.$color-warning-hover;
+    box-shadow: 0 0 0 2px rgba(tokens.$color-warning, 0.1);
+  }
+
+  &:focus {
+    border-color: tokens.$color-warning-hover;
+    box-shadow: 0 0 0 3px rgba(tokens.$color-warning, 0.2);
+  }
+}
+
+// ─── Error state ──────────────────────────────────────────────────────────────
+
+.error {
+  border-color: tokens.$color-danger;
+
+  &:hover {
+    border-color: tokens.$color-danger-hover;
+    box-shadow: 0 0 0 2px rgba(tokens.$color-danger, 0.1);
+  }
+
+  &:focus {
+    border-color: tokens.$color-danger-hover;
+    box-shadow: 0 0 0 3px rgba(tokens.$color-danger, 0.2);
+  }
+}
+
+// ─── Helper text ──────────────────────────────────────────────────────────────
+
+.helperText {
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-sm;
+  color: tokens.$color-secondary;
+}
+
+.helperTextError {
+  color: tokens.$color-danger;
+}
+
+// ─── Full width ───────────────────────────────────────────────────────────────
+
+.fullWidth {
+  width: 100%;
+}
+
+.container.fullWidth {
+  width: 100%;
+}
+
