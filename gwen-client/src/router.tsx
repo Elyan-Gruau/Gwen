@@ -6,6 +6,7 @@ import ProfilePage from './pages/profile-page/ProfilePage';
 import GamePage from './pages/game-page/GamePage';
 import MatchmakingPage from './pages/matchmaking-page/MatchmakingPage';
 import HomePage from './pages/home-page/HomePage';
+import StatusPage from './pages/status-page/StatusPage';
 import DeckBuilder from './components/deck-builder/DeckBuilder';
 import { ROUTES } from './constants/routes';
 
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
   { path: ROUTES.LOGIN, element: <LoginPage /> },
   { path: ROUTES.LOGOUT, element: <LogoutPage /> },
   { path: ROUTES.SIGN_IN, element: <SignInPage /> },
+  { path: ROUTES.STATUS, element: <StatusPage /> },
   { path: ROUTES.PROFILE, element: <ProfilePage /> },
   { path: ROUTES.PLAY_GAME, element: <GamePage /> },
   { path: ROUTES.PLAY, element: <MatchmakingPage /> },

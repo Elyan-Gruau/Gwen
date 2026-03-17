@@ -4,6 +4,7 @@ export const ROUTES = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   SIGN_IN: '/sign-in',
+  STATUS: '/status',
   PROFILE: '/profile/:userId',
   PLAY: '/play',
   PLAY_GAME: '/play/:gameId',

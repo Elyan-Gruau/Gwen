@@ -34,6 +34,16 @@ app.get('/api/openapi.json', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/user', userFactionDeckRouter);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development',
+  });
+});
+
 // Initialize MongoDB and start server
 async function startServer() {
   try {

@@ -1,0 +1,98 @@
+@use '@styles/tokens' as tokens;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, tokens.$color-primary 0%, tokens.$color-secondary 100%);
+  padding: tokens.$spacing-lg;
+}
+
+.statusCard {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-lg;
+  width: 100%;
+  max-width: 500px;
+  padding: tokens.$spacing-xl;
+  background-color: tokens.$color-white;
+  border-radius: tokens.$border-radius-lg;
+  box-shadow: tokens.$shadow-md;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: tokens.$font-weight-bold;
+  color: tokens.$color-text-dark;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  color: tokens.$color-secondary;
+  font-size: tokens.$font-size-md;
+  margin: 0;
+}
+
+.error {
+  padding: tokens.$spacing-md;
+  background-color: rgba(tokens.$color-danger, 0.1);
+  border: 1px solid tokens.$color-danger;
+  border-radius: tokens.$border-radius-md;
+  color: tokens.$color-danger;
+
+  & > p {
+    margin: tokens.$spacing-xs 0;
+    font-size: tokens.$font-size-md;
+  }
+}
+
+.errorMessage {
+  font-size: tokens.$font-size-sm;
+  opacity: 0.8;
+  margin-top: tokens.$spacing-xs;
+}
+
+.statusContent {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-md;
+  padding: tokens.$spacing-md;
+  background-color: rgba(tokens.$color-primary, 0.05);
+  border-radius: tokens.$border-radius-md;
+  border: 1px solid rgba(tokens.$color-primary, 0.1);
+}
+
+.statusItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: tokens.$font-size-md;
+  padding: tokens.$spacing-sm 0;
+  border-bottom: 1px solid rgba(tokens.$color-primary, 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.label {
+  font-weight: tokens.$font-weight-bold;
+  color: tokens.$color-text-dark;
+}
+
+.value {
+  color: tokens.$color-secondary;
+  word-break: break-all;
+  text-align: right;
+  flex: 1;
+  margin-left: tokens.$spacing-md;
+}
+
+.success {
+  color: tokens.$color-success !important;
+  font-weight: tokens.$font-weight-bold;
+}
+
