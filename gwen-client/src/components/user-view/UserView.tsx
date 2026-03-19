@@ -1,15 +1,22 @@
 import UserProfilePic from '../user-profile-pic/UserProfilePic';
+import { useGetUser } from '../../hooks/apis/UserAPI';
+import Spinner from '../spinner/Spinner';
 
 export type UserViewProps = {
   userId: string;
-  nickname: string;
 };
 
-const UserView = ({ userId, nickname }: UserViewProps) => {
+const UserView = ({ userId }: UserViewProps) => {
+  const { data: user, isLoading } = useGetUser(userId);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div>
       <UserProfilePic userId={userId} />
-      {nickname}
+      {user?.username ?? 'Unknown User'}
     </div>
   );
 };

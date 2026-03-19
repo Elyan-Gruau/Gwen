@@ -13,7 +13,7 @@ const GameLeftPanel = ({ isCurrentPlayer, player }: GameLeftPanelProps) => {
   const fakeNickname = isCurrentPlayer ? 'You' : 'Opponent';
   return (
     <div className={styles.gameLeftPanel}>
-      <UserView userId={player.getUserId()} nickname={fakeNickname} />
+      <UserView userId={player.getUserId()} />
       <Gems activeCount={player.getGems()} />
       HandCount : {player.getDeck().getHand().length}
       <LeaderSlot />
