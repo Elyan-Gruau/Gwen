@@ -120,4 +120,55 @@ authRouter.post('/register', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/auth/users/{userId}:
+ *   get:
+ *     summary: Get user by ID
+ *     tags:
+ *       - Auth
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+authRouter.get('/users/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId as string;
+    const user = await userService.getUserById(userId);
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      profilePictureUrl: user.profilePictureUrl,
+      elo: user.elo,
+    });
+  } catch (error) {
+    res.status(404).json({ error: 'User not found' });
+  }
+});
+
 export default authRouter;
