@@ -1,9 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { AuthApi } from 'gwen-generated-api';
 import type { LoginRequestDTO, RegisterRequestDTO, AuthResponseDTO } from 'gwen-generated-api';
+import { API_BASE_URL } from '../../constants/api';
 
 // Créer une instance unique de l'API Auth
-const authApi = new AuthApi(import.meta.env.VITE_API_URL || 'http://localhost:3000/api');
+const authApi = new AuthApi(API_BASE_URL);
 
 /**
  * Hook pour se connecter

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { API_BASE_URL } from '../../constants/api';
 
 interface HealthStatus {
   status: string;
@@ -9,12 +10,10 @@ interface HealthStatus {
 }
 
 export const useServerHealth = (enabled: boolean = true) => {
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
-
   return useQuery({
     queryKey: ['serverHealth'],
     queryFn: async () => {
-      const response = await axios.get<HealthStatus>(`${apiUrl}/health`);
+      const response = await axios.get<HealthStatus>(`${API_BASE_URL}/health`);
       return response.data;
     },
     enabled,

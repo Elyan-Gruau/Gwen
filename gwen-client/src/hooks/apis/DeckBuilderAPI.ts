@@ -2,8 +2,9 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import type { UpdateUserFactionDeckRequestDTO } from 'gwen-generated-api';
 import { UserFactionDeckApi } from 'gwen-generated-api';
 import { useAuth } from '../../contexts/AuthContext';
+import { API_BASE_URL } from '../../constants/api';
 
-const deckApi = new UserFactionDeckApi(import.meta.env.VITE_API_URL || 'http://localhost:3000/api');
+const deckApi = new UserFactionDeckApi(API_BASE_URL);
 
 interface SaveDeckData {
   factionId: string;
