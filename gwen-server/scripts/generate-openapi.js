@@ -6,20 +6,23 @@
  * Run: npm run build --workspace=gwen-server && npm run generate-api
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// This script runs in a CommonJS Node environment
+// so we use require() instead of ESM import syntax.
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fs = require('fs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
 
 console.log('🔄 Generating API client source files...\n');
 
-// Import the compiled swagger config
+// Import the compiled swagger config (CommonJS require)
 let specs;
 try {
-  const { specs: loadedSpecs } = await import('../dist/config/swagger.js');
-  specs = loadedSpecs;
+  // The compiled file is CommonJS, so we can require it directly
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const swaggerModule = require('../dist/config/swagger.js');
+  specs = swaggerModule.specs;
   console.log('✅ OpenAPI spec loaded\n');
 } catch (error) {
   console.error('❌ Error loading swagger config:', error);
