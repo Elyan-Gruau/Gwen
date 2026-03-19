@@ -68,14 +68,20 @@ export class MatchmakingGateway {
 
       // User disconnects
       socket.on('disconnect', async () => {
-        // Find and remove the userId associated with this socket
+        let foundUser = false;
+
         for (const [userId, socketId] of this.userSockets.entries()) {
           if (socketId === socket.id) {
             await this.matchmakingService.leavePool(userId);
             this.userSockets.delete(userId);
-            console.log(`User disconnected: ${userId}`);
+            console.log(`User disconnected and removed from pool: ${userId}`);
+            foundUser = true;
             break;
           }
+        }
+
+        if (!foundUser) {
+          console.log(`Socket disconnected without active matchmaking entry: ${socket.id}`);
         }
       });
     });
