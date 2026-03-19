@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 import LoginPage from './pages/login-page/LoginPage';
 import LogoutPage from './pages/logout-page/LogoutPage';
 import SignInPage from './pages/sign-in-page/SignInPage';
@@ -13,7 +13,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import { useAuth } from './contexts/AuthContext';
 import { ROUTES } from './constants/routes';
 
-function LoginRequiredPage() {
+const LoginRequiredPage = () => {
   const { isInitialized, isAuthenticated } = useAuth();
 
   if (!isInitialized) {
@@ -21,7 +21,7 @@ function LoginRequiredPage() {
   }
 
   if (isAuthenticated) {
-    return <Navigate to={ROUTES.PLAY} replace />;
+    return <Outlet />;
   }
 
   return (
@@ -33,7 +33,7 @@ function LoginRequiredPage() {
       </button>
     </div>
   );
-}
+};
 
 export const router = createBrowserRouter([
   { path: ROUTES.HOME, element: <HomePage /> },
@@ -42,11 +42,6 @@ export const router = createBrowserRouter([
   { path: ROUTES.LOGOUT, element: <LogoutPage /> },
   { path: ROUTES.SIGN_IN, element: <SignInPage /> },
   { path: ROUTES.STATUS, element: <StatusPage /> },
-  { path: ROUTES.PROFILE, element: <ProfilePage /> },
-  { path: ROUTES.PROFILE_ME, element: <ProfileMePage /> },
-  { path: ROUTES.PLAY_GAME, element: <LoginRequiredPage /> },
-  { path: ROUTES.PLAY, element: <LoginRequiredPage /> },
-  { path: ROUTES.DECK_BUILDER, element: <DeckBuilder /> },
   {
     path: ROUTES.PROFILE,
     element: (
@@ -63,29 +58,22 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  // The actual playable routes, only accessible when authenticated
   {
-    path: ROUTES.PLAY_GAME,
-    element: (
-      <ProtectedRoute>
-        <GamePage />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: ROUTES.PLAY,
-    element: (
-      <ProtectedRoute>
-        <MatchmakingPage />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: ROUTES.DECK_BUILDER,
-    element: (
-      <ProtectedRoute>
-        <DeckBuilder />
-      </ProtectedRoute>
-    ),
+    path: '/',
+    element: <LoginRequiredPage />,
+    children: [
+      {
+        path: ROUTES.PLAY,
+        element: <MatchmakingPage />,
+      },
+      {
+        path: ROUTES.PLAY_GAME,
+        element: <GamePage />,
+      },
+      {
+        path: ROUTES.DECK_BUILDER,
+        element: <DeckBuilder />,
+      },
+    ],
   },
 ]);
