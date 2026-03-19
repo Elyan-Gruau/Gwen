@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
@@ -40,7 +40,7 @@ app.use(express.json());
 // Swagger/OpenAPI documentation
 app.use('/api-docs', swaggerUi.serve);
 app.get('/api-docs', swaggerUi.setup(specs));
-app.get('/api/openapi.json', (req, res) => {
+app.get('/api/openapi.json', (req: Request, res: Response) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(specs);
 });
@@ -50,7 +50,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userFactionDeckRouter);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (req: Request, res: Response) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
