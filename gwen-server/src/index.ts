@@ -66,7 +66,7 @@ app.locals.io = io;
 async function startServer() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('✅ MongoDB connected');
+    console.log('MongoDB connected succesfully');
 
     // Initialize services
     const userRepository = new UserRepository();
@@ -77,10 +77,10 @@ async function startServer() {
     initializeMatchmaking(io, userService, gameService);
 
     httpServer.listen(PORT, () => {
-      console.log(`🚀 Server started on http://localhost:${PORT}`);
+      console.log(`Server started on http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
+    console.error('MongoDB connection error:', error);
     process.exit(1);
   }
 }
