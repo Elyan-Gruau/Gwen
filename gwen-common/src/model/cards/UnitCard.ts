@@ -1,7 +1,7 @@
-import type { UnitsRangeType } from '../../types/RangeType';
-import type { UnitCardConfig } from '../../types/game/configs/UnitCardConfig';
-import type { UnitCardAbilityType } from '../../types/UnitCardAbilityType';
-import { Card } from './Card';
+import type { UnitsRangeType } from '../../types/RangeType.js';
+import type { UnitCardConfig } from '../../types/game/configs/UnitCardConfig.js';
+import type { UnitCardAbilityType } from '../../types/UnitCardAbilityType.js';
+import { Card } from './Card.js';
 
 export class UnitCard extends Card {
   private readonly baseStrength: number;

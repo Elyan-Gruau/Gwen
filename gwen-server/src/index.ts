@@ -2,11 +2,24 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
+import { createServer } from 'node:http';
+import { Server } from 'socket.io';
 import { specs } from './config/swagger.js';
 import authRouter from './features/auth/resources/auth-resource.js';
 import userFactionDeckRouter from './features/auth/resources/user-faction-deck-resource.js';
+import { initializeMatchmaking } from './features/index.js';
+import { UserService } from './features/auth/services/UserService.js';
+import { UserRepository } from './features/auth/repository/UserRepository.js';
+import { GameService } from './features/game/services/GameService.js';
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: 'http://localhost:5173',
+    credentials: true,
+  },
+});
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI =
   process.env.MONGODB_URI ||
@@ -46,17 +59,28 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// WebSockets setup
+app.locals.io = io;
+
 // Initialize MongoDB and start server
 async function startServer() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('✅ MongoDB connecté');
+    console.log('✅ MongoDB connected');
 
-    app.listen(PORT, () => {
-      console.log(`Serveur démarré sur http://localhost:${PORT}`);
+    // Initialize services
+    const userRepository = new UserRepository();
+    const userService = new UserService(userRepository);
+    const gameService = new GameService();
+
+    // Initialize matchmaking system
+    initializeMatchmaking(io, userService, gameService);
+
+    httpServer.listen(PORT, () => {
+      console.log(`🚀 Server started on http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error('❌ Erreur de connexion MongoDB:', error);
+    console.error('❌ MongoDB connection error:', error);
     process.exit(1);
   }
 }
