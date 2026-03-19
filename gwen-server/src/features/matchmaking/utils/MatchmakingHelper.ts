@@ -10,7 +10,7 @@ export function initializeMatchmaking(
   gameService: GameService,
 ) {
   const matchmakingService = new MatchmakingService(userService, gameService);
-  const matchmakingGateway = new MatchmakingGateway(io, matchmakingService);
+  const matchmakingGateway = new MatchmakingGateway(io, matchmakingService, userService);
 
   console.log('✅ Matchmaking system initialized');
 

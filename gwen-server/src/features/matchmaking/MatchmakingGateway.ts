@@ -1,5 +1,6 @@
 import type { Server, Socket } from 'socket.io';
 import type { MatchmakingService } from './services/MatchmakingService.js';
+import type { UserService } from '../auth/services/UserService.js';
 import {
   MATCHMAKING_FOUND,
   MATCHMAKING_JOIN,
@@ -16,6 +17,7 @@ export class MatchmakingGateway {
   constructor(
     private io: Server,
     private matchmakingService: MatchmakingService,
+    private userService: UserService,
   ) {
     this.setupListeners();
   }
@@ -26,26 +28,41 @@ export class MatchmakingGateway {
 
       // User joins the matchmaking queue
       socket.on(MATCHMAKING_JOIN, async (data) => {
-        const { userId, elo, faction } = data;
+        const { userId } = data;
 
-        this.userSockets.set(userId, socket.id);
+        try {
+          // Fetch user from database to get their ELO
+          const user = await this.userService.getUserById(userId);
 
-        // Add user to the pool and search for opponent
-        const match = await this.matchmakingService.joinPool(userId, elo, faction);
+          if (!user) {
+            socket.emit('error', { message: 'User not found' });
+            return;
+          }
 
-        socket.emit(MATCHMAKING_JOINED, {
-          message: 'You are now in the queue',
-          position: this.matchmakingService.getPoolSize(),
-        });
+          const userElo = user.elo;
 
-        // Broadcast the updated pool size to all connected clients
-        this.io.emit(MATCHMAKING_POOL_SIZE, {
-          size: this.matchmakingService.getPoolSize(),
-        });
+          this.userSockets.set(userId, socket.id);
 
-        // If a match was found
-        if (match) {
-          this.notifyMatch(match);
+          // Add user to the pool and search for opponent
+          const match = await this.matchmakingService.joinPool(userId, userElo);
+
+          socket.emit(MATCHMAKING_JOINED, {
+            message: 'You are now in the queue',
+            position: this.matchmakingService.getPoolSize(),
+          });
+
+          // Broadcast the updated pool size to all connected clients
+          this.io.emit(MATCHMAKING_POOL_SIZE, {
+            size: this.matchmakingService.getPoolSize(),
+          });
+
+          // If a match was found
+          if (match) {
+            this.notifyMatch(match);
+          }
+        } catch (error) {
+          console.error('Error joining matchmaking pool:', error);
+          socket.emit('error', { message: 'Failed to join matchmaking pool' });
         }
       });
 

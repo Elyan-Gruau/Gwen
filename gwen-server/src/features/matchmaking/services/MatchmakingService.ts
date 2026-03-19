@@ -2,10 +2,10 @@ import type { UserService } from '../../auth/services/UserService.js';
 import type { GameService } from '../../game/services/GameService.js';
 
 export class MatchmakingService {
-  // Map: userId → { userId, elo, faction, timestamp }
+  // Map: userId → { userId, elo, timestamp }
   private readonly matchmakingPool: Map<
     string,
-    { userId: string; elo: number; faction: string; timestamp: number }
+    { userId: string; elo: number; timestamp: number }
   > = new Map();
 
   constructor(
@@ -13,12 +13,11 @@ export class MatchmakingService {
     private readonly gameService: GameService,
   ) {}
 
-  async joinPool(userId: string, elo: number, faction: string) {
+  async joinPool(userId: string, elo: number) {
     // Add user to the pool
     this.matchmakingPool.set(userId, {
       userId,
       elo,
-      faction,
       timestamp: Date.now(),
     });
 

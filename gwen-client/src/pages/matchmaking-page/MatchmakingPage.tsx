@@ -6,18 +6,17 @@ import { ROUTES } from '../../constants/routes';
 const MatchmakingPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { isSearching, queuePosition, poolSize, leaveQueue, joinQueue } = useMatchmaking(
-    user?._id!,
-  );
+  const { isSearching, queuePosition, poolSize, leaveMatchmakingPool, joinMatchmakingPool } =
+    useMatchmaking(user?._id!);
 
   // Auto join the matchmaking pool
   if (user?._id && !isSearching) {
-    joinQueue('NILFGAARD'); // TODO replace with another faction type
+    joinMatchmakingPool();
   }
 
   const handleCancel = () => {
     // Leave the matchmaking queue and navigate back to the home page
-    leaveQueue();
+    leaveMatchmakingPool();
     navigate(ROUTES.HOME);
   };
 

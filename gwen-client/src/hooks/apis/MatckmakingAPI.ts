@@ -13,8 +13,8 @@ export type UseMatchmakingResult = {
   isSearching: boolean;
   queuePosition: number;
   poolSize: number;
-  joinQueue: (faction: string) => void;
-  leaveQueue: () => void;
+  joinMatchmakingPool: () => void;
+  leaveMatchmakingPool: () => void;
 };
 
 export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
@@ -65,15 +65,13 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
     };
   }, [userId]);
 
-  const joinQueue = (faction: string) => {
+  const joinMatchmakingPool = () => {
     socket?.emit(MATCHMAKING_JOIN, {
       userId,
-      elo: 1200, // TODO: get it from the player
-      faction,
     });
   };
 
-  const leaveQueue = () => {
+  const leaveMatchmakingPool = () => {
     socket?.emit(MATCHMAKING_LEAVE, { userId });
     setIsSearching(false);
   };
@@ -81,8 +79,8 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
   return {
     isSearching,
     queuePosition,
-    joinQueue,
-    leaveQueue,
+    joinMatchmakingPool,
+    leaveMatchmakingPool,
     poolSize,
   };
 };
