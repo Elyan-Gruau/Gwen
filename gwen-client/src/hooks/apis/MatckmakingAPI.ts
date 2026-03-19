@@ -5,12 +5,22 @@ import {
   MATCHMAKING_JOIN,
   MATCHMAKING_JOINED,
   MATCHMAKING_LEAVE,
+  MATCHMAKING_POOL_SIZE,
 } from 'gwen-common';
 
-export const useMatchmaking = (userId: string | null) => {
+export type UseMatchmakingResult = {
+  isSearching: boolean;
+  queuePosition: number;
+  poolSize: number;
+  joinQueue: (faction: string) => void;
+  leaveQueue: () => void;
+};
+
+export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [queuePosition, setQueuePosition] = useState(0);
+  const [poolSize, setPoolSize] = useState(0);
 
   useEffect(() => {
     if (!userId) {
@@ -27,6 +37,10 @@ export const useMatchmaking = (userId: string | null) => {
       setQueuePosition(data.position);
     });
 
+    newSocket.on(MATCHMAKING_POOL_SIZE, (data) => {
+      setPoolSize(data.size ?? 0);
+    });
+
     newSocket.on(MATCHMAKING_FOUND, (data) => {
       // Redirect to game page
       window.location.href = `/game/${data.gameId}`;
@@ -34,9 +48,17 @@ export const useMatchmaking = (userId: string | null) => {
 
     setSocket(newSocket);
 
+    const handleBeforeUnload = () => {
+      // Notify the server that the user is leaving the queue
+      newSocket.emit(MATCHMAKING_LEAVE, { userId });
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
     return () => {
       // Notify the server that the user is leaving the queue
       newSocket.emit(MATCHMAKING_LEAVE, { userId });
+      window.removeEventListener('beforeunload', handleBeforeUnload);
       // Then close the socket connection
       newSocket.disconnect();
     };
@@ -60,5 +82,6 @@ export const useMatchmaking = (userId: string | null) => {
     queuePosition,
     joinQueue,
     leaveQueue,
+    poolSize,
   };
 };

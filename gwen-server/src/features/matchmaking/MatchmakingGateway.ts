@@ -6,6 +6,7 @@ import {
   MATCHMAKING_JOINED,
   MATCHMAKING_LEAVE,
   MATCHMAKING_LEFT,
+  MATCHMAKING_POOL_SIZE,
 } from 'gwen-common';
 
 export class MatchmakingGateway {
@@ -37,6 +38,11 @@ export class MatchmakingGateway {
           position: this.matchmakingService.getPoolSize(),
         });
 
+        // Broadcast the updated pool size to all connected clients
+        this.io.emit(MATCHMAKING_POOL_SIZE, {
+          size: this.matchmakingService.getPoolSize(),
+        });
+
         // If a match was found
         if (match) {
           this.notifyMatch(match);
@@ -52,6 +58,11 @@ export class MatchmakingGateway {
 
         socket.emit(MATCHMAKING_LEFT, {
           message: 'You have left the queue',
+        });
+
+        // Broadcast the updated pool size to all connected clients
+        this.io.emit(MATCHMAKING_POOL_SIZE, {
+          size: this.matchmakingService.getPoolSize(),
         });
       });
 
