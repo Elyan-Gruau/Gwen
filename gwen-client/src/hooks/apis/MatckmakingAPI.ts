@@ -7,6 +7,7 @@ import {
   MATCHMAKING_LEAVE,
   MATCHMAKING_POOL_SIZE,
 } from 'gwen-common';
+import { getGameURL } from '../../utils/URLProvider';
 
 export type UseMatchmakingResult = {
   isSearching: boolean;
@@ -43,7 +44,7 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
 
     newSocket.on(MATCHMAKING_FOUND, (data) => {
       // Redirect to game page
-      window.location.href = `/game/${data.gameId}`;
+      window.location.href = getGameURL(data.gameId);
     });
 
     setSocket(newSocket);

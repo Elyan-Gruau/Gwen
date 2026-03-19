@@ -67,7 +67,7 @@ export const router = createBrowserRouter([
         element: <MatchmakingPage />,
       },
       {
-        path: ROUTES.PLAY_GAME,
+        path: ROUTES.GAME,
         element: <GamePage />,
       },
       {
