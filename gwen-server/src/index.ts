@@ -7,10 +7,10 @@ import { Server } from 'socket.io';
 import { specs } from './config/swagger.js';
 import authRouter from './features/auth/resources/auth-resource.js';
 import userFactionDeckRouter from './features/auth/resources/user-faction-deck-resource.js';
-import { initializeMatchmaking } from './features/index.js';
 import { UserService } from './features/auth/services/UserService.js';
 import { UserRepository } from './features/auth/repository/UserRepository.js';
 import { GameService } from './features/game/services/GameService.js';
+import { initializeMatchmaking } from './features/matchmaking/utils/MatchmakingHelper';
 
 const app = express();
 const httpServer = createServer(app);
