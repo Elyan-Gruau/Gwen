@@ -7,6 +7,7 @@ import { Server } from 'socket.io';
 import { specs } from './config/swagger.js';
 import authRouter from './features/auth/resources/auth-resource.js';
 import userFactionDeckRouter from './features/auth/resources/user-faction-deck-resource.js';
+import gameRouter from './features/game/resources/game-resource.js';
 import { UserService } from './features/auth/services/UserService.js';
 import { UserRepository } from './features/auth/repository/UserRepository.js';
 import { GameService } from './features/game/services/GameService.js';
@@ -47,7 +48,8 @@ app.get('/api/openapi.json', (req: Request, res: Response) => {
 
 // Mount the resources
 app.use('/api/auth', authRouter);
-app.use('/api/user', userFactionDeckRouter);
+app.use('/api/users', userFactionDeckRouter);
+app.use('/api/games', gameRouter);
 
 // Health check endpoint
 app.get('/api/health', (req: Request, res: Response) => {
@@ -66,7 +68,7 @@ app.locals.io = io;
 async function startServer() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('MongoDB connected succesfully');
+    console.log('MongoDB connected successfully');
 
     // Initialize services
     const userRepository = new UserRepository();
@@ -85,4 +87,4 @@ async function startServer() {
   }
 }
 
-startServer();
+void startServer();
