@@ -137,7 +137,7 @@ const authApiContent = `/**
  */
 
 import axios, { AxiosInstance } from 'axios';
-import type { AuthResponseDTO, LoginRequestDTO, RegisterRequestDTO } from '../dtos/index.js';
+import type { AuthResponseDTO, LoginRequestDTO, RegisterRequestDTO, UserDTO } from '../dtos/index.js';
 
 export class AuthApi {
   private readonly apiClient: AxiosInstance;
@@ -166,6 +166,15 @@ export class AuthApi {
    */
   async register(data: RegisterRequestDTO): Promise<AuthResponseDTO> {
     const response = await this.apiClient.post<AuthResponseDTO>('/auth/register', data);
+    return response.data;
+  }
+
+  /**
+   * Get user by ID
+   * GET /auth/users/{userId}
+   */
+  async getUser(userId: string): Promise<UserDTO> {
+    const response = await this.apiClient.get<UserDTO>(\`/auth/users/\${userId}\`);
     return response.data;
   }
 
