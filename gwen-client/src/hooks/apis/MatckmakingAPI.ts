@@ -35,6 +35,9 @@ export const useMatchmaking = (userId: string | null) => {
     setSocket(newSocket);
 
     return () => {
+      // Notify the server that the user is leaving the queue
+      newSocket.emit(MATCHMAKING_LEAVE, { userId });
+      // Then close the socket connection
       newSocket.disconnect();
     };
   }, [userId]);
