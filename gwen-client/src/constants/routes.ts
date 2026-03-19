@@ -6,6 +6,7 @@ export const ROUTES = {
   SIGN_IN: '/sign-in',
   STATUS: '/status',
   PROFILE: '/profile/:userId',
+  PROFILE_ME: '/profile/me',
   PLAY: '/play',
   PLAY_GAME: '/play/:gameId',
   DECK_BUILDER: '/deck-builder',

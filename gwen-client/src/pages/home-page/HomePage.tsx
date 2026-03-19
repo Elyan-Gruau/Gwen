@@ -18,6 +18,9 @@ export default function HomePage() {
         <Button size="lg" variant="secondary" onClick={() => navigate(ROUTES.DECK_BUILDER)}>
           Deck Builder
         </Button>
+        <Button size="lg" variant="secondary" onClick={() => navigate(ROUTES.PROFILE_ME)}>
+          My Profile
+        </Button>
       </div>
     </div>
   );
