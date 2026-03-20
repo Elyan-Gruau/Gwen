@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
-import type { DTOFinishGameRequest, DTOGame } from '../dtos/DTOGame.js';
+import { GameManager } from '../services/GameManager.js';
+import type { DTOFinishGameRequest, DTOGame, DTOGameWithMetadata } from '../dtos/DTOGame.js';
 import type { DBGame } from '../model/DBGame.js';
 
 const gameService = new GameService();
@@ -8,6 +9,24 @@ const gameService = new GameService();
 @Route('games')
 @Tags('Games')
 export class GameController extends Controller {
+  @Get('{gameId}/active')
+  @SuccessResponse('200', 'Active game with metadata')
+  @Response('404', 'Active game not found')
+  @Response('500', 'Server error')
+  public async getGameWithMetadataById(@Path() gameId: string): Promise<DTOGameWithMetadata> {
+    try {
+      const gameManager = GameManager.getInstance();
+      const gameWithMetadata = gameManager.getActiveGameById(gameId);
+
+      return this.toGameWithMetadataDto(gameWithMetadata);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        return this.throwHttpError('Active game not found', 404);
+      }
+      return this.throwHttpError('Failed to retrieve active game', 500);
+    }
+  }
+
   @Get('{gameId}')
   @SuccessResponse('200', 'Game details')
   @Response('404', 'Game not found')
@@ -73,6 +92,21 @@ export class GameController extends Controller {
       winner_id: game.winner_id ?? null,
       created_at: game.created_at?.toISOString(),
       updated_at: game.updated_at?.toISOString(),
+    };
+  }
+
+  private toGameWithMetadataDto(gameWithMetadata: any): DTOGameWithMetadata {
+    const { metadata, game } = gameWithMetadata;
+    return {
+      metadata: this.toDto(metadata),
+      game: {
+        phase: game.getPhase(),
+        players: game.getPlayers().map((player: any) => ({
+          userId: player.getUserId(),
+          gems: player.getGems(),
+          passed: player.hasPassed(),
+        })),
+      },
     };
   }
 

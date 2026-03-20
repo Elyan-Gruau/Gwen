@@ -74,6 +74,63 @@
 				],
 				"type": "object"
 			},
+			"DTOGamePhase": {
+				"type": "string",
+				"enum": [
+					"WAITING_FOR_PLAYERS",
+					"REDRAW",
+					"FLIP_COIN",
+					"PLAY_CARDS",
+					"END"
+				]
+			},
+			"DTOGameWithMetadata": {
+				"properties": {
+					"game": {
+						"properties": {
+							"players": {
+								"items": {
+									"properties": {
+										"passed": {
+											"type": "boolean"
+										},
+										"gems": {
+											"type": "number",
+											"format": "double"
+										},
+										"userId": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"passed",
+										"gems",
+										"userId"
+									],
+									"type": "object"
+								},
+								"type": "array"
+							},
+							"phase": {
+								"$ref": "#/components/schemas/DTOGamePhase"
+							}
+						},
+						"required": [
+							"players",
+							"phase"
+						],
+						"type": "object"
+					},
+					"metadata": {
+						"$ref": "#/components/schemas/DTOGame"
+					}
+				},
+				"required": [
+					"game",
+					"metadata"
+				],
+				"type": "object"
+			},
 			"DTOFinishGameRequest": {
 				"properties": {
 					"winnerId": {
@@ -288,6 +345,43 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/games/{gameId}/active": {
+			"get": {
+				"operationId": "GetGameWithMetadataById",
+				"responses": {
+					"200": {
+						"description": "Active game with metadata",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGameWithMetadata"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Active game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/games/{gameId}": {
