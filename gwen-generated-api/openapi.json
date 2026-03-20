@@ -1,0 +1,85 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"HealthStatus": {
+				"properties": {
+					"status": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"uptime": {
+						"type": "number",
+						"format": "double"
+					},
+					"environment": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"timestamp",
+					"uptime",
+					"environment"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "Gwen API",
+		"version": "1.0.0",
+		"description": "Gwen game server API",
+		"contact": {
+			"name": "Gwen Team"
+		}
+	},
+	"paths": {
+		"/status/health": {
+			"get": {
+				"operationId": "GetHealth",
+				"responses": {
+					"200": {
+						"description": "Server is healthy",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthStatus"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"status": "ok",
+											"uptime": 123.45,
+											"environment": "development"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Health check endpoint",
+				"tags": [
+					"Status"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api"
+		}
+	]
+}
