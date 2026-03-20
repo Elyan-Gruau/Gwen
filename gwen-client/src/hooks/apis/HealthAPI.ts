@@ -1,23 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import type { HealthStatusDTO } from 'gwen-generated-api';
+import { StatusApi } from 'gwen-generated-api';
 import { API_BASE_URL } from '../../constants/api';
 
-interface HealthStatus {
-  status: string;
-  timestamp: string;
-  uptime: number;
-  environment: string;
-}
+// Create a single instance of the Status API
+const statusApi = new StatusApi(API_BASE_URL);
 
 export const useServerHealth = (enabled: boolean = true) => {
   return useQuery({
     queryKey: ['serverHealth'],
-    queryFn: async () => {
-      const response = await axios.get<HealthStatus>(`${API_BASE_URL}/health`);
-      return response.data;
+    queryFn: async (): Promise<HealthStatusDTO> => {
+      return statusApi.getHealth();
     },
     enabled,
-    refetchInterval: 5000, // Refresh all 5 seconds
+    refetchInterval: 5000, // Refresh every 5 seconds
     retry: 3,
     retryDelay: 1000,
   });
