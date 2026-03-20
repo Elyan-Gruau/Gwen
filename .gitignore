@@ -10,3 +10,4 @@ dist/
 # OS
 .DS_Store
 .idea/copilotDiffState.xml
+/gwen-generated-api/src
