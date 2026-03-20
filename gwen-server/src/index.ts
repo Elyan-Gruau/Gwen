@@ -8,6 +8,7 @@ import { specs } from './config/swagger.js';
 import authRouter from './features/auth/resources/auth-resource.js';
 import userFactionDeckRouter from './features/auth/resources/user-faction-deck-resource.js';
 import gameRouter from './features/game/resources/game-resource.js';
+import statusRouter from './features/status/resources/status-resource.js';
 import { UserService } from './features/auth/services/UserService.js';
 import { UserRepository } from './features/auth/repository/UserRepository.js';
 import { GameService } from './features/game/services/GameService.js';
@@ -50,16 +51,7 @@ app.get('/api/openapi.json', (req: Request, res: Response) => {
 app.use('/api/auth', authRouter);
 app.use('/api/users', userFactionDeckRouter);
 app.use('/api/games', gameRouter);
-
-// Health check endpoint
-app.get('/api/health', (req: Request, res: Response) => {
-  res.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development',
-  });
-});
+app.use('/api/status', statusRouter);
 
 // WebSockets setup
 app.locals.io = io;
