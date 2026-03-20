@@ -1,6 +1,7 @@
 import UserProfilePic from '../user-profile-pic/UserProfilePic';
-import { useGetUser } from '../../hooks/apis/UserAPI';
+
 import Spinner from '../spinner/Spinner';
+import { useGetUser } from 'gwen-generated-api';
 
 export type UserViewProps = {
   userId: string;

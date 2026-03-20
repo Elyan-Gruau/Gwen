@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
+import type { DTOUser } from 'gwen-generated-api';
 import { initializeAuth, logout as logoutUser } from '../hooks/apis/AuthAPI';
-import type { UserDTO } from 'gwen-generated-api';
 
 interface AuthContextType {
   isInitialized: boolean;
   isAuthenticated: boolean;
-  user: UserDTO | null;
+  user: DTOUser | null;
   logout: () => void;
-  setUser: (user: UserDTO | null) => void;
+  setUser: (user: DTOUser | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -16,7 +16,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<UserDTO | null>(null);
+  const [user, setUser] = useState<DTOUser | null>(null);
 
   useEffect(() => {
     // Initialiser le token depuis le localStorage
@@ -43,7 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('user');
   };
 
-  const handleSetUser = (newUser: UserDTO | null) => {
+  const handleSetUser = (newUser: DTOUser | null) => {
     setUser(newUser);
     if (newUser) {
       localStorage.setItem('user', JSON.stringify(newUser));

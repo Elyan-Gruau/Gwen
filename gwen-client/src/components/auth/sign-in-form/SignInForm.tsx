@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useRegister } from '../../../hooks/apis/AuthAPI';
+
 import { useAuth } from '../../../contexts/AuthContext';
 import { ROUTES } from '../../../constants/routes';
 import Input from '../../reusable/input/Input';
 import Button from '../../reusable/button/Button';
 import styles from './SignInForm.module.scss';
+import { useRegister } from 'gwen-generated-api';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -39,9 +40,11 @@ export default function SignInForm() {
   const handleSubmit = (values: SignInFormValues) => {
     register(
       {
-        username: values.username,
-        email: values.email,
-        password: values.password,
+        data: {
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        },
       },
       {
         onSuccess: (response) => {
@@ -69,7 +72,7 @@ export default function SignInForm() {
 
           {isError && (
             <div className={styles.error}>
-              {error instanceof Error ? error.message : 'An error occurred'}
+              {/*{error instanceof Error ? error.message : 'An error occurred'}*/}
             </div>
           )}
 

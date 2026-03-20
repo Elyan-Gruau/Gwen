@@ -1,5 +1,5 @@
-import { useGetUser } from '../../hooks/apis/UserAPI';
 import Spinner from '../spinner/Spinner';
+import { useGetUser } from 'gwen-generated-api';
 
 export type UserProfilePicProps = {
   userId: string;

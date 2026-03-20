@@ -1,9 +1,9 @@
-import { useServerHealth } from '../../hooks/apis/HealthAPI';
 import Button from '../../components/reusable/button/Button';
 import styles from './StatusPage.module.scss';
+import { useGetHealth } from 'gwen-generated-api';
 
 export default function StatusPage() {
-  const { data, isLoading, isError, error, refetch } = useServerHealth(true);
+  const { data, isLoading, isError, error, refetch } = useGetHealth();
 
   const formatUptime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { router } from './router';
 import { AuthProvider } from './contexts/AuthContext';
 import './index.css';
+import './lib/axios';
 
 const queryClient = new QueryClient();
 

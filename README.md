@@ -65,3 +65,16 @@ TODO
     - [ ] Very basic IA strategy (If, else)
     - [ ] Use the IA when no opponent is found after 10seconds
 - [ ] Add light mode / dark mode switch, auto select from the os
+
+## Utilisation de l'IA dans le projet
+
+### Models
+
+- GPT5.2
+- Claude haiku 4.5
+
+Les ias ont été utilisées pour :
+
+- Générer des idées de cartes et de factions : On envoit le site avec donnes a ChatGPT avec le modele a suivre (
+  datastructure), et on lui demande depuis la page de crawl et de recuperer les infos des cartes.
+- Fix les differents problemes de configuration typescript, scss, open-api ...

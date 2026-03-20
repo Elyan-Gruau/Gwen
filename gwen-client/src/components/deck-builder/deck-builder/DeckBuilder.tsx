@@ -8,18 +8,22 @@ import {
   USER_FACTION_DECK_RULES,
   UserFactionDeck,
 } from 'gwen-common';
-import { useLoadUserFactionDeck, useSaveUserFactionDeck } from '../../../hooks/apis/DeckBuilderAPI';
+
 import { useAuth } from '../../../contexts/AuthContext';
 import CardCollection from '../card-collection/CardCollection';
 import FactionLeaderSelector from '../faction-leader-selector/FactionLeaderSelector';
 import FactionSelector from '../faction-selector/FactionSelector';
 import Button from '../../reusable/button/Button';
 import styles from './DeckBuilder.module.scss';
-import type { UserFactionDeckDTO } from 'gwen-generated-api';
+import {
+  type DTOUserFactionDeck,
+  useCreateUserFactionDeck,
+  useGetUserFactionDeck,
+} from 'gwen-generated-api';
 
 const DeckBuilder = () => {
   const { user } = useAuth();
-  const { mutate: saveDeck, isPending } = useSaveUserFactionDeck();
+  const { mutate: saveDeck, isPending } = useCreateUserFactionDeck();
 
   const datapack = useMemo(() => new Datapack(THE_WITCHER_DATAPACK), []);
   const factions = datapack.getFactions();
@@ -29,7 +33,7 @@ const DeckBuilder = () => {
 
   const [userDeck, setUserDeck] = useState<UserFactionDeck>(() => new UserFactionDeck(faction));
 
-  const { data: loadedDeckData, isLoading } = useLoadUserFactionDeck(faction.getName());
+  const { data: loadedDeckData, isLoading } = useGetUserFactionDeck(user._id, faction.getName());
 
   useEffect(() => {
     if (loadedDeckData && !isLoading) {
@@ -187,7 +191,7 @@ const DeckBuilder = () => {
   );
 };
 
-const fromDTOtoModel = (faction: Faction, loadedDeckData: UserFactionDeckDTO): UserFactionDeck => {
+const fromDTOtoModel = (faction: Faction, loadedDeckData: DTOUserFactionDeck): UserFactionDeck => {
   console.info('Loading user deck from) DTO:', loadedDeckData);
   const newDeck = new UserFactionDeck(faction);
 

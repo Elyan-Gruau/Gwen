@@ -2,42 +2,54 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { ROUTES } from '../../constants/routes';
+import { useGetUser } from 'gwen-generated-api';
 
 const ProfileMePage = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   if (!user) {
-    return (
-      <div>
-        <h1>My Profile</h1>
-        <p>No user is currently logged in.</p>
-        <button type="button" onClick={() => navigate(ROUTES.LOGIN)}>
-          Go to login
-        </button>
-      </div>
-    );
+    return <UserNotLoggedInProfile />;
   }
 
+  return <UserProfile userId={user._id!} />;
+};
+
+const UserNotLoggedInProfile = () => {
+  const navigate = useNavigate();
+  return (
+    <div>
+      <h1>My Profile</h1>
+      <p>No user is currently logged in.</p>
+      <button type="button" onClick={() => navigate(ROUTES.LOGIN)}>
+        Go to login
+      </button>
+    </div>
+  );
+};
+
+interface UserProfileProps {
+  userId: string;
+}
+
+const UserProfile = ({ userId }: UserProfileProps) => {
+  const { data: currentUser } = useGetUser(userId);
   return (
     <div>
       <h1>My Profile</h1>
       <p>
-        <strong>ID:</strong> {user._id}
+        <strong>ID:</strong> {currentUser._id}
       </p>
       <p>
-        <strong>Username:</strong> {user.username}
+        <strong>Username:</strong> {currentUser.username}
       </p>
       <p>
-        <strong>Email:</strong> {user.email}
+        <strong>Email:</strong> {currentUser.email}
       </p>
       <p>
-        <strong>Elo:</strong> {user.elo}
+        <strong>Elo:</strong> {currentUser.elo}
       </p>
     </div>
   );
 };
 
 export default ProfileMePage;
-
-

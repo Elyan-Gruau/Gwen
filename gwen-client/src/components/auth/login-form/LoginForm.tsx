@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useLogin } from '../../../hooks/apis/AuthAPI';
+
 import { useAuth } from '../../../contexts/AuthContext';
 import { ROUTES } from '../../../constants/routes';
 import Input from '../../reusable/input/Input';
 import Button from '../../reusable/button/Button';
 import styles from './LoginForm.module.scss';
+import { useLogin } from 'gwen-generated-api';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Username is required'),
@@ -25,7 +26,7 @@ export default function LoginForm() {
 
   const handleSubmit = (values: LoginFormValues) => {
     login(
-      { username: values.username, password: values.password },
+      { data: { username: values.username, password: values.password } },
       {
         onSuccess: (response) => {
           setUser(response.user);
@@ -35,6 +36,7 @@ export default function LoginForm() {
     );
   };
 
+  // @ts-ignore
   return (
     <Formik
       initialValues={{
@@ -50,7 +52,7 @@ export default function LoginForm() {
 
           {isError && (
             <div className={styles.error}>
-              {error instanceof Error ? error.message : 'Une erreur est survenue'}
+              {/*{error instanceof Error ? error.message : 'Une erreur est survenue'}*/}
             </div>
           )}
 
