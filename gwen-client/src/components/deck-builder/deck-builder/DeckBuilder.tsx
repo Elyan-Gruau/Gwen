@@ -19,11 +19,13 @@ import {
   type DTOUserFactionDeck,
   useCreateUserFactionDeck,
   useGetUserFactionDeck,
+  useUpdateUserFactionDeck,
 } from 'gwen-generated-api';
 
 const DeckBuilder = () => {
   const { user } = useAuth();
   const { mutate: saveDeck, isPending } = useCreateUserFactionDeck();
+  const { mutate: updateDeck } = useUpdateUserFactionDeck();
 
   const datapack = useMemo(() => new Datapack(THE_WITCHER_DATAPACK), []);
   const factions = datapack.getFactions();
@@ -33,7 +35,15 @@ const DeckBuilder = () => {
 
   const [userDeck, setUserDeck] = useState<UserFactionDeck>(() => new UserFactionDeck(faction));
 
-  const { data: loadedDeckData, isLoading } = useGetUserFactionDeck(user._id, faction.getName());
+  const { data: loadedDeckData, isLoading } = useGetUserFactionDeck(
+    user?._id || '',
+    faction.getName(),
+    {
+      query: {
+        enabled: !!user?._id,
+      },
+    },
+  );
 
   useEffect(() => {
     if (loadedDeckData && !isLoading) {
@@ -102,15 +112,27 @@ const DeckBuilder = () => {
       return;
     }
 
-    saveDeck({
-      userId: user._id,
-      data: {
-        factionId: faction.getName(),
-        unitCardIds: userDeck.getUnitCards().map((c) => c.getId()),
-        leaderCardId: userDeck.getLeader()?.getId() || null,
-        specialCardIds: userDeck.getSpecialCards().map((c) => c.getId()),
+    saveDeck(
+      {
+        userId: user._id,
+        data: {
+          factionId: faction.getName(),
+        },
       },
-    });
+      {
+        onSuccess: () => {
+          updateDeck({
+            userId: user._id,
+            factionId: faction.getName(),
+            data: {
+              unitCardIds: userDeck.getUnitCards().map((c) => c.getId()),
+              leaderCardId: userDeck.getLeader()?.getId() || null,
+              specialCardIds: userDeck.getSpecialCards().map((c) => c.getId()),
+            },
+          });
+        },
+      },
+    );
   };
 
   return (
