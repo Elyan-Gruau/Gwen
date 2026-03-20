@@ -8,6 +8,7 @@ import Input from '../../reusable/input/Input';
 import Button from '../../reusable/button/Button';
 import styles from './LoginForm.module.scss';
 import { useLogin } from 'gwen-generated-api';
+import { persistAuthToken } from '../../../hooks/apis/AuthAPI';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Username is required'),
@@ -29,6 +30,7 @@ export default function LoginForm() {
       { data: { username: values.username, password: values.password } },
       {
         onSuccess: (response) => {
+          persistAuthToken(response.token);
           setUser(response.user);
           navigate(ROUTES.HOME);
         },

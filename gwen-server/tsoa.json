@@ -19,6 +19,7 @@
   "routes": {
     "routesDir": "src/generated",
     "basePath": "/api",
-    "middleware": "express"
+    "middleware": "express",
+    "authenticationModule": "src/index.ts"
   }
 }

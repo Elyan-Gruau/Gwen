@@ -9,6 +9,7 @@ import { RegisterRoutes } from './generated/routes';
 import { UserService } from './features/auth/services/UserService.js';
 import { UserRepository } from './features/auth/repository/UserRepository.js';
 import { GameService } from './features/game/services/GameService.js';
+import { JwtService } from './features/auth/services/JwtService.js';
 import { initializeMatchmaking } from './features/matchmaking/utils/MatchmakingHelper';
 
 const app = express();
@@ -23,6 +24,10 @@ const PORT = process.env.PORT || 3000;
 const MONGODB_URI =
   process.env.MONGODB_URI ||
   'mongodb://gwen-user:gwen-password@localhost:27017/gwen-db?authSource=admin';
+
+const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
+const jwtExpiration = parseInt(process.env.JWT_EXPIRATION || '3600000', 10);
+const jwtService = new JwtService(jwtSecret, jwtExpiration);
 
 // CORS Configuration
 const corsOptions = {
@@ -49,6 +54,33 @@ RegisterRoutes(app);
 
 // WebSockets setup
 app.locals.io = io;
+
+// Authentication function used by tsoa for @Security('jwt')
+export async function expressAuthentication(request: Request, securityName: string, scopes?: string[]): Promise<any> {
+  if (securityName !== 'jwt') {
+    throw new Error('Unsupported security scheme');
+  }
+
+  const authHeader = request.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const error = new Error('Missing or invalid Authorization header') as Error & { status?: number };
+    error.status = 401;
+    throw error;
+  }
+
+  const token = authHeader.substring('Bearer '.length);
+
+  try {
+    const userId = jwtService.extractUserId(token);
+
+    // On peut retourner un objet user minimal pour l’instant
+    return { userId };
+  } catch {
+    const error = new Error('Invalid or expired token') as Error & { status?: number };
+    error.status = 401;
+    throw error;
+  }
+}
 
 // Initialize MongoDB and start server
 async function startServer() {

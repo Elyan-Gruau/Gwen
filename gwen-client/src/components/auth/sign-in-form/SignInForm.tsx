@@ -8,6 +8,7 @@ import Input from '../../reusable/input/Input';
 import Button from '../../reusable/button/Button';
 import styles from './SignInForm.module.scss';
 import { useRegister } from 'gwen-generated-api';
+import { persistAuthToken } from '../../../hooks/apis/AuthAPI';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -48,6 +49,7 @@ export default function SignInForm() {
       },
       {
         onSuccess: (response) => {
+          persistAuthToken(response.token);
           setUser(response.user);
           navigate(ROUTES.HOME);
         },

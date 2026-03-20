@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { ROUTES } from '../../constants/routes';
-import { useGetUser } from 'gwen-generated-api';
+import { useGetCurrentUser } from 'gwen-generated-api';
+import Spinner from '../../components/spinner/Spinner';
 
 const ProfileMePage = () => {
   const { user } = useAuth();
-
   if (!user) {
     return <UserNotLoggedInProfile />;
   }
@@ -32,7 +32,16 @@ interface UserProfileProps {
 }
 
 const UserProfile = ({ userId }: UserProfileProps) => {
-  const { data: currentUser } = useGetUser(userId);
+  const { data: currentUser, isLoading } = useGetCurrentUser();
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (!currentUser) {
+    return <div> Current user not found.</div>;
+  }
+
   return (
     <div>
       <h1>My Profile</h1>

@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
+import { Body, Controller, Get, Path, Post, Request, Response, Route, Security, SuccessResponse, Tags } from 'tsoa';
+import type { Request as ExpressRequest } from 'express';
 import { AuthService } from '../services/AuthService.js';
 import { UserService } from '../services/UserService.js';
 import { PasswordHasher } from '../services/PasswordHasher.js';
@@ -66,6 +67,43 @@ export class AuthController extends Controller {
       }
 
       return this.throwHttpError('Unexpected error while registering user', 500);
+    }
+  }
+
+  @Get('me')
+  @Security('jwt')
+  @SuccessResponse('200', 'Current user fetched')
+  @Response('401', 'Unauthorized')
+  public async getCurrentUser(@Request() request: ExpressRequest): Promise<DTOUser> {
+    try {
+      const authHeader = request.headers['authorization'];
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return this.throwHttpError('Missing or invalid Authorization header', 401);
+      }
+
+      const token = authHeader.substring('Bearer '.length);
+      const userId = jwtService.extractUserId(token);
+
+      if (!userId) {
+        return this.throwHttpError('Invalid token payload', 401);
+      }
+
+      const user = await userService.getUserById(userId);
+
+      return {
+        _id: user._id?.toString() || '',
+        username: user.username,
+        email: user.email,
+        bio: user.bio || '',
+        profilePictureUrl: user.profilePictureUrl,
+        elo: user.elo || 1200,
+      };
+    } catch (error) {
+      if (error instanceof UserNotFoundException) {
+        return this.throwHttpError('User not found', 404);
+      }
+
+      return this.throwHttpError('Unexpected error while fetching current user', 500);
     }
   }
 

@@ -1,54 +1,26 @@
-// import { useMutation } from '@tanstack/react-query';
-// import { AuthApi } from 'gwen-generated-api';
-// import type { LoginRequestDTO, RegisterRequestDTO, AuthResponseDTO } from 'gwen-generated-api';
-// import { API_BASE_URL } from '../../constants/api';
-//
-// // Créer une instance unique de l'API Auth
-// const authApi = new AuthApi(API_BASE_URL);
-//
-// /**
-//  * Hook pour se connecter
-//  */
-// export const useLogin = () => {
-//   return useMutation({
-//     mutationFn: async (credentials: LoginRequestDTO) => {
-//       const response = await authApi.login(credentials);
-//       // Sauvegarder le token si la connexion réussit
-//       if (response.token) {
-//         localStorage.setItem('authToken', response.token);
-//         authApi.setToken(response.token);
-//       }
-//       return response;
-//     },
-//   });
-// };
-//
-// /**
-//  * Hook pour s'inscrire
-//  */
-// export const useRegister = () => {
-//   return useMutation({
-//     mutationFn: async (data: RegisterRequestDTO) => {
-//       const response = await authApi.register(data);
-//       // Sauvegarder le token si l'inscription réussit
-//       if (response.token) {
-//         localStorage.setItem('authToken', response.token);
-//         authApi.setToken(response.token);
-//       }
-//       return response;
-//     },
-//   });
-// };
-//
+
+import axios from 'axios';
+
+const AUTH_TOKEN_KEY = 'authToken';
+
+/**
+ * Applique le token JWT à toutes les requêtes axios du client généré Orval.
+ */
+const setAxiosAuthToken = (token: string | null) => {
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common.Authorization;
+  }
+};
 
 /**
  * Initialiser le token depuis le localStorage au démarrage
  */
 export const initializeAuth = () => {
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem(AUTH_TOKEN_KEY);
   if (token) {
-    // authApi.setToken(token);
-    console.error('TO IMPLEMENT');
+    setAxiosAuthToken(token);
   }
 };
 
@@ -56,7 +28,16 @@ export const initializeAuth = () => {
  * Déconnecter l'utilisateur
  */
 export const logout = () => {
-  localStorage.removeItem('authToken');
-  // authApi.clearToken();
-  console.error('TO IMPLEMENT');
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  setAxiosAuthToken(null);
 };
+
+/**
+ * Enregistre un nouveau token (par exemple après login/register)
+ */
+export const persistAuthToken = (token: string) => {
+  localStorage.setItem(AUTH_TOKEN_KEY, token);
+  setAxiosAuthToken(token);
+};
+
+

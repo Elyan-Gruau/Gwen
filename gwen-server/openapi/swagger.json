@@ -706,6 +706,35 @@
 				}
 			}
 		},
+		"/auth/me": {
+			"get": {
+				"operationId": "GetCurrentUser",
+				"responses": {
+					"200": {
+						"description": "Current user fetched",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOUser"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
 		"/auth/users/{userId}": {
 			"get": {
 				"operationId": "GetUser",

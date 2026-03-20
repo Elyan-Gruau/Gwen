@@ -103,10 +103,13 @@ const DeckBuilder = () => {
     }
 
     saveDeck({
-      factionId: faction.getName(),
-      leaderCardId: userDeck.getLeader()?.getId() || null,
-      unitCardIds: userDeck.getUnitCards().map((c) => c.getId()),
-      specialCardIds: userDeck.getSpecialCards().map((c) => c.getId()),
+      userId: user._id,
+      data: {
+        factionId: faction.getName(),
+        unitCardIds: userDeck.getUnitCards().map((c) => c.getId()),
+        leaderCardId: userDeck.getLeader()?.getId() || null,
+        specialCardIds: userDeck.getSpecialCards().map((c) => c.getId()),
+      },
     });
   };
 
