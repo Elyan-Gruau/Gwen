@@ -10,10 +10,10 @@ export class Game {
   private playerRows: PlayerRows[];
   private weather: Weather;
 
-  constructor() {
+  constructor(player1: Player, player2: Player) {
     const datapack = new Datapack(THE_WITCHER_DATAPACK);
     this.phase = 'WAITING_FOR_PLAYERS';
-    this.players = [new Player('player1'), new Player('player2')];
+    this.players = [player1, player2];
     this.players[0].getDeck().addAllToHands(datapack.getFactions()[2].getUnits());
     this.playerRows = this.players.map((player) => new PlayerRows(player.getUserId()));
     this.weather = new Weather();
