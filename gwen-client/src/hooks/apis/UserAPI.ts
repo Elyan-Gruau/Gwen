@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { AuthApi } from 'gwen-generated-api';
-import type { UserDTO } from 'gwen-generated-api';
+
 import { API_BASE_URL } from '../../constants/api';
+import { AuthApi, type UserDTO } from 'gwen-generated-api';
 
 // Create a single instance of the Auth API
 const authApi = new AuthApi(API_BASE_URL);
@@ -24,4 +24,3 @@ export const useGetUser = (userId: string | null) => {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 };
-
