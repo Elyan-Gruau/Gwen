@@ -43,24 +43,25 @@ TODO
 - [x] Add a builder to build the real objects from the config.
 - [ ] Cache the images so that we don't have to load them every time.
 - [ ] Profile page
-  - [ ] Change username (if not already taken)
-  - [ ] Change password
-  - [ ] Change avatar
-  - [ ] See elo
+    - [ ] Change username (if not already taken)
+    - [ ] Change password
+    - [ ] Change avatar
+    - [ ] See elo
 - [ ] Matchmaking
-  - [ ] Elo based matchmaking (Ranked)
-  - [ ] Casual matchmaking
-    - [ ] Find a match
-    - [ ] Create a game
-    - [ ] Join a game
+    - [ ] Elo based matchmaking (Ranked)
+    - [ ] Casual matchmaking
+        - [ ] Find a match
+        - [ ] Create a game
+        - [ ] Join a game
 - [ ] Game logic
-  - [ ] Place a card
-  - [ ] Do the "Coin flip" to decide who starts
-  - [ ] End turn
-  - [ ] End game
-  - [ ] Implement game quit
-  - [ ] Implement surrender
-  - [ ] Implement rematch
+    - [ ] Place a card
+    - [ ] Do the "Coin flip" to decide who starts
+    - [ ] End turn
+    - [ ] End game
+    - [ ] Implement game quit
+    - [ ] Implement surrender
+    - [ ] Implement rematch
 - [ ] Add IA
-  - [ ] Very basic IA strategy (If, else)
-  - [ ] Use the IA when no opponent is found after 10seconds
+    - [ ] Very basic IA strategy (If, else)
+    - [ ] Use the IA when no opponent is found after 10seconds
+- [ ] Add light mode / dark mode switch, auto select from the os
