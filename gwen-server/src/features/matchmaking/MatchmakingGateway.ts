@@ -1,6 +1,7 @@
 import type { Server, Socket } from 'socket.io';
 import type { MatchmakingService } from './services/MatchmakingService.js';
 import type { UserService } from '../auth/services/UserService.js';
+import { GameManager } from '../game/services/GameManager.js';
 import {
   MATCHMAKING_FOUND,
   MATCHMAKING_JOIN,
@@ -13,12 +14,14 @@ import {
 export class MatchmakingGateway {
   // Map: userId → Socket.id (to retrieve connections)
   private userSockets: Map<string, string> = new Map();
+  private gameManager: GameManager;
 
   constructor(
     private io: Server,
     private matchmakingService: MatchmakingService,
     private userService: UserService,
   ) {
+    this.gameManager = GameManager.getInstance();
     this.setupListeners();
   }
 

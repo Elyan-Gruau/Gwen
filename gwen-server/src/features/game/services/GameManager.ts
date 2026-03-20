@@ -7,7 +7,17 @@ export type GameWithMetadata = {
 };
 
 export class GameManager {
+  private static instance: GameManager;
   private activeGames: Map<String, GameWithMetadata> = new Map();
+
+  private constructor() {}
+
+  public static getInstance(): GameManager {
+    if (!GameManager.instance) {
+      GameManager.instance = new GameManager();
+    }
+    return GameManager.instance;
+  }
 
   public getActiveGameById = (gameId: string): GameWithMetadata => {
     const maybeGame = this.activeGames.get(gameId);
