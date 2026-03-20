@@ -31,6 +31,89 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"DTOUser": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"bio": {
+						"type": "string"
+					},
+					"profilePictureUrl": {
+						"type": "string",
+						"nullable": true
+					},
+					"elo": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"_id",
+					"username",
+					"email",
+					"bio",
+					"elo"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DTOLoginResponse": {
+				"properties": {
+					"token": {
+						"type": "string"
+					},
+					"user": {
+						"$ref": "#/components/schemas/DTOUser"
+					}
+				},
+				"required": [
+					"token",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginRequest": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"username"
+				],
+				"type": "object"
+			},
+			"RegisterRequest": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"email",
+					"username"
+				],
+				"type": "object"
 			}
 		},
 		"securitySchemes": {}
@@ -74,6 +157,113 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Login successful",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOLoginResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Invalid credentials"
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"200": {
+						"description": "Registration successful",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOLoginResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid registration payload"
+					},
+					"409": {
+						"description": "Username or email already exists"
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/users/{userId}": {
+			"get": {
+				"operationId": "GetUser",
+				"responses": {
+					"200": {
+						"description": "User found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOUser"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},
