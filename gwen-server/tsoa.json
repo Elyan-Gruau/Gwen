@@ -1,0 +1,25 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "silently-remove-extras",
+  "controllerPathGlobs": [
+    "src/features/**/*.ts"
+  ],
+  "spec": {
+    "outputDirectory": "openapi",
+    "specVersion": 3,
+    "basePath": "/api",
+    "schemes": ["http"],
+    "version": "1.0.0",
+    "name": "Gwen API",
+    "description": "Gwen game server API",
+    "contact": {
+      "name": "Gwen Team"
+    }
+  },
+  "routes": {
+    "routesDir": "src/routes",
+    "basePath": "/api",
+    "middleware": "express"
+  }
+}
+
