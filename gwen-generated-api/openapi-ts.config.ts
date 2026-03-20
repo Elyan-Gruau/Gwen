@@ -1,15 +1,15 @@
+// openapi-ts.config.ts
 import { defineConfig } from '@hey-api/openapi-ts';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  input: './openapi.json',
+  input: resolve(__dirname, './openapi.json'),
   output: {
-    path: './src/generated',
+    path: resolve(__dirname, './src/generated'),
     format: 'prettier',
-    lint: 'eslint',
   },
-  plugins: [
-    '@hey-api/typescript', // generate dtos
-    '@hey-api/services', // generate apis objects
-    // '@tanstack/react-query', // generate hooks
-  ],
+  plugins: ['@hey-api/typescript', '@hey-api/services'],
 });
