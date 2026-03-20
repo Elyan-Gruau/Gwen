@@ -2,7 +2,7 @@
   "entryFile": "src/index.ts",
   "noImplicitAdditionalProperties": "silently-remove-extras",
   "controllerPathGlobs": [
-    "src/features/**/*.ts"
+    "src/features/**/controllers/*Controller.ts"
   ],
   "spec": {
     "outputDirectory": "openapi",
