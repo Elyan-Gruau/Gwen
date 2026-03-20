@@ -4,8 +4,8 @@
   "private": true,
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.json",
-    "tsoa:spec": "tsoa spec -p ./tsoa.json",
+    "tsoa": "tsoa spec-and-routes -p ./tsoa.json",
+    "build": "npm run tsoa && tsc --project tsconfig.json",
     "dev": "npm run build && node dist/index.js",
     "start": "node dist/index.js",
     "lint": "eslint .",

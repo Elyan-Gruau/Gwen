@@ -17,9 +17,8 @@
     }
   },
   "routes": {
-    "routesDir": "src/routes",
+    "routesDir": "src/generated",
     "basePath": "/api",
     "middleware": "express"
   }
 }
-
