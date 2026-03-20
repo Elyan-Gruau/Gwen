@@ -32,6 +32,137 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"DTOGameStatus": {
+				"type": "string",
+				"enum": [
+					"ACTIVE",
+					"FINISHED",
+					"ABANDONED"
+				]
+			},
+			"DTOGame": {
+				"properties": {
+					"updated_at": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"winner_id": {
+						"type": "string",
+						"nullable": true
+					},
+					"status": {
+						"$ref": "#/components/schemas/DTOGameStatus"
+					},
+					"player2_id": {
+						"type": "string"
+					},
+					"player1_id": {
+						"type": "string"
+					},
+					"_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"winner_id",
+					"status",
+					"player2_id",
+					"player1_id",
+					"_id"
+				],
+				"type": "object"
+			},
+			"DTOFinishGameRequest": {
+				"properties": {
+					"winnerId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"winnerId"
+				],
+				"type": "object"
+			},
+			"DTOUserFactionDeck": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"user_id": {
+						"type": "string"
+					},
+					"faction_id": {
+						"type": "string"
+					},
+					"leader_card_id": {
+						"type": "string",
+						"nullable": true
+					},
+					"unit_card_ids": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"special_card_ids": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"user_id",
+					"faction_id",
+					"leader_card_id",
+					"unit_card_ids",
+					"special_card_ids"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DTOCreateUserFactionDeckRequest": {
+				"properties": {
+					"factionId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"factionId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DTOUpdateUserFactionDeckRequest": {
+				"properties": {
+					"leaderCardId": {
+						"type": "string",
+						"nullable": true
+					},
+					"unitCardIds": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"specialCardIds": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"DTOUser": {
 				"properties": {
 					"_id": {
@@ -157,6 +288,349 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/games/{gameId}": {
+			"get": {
+				"operationId": "GetGame",
+				"responses": {
+					"200": {
+						"description": "Game details",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGame"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/games/{gameId}/finish": {
+			"post": {
+				"operationId": "FinishGame",
+				"responses": {
+					"200": {
+						"description": "Game finished successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGame"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Missing winnerId"
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DTOFinishGameRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/games/{gameId}/abandon": {
+			"post": {
+				"operationId": "AbandonGame",
+				"responses": {
+					"200": {
+						"description": "Game abandoned successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGame"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/{userId}/decks": {
+			"get": {
+				"operationId": "GetUserFactionDecks",
+				"responses": {
+					"200": {
+						"description": "List of user faction decks",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/DTOUserFactionDeck"
+									},
+									"type": "array"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateUserFactionDeck",
+				"responses": {
+					"201": {
+						"description": "Faction deck created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOUserFactionDeck"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Missing factionId"
+					},
+					"409": {
+						"description": "Deck already exists for this faction"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DTOCreateUserFactionDeckRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/{userId}/decks/{factionId}": {
+			"get": {
+				"operationId": "GetUserFactionDeck",
+				"responses": {
+					"200": {
+						"description": "User faction deck",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOUserFactionDeck"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Deck not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "factionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateUserFactionDeck",
+				"responses": {
+					"200": {
+						"description": "Faction deck updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOUserFactionDeck"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Deck not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "factionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DTOUpdateUserFactionDeckRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteUserFactionDeck",
+				"responses": {
+					"204": {
+						"description": "Faction deck deleted"
+					},
+					"404": {
+						"description": "Deck not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "factionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/auth/login": {

@@ -32,6 +32,59 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"DTOGameStatus": {
+				"type": "string",
+				"enum": [
+					"ACTIVE",
+					"FINISHED",
+					"ABANDONED"
+				]
+			},
+			"DTOGame": {
+				"properties": {
+					"updated_at": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"winner_id": {
+						"type": "string",
+						"nullable": true
+					},
+					"status": {
+						"$ref": "#/components/schemas/DTOGameStatus"
+					},
+					"player2_id": {
+						"type": "string"
+					},
+					"player1_id": {
+						"type": "string"
+					},
+					"_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"winner_id",
+					"status",
+					"player2_id",
+					"player1_id",
+					"_id"
+				],
+				"type": "object"
+			},
+			"DTOFinishGameRequest": {
+				"properties": {
+					"winnerId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"winnerId"
+				],
+				"type": "object"
+			},
 			"DTOUserFactionDeck": {
 				"properties": {
 					"_id": {
@@ -235,6 +288,130 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/games/{gameId}": {
+			"get": {
+				"operationId": "GetGame",
+				"responses": {
+					"200": {
+						"description": "Game details",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGame"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/games/{gameId}/finish": {
+			"post": {
+				"operationId": "FinishGame",
+				"responses": {
+					"200": {
+						"description": "Game finished successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGame"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Missing winnerId"
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DTOFinishGameRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/games/{gameId}/abandon": {
+			"post": {
+				"operationId": "AbandonGame",
+				"responses": {
+					"200": {
+						"description": "Game abandoned successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGame"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/user/{userId}/decks": {
