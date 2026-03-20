@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format:fix": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
-    "generate-api": "npm run build && node ./scripts/generate-api.js"
+    "generate-api": "npm run build && node ./scripts/generate-api.js",
+    "postbuild": "cp openapi/swagger.json ../gwen-generated-api/openapi.json"
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
