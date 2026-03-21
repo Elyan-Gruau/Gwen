@@ -21,7 +21,7 @@ export class GameController extends Controller {
       return this.toGameWithMetadataDto(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
-        return this.throwHttpError('Active game not found', 404);
+        return this.throwHttpError(`Active game with ${gameId} not found`, 404);
       }
       return this.throwHttpError('Failed to retrieve active game', 500);
     }
@@ -49,7 +49,10 @@ export class GameController extends Controller {
   @Response('400', 'Missing winnerId')
   @Response('404', 'Game not found')
   @Response('500', 'Server error')
-  public async finishGame(@Path() gameId: string, @Body() body: DTOFinishGameRequest): Promise<DTOGame> {
+  public async finishGame(
+    @Path() gameId: string,
+    @Body() body: DTOFinishGameRequest,
+  ): Promise<DTOGame> {
     try {
       if (!body?.winnerId) {
         return this.throwHttpError('winnerId is required', 400);
@@ -117,4 +120,3 @@ export class GameController extends Controller {
     throw httpError;
   }
 }
-

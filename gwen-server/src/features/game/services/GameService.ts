@@ -8,7 +8,7 @@ export class GameService {
     this.gameRepository = new GameRepository();
   }
 
-  public async createGame(player1Id: string, player2Id: string): Promise<{ _id: string }> {
+  public async createGame(player1Id: string, player2Id: string): Promise<DBGame> {
     // Create a new game object for the database
     const newGame: DBGame = {
       player1_id: player1Id,
@@ -20,10 +20,7 @@ export class GameService {
     };
 
     // Save the game to the database
-    const savedGame = await this.gameRepository.save(newGame);
-
-    // Return the game ID
-    return { _id: String(savedGame._id) };
+    return await this.gameRepository.save(newGame);
   }
 
   public async getGame(gameId: string): Promise<DBGame | null> {

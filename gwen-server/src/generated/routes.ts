@@ -42,6 +42,16 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"updated_at":{"dataType":"string"},"created_at":{"dataType":"string"},"winner_id":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"status":{"ref":"DTOGameStatus","required":true},"player2_id":{"dataType":"string","required":true},"player1_id":{"dataType":"string","required":true},"_id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "DTOGamePhase": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["WAITING_FOR_PLAYERS"]},{"dataType":"enum","enums":["REDRAW"]},{"dataType":"enum","enums":["FLIP_COIN"]},{"dataType":"enum","enums":["PLAY_CARDS"]},{"dataType":"enum","enums":["END"]}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "DTOGameWithMetadata": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"game":{"dataType":"nestedObjectLiteral","nestedProperties":{"players":{"dataType":"array","array":{"dataType":"nestedObjectLiteral","nestedProperties":{"passed":{"dataType":"boolean","required":true},"gems":{"dataType":"double","required":true},"userId":{"dataType":"string","required":true}}},"required":true},"phase":{"ref":"DTOGamePhase","required":true}},"required":true},"metadata":{"ref":"DTOGame","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOFinishGameRequest": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"winnerId":{"dataType":"string","required":true}},"validators":{}},
@@ -147,6 +157,36 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'getHealth',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: 200,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsGameController_getGameWithMetadataById: Record<string, TsoaRoute.ParameterSchema> = {
+                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
+        };
+        app.get('/api/games/:gameId/active',
+            ...(fetchMiddlewares<RequestHandler>(GameController)),
+            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.getGameWithMetadataById)),
+
+            async function GameController_getGameWithMetadataById(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_getGameWithMetadataById, request, response });
+
+                const controller = new GameController();
+
+              await templateService.apiHandler({
+                methodName: 'getGameWithMetadataById',
                 controller,
                 response,
                 next,
