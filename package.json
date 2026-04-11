@@ -38,6 +38,9 @@
     "format:check:common": "npm run format:check --workspace=gwen-common",
     "format:check:client": "npm run format:check --workspace=gwen-client",
     "format:check:server": "npm run format:check --workspace=gwen-server",
+    "test": "run-p test:client test:server",
+    "test:client": "npm run test --workspace=gwen-client",
+    "test:server": "npm run test --workspace=gwen-server",
     "clean": "./scripts/clean.sh"
   },
   "devDependencies": {
