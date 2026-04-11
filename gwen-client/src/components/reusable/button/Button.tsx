@@ -4,7 +4,7 @@ import styles from './Button.module.scss';
 type Variant = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'ghost';
 type Size = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
   fullWidth?: boolean;
