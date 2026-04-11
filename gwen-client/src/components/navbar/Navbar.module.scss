@@ -1,0 +1,47 @@
+@use '@styles/tokens' as tokens;
+
+.navbar {
+  background: tokens.$color-surface-raised;;
+  border-bottom: 2px solid tokens.$color-primary;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  gap: 2rem;
+}
+
+.logo {
+  cursor: pointer;
+  flex-shrink: 0;
+
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: tokens.$color-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+
+.navLinksContainer, .authLinksContainer {
+  display: flex;
+  gap: tokens.$spacing-md;
+}
