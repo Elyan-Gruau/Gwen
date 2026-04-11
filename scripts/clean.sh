@@ -16,5 +16,9 @@ find . -type d -name "node_modules" -exec rm -rf {} + 2>/dev/null || true
 echo "Removing tsconfig.tsbuildinfo ..."
 find . -type f -name "tsconfig.tsbuildinfo" -exec rm -rf {} + 2>/dev/null || true
 
+# Remove all docker images with volumes
+echo "Removing docker images/volumes ..."
+docker-compose down -v --remove-orphans
+
 echo "✅ Cleanup complete!"
 
