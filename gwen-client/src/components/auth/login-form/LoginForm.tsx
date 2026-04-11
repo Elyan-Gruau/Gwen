@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { useAuth } from '../../../contexts/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import { ROUTES } from '../../../constants/routes';
 import Input from '../../reusable/input/Input';
 import Button from '../../reusable/button/Button';
@@ -22,7 +22,7 @@ interface LoginFormValues {
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { setUser } = useAuthContext();
   const { mutate: login, isPending, isError, error } = useLogin();
 
   const handleSubmit = (values: LoginFormValues) => {

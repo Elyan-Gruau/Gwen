@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 import { ROUTES } from '../../constants/routes';
 
 interface ProtectedRouteProps {
@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { isInitialized, isAuthenticated } = useAuth();
+  const { isInitialized, isAuthenticated } = useAuthContext();
 
   // Attendre que l'authentification soit initialisée
   if (!isInitialized) {

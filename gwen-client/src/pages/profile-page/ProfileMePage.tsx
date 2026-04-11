@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 import { ROUTES } from '../../constants/routes';
 import { useGetCurrentUser } from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
 
 const ProfileMePage = () => {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   if (!user) {
     return <UserNotLoggedInProfile />;
   }

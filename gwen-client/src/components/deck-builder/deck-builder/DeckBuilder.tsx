@@ -9,7 +9,7 @@ import {
   UserFactionDeck,
 } from 'gwen-common';
 
-import { useAuth } from '../../../contexts/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import CardCollection from '../card-collection/CardCollection';
 import FactionLeaderSelector from '../faction-leader-selector/FactionLeaderSelector';
 import FactionSelector from '../faction-selector/FactionSelector';
@@ -23,7 +23,7 @@ import {
 } from 'gwen-generated-api';
 
 const DeckBuilder = () => {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const { mutate: saveDeck, isPending } = useCreateUserFactionDeck();
   const { mutate: updateDeck } = useUpdateUserFactionDeck();
 

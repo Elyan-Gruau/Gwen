@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import NavbarLayout from '../../components/layouts/navbar-layout/NavbarLayout';
 
 const ProfilePage = () => {
   const { userId } = useParams<{ userId: string }>();

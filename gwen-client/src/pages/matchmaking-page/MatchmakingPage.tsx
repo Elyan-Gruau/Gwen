@@ -1,10 +1,10 @@
 import { useMatchmaking } from '../../hooks/apis/MatckmakingAPI';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 
 const MatchmakingPage = () => {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const { isSearching, queuePosition, poolSize, leaveMatchmakingPool, joinMatchmakingPool } =
     useMatchmaking(user?._id!);
