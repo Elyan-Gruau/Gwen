@@ -41,7 +41,8 @@
     "test": "run-p test:client test:server",
     "test:client": "npm run test --workspace=gwen-client",
     "test:server": "npm run test --workspace=gwen-server",
-    "clean": "./scripts/clean.sh"
+    "clean-project": "./scripts/clean-project.sh",
+    "launch-project": "./scripts/launch-project.sh"
   },
   "devDependencies": {
     "eslint-config-prettier": "10.1.8",
