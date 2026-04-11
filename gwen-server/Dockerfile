@@ -7,6 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY gwen-common ./gwen-common
 COPY gwen-server ./gwen-server
+COPY gwen-generated-api ./gwen-generated-api
 
 # Install dependencies
 RUN npm ci
@@ -24,6 +25,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY gwen-common ./gwen-common
 COPY gwen-server ./gwen-server
+COPY gwen-generated-api ./gwen-generated-api
 
 # Install only production dependencies
 RUN npm ci --omit=dev
@@ -35,4 +37,3 @@ COPY --from=builder /app/gwen-server/dist ./gwen-server/dist
 EXPOSE 3000
 
 CMD ["npm", "start", "--workspace=gwen-server"]
-
