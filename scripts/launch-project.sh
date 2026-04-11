@@ -10,6 +10,6 @@ echo "Building the project..."
 npm run build --loglevel=error
 
 echo "Starting Docker containers..."
-docker compose up -d
+docker-compose up -d --build
 
 echo "Project launched successfully! \n Access the application at http://localhost:5173"
