@@ -1,9 +1,8 @@
 import { useParams } from 'react-router-dom';
 import GameView from '../../components/game-view/GameView';
 import { Game, Player } from 'gwen-common';
-import { useGetGameWithMetadataById } from 'gwen-generated-api';
+import { type DTOGameWithMetadata, useGetGameWithMetadataById } from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
-import type { DTOGameWithMetadata } from 'gwen-server/dist/features/game/dtos/DTOGame';
 
 const GamePage = () => {
   const { gameId } = useParams<{ gameId: string }>();
