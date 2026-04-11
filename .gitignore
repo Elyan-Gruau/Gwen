@@ -12,3 +12,4 @@ dist/
 .idea/copilotDiffState.xml
 /gwen-generated-api/src/generated
 /gwen-server/src/generated
+.env
