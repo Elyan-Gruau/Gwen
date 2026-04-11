@@ -35,6 +35,20 @@ export class UserService {
     return user;
   }
 
+  /**
+   * Get user by username
+   * @param username - the username
+   * @returns the user
+   * @throws UserNotFoundException if the user is not found
+   */
+  async getUserByUsername(username: string): Promise<DBUser> {
+    const user = await this.userRepository.findByUsername(username);
+    if (!user) {
+      throw new UserNotFoundException(username);
+    }
+    return user;
+  }
+
   async isUsernameTaken(username: string): Promise<boolean> {
     return this.userRepository.existsByUsername(username);
   }

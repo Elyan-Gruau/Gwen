@@ -21,6 +21,31 @@ export class AuthService {
     private readonly jwtExpiration: number,
   ) {}
 
+  private async loginByIdentifier(identifier: string, plainPassword: string): Promise<DBUser> {
+    // Try to find user by email first
+    let userExists = await this.userService.isEmailTaken(identifier);
+    let user: DBUser | null = null;
+
+    if (userExists) {
+      user = await this.userService.getUserByEmail(identifier);
+    } else {
+      // Try to find user by username
+      userExists = await this.userService.isUsernameTaken(identifier);
+      if (!userExists) {
+        console.error(`Login failed for identifier ${identifier}: user not found`);
+        throw new UserNotFoundException(identifier);
+      }
+      user = await this.userService.getUserByUsername(identifier);
+    }
+
+    if (!(await this.passwordHasher.verifyPassword(plainPassword, user.password))) {
+      console.error(`Login failed for identifier ${identifier}: invalid password`);
+      throw new InvalidCredentialException(identifier);
+    }
+
+    return user;
+  }
+
   /**
    * Authenticate user and return JWT token
    * @param login - username or email
@@ -29,11 +54,11 @@ export class AuthService {
    * @throws InvalidCredentialException if credentials are invalid
    */
   async login(login: string, password: string): Promise<DTOLoginResponse> {
-    const user = await this.loginByEmail(login, password);
+    const user = await this.loginByIdentifier(login, password);
 
     const token = this.jwtService.generateToken(user);
 
-    console.info(`User ${user.username} logged in successfully with email ${user.email}`);
+    console.info(`User ${user.username} logged in successfully with identifier ${login}`);
     return new DTOLoginResponse(
       token,
       user._id?.toString() || '',
@@ -42,21 +67,6 @@ export class AuthService {
       user.bio || '',
       user.elo || 1200,
     );
-  }
-
-  private async loginByEmail(email: string, plainPassword: string): Promise<DBUser> {
-    if (!(await this.userService.isEmailTaken(email))) {
-      console.error(`Login failed for email ${email}: user not found`);
-      throw new UserNotFoundException(email);
-    }
-
-    const user = await this.userService.getUserByEmail(email);
-    if (!(await this.passwordHasher.verifyPassword(plainPassword, user.password))) {
-      console.error(`Login failed for email ${email}: invalid password`);
-      throw new InvalidCredentialException(email);
-    }
-
-    return user;
   }
 
   async register(username: string, email: string, password: string): Promise<DTOLoginResponse> {

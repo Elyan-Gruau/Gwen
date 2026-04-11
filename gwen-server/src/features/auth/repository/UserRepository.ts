@@ -23,6 +23,10 @@ export class UserRepository {
     return UserModel.findOne({ email }).lean().exec();
   }
 
+  async findByUsername(username: string): Promise<DBUser | null> {
+    return UserModel.findOne({ username }).lean().exec();
+  }
+
   async existsByUsername(username: string): Promise<boolean> {
     const count = await UserModel.countDocuments({ username }).exec();
     return count > 0;
