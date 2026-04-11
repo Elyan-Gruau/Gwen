@@ -30,8 +30,14 @@
     "lint:common": "npm run lint --workspace=gwen-common",
     "lint:client": "npm run lint --workspace=gwen-client",
     "lint:server": "npm run lint --workspace=gwen-server",
-    "format:fix": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\"",
+    "format:fix": "run-p format:fix:common format:fix:client format:fix:server",
+    "format:fix:common": "npm run format:fix --workspace=gwen-common",
+    "format:fix:client": "npm run format:fix --workspace=gwen-client",
+    "format:fix:server": "npm run format:fix --workspace=gwen-server",
+    "format:check": "run-p format:check:common format:check:client format:check:server",
+    "format:check:common": "npm run format:check --workspace=gwen-common",
+    "format:check:client": "npm run format:check --workspace=gwen-client",
+    "format:check:server": "npm run format:check --workspace=gwen-server",
     "clean": "./scripts/clean.sh"
   },
   "devDependencies": {
