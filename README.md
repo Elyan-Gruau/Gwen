@@ -1,3 +1,4 @@
+[![CI](https://github.com/Elyan-Gruau/Gwen/actions/workflows/ci.yml/badge.svg)](https://github.com/Elyan-Gruau/Gwen/actions/workflows/ci.yml)
 # Gwen
 
 A gwent like game with parodic cards.
