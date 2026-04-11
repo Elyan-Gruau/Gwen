@@ -7,10 +7,10 @@ const MatchmakingPage = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const { isSearching, queuePosition, poolSize, leaveMatchmakingPool, joinMatchmakingPool } =
-    useMatchmaking(user?._id!);
+    useMatchmaking(user?.id!);
 
   // Auto join the matchmaking pool
-  if (user?._id && !isSearching) {
+  if (user?.id && !isSearching) {
     joinMatchmakingPool();
   }
 

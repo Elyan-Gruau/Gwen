@@ -11,7 +11,7 @@ const ProfileMePage = () => {
     return <UserNotLoggedInProfile />;
   }
 
-  return <UserProfile userId={user._id!} />;
+  return <UserProfile userId={user.id!} />;
 };
 
 const UserNotLoggedInProfile = () => {
@@ -46,7 +46,7 @@ const UserProfile = ({ userId }: UserProfileProps) => {
     <div>
       <h1>My Profile</h1>
       <p>
-        <strong>ID:</strong> {currentUser._id}
+        <strong>ID:</strong> {currentUser.id}
       </p>
       <p>
         <strong>Username:</strong> {currentUser.username}

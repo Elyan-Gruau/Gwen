@@ -36,11 +36,11 @@ const DeckBuilder = () => {
   const [userDeck, setUserDeck] = useState<UserFactionDeck>(() => new UserFactionDeck(faction));
 
   const { data: loadedDeckData, isLoading } = useGetUserFactionDeck(
-    user?._id || '',
+    user?.id || '',
     faction.getName(),
     {
       query: {
-        enabled: !!user?._id,
+        enabled: !!user?.id,
       },
     },
   );
@@ -114,7 +114,7 @@ const DeckBuilder = () => {
 
     saveDeck(
       {
-        userId: user._id,
+        userId: user.id,
         data: {
           factionId: faction.getName(),
         },
@@ -122,7 +122,7 @@ const DeckBuilder = () => {
       {
         onSuccess: () => {
           updateDeck({
-            userId: user._id,
+            userId: user.id,
             factionId: faction.getName(),
             data: {
               unitCardIds: userDeck.getUnitCards().map((c) => c.getId()),

@@ -62,7 +62,7 @@ describe('AuthService Integration Tests', () => {
       expect(result.token).toBeDefined();
       expect(result.user.username).toBe(username);
       expect(result.user.email).toBe(email);
-      expect(result.user._id).toBeDefined();
+      expect(result.user.id).toBeDefined();
       expect(result.user.elo).toBe(1200);
       expect(result.user.bio).toBe('');
 
@@ -178,7 +178,7 @@ describe('AuthService Integration Tests', () => {
       expect(result.token).toBeDefined();
       expect(result.user.email).toBe(email);
       expect(result.user.username).toBe('testuser');
-      expect(result.user._id).toBeDefined();
+      expect(result.user.id).toBeDefined();
 
       // Verify JWT token is valid
       const isValid = jwtService.validateToken(result.token, 'testuser');
@@ -213,7 +213,7 @@ describe('AuthService Integration Tests', () => {
       const tokenEmail = jwtService.extractClaim<string>(result.token, 'email');
 
       expect(username).toBe('testuser');
-      expect(userId).toBe(result.user._id);
+      expect(userId).toBe(result.user.id);
       expect(tokenEmail).toBe(email);
     });
 

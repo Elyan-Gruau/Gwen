@@ -1,5 +1,5 @@
 export interface DTOUser {
-  _id: string;
+  id: string;
   username: string;
   email: string;
   bio: string;
@@ -22,7 +22,7 @@ export class DTOLoginResponse {
   ) {
     this.token = token;
     this.user = {
-      _id: userId,
+      id: userId,
       username,
       email,
       bio,

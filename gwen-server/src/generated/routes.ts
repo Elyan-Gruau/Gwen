@@ -93,7 +93,7 @@ const models: TsoaRoute.Models = {
     "DTOUser": {
         "dataType": "refObject",
         "properties": {
-            "_id": {"dataType":"string","required":true},
+            "id": {"dataType":"string","required":true},
             "username": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true},
             "bio": {"dataType":"string","required":true},

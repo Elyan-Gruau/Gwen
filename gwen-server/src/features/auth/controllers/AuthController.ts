@@ -103,7 +103,7 @@ export class AuthController extends Controller {
       const user = await userService.getUserById(userId);
 
       return {
-        _id: user._id?.toString() || '',
+        id: user._id?.toString() || '',
         username: user.username,
         email: user.email,
         bio: user.bio || '',
@@ -127,7 +127,7 @@ export class AuthController extends Controller {
       const user = await userService.getUserById(userId);
 
       return {
-        _id: user._id?.toString() || '',
+        id: user._id?.toString() || '',
         username: user.username,
         email: user.email,
         bio: user.bio || '',
