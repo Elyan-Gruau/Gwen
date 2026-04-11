@@ -51,7 +51,7 @@ export class AuthService {
     }
 
     const user = await this.userService.getUserByEmail(email);
-    if (!this.passwordHasher.verifyPassword(plainPassword, user.password)) {
+    if (!(await this.passwordHasher.verifyPassword(plainPassword, user.password))) {
       console.error(`Login failed for email ${email}: invalid password`);
       throw new InvalidCredentialException(email);
     }
