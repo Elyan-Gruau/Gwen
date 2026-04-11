@@ -9,4 +9,3 @@ export interface DBGame {
   created_at?: Date;
   updated_at?: Date;
 }
-

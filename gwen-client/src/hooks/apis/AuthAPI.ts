@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 const AUTH_TOKEN_KEY = 'authToken';
@@ -39,5 +38,3 @@ export const persistAuthToken = (token: string) => {
   localStorage.setItem(AUTH_TOKEN_KEY, token);
   setAxiosAuthToken(token);
 };
-
-

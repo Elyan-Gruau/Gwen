@@ -56,14 +56,20 @@ RegisterRoutes(app);
 app.locals.io = io;
 
 // Authentication function used by tsoa for @Security('jwt')
-export async function expressAuthentication(request: Request, securityName: string, scopes?: string[]): Promise<any> {
+export async function expressAuthentication(
+  request: Request,
+  securityName: string,
+  scopes?: string[],
+): Promise<any> {
   if (securityName !== 'jwt') {
     throw new Error('Unsupported security scheme');
   }
 
   const authHeader = request.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    const error = new Error('Missing or invalid Authorization header') as Error & { status?: number };
+    const error = new Error('Missing or invalid Authorization header') as Error & {
+      status?: number;
+    };
     error.status = 401;
     throw error;
   }

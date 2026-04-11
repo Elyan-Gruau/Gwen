@@ -27,4 +27,3 @@ export type DTOGameWithMetadata = {
 export type DTOFinishGameRequest = {
   winnerId: string;
 };
-

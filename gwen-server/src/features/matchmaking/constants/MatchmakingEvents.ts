@@ -11,4 +11,3 @@ export const MATCHMAKING_EVENTS = {
   LEFT: 'matchmaking:left',
   FOUND: 'matchmaking:found',
 } as const;
-
