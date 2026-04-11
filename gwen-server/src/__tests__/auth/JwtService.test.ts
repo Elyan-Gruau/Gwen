@@ -105,7 +105,6 @@ describe('JwtService', () => {
       expect(isExpired).toBe(false);
     });
 
-
     it('should throw error for invalid token', () => {
       const invalidToken = 'invalid.token.here';
 
@@ -170,7 +169,3 @@ describe('JwtService', () => {
     });
   });
 });
-
-
-
-

@@ -196,7 +196,9 @@ describe('AuthService Integration Tests', () => {
       const email = 'testuser@example.com';
       const wrongPassword = 'wrongPassword123!';
 
-      await expect(authService.login(email, wrongPassword)).rejects.toThrow(InvalidCredentialException);
+      await expect(authService.login(email, wrongPassword)).rejects.toThrow(
+        InvalidCredentialException,
+      );
     });
 
     it('should generate valid JWT token with correct user data', async () => {
@@ -221,7 +223,9 @@ describe('AuthService Integration Tests', () => {
 
       // Try multiple times with wrong password
       for (let i = 0; i < 3; i++) {
-        await expect(authService.login(email, wrongPassword)).rejects.toThrow(InvalidCredentialException);
+        await expect(authService.login(email, wrongPassword)).rejects.toThrow(
+          InvalidCredentialException,
+        );
       }
 
       // Should still work with correct password
@@ -282,7 +286,7 @@ describe('AuthService Integration Tests', () => {
 
       // Get the user's ID for modification
       const user = await userService.getUserByEmail(email);
-      
+
       // Manually modify password in database by updating the document
       const UserModel = mongoose.model('User');
       await UserModel.findByIdAndUpdate(user._id, { password: 'tamperedPassword' });
@@ -292,6 +296,3 @@ describe('AuthService Integration Tests', () => {
     });
   });
 });
-
-
-
