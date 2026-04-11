@@ -3,13 +3,14 @@ services:
     image: mongo:7
     container_name: gwen-mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: gwen-user
-      MONGO_INITDB_ROOT_PASSWORD: gwen-password
-      MONGO_INITDB_DATABASE: gwen-db
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin_password
+      MONGO_INITDB_DATABASE: gwen
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+      - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -27,7 +28,7 @@ services:
     environment:
       PORT: 3000
       NODE_ENV: production
-      MONGODB_URI: mongodb://gwen-user:gwen-password@mongo:27017/gwen-db?authSource=admin
+      MONGODB_URI: mongodb://gwen_user:gwen_password@mongo:27017/gwen?authSource=admin
       JWT_SECRET: your-secret-key-change-in-production
       JWT_EXPIRATION: 3600000
     depends_on:
