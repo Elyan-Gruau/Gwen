@@ -16,7 +16,7 @@ export class UserFactionDeckService {
   async getOrCreateUserFactionDeck(userId: string, factionId: string): Promise<DBUserFactionDeck> {
     console.info('userID', userId, ' factionId', factionId);
     const existingDeck = await this.repository.findByUserIdAndFactionId(userId, factionId);
-    
+
     if (existingDeck) {
       return existingDeck;
     }
@@ -32,11 +32,11 @@ export class UserFactionDeckService {
     return this.repository.create(newDeck);
   }
 
-   async getUserFactionDecks(userId: string): Promise<DBUserFactionDeck[]> {
-     return this.repository.findAllByUserId(userId);
-   }
+  async getUserFactionDecks(userId: string): Promise<DBUserFactionDeck[]> {
+    return this.repository.findAllByUserId(userId);
+  }
 
-   async updateUserFactionDeck(deck: DBUserFactionDeck): Promise<DBUserFactionDeck> {
+  async updateUserFactionDeck(deck: DBUserFactionDeck): Promise<DBUserFactionDeck> {
     return this.repository.update(deck);
   }
 

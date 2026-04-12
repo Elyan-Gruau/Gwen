@@ -49,7 +49,6 @@ export class UserFactionDeckController extends Controller {
     }
   }
 
-
   @Put('{userId}/decks/{factionId}')
   @SuccessResponse('200', 'Faction deck updated')
   @Response('404', 'Deck not found')
