@@ -11,7 +11,6 @@ export class Faction {
   private readonly leaders: LeaderCard[];
   private readonly units: UnitCard[];
   private readonly neutrals: NeutralCard[];
-  private readonly neutralConfigs: Map<string, NeutralConfig>;
 
   constructor(config: FactionConfig, neutralUnits: UnitCardConfig[], neutrals: NeutralConfig[]) {
     this.name = config.name;
@@ -19,10 +18,16 @@ export class Faction {
     this.leaders = config.leaders.map((conf) => new LeaderCard(conf));
     this.units = config.units.map((conf) => new UnitCard(conf));
     this.units.push(...neutralUnits.map((conf) => new UnitCard(conf)));
-    this.neutralConfigs = new Map(neutrals.map((conf) => [conf.id, conf]));
-    this.neutrals = neutrals.flatMap((conf) =>
-      Array.from({ length: conf.count ?? 1 }, () => new NeutralCard(conf)),
-    );
+    this.neutrals = neutrals.flatMap((conf) => {
+      const count = conf.count ?? 1;
+      return Array.from({ length: count }, (_, index) => {
+        const modifiedConf: NeutralConfig = {
+          ...conf,
+          id: count > 1 ? `${conf.id}_${index}` : conf.id,
+        };
+        return new NeutralCard(modifiedConf);
+      });
+    });
   }
 
   getName(): string {
@@ -47,9 +52,5 @@ export class Faction {
 
   getPlayableCards(): (UnitCard | NeutralCard)[] {
     return [...this.units, ...this.neutrals];
-  }
-
-  getNeutralCardMaxCount(cardId: string): number {
-    return this.neutralConfigs.get(cardId)?.count ?? 1;
   }
 }

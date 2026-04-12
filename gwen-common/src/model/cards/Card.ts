@@ -4,8 +4,8 @@ export abstract class Card {
   protected readonly description: string;
   protected readonly imageUrl: string;
 
-  protected constructor(name: string, description: string, imageUrl: string) {
-    this.id = crypto.randomUUID();
+  protected constructor(id: string, name: string, description: string, imageUrl: string) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.imageUrl = imageUrl;
