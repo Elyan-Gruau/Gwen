@@ -68,7 +68,11 @@ export class UserFactionDeck {
   addSpecialCard(card: NeutralCard): AddCardResult {
     const belongsToFaction = this.faction.getNeutrals().some((c) => c.getId() === card.getId());
     if (!belongsToFaction) return 'NOT_IN_FACTION';
-    if (this.specialCards.some((c) => c.getId() === card.getId())) {
+    
+    const maxCount = this.faction.getNeutralCardMaxCount(card.getId());
+    const currentCount = this.specialCards.filter((c) => c.getId() === card.getId()).length;
+    
+    if (currentCount >= maxCount) {
       return 'ALREADY_IN_DECK';
     }
     if (this.specialCards.length >= USER_FACTION_DECK_RULES.MAX_SPECIAL_CARDS) {

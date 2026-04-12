@@ -6,6 +6,7 @@ export const MONSTERS: FactionConfig = {
   cardBackIconUrl: '/back/monsters_back.png',
   units: [
     {
+      id: 'arachas_1',
       name: 'Arachas',
       strength: 4,
       description: 'Summons all Arachas cards from your deck.',
@@ -15,6 +16,7 @@ export const MONSTERS: FactionConfig = {
       imageUrl: '/monsters/arachas_1.png',
     },
     {
+      id: 'arachas_2',
       name: 'Arachas',
       strength: 4,
       description: 'Summons all Arachas cards from your deck.',
@@ -24,6 +26,7 @@ export const MONSTERS: FactionConfig = {
       imageUrl: '/monsters/arachas_2.png',
     },
     {
+      id: 'arachas_3',
       name: 'Arachas',
       strength: 4,
       description: 'Summons all Arachas cards from your deck.',
@@ -34,6 +37,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'arachas_behemoth',
       name: 'Arachas Behemoth',
       strength: 6,
       description: 'Summons all Arachas Behemoth cards from your deck.',
@@ -44,6 +48,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'botchling',
       name: 'Botchling',
       strength: 4,
       description: 'No special ability.',
@@ -53,6 +58,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'celaeno_harpy',
       name: 'Celaeno Harpy',
       strength: 2,
       description: 'Can be placed on melee or ranged row.',
@@ -63,6 +69,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'cockatrice',
       name: 'Cockatrice',
       strength: 2,
       description: 'No special ability.',
@@ -72,6 +79,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'crone_brewess',
       name: 'Crone: Brewess',
       strength: 6,
       description: 'Summons all Crones from your deck.',
@@ -81,6 +89,7 @@ export const MONSTERS: FactionConfig = {
       imageUrl: '/monsters/crone_brewess.png',
     },
     {
+      id: 'crone_weavess',
       name: 'Crone: Weavess',
       strength: 6,
       description: 'Summons all Crones from your deck.',
@@ -90,6 +99,7 @@ export const MONSTERS: FactionConfig = {
       imageUrl: '/monsters/crone_weavess.png',
     },
     {
+      id: 'crone_whispess',
       name: 'Crone: Whispess',
       strength: 6,
       description: 'Summons all Crones from your deck.',
@@ -100,6 +110,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'draug',
       name: 'Draug',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -109,6 +120,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'earth_elemental',
       name: 'Earth Elemental',
       strength: 6,
       description: 'No special ability.',
@@ -118,6 +130,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'harpy',
       name: 'Harpy',
       strength: 2,
       description: 'Can be placed on melee or ranged row.',
@@ -128,6 +141,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'ice_giant',
       name: 'Ice Giant',
       strength: 5,
       description: 'No special ability.',
@@ -137,6 +151,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'imlerith',
       name: 'Imlerith',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -146,6 +161,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'kayran',
       name: 'Kayran',
       strength: 8,
       description: 'Hero. Adds +1 power to all cards in the same row.',
@@ -156,6 +172,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'leshen',
       name: 'Leshen',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -165,6 +182,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'nekker_1',
       name: 'Nekker',
       strength: 2,
       description: 'Summons all Nekker cards from your deck.',
@@ -174,6 +192,7 @@ export const MONSTERS: FactionConfig = {
       imageUrl: '/monsters/nekker_1.png',
     },
     {
+      id: 'nekker_2',
       name: 'Nekker',
       strength: 2,
       description: 'Summons all Nekker cards from your deck.',
@@ -183,6 +202,7 @@ export const MONSTERS: FactionConfig = {
       imageUrl: '/monsters/nekker_2.png',
     },
     {
+      id: 'nekker_3',
       name: 'Nekker',
       strength: 2,
       description: 'Summons all Nekker cards from your deck.',
@@ -193,6 +213,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'plague_maiden',
       name: 'Plague Maiden',
       strength: 5,
       description: 'No special ability.',
@@ -202,6 +223,7 @@ export const MONSTERS: FactionConfig = {
     },
 
     {
+      id: 'toad',
       name: 'Toad',
       strength: 7,
       description: 'Destroy strongest enemy ranged units if total ranged >= 10.',
@@ -213,30 +235,35 @@ export const MONSTERS: FactionConfig = {
   ],
   leaders: [
     {
+      id: 'eredin_king_of_the_wild_hunt',
       name: 'Eredin: King of the Wild Hunt',
       description: 'Pick any weather card from your deck and play it instantly.',
       imageUrl: '/monsters/eredin_king_of_the_wild_hunt.png',
       ability: 'PLAY_WEATHER_FROM_DECK',
     },
     {
+      id: 'eredin_commander_of_the_red_riders',
       name: 'Eredin: Commander of the Red Riders',
       description: 'Double the strength of all your Close Combat units.',
       imageUrl: '/monsters/eredin_commander_of_the_red_riders.png',
       ability: 'HORN_MELEE',
     },
     {
+      id: 'eredin_bringer_of_death',
       name: 'Eredin: Bringer of Death',
       description: 'Discard 2 cards and draw 1 card of your choice from your deck.',
       imageUrl: '/monsters/eredin_bringer_of_death.png',
       ability: 'DISCARD_AND_DRAW',
     },
     {
+      id: 'eredin_destroyer_of_worlds',
       name: 'Eredin: Destroyer of Worlds',
       description: 'Restore a card from your discard pile to your hand.',
       imageUrl: '/monsters/eredin_destroyer_of_worlds.png',
       ability: 'REVIVE_FROM_GRAVEYARD',
     },
     {
+      id: 'eredin_breacc_glas_the_treacherous',
       name: 'Eredin Bréacc Glas: The Treacherous',
       description: 'Doubles the strength of all spy cards (affects both players).',
       imageUrl: '/monsters/eredin_breacc_glas_the_treacherous.png',

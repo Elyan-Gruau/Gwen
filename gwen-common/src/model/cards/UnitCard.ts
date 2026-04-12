@@ -11,7 +11,7 @@ export class UnitCard extends Card {
   private strength: number;
 
   constructor(config: UnitCardConfig) {
-    super(config.name, config.description, config.imageUrl);
+    super(config.id, config.name, config.description, config.imageUrl);
     this.strength = config.strength;
     this.baseStrength = config.strength;
     this.isHero = config.isHero ?? false;

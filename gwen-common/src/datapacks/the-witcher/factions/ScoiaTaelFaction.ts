@@ -6,6 +6,7 @@ export const SCOIATAEL: FactionConfig = {
   cardBackIconUrl: '/back/scoiatael_back.jpg',
   units: [
     {
+      id: 'barclay_els',
       name: 'Barclay Els',
       strength: 6,
       description: 'Can be placed on melee or ranged row.',
@@ -15,6 +16,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/barclay_els.png',
     },
     {
+      id: 'ciaran_aep_easnillien',
       name: 'Ciaran aep Easnillien',
       strength: 3,
       description: 'Can be placed on melee or ranged row.',
@@ -24,6 +26,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/ciaran_aep_easnillien.png',
     },
     {
+      id: 'dennis_cranmer',
       name: 'Dennis Cranmer',
       strength: 6,
       description: 'No special ability.',
@@ -32,6 +35,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dennis_cranmer.png',
     },
     {
+      id: 'dol_blathanna_archer',
       name: 'Dol Blathanna Archer',
       strength: 4,
       description: 'No special ability.',
@@ -40,6 +44,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dol_blathanna_archer.png',
     },
     {
+      id: 'dol_blathanna_scout_1',
       name: 'Dol Blathanna Scout',
       strength: 6,
       description: 'Can be placed on melee or ranged row.',
@@ -49,6 +54,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dol_blathanna_scout_1.png',
     },
     {
+      id: 'dol_blathanna_scout_2',
       name: 'Dol Blathanna Scout',
       strength: 6,
       description: 'Can be placed on melee or ranged row.',
@@ -58,6 +64,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dol_blathanna_scout_2.png',
     },
     {
+      id: 'dol_blathanna_scout_3',
       name: 'Dol Blathanna Scout',
       strength: 6,
       description: 'Can be placed on melee or ranged row.',
@@ -67,6 +74,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dol_blathanna_scout_3.png',
     },
     {
+      id: 'dwarven_skirmisher_1',
       name: 'Dwarven Skirmisher',
       strength: 3,
       description: 'Summons all Dwarven Skirmisher cards from your deck.',
@@ -76,6 +84,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dwarven_skirmisher_1.png',
     },
     {
+      id: 'dwarven_skirmisher_2',
       name: 'Dwarven Skirmisher',
       strength: 3,
       description: 'Summons all Dwarven Skirmisher cards from your deck.',
@@ -85,6 +94,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dwarven_skirmisher_2.png',
     },
     {
+      id: 'dwarven_skirmisher_3',
       name: 'Dwarven Skirmisher',
       strength: 3,
       description: 'Summons all Dwarven Skirmisher cards from your deck.',
@@ -94,6 +104,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/dwarven_skirmisher_3.png',
     },
     {
+      id: 'elven_skirmisher_1',
       name: 'Elven Skirmisher',
       strength: 2,
       description: 'Summons all Elven Skirmisher cards from your deck.',
@@ -103,6 +114,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/elven_skirmisher_1.png',
     },
     {
+      id: 'elven_skirmisher_2',
       name: 'Elven Skirmisher',
       strength: 2,
       description: 'Summons all Elven Skirmisher cards from your deck.',
@@ -112,6 +124,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/elven_skirmisher_2.png',
     },
     {
+      id: 'elven_skirmisher_3',
       name: 'Elven Skirmisher',
       strength: 2,
       description: 'Summons all Elven Skirmisher cards from your deck.',
@@ -121,6 +134,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/elven_skirmisher_3.png',
     },
     {
+      id: 'filavandrel_aen_fidhail',
       name: 'Filavandrel aen Fidhail',
       strength: 6,
       description: 'Can be placed on melee or ranged row.',
@@ -130,6 +144,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/filavandrel_aen_fidhail.png',
     },
     {
+      id: 'havekar_healer_1',
       name: 'Havekar Healer',
       strength: 0,
       description: 'Resurrect a card from the discard pile.',
@@ -139,6 +154,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/havekar_healer_2.png',
     },
     {
+      id: 'havekar_healer_2',
       name: 'Havekar Healer',
       strength: 0,
       description: 'Resurrect a card from the discard pile.',
@@ -148,6 +164,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/havekar_healer_2.png',
     },
     {
+      id: 'havekar_healer_3',
       name: 'Havekar Healer',
       strength: 0,
       description: 'Resurrect a card from the discard pile.',
@@ -157,6 +174,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/havekar_healer_3.png',
     },
     {
+      id: 'havekar_smuggler_1',
       name: 'Havekar Smuggler',
       strength: 5,
       description: 'Summons all Havekar Smuggler cards from your deck.',
@@ -166,6 +184,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/havekar_smuggler_1.png',
     },
     {
+      id: 'havekar_smuggler_2',
       name: 'Havekar Smuggler',
       strength: 5,
       description: 'Summons all Havekar Smuggler cards from your deck.',
@@ -175,6 +194,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/havekar_smuggler_2.png',
     },
     {
+      id: 'havekar_smuggler_3',
       name: 'Havekar Smuggler',
       strength: 5,
       description: 'Summons all Havekar Smuggler cards from your deck.',
@@ -184,6 +204,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/havekar_smuggler_3.png',
     },
     {
+      id: 'milva',
       name: 'Milva',
       strength: 10,
       description: 'Gain +1 power for each card in the same row.',
@@ -193,6 +214,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/milva.png',
     },
     {
+      id: 'riordain',
       name: 'Riordain',
       strength: 1,
       description: 'No special ability.',
@@ -201,6 +223,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/riordain.png',
     },
     {
+      id: 'toruviel',
       name: 'Toruviel',
       strength: 2,
       description: 'No special ability.',
@@ -209,6 +232,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/toruviel.png',
     },
     {
+      id: 'vrihedd_brigade_recruit',
       name: 'Vrihedd Brigade Recruit',
       strength: 4,
       description: 'No special ability.',
@@ -217,6 +241,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/vrihedd_brigade_recruit.png',
     },
     {
+      id: 'vrihedd_brigade_veteran_1',
       name: 'Vrihedd Brigade Veteran',
       strength: 5,
       description: 'Can be placed on melee or ranged row.',
@@ -226,6 +251,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/vrihedd_brigade_veteran_1.png',
     },
     {
+      id: 'vrihedd_brigade_veteran_2',
       name: 'Vrihedd Brigade Veteran',
       strength: 5,
       description: 'Can be placed on melee or ranged row.',
@@ -235,6 +261,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/vrihedd_brigade_veteran_2.png',
     },
     {
+      id: 'yaevinn',
       name: 'Yaevinn',
       strength: 6,
       description: 'Can be placed on melee or ranged row.',
@@ -244,6 +271,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/yaevinn.png',
     },
     {
+      id: 'saesenthessis',
       name: 'Saesenthessis',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -252,6 +280,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/saesenthessis.png',
     },
     {
+      id: 'eithne',
       name: 'Eithné',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -260,6 +289,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/eithne.png',
     },
     {
+      id: 'isengrim_faoiltiarna',
       name: 'Isengrim Faoiltiarna',
       strength: 10,
       description: 'Hero with morale boost.',
@@ -269,6 +299,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/isengrim_faolitarna.png',
     },
     {
+      id: 'ida_emean_aep_sivney',
       name: 'Ida Emean aep Sivney',
       strength: 6,
       description: 'Hero. Immune to special cards and abilities.',
@@ -277,6 +308,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/ida_emean_aep_sivney.png',
     },
     {
+      id: 'iorveth',
       name: 'Iorveth',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -285,6 +317,7 @@ export const SCOIATAEL: FactionConfig = {
       imageUrl: '/scoiatael/iorveth.png',
     },
     {
+      id: 'schirru',
       name: 'Schirrú',
       strength: 8,
       description: 'Destroy enemy siege units if total siege >= 10.',
@@ -296,24 +329,28 @@ export const SCOIATAEL: FactionConfig = {
   ],
   leaders: [
     {
+      id: 'francesca_findabair_daisy_of_the_valley',
       name: 'Francesca Findabair – Daisy of the Valley',
       description: 'Draw an extra card at the beginning of the battle.',
       imageUrl: '/scoiatael/francesca_findabair_daisy_of_the_valle.png',
       ability: 'DRAW_EXTRA_CARD',
     },
     {
+      id: 'francesca_findabair_hope_of_the_aen_seidhe',
       name: 'Francesca Findabair – Hope of the Aen Seidhe',
       description: 'Move agile units to whichever row maximizes their strength.',
       imageUrl: '/scoiatael/francesca_findabair_hope_of_the_aen_seidhe.png',
       ability: 'OPTIMIZE_AGILE_UNITS',
     },
     {
+      id: 'francesca_findabair_pureblood_elf',
       name: 'Francesca Findabair – Pureblood Elf',
       description: 'Pick a Biting Frost card from your deck and play it instantly.',
       imageUrl: '/scoiatael/francesca_findabair_pureblood_elf.png',
       ability: 'PLAY_FROST_FROM_DECK',
     },
     {
+      id: 'francesca_findabair_queen_of_dol_blathanna',
       name: 'Francesca Findabair – Queen of Dol Blathanna',
       description:
         "Destroy your enemy's strongest Close Combat unit(s) if the combined strength of all his Close Combat units is 10 or more.",
@@ -321,6 +358,7 @@ export const SCOIATAEL: FactionConfig = {
       ability: 'SCORCH_MELEE',
     },
     {
+      id: 'francesca_findabair_the_beautiful',
       name: 'Francesca Findabair – The Beautiful',
       description: 'Doubles the strength of all your Ranged Combat units.',
       imageUrl: '/scoiatael/francesca_findabair_the_beautiful.png',

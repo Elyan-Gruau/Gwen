@@ -6,6 +6,7 @@ export const NORTHERN_REALMS: FactionConfig = {
   cardBackIconUrl: '/back/northern_realms_back.jpg',
   units: [
     {
+      id: 'vernon_roche',
       name: 'Vernon Roche',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -14,6 +15,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/vernon_roche.png',
     },
     {
+      id: 'john_natalis',
       name: 'John Natalis',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -22,6 +24,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/john_natalis.png',
     },
     {
+      id: 'philippa_eilhart',
       name: 'Philippa Eilhart',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -30,6 +33,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/philippa_eilhart.png',
     },
     {
+      id: 'esterad_thyssen',
       name: 'Esterad Thyssen',
       strength: 10,
       description: 'Hero. Immune to special cards and abilities.',
@@ -38,6 +42,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/esterad_thyssen.png',
     },
     {
+      id: 'yarpen_zigrin',
       name: 'Yarpen Zigrin',
       strength: 2,
       description: 'No special ability.',
@@ -46,6 +51,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/yarpen_zigrin.png',
     },
     {
+      id: 'prince_stennis',
       name: 'Prince Stennis',
       strength: 5,
       description: 'Spy. Place on opponent field and draw 2 cards.',
@@ -55,6 +61,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/prince_stennis.png',
     },
     {
+      id: 'sigismund_dijkstra',
       name: 'Sigismund Dijkstra',
       strength: 4,
       description: 'Spy. Place on opponent field and draw 2 cards.',
@@ -64,6 +71,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/sigismund_dijkstra.png',
     },
     {
+      id: 'thaler',
       name: 'Thaler',
       strength: 1,
       description: 'Spy. Place on opponent field and draw 2 cards.',
@@ -73,6 +81,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/thaler.png',
     },
     {
+      id: 'dun_banner_medic',
       name: 'Dun Banner Medic',
       strength: 5,
       description: 'Medic. Revive a non-hero unit from discard.',
@@ -82,6 +91,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/dun_banner_medic.png',
     },
     {
+      id: 'blue_stripes_commando_1',
       name: 'Blue Stripes Commando',
       strength: 4,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -91,6 +101,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/blue_stripes_commando_1.png',
     },
     {
+      id: 'blue_stripes_commando_2',
       name: 'Blue Stripes Commando',
       strength: 4,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -100,6 +111,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/blue_stripes_commando_2.png',
     },
     {
+      id: 'blue_stripes_commando_3',
       name: 'Blue Stripes Commando',
       strength: 4,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -109,6 +121,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/blue_stripes_commando_3.png',
     },
     {
+      id: 'crinfrid_reavers_dragon_hunter_1',
       name: 'Crinfrid Reavers Dragon Hunter',
       strength: 5,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -118,6 +131,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/crinfrid_reavers_1.png',
     },
     {
+      id: 'crinfrid_reavers_dragon_hunter_2',
       name: 'Crinfrid Reavers Dragon Hunter',
       strength: 5,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -127,6 +141,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/crinfrid_reavers_2.png',
     },
     {
+      id: 'crinfrid_reavers_dragon_hunter_3',
       name: 'Crinfrid Reavers Dragon Hunter',
       strength: 5,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -136,6 +151,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/crinfrid_reavers_3.png',
     },
     {
+      id: 'catapult_1',
       name: 'Catapult',
       strength: 8,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -145,6 +161,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/catapult_1.png',
     },
     {
+      id: 'catapult_2',
       name: 'Catapult',
       strength: 8,
       description: 'Tight Bond. Multiplies strength with identical cards.',
@@ -154,6 +171,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/catapult_2.png',
     },
     {
+      id: 'ballista_1',
       name: 'Ballista',
       strength: 6,
       description: 'No special ability.',
@@ -162,6 +180,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/ballista_1.png',
     },
     {
+      id: 'ballista_2',
       name: 'Ballista',
       strength: 6,
       description: 'No special ability.',
@@ -170,6 +189,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/ballista_2.png',
     },
     {
+      id: 'trebuchet_1',
       name: 'Trebuchet',
       strength: 6,
       description: 'No special ability.',
@@ -178,6 +198,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       imageUrl: '/northern-realms/trebuchet_1.png',
     },
     {
+      id: 'trebuchet_2',
       name: 'Trebuchet',
       strength: 6,
       description: 'No special ability.',
@@ -188,6 +209,7 @@ export const NORTHERN_REALMS: FactionConfig = {
   ],
   leaders: [
     {
+      id: 'foltest_the_siegemaster',
       name: 'Foltest – The Siegemaster',
       description:
         "Doubles the strength of all your Siege units (unless a Commander's Horn is also present on that row).",
@@ -195,12 +217,14 @@ export const NORTHERN_REALMS: FactionConfig = {
       ability: 'HORN_SIEGE',
     },
     {
+      id: 'foltest_king_of_temeria',
       name: 'Foltest – King of Temeria',
       description: 'Pick an Impenetrable Fog card from your deck and play it instantly.',
       imageUrl: '/northern-realms/foltest_king_of_temeria.png',
       ability: 'PLAY_FOG_FROM_DECK',
     },
     {
+      id: 'foltest_the_steel_forged',
       name: 'Foltest – The Steel-Forged',
       description:
         "Destroy your enemy's strongest Siege unit(s) if the combined strength of all his or her Siege units is 10 or more.",
@@ -208,6 +232,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       ability: 'SCORCH_SIEGE',
     },
     {
+      id: 'foltest_son_of_medell',
       name: 'Foltest – Son of Medell',
       description:
         "Destroy your enemy's strongest Ranged Combat unit(s) if the combined strength of all his or her Ranged Combat units is 10 or more.",
@@ -215,6 +240,7 @@ export const NORTHERN_REALMS: FactionConfig = {
       ability: 'SCORCH_RANGED',
     },
     {
+      id: 'foltest_lord_commander_of_the_north',
       name: 'Foltest – Lord Commander of the North',
       description: 'Clear any weather effects currently in play.',
       imageUrl: '/northern-realms/foltest_lord_commander_of_the_north.png',

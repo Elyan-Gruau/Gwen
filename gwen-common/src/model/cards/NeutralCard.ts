@@ -5,7 +5,7 @@ export class NeutralCard extends Card {
   private readonly type: NeutralType;
 
   constructor(config: NeutralConfig) {
-    super(config.name, config.description, config.imageUrl);
+    super(config.id, config.name, config.description, config.imageUrl);
     this.type = config.type;
   }
 

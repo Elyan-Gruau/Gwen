@@ -1,5 +1,6 @@
 import type { DatapackConfig } from '../types/game/DatapackConfig';
 import { Faction } from './Faction';
+import { validateAllCardIds } from '../utils/CardIdValidator';
 
 export class Datapack {
   private readonly name: string;
@@ -7,6 +8,8 @@ export class Datapack {
   private readonly factions: Faction[];
 
   constructor(config: DatapackConfig) {
+    validateAllCardIds(config);
+
     this.name = config.name;
     this.description = config.description;
     this.factions = config.factions.map(

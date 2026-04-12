@@ -6,30 +6,35 @@ export const NILFGAARD: FactionConfig = {
   cardBackIconUrl: '/back/nilfgaardian_empire_back.jpg',
   leaders: [
     {
+      id: 'emhyr_var_emreis_his_imperial_majesty',
       name: 'Emhyr var Emreis – His Imperial Majesty',
       description: 'Pick a Torrential Rain card from your deck and play it instantly.',
       imageUrl: '/nilfgaardian-empire/emhyr_var_emreis_his_imperial_majesty.png',
       ability: 'PLAY_RAIN_FROM_DECK',
     },
     {
+      id: 'emhyr_var_emreis_emperor_of_nilfgaard',
       name: 'Emhyr var Emreis – Emperor of Nilfgaard',
       description: "Look at 3 random cards from your opponent's hand.",
       imageUrl: '/nilfgaardian-empire/emhyr_var_emreis_emperor_of_nilfgaard.png',
       ability: 'SPY_OPPONENT_HAND',
     },
     {
+      id: 'emhyr_var_emreis_invader_of_the_north',
       name: 'Emhyr var Emreis – Invader of the North',
       description: 'Abilities that restore a unit restore a randomly chosen unit.',
       imageUrl: '/nilfgaardian-empire/emhyr_var_emreis_invader_of_the_north.png',
       ability: 'RANDOM_REVIVE',
     },
     {
+      id: 'emhyr_var_emreis_the_relentless',
       name: 'Emhyr var Emreis – The Relentless',
       description: "Draw a card from your opponent's discard pile.",
       imageUrl: '/nilfgaardian-empire/emhyr_var_emreis_the_relentless.png',
       ability: 'STEAL_FROM_GRAVEYARD',
     },
     {
+      id: 'emhyr_var_emreis_the_white_flame',
       name: 'Emhyr var Emreis – The White Flame',
       description: "Cancel your opponent's Leader Ability.",
       imageUrl: '/nilfgaardian-empire/emhyr_var_emreis_the_white_flame.png',
@@ -38,6 +43,7 @@ export const NILFGAARD: FactionConfig = {
   ],
   units: [
     {
+      id: 'albrich',
       name: 'Albrich',
       strength: 2,
       description: 'No special ability.',
@@ -46,6 +52,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/albrich.png',
     },
     {
+      id: 'assire_var_anahid',
       name: 'Assire var Anahid',
       strength: 6,
       description: 'Medic. Revive a non-hero unit from discard.',
@@ -55,6 +62,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/assire_var_anahid.png',
     },
     {
+      id: 'black_infantry_archer_1',
       name: 'Black Infantry Archer',
       strength: 10,
       description: 'No special ability.',
@@ -63,6 +71,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/black_infantry_archer_1.png',
     },
     {
+      id: 'black_infantry_archer_2',
       name: 'Black Infantry Archer',
       strength: 10,
       description: 'No special ability.',
@@ -71,6 +80,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/black_infantry_archer_2.png',
     },
     {
+      id: 'cahir_mawr_dyffryn_aep_ceallach',
       name: 'Cahir Mawr Dyffryn aep Ceallach',
       strength: 6,
       description: 'No special ability.',
@@ -79,6 +89,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/cahir_mawr_dyffryn_aep_ceallach.png',
     },
     {
+      id: 'cynthia',
       name: 'Cynthia',
       strength: 4,
       description: 'No special ability.',
@@ -87,6 +98,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/cynthia.png',
     },
     {
+      id: 'etolian_auxiliary_archers_1',
       name: 'Etolian Auxiliary Archers',
       strength: 4,
       description: 'Tight Bond.',
@@ -96,6 +108,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/etolian_auxiliary_archers_1.png',
     },
     {
+      id: 'etolian_auxiliary_archers_2',
       name: 'Etolian Auxiliary Archers',
       strength: 4,
       description: 'Tight Bond.',
@@ -105,6 +118,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/etolian_auxiliary_archers_2.png',
     },
     {
+      id: 'fringilla_vigo',
       name: 'Fringilla Vigo',
       strength: 6,
       description: 'No special ability.',
@@ -113,6 +127,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/fringilla_vigo.png',
     },
     {
+      id: 'heavy_zerrikanian_fire_scorpion',
       name: 'Heavy Zerrikanian Fire Scorpion',
       strength: 10,
       description: 'No special ability.',
@@ -121,6 +136,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/heavy_zerrikanian_fire_scorpion.png',
     },
     {
+      id: 'impera_brigade_guard_1',
       name: 'Impera Brigade Guard',
       strength: 3,
       description: 'Tight Bond.',
@@ -130,6 +146,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/impera_brigade_guard_1.png',
     },
     {
+      id: 'impera_brigade_guard_2',
       name: 'Impera Brigade Guard',
       strength: 3,
       description: 'Tight Bond.',
@@ -139,6 +156,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/impera_brigade_guard_2.png',
     },
     {
+      id: 'impera_brigade_guard_3',
       name: 'Impera Brigade Guard',
       strength: 3,
       description: 'Tight Bond.',
@@ -148,6 +166,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/impera_brigade_guard_3.png',
     },
     {
+      id: 'letho_of_gulet',
       name: 'Letho of Gulet',
       strength: 10,
       description: 'Hero.',
@@ -156,6 +175,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/letho_of_gulet.png',
     },
     {
+      id: 'menno_coehoorn',
       name: 'Menno Coehoorn',
       strength: 10,
       description: 'Hero Medic.',
@@ -165,6 +185,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/menno_coehoorn.png',
     },
     {
+      id: 'morvran_voorhis',
       name: 'Morvran Voorhis',
       strength: 10,
       description: 'Hero.',
@@ -173,6 +194,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/morvran_voorhis.png',
     },
     {
+      id: 'nausicaa_cavalry_rider_1',
       name: 'Nausicaa Cavalry Rider',
       strength: 2,
       description: 'Tight Bond.',
@@ -182,6 +204,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/nausicaa_cavalry_rider_1.png',
     },
     {
+      id: 'nausicaa_cavalry_rider_2',
       name: 'Nausicaa Cavalry Rider',
       strength: 2,
       description: 'Tight Bond.',
@@ -191,6 +214,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/nausicaa_cavalry_rider_2.png',
     },
     {
+      id: 'nausicaa_cavalry_rider_3',
       name: 'Nausicaa Cavalry Rider',
       strength: 2,
       description: 'Tight Bond.',
@@ -200,6 +224,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/nausicaa_cavalry_rider_3.png',
     },
     {
+      id: 'shilard_fitz_oesterlen',
       name: 'Shilard Fitz-Oesterlen',
       strength: 7,
       description: 'Spy. Place on opponent field and draw 2 cards.',
@@ -209,6 +234,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/shilard_fitz_oesterlen.png',
     },
     {
+      id: 'stefan_skellen',
       name: 'Stefan Skellen',
       strength: 9,
       description: 'Spy.',
@@ -218,6 +244,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/stefan_skellen.png',
     },
     {
+      id: 'tibor_eggebracht',
       name: 'Tibor Eggebracht',
       strength: 10,
       description: 'Hero.',
@@ -226,6 +253,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/tibor_eggebracht.png',
     },
     {
+      id: 'vattier_de_rideaux',
       name: 'Vattier de Rideaux',
       strength: 4,
       description: 'Spy.',
@@ -235,6 +263,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/vattier_de_rideaux.png',
     },
     {
+      id: 'young_emissary_1',
       name: 'Young Emissary',
       strength: 5,
       description: 'Tight Bond.',
@@ -244,6 +273,7 @@ export const NILFGAARD: FactionConfig = {
       imageUrl: '/nilfgaardian-empire/young_emissary_1.png',
     },
     {
+      id: 'young_emissary_2',
       name: 'Young Emissary',
       strength: 5,
       description: 'Tight Bond.',
