@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Path,
-  Post,
   Put,
   Response,
   Route,
@@ -13,7 +12,6 @@ import {
 } from 'tsoa';
 import { UserFactionDeckService } from '../services/UserFactionDeckService.js';
 import type {
-  DTOCreateUserFactionDeckRequest,
   DTOUpdateUserFactionDeckRequest,
   DTOUserFactionDeck,
 } from '../dtos/DTOUserFactionDeck.js';
@@ -38,49 +36,19 @@ export class UserFactionDeckController extends Controller {
 
   @Get('{userId}/decks/{factionId}')
   @SuccessResponse('200', 'User faction deck')
-  @Response('404', 'Deck not found')
   @Response('500', 'Server error')
-  public async getUserFactionDeck(
+  public async getOrCreateUserFactionDeck(
     @Path() userId: string,
     @Path() factionId: string,
   ): Promise<DTOUserFactionDeck> {
     try {
-      const deck = await userFactionDeckService.getUserFactionDeck(userId, factionId);
-      if (!deck) {
-        return this.throwHttpError('Deck not found', 404);
-      }
+      const deck = await userFactionDeckService.getOrCreateUserFactionDeck(userId, factionId);
       return this.toDto(deck);
     } catch (error) {
       return this.throwHttpError('Failed to fetch user faction deck', 500);
     }
   }
 
-  @Post('{userId}/decks')
-  @SuccessResponse('201', 'Faction deck created')
-  @Response('400', 'Missing factionId')
-  @Response('409', 'Deck already exists for this faction')
-  @Response('500', 'Server error')
-  public async createUserFactionDeck(
-    @Path() userId: string,
-    @Body() body: DTOCreateUserFactionDeckRequest,
-  ): Promise<DTOUserFactionDeck> {
-    try {
-      if (!body.factionId) {
-        return this.throwHttpError('factionId is required', 400);
-      }
-
-      const existingDeck = await userFactionDeckService.getUserFactionDeck(userId, body.factionId);
-      if (existingDeck) {
-        return this.throwHttpError('Deck already exists for this faction', 409);
-      }
-
-      const newDeck = await userFactionDeckService.createUserFactionDeck(userId, body.factionId);
-      this.setStatus(201);
-      return this.toDto(newDeck);
-    } catch (error) {
-      return this.throwHttpError('Failed to create user faction deck', 500);
-    }
-  }
 
   @Put('{userId}/decks/{factionId}')
   @SuccessResponse('200', 'Faction deck updated')

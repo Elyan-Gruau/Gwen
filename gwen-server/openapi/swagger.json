@@ -186,18 +186,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"DTOCreateUserFactionDeckRequest": {
-				"properties": {
-					"factionId": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"factionId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"DTOUpdateUserFactionDeckRequest": {
 				"properties": {
 					"leaderCardId": {
@@ -543,59 +531,11 @@
 						}
 					}
 				]
-			},
-			"post": {
-				"operationId": "CreateUserFactionDeck",
-				"responses": {
-					"201": {
-						"description": "Faction deck created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/DTOUserFactionDeck"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Missing factionId"
-					},
-					"409": {
-						"description": "Deck already exists for this faction"
-					},
-					"500": {
-						"description": "Server error"
-					}
-				},
-				"tags": [
-					"User Faction Decks"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "userId",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/DTOCreateUserFactionDeckRequest"
-							}
-						}
-					}
-				}
 			}
 		},
 		"/user/{userId}/decks/{factionId}": {
 			"get": {
-				"operationId": "GetUserFactionDeck",
+				"operationId": "GetOrCreateUserFactionDeck",
 				"responses": {
 					"200": {
 						"description": "User faction deck",
@@ -606,9 +546,6 @@
 								}
 							}
 						}
-					},
-					"404": {
-						"description": "Deck not found"
 					},
 					"500": {
 						"description": "Server error"

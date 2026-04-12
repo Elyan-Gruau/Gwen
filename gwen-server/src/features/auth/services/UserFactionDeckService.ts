@@ -9,25 +9,34 @@ export class UserFactionDeckService {
   }
 
   async getUserFactionDeck(userId: string, factionId: string): Promise<DBUserFactionDeck | null> {
+    console.info('userID', userId, ' factionId', factionId);
     return this.repository.findByUserIdAndFactionId(userId, factionId);
   }
 
-  async getUserFactionDecks(userId: string): Promise<DBUserFactionDeck[]> {
-    return this.repository.findAllByUserId(userId);
-  }
+  async getOrCreateUserFactionDeck(userId: string, factionId: string): Promise<DBUserFactionDeck> {
+    console.info('userID', userId, ' factionId', factionId);
+    const existingDeck = await this.repository.findByUserIdAndFactionId(userId, factionId);
+    
+    if (existingDeck) {
+      return existingDeck;
+    }
 
-  async createUserFactionDeck(userId: string, factionId: string): Promise<DBUserFactionDeck> {
-    const deck: DBUserFactionDeck = {
+    // Create empty deck if it doesn't exist
+    const newDeck: DBUserFactionDeck = {
       user_id: userId,
       faction_id: factionId,
       leader_card_id: null,
       unit_card_ids: [],
       special_card_ids: [],
     };
-    return this.repository.create(deck);
+    return this.repository.create(newDeck);
   }
 
-  async updateUserFactionDeck(deck: DBUserFactionDeck): Promise<DBUserFactionDeck> {
+   async getUserFactionDecks(userId: string): Promise<DBUserFactionDeck[]> {
+     return this.repository.findAllByUserId(userId);
+   }
+
+   async updateUserFactionDeck(deck: DBUserFactionDeck): Promise<DBUserFactionDeck> {
     return this.repository.update(deck);
   }
 

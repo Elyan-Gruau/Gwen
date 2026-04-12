@@ -108,3 +108,37 @@
   color: #e03e3e;
 }
 
+.autoSaveStatus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: tokens.$spacing-xs tokens.$spacing-md;
+  border-radius: tokens.$border-radius-pill;
+  font-size: tokens.$font-size-sm;
+  font-weight: tokens.$font-weight-bold;
+  margin-top: tokens.$spacing-xs;
+  transition: all 0.3s ease;
+}
+
+.saved {
+  background: rgba(46, 168, 74, 0.15);
+  border: 1px solid rgba(46, 168, 74, 0.5);
+  color: #2ea84a;
+}
+
+.saving {
+  background: rgba(66, 153, 225, 0.2);
+  border: 1px solid #4299e1;
+  color: #4299e1;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+

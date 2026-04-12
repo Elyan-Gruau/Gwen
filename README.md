@@ -67,6 +67,7 @@ TODO
     - [ ] Use the IA when no opponent is found after 10seconds
 - [ ] Add light mode / dark mode switch, auto select from the os
 - [ ] Lazyload each route.
+- [ ] Finish the deck builder. 
 
 ## Utilisation de l'IA dans le projet
 

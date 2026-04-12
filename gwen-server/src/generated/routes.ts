@@ -72,14 +72,6 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOCreateUserFactionDeckRequest": {
-        "dataType": "refObject",
-        "properties": {
-            "factionId": {"dataType":"string","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOUpdateUserFactionDeckRequest": {
         "dataType": "refObject",
         "properties": {
@@ -319,62 +311,31 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_getUserFactionDeck: Record<string, TsoaRoute.ParameterSchema> = {
+        const argsUserFactionDeckController_getOrCreateUserFactionDeck: Record<string, TsoaRoute.ParameterSchema> = {
                 userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
                 factionId: {"in":"path","name":"factionId","required":true,"dataType":"string"},
         };
         app.get('/api/user/:userId/decks/:factionId',
             ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getUserFactionDeck)),
+            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getOrCreateUserFactionDeck)),
 
-            async function UserFactionDeckController_getUserFactionDeck(request: ExRequest, response: ExResponse, next: any) {
+            async function UserFactionDeckController_getOrCreateUserFactionDeck(request: ExRequest, response: ExResponse, next: any) {
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_getUserFactionDeck, request, response });
+                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_getOrCreateUserFactionDeck, request, response });
 
                 const controller = new UserFactionDeckController();
 
               await templateService.apiHandler({
-                methodName: 'getUserFactionDeck',
+                methodName: 'getOrCreateUserFactionDeck',
                 controller,
                 response,
                 next,
                 validatedArgs,
                 successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_createUserFactionDeck: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"ref":"DTOCreateUserFactionDeckRequest"},
-        };
-        app.post('/api/user/:userId/decks',
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.createUserFactionDeck)),
-
-            async function UserFactionDeckController_createUserFactionDeck(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_createUserFactionDeck, request, response });
-
-                const controller = new UserFactionDeckController();
-
-              await templateService.apiHandler({
-                methodName: 'createUserFactionDeck',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 201,
               });
             } catch (err) {
                 return next(err);

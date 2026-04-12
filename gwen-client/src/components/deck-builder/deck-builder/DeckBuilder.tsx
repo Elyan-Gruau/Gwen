@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   Datapack,
   Faction,
@@ -13,19 +14,21 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import CardCollection from '../card-collection/CardCollection';
 import FactionLeaderSelector from '../faction-leader-selector/FactionLeaderSelector';
 import FactionSelector from '../faction-selector/FactionSelector';
-import Button from '../../reusable/button/Button';
 import styles from './DeckBuilder.module.scss';
 import {
   type DTOUserFactionDeck,
-  useCreateUserFactionDeck,
-  useGetUserFactionDeck,
+  useGetOrCreateUserFactionDeck,
   useUpdateUserFactionDeck,
 } from 'gwen-generated-api';
 
+const AUTOSAVE_DELAY_MS = 1000; // 1 second debounce
+
 const DeckBuilder = () => {
+  const queryClient = useQueryClient();
   const { user } = useAuthContext();
-  const { mutate: saveDeck, isPending } = useCreateUserFactionDeck();
-  const { mutate: updateDeck } = useUpdateUserFactionDeck();
+  const { mutate: updateDeck, isPending: isUpdating } = useUpdateUserFactionDeck();
+  const autosaveTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [isSavingIndicator, setIsSavingIndicator] = useState(false);
 
   const datapack = useMemo(() => new Datapack(THE_WITCHER_DATAPACK), []);
   const factions = datapack.getFactions();
@@ -35,7 +38,7 @@ const DeckBuilder = () => {
 
   const [userDeck, setUserDeck] = useState<UserFactionDeck>(() => new UserFactionDeck(faction));
 
-  const { data: loadedDeckData, isLoading } = useGetUserFactionDeck(
+  const { data: loadedDeckData, isLoading } = useGetOrCreateUserFactionDeck(
     user?.id || '',
     faction.getName(),
     {
@@ -51,9 +54,75 @@ const DeckBuilder = () => {
     }
   }, [loadedDeckData, isLoading, faction]);
 
+  const unitCount = userDeck.getNumberOfUnits();
+  const specialCount = userDeck.getSpecialCards().length;
+  const totalStrength = userDeck.getTotalUnitCardStrength();
+  const heroCount = userDeck.getHeroCards().length;
+  const isValid = userDeck.isValid();
+
+  const performAutosave = useCallback(() => {
+    if (!user || !userDeck) {
+      return;
+    }
+
+    const unitCardIds = userDeck.getUnitCards().map((c) => c.getId());
+    const leaderCardId = userDeck.getLeader()?.getId() || null;
+    const specialCardIds = userDeck.getSpecialCards().map((c) => c.getId());
+
+    console.log('Autosaving deck:', {
+      unitCardIds,
+      leaderCardId,
+      specialCardIds,
+      firstUnitId: unitCardIds[0],
+      totalUnits: unitCardIds.length,
+    });
+
+    setIsSavingIndicator(true);
+    updateDeck({
+      userId: user.id,
+      factionId: faction.getName(),
+      data: {
+        unitCardIds,
+        leaderCardId,
+        specialCardIds,
+      },
+    });
+    // Reset indicator after a short delay
+    setTimeout(() => {
+      setIsSavingIndicator(false);
+    }, 500);
+  }, [user, userDeck, faction, updateDeck]);
+
+  // Debounced autosave effect
+  useEffect(() => {
+    if (!user?.id) return;
+
+    // Clear existing timer
+    if (autosaveTimerRef.current) {
+      clearTimeout(autosaveTimerRef.current);
+    }
+
+    // Set new timer for autosave
+    autosaveTimerRef.current = setTimeout(() => {
+      performAutosave();
+    }, AUTOSAVE_DELAY_MS);
+
+    // Cleanup on unmount or when dependencies change
+    return () => {
+      if (autosaveTimerRef.current) {
+        clearTimeout(autosaveTimerRef.current);
+      }
+    };
+  }, [userDeck, performAutosave, user?.id]);
+
   const handleFactionChange = (index: number) => {
     setSelectedFactionIndex(index);
-    // Reset à une nouveau deck vide pour la faction
+    // Invalidate the previous faction's deck query to force a fresh fetch
+    // This ensures the new faction's deck data is fetched immediately
+    void queryClient.invalidateQueries({
+      queryKey: ['getOrCreateUserFactionDeck'],
+    });
+    // Reset to a new empty deck for the faction (temporary until data loads)
     setUserDeck(new UserFactionDeck(factions[index]));
   };
 
@@ -98,41 +167,6 @@ const DeckBuilder = () => {
       next.removeUnitCard(card.getId());
     }
     setUserDeck(next);
-  };
-
-  const unitCount = userDeck.getNumberOfUnits();
-  const specialCount = userDeck.getSpecialCards().length;
-  const totalStrength = userDeck.getTotalUnitCardStrength();
-  const heroCount = userDeck.getHeroCards().length;
-  const isValid = userDeck.isValid();
-
-  const handleSaveDeck = () => {
-    if (!user) {
-      alert('Vous devez être connecté pour sauvegarder un deck');
-      return;
-    }
-
-    saveDeck(
-      {
-        userId: user.id,
-        data: {
-          factionId: faction.getName(),
-        },
-      },
-      {
-        onSuccess: () => {
-          updateDeck({
-            userId: user.id,
-            factionId: faction.getName(),
-            data: {
-              unitCardIds: userDeck.getUnitCards().map((c) => c.getId()),
-              leaderCardId: userDeck.getLeader()?.getId() || null,
-              specialCardIds: userDeck.getSpecialCards().map((c) => c.getId()),
-            },
-          });
-        },
-      },
-    );
   };
 
   return (
@@ -192,17 +226,13 @@ const DeckBuilder = () => {
             <span
               className={`${styles.validBadge} ${isValid ? styles.validBadgeOk : styles.validBadgeKo}`}
             >
-              {isValid ? '✓ Deck valide' : '✗ Deck invalide'}
+              {isValid ? 'Valid deck' : 'Invalid deck'}
             </span>
-            <Button
-              onClick={handleSaveDeck}
-              variant="success"
-              size="md"
-              fullWidth
-              disabled={!isValid || isPending || !user}
+            <span
+              className={`${styles.autoSaveStatus} ${isSavingIndicator || isUpdating ? styles.saving : styles.saved}`}
             >
-              {isPending ? '💾 Sauvegarde...' : '💾 Sauvegarder le deck'}
-            </Button>
+              {isSavingIndicator || isUpdating ? 'Saving...' : 'Saved'}
+            </span>
           </div>
         </div>
 
@@ -217,25 +247,50 @@ const DeckBuilder = () => {
 };
 
 const fromDTOtoModel = (faction: Faction, loadedDeckData: DTOUserFactionDeck): UserFactionDeck => {
-  console.info('Loading user deck from) DTO:', loadedDeckData);
+  console.info('Loading user deck from DTO:', loadedDeckData);
   const newDeck = new UserFactionDeck(faction);
+  const playableCards = faction.getPlayableCards();
+  console.log(`Available cards in faction: ${playableCards.length}`);
+
+  // Log first few cards to see their IDs
+  console.log(
+    'Sample card IDs in faction:',
+    playableCards.slice(0, 3).map((c) => ({ id: c.getId(), name: (c as any).name || 'unknown' })),
+  );
 
   // Load units
   if (loadedDeckData.unit_card_ids && Array.isArray(loadedDeckData.unit_card_ids)) {
+    console.log(`Loading ${loadedDeckData.unit_card_ids.length} unit card IDs`);
+    console.log('First saved unit ID:', loadedDeckData.unit_card_ids[0]);
     loadedDeckData.unit_card_ids.forEach((cardId) => {
-      const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
-      if (card instanceof UnitCard) {
-        newDeck.addUnitCard(card);
+      const card = playableCards.find((c) => c.getId() === cardId);
+      if (card) {
+        if (card instanceof UnitCard) {
+          newDeck.addUnitCard(card);
+          console.log(`Added unit card: ${cardId}`);
+        } else {
+          console.warn(`Card ${cardId} found but is not a UnitCard:`, card);
+        }
+      } else {
+        console.warn(`Card not found: ${cardId}`);
       }
     });
   }
 
   // Load special cards
   if (loadedDeckData.special_card_ids && Array.isArray(loadedDeckData.special_card_ids)) {
+    console.log(`Loading ${loadedDeckData.special_card_ids.length} special card IDs`);
     loadedDeckData.special_card_ids.forEach((cardId) => {
-      const card = faction.getPlayableCards().find((c) => c.getId() === cardId);
-      if (card instanceof NeutralCard) {
-        newDeck.addSpecialCard(card);
+      const card = playableCards.find((c) => c.getId() === cardId);
+      if (card) {
+        if (card instanceof NeutralCard) {
+          newDeck.addSpecialCard(card);
+          console.log(`Added special card: ${cardId}`);
+        } else {
+          console.warn(`Card ${cardId} found but is not a NeutralCard:`, card);
+        }
+      } else {
+        console.warn(`Special card not found: ${cardId}`);
       }
     });
   }
@@ -245,9 +300,19 @@ const fromDTOtoModel = (faction: Faction, loadedDeckData: DTOUserFactionDeck): U
     const leader = faction.getLeaders().find((l) => l.getId() === loadedDeckData.leader_card_id);
     if (leader) {
       newDeck.setLeader(leader);
+      console.log(`Added leader: ${loadedDeckData.leader_card_id}`);
+    } else {
+      console.warn(`Leader not found: ${loadedDeckData.leader_card_id}`);
     }
   }
 
+  console.log(
+    'Final loaded deck:',
+    newDeck.getUnitCards().length,
+    'units,',
+    newDeck.getSpecialCards().length,
+    'specials',
+  );
   return newDeck;
 };
 
