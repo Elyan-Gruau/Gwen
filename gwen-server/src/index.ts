@@ -24,7 +24,7 @@ const io = new Server(httpServer, {
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI =
   process.env.MONGODB_URI ||
-  'mongodb://gwen-user:gwen-password@localhost:27017/gwen-db?authSource=admin';
+  'mongodb://gwen_user:gwen_password@localhost:27017/gwen?authSource=admin';
 
 const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
 const jwtExpiration = parseInt(process.env.JWT_EXPIRATION || '3600000', 10);
