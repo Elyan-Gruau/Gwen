@@ -3,10 +3,10 @@ import type { GameService } from '../../game/services/GameService.js';
 import { GameManager } from '../../game/services/GameManager';
 
 export class MatchmakingService {
-  // Map: userId → { userId, elo, timestamp }
+  // Map: userId → { userId, elo, timestamp, deckId }
   private readonly matchmakingPool: Map<
     string,
-    { userId: string; elo: number; timestamp: number }
+    { userId: string; elo: number; timestamp: number; deckId?: string }
   > = new Map();
 
   constructor(
@@ -14,12 +14,13 @@ export class MatchmakingService {
     private readonly gameService: GameService,
   ) {}
 
-  async joinPool(userId: string, elo: number) {
+  async joinPool(userId: string, elo: number, deckId?: string) {
     // Add user to the pool
     this.matchmakingPool.set(userId, {
       userId,
       elo,
       timestamp: Date.now(),
+      deckId,
     });
 
     // Search for opponent
@@ -31,7 +32,12 @@ export class MatchmakingService {
       this.matchmakingPool.delete(opponent.userId);
 
       // Create game
-      const game = await this.gameService.createGame(userId, opponent.userId);
+      const game = await this.gameService.createGame(
+        userId,
+        deckId || '',
+        opponent.userId,
+        opponent.deckId || '',
+      );
       GameManager.getInstance().activateGame(game);
 
       return {

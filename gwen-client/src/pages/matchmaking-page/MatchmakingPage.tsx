@@ -1,17 +1,20 @@
 import { useMatchmaking } from '../../hooks/apis/MatckmakingAPI';
 import { useAuthContext } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 
 const MatchmakingPage = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
   const { isSearching, queuePosition, poolSize, leaveMatchmakingPool, joinMatchmakingPool } =
     useMatchmaking(user?.id!);
 
-  // Auto join the matchmaking pool
-  if (user?.id && !isSearching) {
-    joinMatchmakingPool();
+  const deckId = (location.state as { deckId?: string })?.deckId;
+
+  // Auto join the matchmaking pool with the selected deck
+  if (user?.id && !isSearching && deckId) {
+    joinMatchmakingPool(deckId);
   }
 
   const handleCancel = () => {

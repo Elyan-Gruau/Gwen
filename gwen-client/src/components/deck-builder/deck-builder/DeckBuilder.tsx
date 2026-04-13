@@ -23,9 +23,11 @@ const AUTOSAVE_DELAY_MS = 1000; // 1 second debounce
 
 interface DeckBuilderProps {
   onDeckValidityChange?: (isValid: boolean) => void;
+  onDeckIdChange?: (deckId: string) => void;
 }
 
-const DeckBuilder = ({ onDeckValidityChange }: DeckBuilderProps = {}) => {
+// DeckBuilder component
+const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps = {}) => {
   const queryClient = useQueryClient();
   const { user } = useAuthContext();
   const { mutate: updateDeck, isPending: isUpdating } = useUpdateUserFactionDeck();
@@ -56,8 +58,12 @@ const DeckBuilder = ({ onDeckValidityChange }: DeckBuilderProps = {}) => {
       // Chargement depuis l'API → ne pas marquer le deck comme modifié par l'utilisateur
       setUserDeck(fromDTOtoModel(faction, loadedDeckData));
       setHasUserEditedDeck(false);
+      // Notify parent of the deck ID
+      if (onDeckIdChange && loadedDeckData._id) {
+        onDeckIdChange(loadedDeckData._id);
+      }
     }
-  }, [loadedDeckData, isLoading, faction]);
+  }, [loadedDeckData, isLoading, faction, onDeckIdChange]);
 
   const unitCount = userDeck.getNumberOfUnits();
   const specialCount = userDeck.getSpecialCards().length;

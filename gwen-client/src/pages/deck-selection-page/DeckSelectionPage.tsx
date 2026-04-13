@@ -14,6 +14,7 @@ const DeckSelectionPage = ({ onDeckSelected }: DeckSelectionPageProps) => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const [canPlayWithDeck, setCanPlayWithDeck] = useState(false);
+  const [selectedDeckId, setSelectedDeckId] = useState<string>('');
 
   if (!user) {
     navigate(ROUTES.LOGIN);
@@ -24,13 +25,13 @@ const DeckSelectionPage = ({ onDeckSelected }: DeckSelectionPageProps) => {
     if (onDeckSelected) {
       onDeckSelected();
     }
-    navigate(ROUTES.MATCHMAKING);
+    navigate(ROUTES.MATCHMAKING, { state: { deckId: selectedDeckId } });
   };
 
   return (
     <div className={styles.deckSelectionContainer}>
       <div className={styles.deckBuilderWrapper}>
-        <DeckBuilder onDeckValidityChange={setCanPlayWithDeck} />
+        <DeckBuilder onDeckValidityChange={setCanPlayWithDeck} onDeckIdChange={setSelectedDeckId} />
       </div>
 
       <div className={styles.playButtonContainer}>

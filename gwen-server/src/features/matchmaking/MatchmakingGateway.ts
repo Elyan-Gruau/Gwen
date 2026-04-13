@@ -33,7 +33,7 @@ export class MatchmakingGateway {
 
       // User joins the matchmaking queue
       socket.on(MATCHMAKING_JOIN, async (data) => {
-        const { userId } = data;
+        const { userId, deckId } = data;
 
         try {
           // Fetch user from database to get their ELO
@@ -59,7 +59,7 @@ export class MatchmakingGateway {
           this.userSockets.set(userId, socket.id);
 
           // Add user to the pool and search for opponent
-          const match = await this.matchmakingService.joinPool(userId, userElo);
+          const match = await this.matchmakingService.joinPool(userId, userElo, deckId);
 
           // Calculate position in queue
           const poolSize = this.matchmakingService.getPoolSize();

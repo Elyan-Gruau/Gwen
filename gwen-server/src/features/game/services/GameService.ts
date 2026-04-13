@@ -8,11 +8,18 @@ export class GameService {
     this.gameRepository = new GameRepository();
   }
 
-  public async createGame(player1Id: string, player2Id: string): Promise<DBGame> {
+  public async createGame(
+    player1Id: string,
+    player1DeckId: string,
+    player2Id: string,
+    player2DeckId: string,
+  ): Promise<DBGame> {
     // Create a new game object for the database
     const newGame: DBGame = {
       player1_id: player1Id,
+      player1_selected_deck_id: player1DeckId,
       player2_id: player2Id,
+      player2_selected_deck_id: player2DeckId,
       status: 'ACTIVE',
       winner_id: null,
       created_at: new Date(),
