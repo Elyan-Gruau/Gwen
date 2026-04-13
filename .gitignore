@@ -14,3 +14,4 @@ dist/
 /gwen-server/src/generated
 .env
 /gwen-generated-api
+/gwen-server/src/generated
