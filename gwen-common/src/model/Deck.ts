@@ -1,9 +1,10 @@
 import type { UnitCard } from './cards/UnitCard';
+import { type PlayableCard } from '../types/Card';
 
 export class Deck {
-  private hand: UnitCard[];
-  private discarded: UnitCard[];
-  private drawPile: UnitCard[];
+  private hand: PlayableCard[];
+  private discarded: PlayableCard[];
+  private drawPile: PlayableCard[];
 
   constructor() {
     this.hand = [];
@@ -11,7 +12,8 @@ export class Deck {
     this.drawPile = [];
   }
 
-  resurrectCard(card: UnitCard) {
+  resurrectCard(card: PlayableCard) {
+    //TODO only non hero unit can resurect
     const index = this.discarded.findIndex((c) => c.getId() === card.getId());
     if (index === -1) {
       throw new Error(`Card with id ${card.getId()} not found in dead hand`);
@@ -20,7 +22,7 @@ export class Deck {
     this.hand.push(card);
   }
 
-  drawRandomCard(): UnitCard {
+  drawRandomCard(): PlayableCard {
     if (this.drawPile.length === 0) {
       throw new Error('No more cards to draw');
     }
@@ -38,15 +40,19 @@ export class Deck {
     return this.hand.length === 0;
   }
 
-  getHand(): UnitCard[] {
+  getHand(): PlayableCard[] {
     return this.hand;
   }
 
-  getDiscarded(): UnitCard[] {
+  getDiscarded(): PlayableCard[] {
     return this.discarded;
   }
 
-  getPioche(): UnitCard[] {
+  getDrawPile(): PlayableCard[] {
     return this.drawPile;
+  }
+
+  setDrawPile(newDrawPile: PlayableCard[]) {
+    this.drawPile = [...newDrawPile];
   }
 }

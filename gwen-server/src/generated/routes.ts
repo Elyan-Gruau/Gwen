@@ -85,6 +85,18 @@ const models: TsoaRoute.Models = {
     },
   },
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  Player: {
+    dataType: 'refObject',
+    properties: {},
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  PlayerRows: {
+    dataType: 'refObject',
+    properties: {},
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   DTOGameWithMetadata: {
     dataType: 'refAlias',
     type: {
@@ -93,18 +105,10 @@ const models: TsoaRoute.Models = {
         game: {
           dataType: 'nestedObjectLiteral',
           nestedProperties: {
-            players: {
-              dataType: 'array',
-              array: {
-                dataType: 'nestedObjectLiteral',
-                nestedProperties: {
-                  passed: { dataType: 'boolean', required: true },
-                  gems: { dataType: 'double', required: true },
-                  userId: { dataType: 'string', required: true },
-                },
-              },
-              required: true,
-            },
+            player2Rows: { ref: 'PlayerRows', required: true },
+            player1Rows: { ref: 'PlayerRows', required: true },
+            player2: { ref: 'Player', required: true },
+            player1: { ref: 'Player', required: true },
             phase: { ref: 'DTOGamePhase', required: true },
           },
           required: true,

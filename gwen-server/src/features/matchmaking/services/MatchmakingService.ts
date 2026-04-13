@@ -12,7 +12,11 @@ export class MatchmakingService {
   constructor(
     private readonly userService: UserService,
     private readonly gameService: GameService,
-  ) {}
+    private readonly userFactionDeckService: UserFactionDeckService,
+  ) {
+    // Set the UserFactionDeckService on GameManager singleton
+    GameManager.getInstance().setUserFactionDeckService(userFactionDeckService);
+  }
 
   async joinPool(userId: string, elo: number, deckId?: string) {
     // Add user to the pool

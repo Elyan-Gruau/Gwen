@@ -14,7 +14,11 @@ export function initializeMatchmaking(
 ) {
   const gameManager = GameManager.getInstance();
 
-  const matchmakingService = new MatchmakingService(userService, gameService);
+  const matchmakingService = new MatchmakingService(
+    userService,
+    gameService,
+    userFactionDeckService,
+  );
   const matchmakingGateway = new MatchmakingGateway(
     io,
     matchmakingService,

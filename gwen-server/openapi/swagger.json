@@ -84,39 +84,41 @@
 					"END"
 				]
 			},
+			"Player": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PlayerRows": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"DTOGameWithMetadata": {
 				"properties": {
 					"game": {
 						"properties": {
-							"players": {
-								"items": {
-									"properties": {
-										"passed": {
-											"type": "boolean"
-										},
-										"gems": {
-											"type": "number",
-											"format": "double"
-										},
-										"userId": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"passed",
-										"gems",
-										"userId"
-									],
-									"type": "object"
-								},
-								"type": "array"
+							"player2Rows": {
+								"$ref": "#/components/schemas/PlayerRows"
+							},
+							"player1Rows": {
+								"$ref": "#/components/schemas/PlayerRows"
+							},
+							"player2": {
+								"$ref": "#/components/schemas/Player"
+							},
+							"player1": {
+								"$ref": "#/components/schemas/Player"
 							},
 							"phase": {
 								"$ref": "#/components/schemas/DTOGamePhase"
 							}
 						},
 						"required": [
-							"players",
+							"player2Rows",
+							"player1Rows",
+							"player2",
+							"player1",
 							"phase"
 						],
 						"type": "object"
