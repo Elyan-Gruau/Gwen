@@ -3,12 +3,12 @@ import type { UnitCard } from './cards/UnitCard';
 export class Deck {
   private hand: UnitCard[];
   private discarded: UnitCard[];
-  private pioche: UnitCard[];
+  private drawPile: UnitCard[];
 
   constructor() {
     this.hand = [];
     this.discarded = [];
-    this.pioche = [];
+    this.drawPile = [];
   }
 
   resurrectCard(card: UnitCard) {
@@ -21,11 +21,11 @@ export class Deck {
   }
 
   drawRandomCard(): UnitCard {
-    if (this.pioche.length === 0) {
+    if (this.drawPile.length === 0) {
       throw new Error('No more cards to draw');
     }
-    const randomIndex = Math.floor(Math.random() * this.pioche.length);
-    const card = this.pioche.splice(randomIndex, 1)[0];
+    const randomIndex = Math.floor(Math.random() * this.drawPile.length);
+    const card = this.drawPile.splice(randomIndex, 1)[0];
     this.hand.push(card);
     return card;
   }
@@ -47,6 +47,6 @@ export class Deck {
   }
 
   getPioche(): UnitCard[] {
-    return this.pioche;
+    return this.drawPile;
   }
 }
