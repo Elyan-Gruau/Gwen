@@ -6,16 +6,16 @@
   justify-content: space-between;
   gap: tokens.$spacing-md;
   padding: tokens.$spacing-sm tokens.$spacing-lg;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
   border-radius: tokens.$border-radius-md;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-surface-border);
 }
 
 
 .factionName {
   font-size: tokens.$font-size-lg;
   font-weight: tokens.$font-weight-bold;
-  color: tokens.$color-text-light;
+  color: var(--color-text-light);
   flex: 1;
   text-align: center;
 }

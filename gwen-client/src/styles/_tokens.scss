@@ -23,12 +23,21 @@ $color-warning-active: #a87200;
 $color-white: #ffffff;
 $color-text-light: #f1f3f5;
 $color-text-dark: #1a1a2e;
+$color-text-faded-light: #1a1a2e88;
+$color-text-faded: #f1f3f588;
 
 $color-surface-sunken: #060606;
 $color-surface-raised: #131313;
+$color-surface-raised-light: #f5f5f5;
 $color-gold-1: #4e4330;
 $color-icon-default: #453f37;
 $color-board-default: #391a09;
+
+$color-surface: #FFFFFF11;
+$color-surface-light: #00000011;
+
+$color-surface-border: #FFFFFF33;
+$color-surface-border-light: #00000033;
 
 // ─── Typography ──────────────────────────────────────────────────────────────
 
@@ -64,3 +73,23 @@ $transition-base: 200ms ease;
 $shadow-sm: 0 1px 0.25rem rgba(0, 0, 0, 0.15);
 $shadow-md: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
 
+/* Export CSS custom properties for runtime theming */
+:root {
+	--color-surface-raised: #{$color-surface-raised};
+    --color-surface: #{$color-surface};
+    --color-surface-border: #{$color-surface-border};
+	--color-text-light: #{$color-text-light};
+	--color-text-dark: #{$color-text-dark};
+    --color-text-faded: #{$color-text-faded};
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--color-surface-raised: #{$color-surface-raised-light};
+        --color-surface: #{$color-surface-light};
+		--color-surface-border: #{$color-surface-border-light};
+		--color-text-light: #{$color-text-dark};
+		--color-text-dark: #{$color-text-light};
+        --color-text-faded: #{$color-text-faded-light};
+	}
+}

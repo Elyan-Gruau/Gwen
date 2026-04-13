@@ -24,7 +24,7 @@ $col-gap: tokens.$spacing-sm;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: tokens.$border-radius-pill;
   background: transparent;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-light);
   font-family: tokens.$font-family-base;
   font-size: tokens.$font-size-sm;
   font-weight: tokens.$font-weight-medium;
@@ -32,11 +32,6 @@ $col-gap: tokens.$spacing-sm;
   transition: background-color tokens.$transition-fast,
   color tokens.$transition-fast,
   border-color tokens.$transition-fast;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.9);
-  }
 }
 
 .filterBtnActive {
@@ -61,10 +56,11 @@ $col-gap: tokens.$spacing-sm;
   flex: 1;
   align-content: start;
   padding-right: tokens.$spacing-xs;
+  padding-top: tokens.$spacing-xs;
 
   // Scrollbar
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-color: tokens.$color-secondary transparent;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -75,7 +71,7 @@ $col-gap: tokens.$spacing-sm;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: tokens.$color-secondary-active;
     border-radius: tokens.$border-radius-pill;
   }
 }

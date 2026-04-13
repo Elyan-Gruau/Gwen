@@ -8,16 +8,15 @@
   gap: tokens.$spacing-sm;
   width: 100%;
   padding: tokens.$spacing-lg;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border: 1px dashed var(--color-surface-border);
   border-radius: tokens.$border-radius-lg;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-surface);
   cursor: pointer;
   transition: background tokens.$transition-fast, border-color tokens.$transition-fast;
   box-sizing: border-box;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.35);
+    border-color: var(--color-text-light);
   }
 }
 
@@ -29,7 +28,7 @@
 .placeholderLabel {
   font-family: tokens.$font-family-base;
   font-size: tokens.$font-size-md;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--color-text-faded);
 }
 
 .selector {
@@ -37,6 +36,7 @@
   flex-direction: column;
   gap: tokens.$spacing-md;
   width: 100%;
+  padding-top: tokens.$spacing-xs;
 }
 
 .selectorHeader {
@@ -51,7 +51,7 @@
   font-family: tokens.$font-family-base;
   font-size: tokens.$font-size-md;
   font-weight: tokens.$font-weight-bold;
-  color: tokens.$color-text-light;
+  color: var(--color-text-light);
 }
 
 .selectedLeader {
@@ -62,13 +62,9 @@
   cursor: pointer;
   padding: tokens.$spacing-sm;
   border-radius: tokens.$border-radius-lg;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(201, 168, 76, 0.3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-surface-border);
   transition: background tokens.$transition-fast;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.07);
-  }
 }
 
 .selectedLeaderName {
@@ -82,13 +78,13 @@
   width: 100%;
   min-height: 64px;
   padding: tokens.$spacing-md;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-surface-border);
   border-radius: tokens.$border-radius-md;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--color-surface);
   box-sizing: border-box;
   font-family: tokens.$font-family-base;
   font-size: tokens.$font-size-sm;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--color-text-faded);
   font-style: italic;
 }
 
@@ -96,12 +92,12 @@
   text-align: center;
   font-family: tokens.$font-family-base;
   font-size: tokens.$font-size-sm;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--color-text-faded);
 
   kbd {
     display: inline-block;
     padding: 1px 6px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--color-surface-border);
     border-radius: tokens.$border-radius-sm;
     font-size: 0.7rem;
   }

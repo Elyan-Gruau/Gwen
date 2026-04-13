@@ -46,7 +46,7 @@
   font-family: tokens.$font-family-base;
   font-size: tokens.$font-size-lg;
   font-weight: tokens.$font-weight-bold;
-  color: tokens.$color-text-light;
+  color: var(--color-text-light);
   flex-shrink: 0;
 }
 
@@ -57,6 +57,14 @@
   gap: tokens.$spacing-lg;
   width: 260px;
   flex-shrink: 0;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: tokens.$color-secondary transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
 }
 
 
@@ -65,8 +73,8 @@
   flex-direction: column;
   gap: tokens.$spacing-sm;
   padding: tokens.$spacing-md;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-surface-border);
   border-radius: tokens.$border-radius-lg;
   margin-bottom: tokens.$spacing-md;
 }
@@ -77,12 +85,12 @@
   align-items: center;
   font-family: tokens.$font-family-base;
   font-size: tokens.$font-size-md;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-text-faded);
 }
 
 .statValue {
   font-weight: tokens.$font-weight-bold;
-  color: tokens.$color-text-light;
+  color: var(--color-text-light);
 }
 
 .validBadge {
