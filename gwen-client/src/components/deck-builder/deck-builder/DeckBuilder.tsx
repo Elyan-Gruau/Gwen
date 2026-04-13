@@ -17,6 +17,7 @@ import FactionSelector from '../faction-selector/FactionSelector';
 import styles from './DeckBuilder.module.scss';
 import { useGetOrCreateUserFactionDeck, useUpdateUserFactionDeck } from 'gwen-generated-api';
 import { fromDTOtoModel } from './UserFactionDeckMapper';
+import Spinner from '../../spinner/Spinner';
 
 const AUTOSAVE_DELAY_MS = 1000; // 1 second debounce
 
@@ -177,7 +178,7 @@ const DeckBuilder = () => {
     <div className={styles.deckBuilder}>
       {isLoading && (
         <div className={styles.loadingOverlay}>
-          <p>Loading deck...</p>
+          <Spinner />
         </div>
       )}
 
