@@ -14,6 +14,7 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import CardCollection from '../card-collection/CardCollection';
 import FactionLeaderSelector from '../faction-leader-selector/FactionLeaderSelector';
 import FactionSelector from '../faction-selector/FactionSelector';
+import FavoriteDeckToggle from './FavoriteDeckToggle';
 import styles from './DeckBuilder.module.scss';
 import { useGetOrCreateUserFactionDeck, useUpdateUserFactionDeck } from 'gwen-generated-api';
 import { fromDTOtoModel } from './UserFactionDeckMapper';
@@ -206,29 +207,30 @@ const DeckBuilder = () => {
 
           <div className={styles.deckStats}>
             <div className={styles.statRow}>
-              <span>Unités</span>
+              <span>Units</span>
               <span className={styles.statValue}>
                 {unitCount} / {USER_FACTION_DECK_RULES.MIN_UNIT_CARDS} min
               </span>
             </div>
             <div className={styles.statRow}>
-              <span>Spéciaux</span>
+              <span>Specials</span>
               <span className={styles.statValue}>
                 {specialCount} / {USER_FACTION_DECK_RULES.MAX_SPECIAL_CARDS} max
               </span>
             </div>
             <div className={styles.statRow}>
-              <span>Héros</span>
+              <span>Heros</span>
               <span className={styles.statValue}>{heroCount}</span>
             </div>
             <div className={styles.statRow}>
-              <span>Force totale</span>
+              <span>Total strength</span>
               <span className={styles.statValue}>{totalStrength}</span>
             </div>
             <div className={styles.statRow}>
-              <span>Total cartes</span>
+              <span>Total cards</span>
               <span className={styles.statValue}>{userDeck.getTotalCards()}</span>
             </div>
+            <FavoriteDeckToggle userId={user?.id} factionName={faction.getName()} />
             <span
               className={`${styles.validBadge} ${isValid ? styles.validBadgeOk : styles.validBadgeKo}`}
             >
