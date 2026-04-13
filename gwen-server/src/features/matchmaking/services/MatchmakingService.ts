@@ -1,6 +1,5 @@
 import type { UserService } from '../../auth/services/UserService.js';
 import type { GameService } from '../../game/services/GameService.js';
-import { DBGame } from '../../game/model/DBGame';
 import { GameManager } from '../../game/services/GameManager';
 
 export class MatchmakingService {
@@ -34,6 +33,12 @@ export class MatchmakingService {
       // Create game
       const game = await this.gameService.createGame(userId, opponent.userId);
       GameManager.getInstance().activateGame(game);
+
+      return {
+        player1: userId,
+        player2: opponent.userId,
+        gameId: game._id?.toString() || '',
+      };
     }
 
     return null;
