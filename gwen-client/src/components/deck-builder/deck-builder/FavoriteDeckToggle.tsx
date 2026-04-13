@@ -10,22 +10,23 @@ interface FavoriteDeckToggleProps {
 export default function FavoriteDeckToggle({ userId, factionName }: FavoriteDeckToggleProps) {
   const [isFavoriteDeck, setIsFavoriteDeck] = useState(false);
 
-  // Fetch favorite deck status
-  const { data: favoriteDeckData } = useGetFavoriteDeck(userId || '', {
+  const { data: favoriteDeckData, refetch } = useGetFavoriteDeck(userId || '', {
     query: {
       enabled: !!userId,
+      staleTime: 0,
     },
   });
 
-  // Set favorite deck mutation
-  const { mutate: setFavoriteDeck, isPending: isUpdatingFavorite } = useSetFavoriteDeck();
-
-  // Update local state when faction changes or data loads
   useEffect(() => {
     if (favoriteDeckData?.favorite_deck !== undefined) {
       setIsFavoriteDeck(favoriteDeckData.favorite_deck === factionName);
     }
-  }, [favoriteDeckData?.favorite_deck, factionName]);
+    // Refetch to get fresh data when faction changes
+    refetch();
+  }, [factionName, refetch, favoriteDeckData?.favorite_deck]);
+
+  // Set favorite deck mutation
+  const { mutate: setFavoriteDeck, isPending: isUpdatingFavorite } = useSetFavoriteDeck();
 
   const handleFavoriteToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!userId) return;
