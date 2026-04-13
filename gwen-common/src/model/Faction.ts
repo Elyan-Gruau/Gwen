@@ -4,8 +4,10 @@ import type { NeutralConfig } from '../types/game/configs/NeutralConfig';
 import { LeaderCard } from './cards/LeaderCard';
 import { UnitCard } from './cards/UnitCard';
 import { NeutralCard } from './cards/NeutralCard';
+import { type PlayableCard } from '../types/Card';
 
 export class Faction {
+  private readonly id: string;
   private readonly name: string;
   private readonly imageUrl: string;
   private readonly leaders: LeaderCard[];
@@ -13,6 +15,7 @@ export class Faction {
   private readonly neutrals: NeutralCard[];
 
   constructor(config: FactionConfig, neutralUnits: UnitCardConfig[], neutrals: NeutralConfig[]) {
+    this.id = config.id;
     this.name = config.name;
     this.imageUrl = config.iconUrl;
     this.leaders = config.leaders.map((conf) => new LeaderCard(conf));
@@ -23,7 +26,7 @@ export class Faction {
       return Array.from({ length: count }, (_, index) => {
         const modifiedConf: NeutralConfig = {
           ...conf,
-          id: count > 1 ? `${conf.id}_${index}` : conf.id,
+          id: count > 1 ? `${conf.id}_${config.id}_${index}` : conf.id,
         };
         return new NeutralCard(modifiedConf);
       });
@@ -50,7 +53,21 @@ export class Faction {
     return this.neutrals;
   }
 
-  getPlayableCards(): (UnitCard | NeutralCard)[] {
+  getPlayableCards(): PlayableCard[] {
     return [...this.units, ...this.neutrals];
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  findCardById(cardId: string) {
+    const maybeCard = this.getPlayableCards().find((card) => card.getId() === cardId);
+
+    if (!maybeCard) {
+      throw new Error(`Card with id ${cardId} not found in faction ${this.name}`);
+    }
+
+    return maybeCard;
   }
 }
