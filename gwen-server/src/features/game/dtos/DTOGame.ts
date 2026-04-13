@@ -1,3 +1,5 @@
+import { Player, PlayerRows } from 'gwen-common';
+
 export type DTOGameStatus = 'ACTIVE' | 'FINISHED' | 'ABANDONED';
 
 export type DTOGame = {
@@ -16,11 +18,10 @@ export type DTOGameWithMetadata = {
   metadata: DTOGame;
   game: {
     phase: DTOGamePhase;
-    players: Array<{
-      userId: string;
-      gems: number;
-      passed: boolean;
-    }>;
+    player1: Player;
+    player2: Player;
+    player1Rows: PlayerRows;
+    player2Rows: PlayerRows;
   };
 };
 
