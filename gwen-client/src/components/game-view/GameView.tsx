@@ -3,13 +3,21 @@ import UserGame from './user-game/UserGame';
 import { Game, type Player } from 'gwen-common';
 import { CategorisedPlayers } from '../../model/CategorisedPlayers';
 import PlayerHand from '../player-hand/PlayerHand';
+import { useAuthContext } from '../../contexts/AuthContext';
+import Spinner from '../spinner/Spinner';
 
 type GameViewProps = {
   game: Game;
 };
 
 const GameView = ({ game }: GameViewProps) => {
-  const currentUserId = 'player1';
+  const { user } = useAuthContext();
+
+  if (!user) {
+    return <Spinner />;
+  }
+
+  const currentUserId = user?.id || '';
 
   const categorisedPlayers = categorisePlayer(game.getPlayers(), currentUserId);
 

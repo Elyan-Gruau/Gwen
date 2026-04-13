@@ -5,6 +5,7 @@ import SignInPage from './pages/sign-in-page/SignInPage';
 import ProfilePage from './pages/profile-page/ProfilePage';
 import GamePage from './pages/game-page/GamePage';
 import MatchmakingPage from './pages/matchmaking-page/MatchmakingPage';
+import DeckSelectionPage from './pages/deck-selection-page/DeckSelectionPage';
 import HomePage from './pages/home-page/HomePage';
 import StatusPage from './pages/status-page/StatusPage';
 import DeckBuilder from './components/deck-builder/deck-builder/DeckBuilder';
@@ -42,7 +43,19 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.PLAY,
-        element: <MatchmakingPage />,
+        element: (
+          <ProtectedRoute>
+            <DeckSelectionPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.MATCHMAKING,
+        element: (
+          <ProtectedRoute>
+            <MatchmakingPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.GAME,

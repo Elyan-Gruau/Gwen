@@ -1,6 +1,7 @@
 import type { Server, Socket } from 'socket.io';
 import type { MatchmakingService } from './services/MatchmakingService.js';
 import type { UserService } from '../auth/services/UserService.js';
+import type { UserFactionDeckService } from '../auth/services/UserFactionDeckService.js';
 import { GameManager } from '../game/services/GameManager.js';
 import {
   MATCHMAKING_FOUND,
@@ -20,6 +21,7 @@ export class MatchmakingGateway {
     private io: Server,
     private matchmakingService: MatchmakingService,
     private userService: UserService,
+    private userFactionDeckService: UserFactionDeckService,
   ) {
     this.gameManager = GameManager.getInstance();
     this.setupListeners();
@@ -42,6 +44,16 @@ export class MatchmakingGateway {
             return;
           }
 
+          // Check if user has at least one valid deck
+          const hasValidDeck = await this.userFactionDeckService.hasValidDeck(userId);
+          if (!hasValidDeck) {
+            socket.emit('error', {
+              message: 'You must have at least one valid deck to play',
+              code: 'NO_VALID_DECK',
+            });
+            return;
+          }
+
           const userElo = user.elo;
 
           this.userSockets.set(userId, socket.id);
@@ -49,14 +61,18 @@ export class MatchmakingGateway {
           // Add user to the pool and search for opponent
           const match = await this.matchmakingService.joinPool(userId, userElo);
 
+          // Calculate position in queue
+          const poolSize = this.matchmakingService.getPoolSize();
+          const position = poolSize + 1;
+
           socket.emit(MATCHMAKING_JOINED, {
             message: 'You are now in the queue',
-            position: this.matchmakingService.getPoolSize(),
+            position: position,
           });
 
           // Broadcast the updated pool size to all connected clients
           this.io.emit(MATCHMAKING_POOL_SIZE, {
-            size: this.matchmakingService.getPoolSize(),
+            size: poolSize + 1,
           });
 
           // If a match was found

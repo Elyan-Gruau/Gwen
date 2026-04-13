@@ -1,0 +1,26 @@
+@use '@styles/tokens' as tokens;
+
+.deckSelectionContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.deckBuilderWrapper {
+  flex: 1;
+}
+
+.playButtonContainer {
+  padding: tokens.$spacing-md;
+  background-color: tokens.$color-surface-raised;
+  text-align: center;
+}
+
+.validationMessage {
+  margin-top: tokens.$spacing-md;
+  color: tokens.$color-secondary;
+  font-size: tokens.$font-size-md;
+  font-weight: tokens.$font-weight-regular;
+  font-style: italic;
+}
+

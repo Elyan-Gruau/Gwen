@@ -21,99 +21,191 @@ const expressAuthenticationRecasted = expressAuthentication as (req: ExRequest, 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "HealthStatus": {
-        "dataType": "refObject",
-        "properties": {
-            "status": {"dataType":"string","required":true},
-            "timestamp": {"dataType":"string","required":true},
-            "uptime": {"dataType":"double","required":true},
-            "environment": {"dataType":"string","required":true},
+  HealthStatus: {
+    dataType: 'refObject',
+    properties: {
+      status: { dataType: 'string', required: true },
+      timestamp: { dataType: 'string', required: true },
+      uptime: { dataType: 'double', required: true },
+      environment: { dataType: 'string', required: true },
+    },
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOGameStatus: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'union',
+      subSchemas: [
+        { dataType: 'enum', enums: ['ACTIVE'] },
+        { dataType: 'enum', enums: ['FINISHED'] },
+        { dataType: 'enum', enums: ['ABANDONED'] },
+      ],
+      validators: {},
+    },
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOGame: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        updated_at: { dataType: 'string' },
+        created_at: { dataType: 'string' },
+        winner_id: {
+          dataType: 'union',
+          subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+          required: true,
         },
-        "additionalProperties": false,
+        status: { ref: 'DTOGameStatus', required: true },
+        player2_id: { dataType: 'string', required: true },
+        player1_id: { dataType: 'string', required: true },
+        _id: { dataType: 'string', required: true },
+      },
+      validators: {},
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOGameStatus": {
-        "dataType": "refAlias",
-        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["ACTIVE"]},{"dataType":"enum","enums":["FINISHED"]},{"dataType":"enum","enums":["ABANDONED"]}],"validators":{}},
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOGamePhase: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'union',
+      subSchemas: [
+        { dataType: 'enum', enums: ['WAITING_FOR_PLAYERS'] },
+        { dataType: 'enum', enums: ['REDRAW'] },
+        { dataType: 'enum', enums: ['FLIP_COIN'] },
+        { dataType: 'enum', enums: ['PLAY_CARDS'] },
+        { dataType: 'enum', enums: ['END'] },
+      ],
+      validators: {},
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOGame": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"updated_at":{"dataType":"string"},"created_at":{"dataType":"string"},"winner_id":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"status":{"ref":"DTOGameStatus","required":true},"player2_id":{"dataType":"string","required":true},"player1_id":{"dataType":"string","required":true},"_id":{"dataType":"string","required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOGamePhase": {
-        "dataType": "refAlias",
-        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["WAITING_FOR_PLAYERS"]},{"dataType":"enum","enums":["REDRAW"]},{"dataType":"enum","enums":["FLIP_COIN"]},{"dataType":"enum","enums":["PLAY_CARDS"]},{"dataType":"enum","enums":["END"]}],"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOGameWithMetadata": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"game":{"dataType":"nestedObjectLiteral","nestedProperties":{"players":{"dataType":"array","array":{"dataType":"nestedObjectLiteral","nestedProperties":{"passed":{"dataType":"boolean","required":true},"gems":{"dataType":"double","required":true},"userId":{"dataType":"string","required":true}}},"required":true},"phase":{"ref":"DTOGamePhase","required":true}},"required":true},"metadata":{"ref":"DTOGame","required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOFinishGameRequest": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"winnerId":{"dataType":"string","required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOUserFactionDeck": {
-        "dataType": "refObject",
-        "properties": {
-            "_id": {"dataType":"string"},
-            "user_id": {"dataType":"string","required":true},
-            "faction_id": {"dataType":"string","required":true},
-            "leader_card_id": {"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},
-            "unit_card_ids": {"dataType":"array","array":{"dataType":"string"},"required":true},
-            "special_card_ids": {"dataType":"array","array":{"dataType":"string"},"required":true},
-            "created_at": {"dataType":"string"},
-            "updated_at": {"dataType":"string"},
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOGameWithMetadata: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        game: {
+          dataType: 'nestedObjectLiteral',
+          nestedProperties: {
+            players: {
+              dataType: 'array',
+              array: {
+                dataType: 'nestedObjectLiteral',
+                nestedProperties: {
+                  passed: { dataType: 'boolean', required: true },
+                  gems: { dataType: 'double', required: true },
+                  userId: { dataType: 'string', required: true },
+                },
+              },
+              required: true,
+            },
+            phase: { ref: 'DTOGamePhase', required: true },
+          },
+          required: true,
         },
-        "additionalProperties": false,
+        metadata: { ref: 'DTOGame', required: true },
+      },
+      validators: {},
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOUpdateUserFactionDeckRequest": {
-        "dataType": "refObject",
-        "properties": {
-            "leaderCardId": {"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}]},
-            "unitCardIds": {"dataType":"array","array":{"dataType":"string"}},
-            "specialCardIds": {"dataType":"array","array":{"dataType":"string"}},
-        },
-        "additionalProperties": false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOFinishGameRequest: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: { winnerId: { dataType: 'string', required: true } },
+      validators: {},
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOUser": {
-        "dataType": "refObject",
-        "properties": {
-            "id": {"dataType":"string","required":true},
-            "username": {"dataType":"string","required":true},
-            "email": {"dataType":"string","required":true},
-            "bio": {"dataType":"string","required":true},
-            "profilePictureUrl": {"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}]},
-            "elo": {"dataType":"double","required":true},
-        },
-        "additionalProperties": false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOUserFactionDeck: {
+    dataType: 'refObject',
+    properties: {
+      _id: { dataType: 'string' },
+      user_id: { dataType: 'string', required: true },
+      faction_id: { dataType: 'string', required: true },
+      leader_card_id: {
+        dataType: 'union',
+        subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+        required: true,
+      },
+      unit_card_ids: { dataType: 'array', array: { dataType: 'string' }, required: true },
+      special_card_ids: { dataType: 'array', array: { dataType: 'string' }, required: true },
+      created_at: { dataType: 'string' },
+      updated_at: { dataType: 'string' },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DTOLoginResponse": {
-        "dataType": "refObject",
-        "properties": {
-            "token": {"dataType":"string","required":true},
-            "user": {"ref":"DTOUser","required":true},
-        },
-        "additionalProperties": false,
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOUpdateUserFactionDeckRequest: {
+    dataType: 'refObject',
+    properties: {
+      leaderCardId: {
+        dataType: 'union',
+        subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+      },
+      unitCardIds: { dataType: 'array', array: { dataType: 'string' } },
+      specialCardIds: { dataType: 'array', array: { dataType: 'string' } },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "LoginRequest": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"password":{"dataType":"string","required":true},"username":{"dataType":"string","required":true}},"validators":{}},
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOUser: {
+    dataType: 'refObject',
+    properties: {
+      id: { dataType: 'string', required: true },
+      username: { dataType: 'string', required: true },
+      email: { dataType: 'string', required: true },
+      bio: { dataType: 'string', required: true },
+      profilePictureUrl: {
+        dataType: 'union',
+        subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+      },
+      elo: { dataType: 'double', required: true },
+      favorite_deck: {
+        dataType: 'union',
+        subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+      },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "RegisterRequest": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"password":{"dataType":"string","required":true},"email":{"dataType":"string","required":true},"username":{"dataType":"string","required":true}},"validators":{}},
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOLoginResponse: {
+    dataType: 'refObject',
+    properties: {
+      token: { dataType: 'string', required: true },
+      user: { ref: 'DTOUser', required: true },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  LoginRequest: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        password: { dataType: 'string', required: true },
+        username: { dataType: 'string', required: true },
+      },
+      validators: {},
+    },
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  RegisterRequest: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        password: { dataType: 'string', required: true },
+        email: { dataType: 'string', required: true },
+        username: { dataType: 'string', required: true },
+      },
+      validators: {},
+    },
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"silently-remove-extras","bodyCoercion":true});
 
@@ -392,25 +484,118 @@ export function RegisterRoutes(app: Router) {
 
                 const controller = new UserFactionDeckController();
 
-              await templateService.apiHandler({
-                methodName: 'deleteUserFactionDeck',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 204,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'deleteUserFactionDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 204,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsAuthController_login: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"LoginRequest"},
-        };
-        app.post('/api/auth/login',
-            ...(fetchMiddlewares<RequestHandler>(AuthController)),
-            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.login)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_setFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+    body: {
+      in: 'body',
+      name: 'body',
+      required: true,
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        factionId: {
+          dataType: 'union',
+          subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+          required: true,
+        },
+      },
+    },
+  };
+  app.patch(
+    '/api/user/:userId/favorite',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.setFavoriteDeck),
+
+    async function UserFactionDeckController_setFavoriteDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_setFavoriteDeck,
+          request,
+          response,
+        });
+
+        const controller = new UserFactionDeckController();
+
+        await templateService.apiHandler({
+          methodName: 'setFavoriteDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_getFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/user/:userId/favorite',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getFavoriteDeck),
+
+    async function UserFactionDeckController_getFavoriteDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_getFavoriteDeck,
+          request,
+          response,
+        });
+
+        const controller = new UserFactionDeckController();
+
+        await templateService.apiHandler({
+          methodName: 'getFavoriteDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsAuthController_login: Record<string, TsoaRoute.ParameterSchema> = {
+    body: { in: 'body', name: 'body', required: true, ref: 'LoginRequest' },
+  };
+  app.post(
+    '/api/auth/login',
+    ...fetchMiddlewares<RequestHandler>(AuthController),
+    ...fetchMiddlewares<RequestHandler>(AuthController.prototype.login),
 
             async function AuthController_login(request: ExRequest, response: ExResponse, next: any) {
 

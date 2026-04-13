@@ -229,6 +229,10 @@
 					"elo": {
 						"type": "number",
 						"format": "double"
+					},
+					"favorite_deck": {
+						"type": "string",
+						"nullable": true
 					}
 				},
 				"required": [
@@ -656,6 +660,109 @@
 					{
 						"in": "path",
 						"name": "factionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/{userId}/favorite": {
+			"patch": {
+				"operationId": "SetFavoriteDeck",
+				"responses": {
+					"200": {
+						"description": "Favorite deck updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"favorite_deck": {
+											"type": "string",
+											"nullable": true
+										}
+									},
+									"type": "object"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"factionId": {
+										"type": "string",
+										"nullable": true
+									}
+								},
+								"required": [
+									"factionId"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetFavoriteDeck",
+				"responses": {
+					"200": {
+						"description": "User favorite deck",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"favorite_deck": {
+											"type": "string",
+											"nullable": true
+										}
+									},
+									"type": "object"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
 						"required": true,
 						"schema": {
 							"type": "string"

@@ -55,7 +55,17 @@ const UserProfile = ({ userId }: UserProfileProps) => {
         <strong>Email:</strong> {currentUser.email}
       </p>
       <p>
+        <strong>Bio:</strong> {currentUser.bio || 'No bio'}
+      </p>
+      <p>
         <strong>Elo:</strong> {currentUser.elo}
+      </p>
+      <p>
+        <strong>Favorite Deck:</strong>{' '}
+        {currentUser.favorite_deck ? currentUser.favorite_deck : 'Not set'}
+      </p>
+      <p>
+        <em>You can set your favorite deck from the deck builder.</em>
       </p>
     </div>
   );

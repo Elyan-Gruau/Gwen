@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Path,
+  Patch,
   Put,
   Response,
   Route,
@@ -11,6 +12,9 @@ import {
   Tags,
 } from 'tsoa';
 import { UserFactionDeckService } from '../services/UserFactionDeckService.js';
+import { UserService } from '../services/UserService.js';
+import { UserRepository } from '../repository/UserRepository.js';
+import { UserNotFoundException } from '../exceptions/UserNotFoundException.js';
 import type {
   DTOUpdateUserFactionDeckRequest,
   DTOUserFactionDeck,
@@ -18,6 +22,8 @@ import type {
 import type { DBUserFactionDeck } from '../model/DBUserFactionDeck.js';
 
 const userFactionDeckService = new UserFactionDeckService();
+const userRepository = new UserRepository();
+const userService = new UserService(userRepository);
 
 @Route('user')
 @Tags('User Faction Decks')
@@ -96,6 +102,45 @@ export class UserFactionDeckController extends Controller {
       return;
     } catch (error) {
       return this.throwHttpError('Failed to delete user faction deck', 500);
+    }
+  }
+
+  @Patch('{userId}/favorite')
+  @SuccessResponse('200', 'Favorite deck updated')
+  @Response('404', 'User not found')
+  @Response('500', 'Server error')
+  public async setFavoriteDeck(
+    @Path() userId: string,
+    @Body() body: { factionId: string | null },
+  ): Promise<{ favorite_deck: string | null | undefined }> {
+    try {
+      await userService.setFavoriteDeck(userId, body.factionId);
+      return { favorite_deck: body.factionId };
+    } catch (error) {
+      if (error instanceof UserNotFoundException) {
+        return this.throwHttpError('User not found', 404);
+      }
+      console.error('Error setting favorite deck:', error);
+      return this.throwHttpError('Failed to set favorite deck', 500);
+    }
+  }
+
+  @Get('{userId}/favorite')
+  @SuccessResponse('200', 'User favorite deck')
+  @Response('404', 'User not found')
+  @Response('500', 'Server error')
+  public async getFavoriteDeck(
+    @Path() userId: string,
+  ): Promise<{ favorite_deck: string | null | undefined }> {
+    try {
+      const favoriteDeck = await userService.getFavoriteDeck(userId);
+      return { favorite_deck: favoriteDeck };
+    } catch (error) {
+      if (error instanceof UserNotFoundException) {
+        return this.throwHttpError('User not found', 404);
+      }
+      console.error('Error getting favorite deck:', error);
+      return this.throwHttpError('Failed to get favorite deck', 500);
     }
   }
 

@@ -9,6 +9,7 @@ const UserSchema = new Schema<DBUser & Document>({
   bio: { type: String, default: '' },
   profilePictureUrl: { type: String, default: null },
   elo: { type: Number, default: 1200 },
+  favorite_deck: { type: String, default: null },
 });
 
 // Create the Mongoose model for the User
@@ -41,6 +42,19 @@ export class UserRepository {
     const userDocument = new UserModel(user);
     const savedUser = await userDocument.save();
     return savedUser.toObject();
+  }
+
+  async update(user: DBUser): Promise<DBUser> {
+    const updatedUser = await UserModel.findByIdAndUpdate(user._id, user, {
+      new: true,
+      returnDocument: 'after',
+    })
+      .lean()
+      .exec();
+    if (!updatedUser) {
+      throw new Error('User not found');
+    }
+    return updatedUser;
   }
 
   async findByUsernameStartingWith(

@@ -8,4 +8,5 @@ export interface DBUser {
   bio: string;
   profilePictureUrl?: string | null;
   elo: number; // Player ELO rating
+  favorite_deck?: string | null; // Reference to the user's favorite UserFactionDeck (faction_id)
 }

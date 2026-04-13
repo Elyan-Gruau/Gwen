@@ -45,12 +45,11 @@ const FactionLeaderSelector = ({
     return (
       <div className={styles.placeholder} onClick={handleOpen}>
         <span className={styles.placeholderIcon}>👑</span>
-        <span className={styles.placeholderLabel}>Choisir un leader</span>
+        <span className={styles.placeholderLabel}>Choose a leader</span>
       </div>
     );
   }
 
-  // ── Leader sélectionné (carousel fermé) ──────────────────────────────────
   if (!open && selectedLeader) {
     return (
       <div className={styles.selector}>
@@ -69,7 +68,6 @@ const FactionLeaderSelector = ({
     );
   }
 
-  // ── Carousel ouvert ───────────────────────────────────────────────────────
   return (
     <div className={styles.selector}>
       <div className={styles.selectorHeader}>

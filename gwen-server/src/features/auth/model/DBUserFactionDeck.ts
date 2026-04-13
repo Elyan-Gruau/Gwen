@@ -7,6 +7,7 @@ export interface DBUserFactionDeck {
   leader_card_id: string | null;
   unit_card_ids: string[];
   special_card_ids: string[];
+  is_valid: boolean;
   created_at?: Date;
   updated_at?: Date;
 }
