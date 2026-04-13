@@ -1,6 +1,23 @@
 import { UserFactionDeckRepository } from '../repository/UserFactionDeckRepository.js';
 import type { DBUserFactionDeck } from '../model/DBUserFactionDeck.js';
 
+const DECK_RULES = {
+  MAX_SPECIAL_CARDS: 10,
+  MIN_UNIT_CARDS: 25,
+  LEADER_CARDS: 1,
+} as const;
+
+/**
+ *  Checks if a given deck is valid based on the defined rules:
+ */
+function isValidDeck(deck: DBUserFactionDeck): boolean {
+  return (
+    deck.leader_card_id !== null &&
+    deck.unit_card_ids.length >= DECK_RULES.MIN_UNIT_CARDS &&
+    deck.special_card_ids.length <= DECK_RULES.MAX_SPECIAL_CARDS
+  );
+}
+
 export class UserFactionDeckService {
   private readonly repository: UserFactionDeckRepository;
 
@@ -9,12 +26,10 @@ export class UserFactionDeckService {
   }
 
   async getUserFactionDeck(userId: string, factionId: string): Promise<DBUserFactionDeck | null> {
-    console.info('userID', userId, ' factionId', factionId);
     return this.repository.findByUserIdAndFactionId(userId, factionId);
   }
 
   async getOrCreateUserFactionDeck(userId: string, factionId: string): Promise<DBUserFactionDeck> {
-    console.info('userID', userId, ' factionId', factionId);
     const existingDeck = await this.repository.findByUserIdAndFactionId(userId, factionId);
 
     if (existingDeck) {
@@ -28,6 +43,7 @@ export class UserFactionDeckService {
       leader_card_id: null,
       unit_card_ids: [],
       special_card_ids: [],
+      is_valid: false,
     };
     return this.repository.create(newDeck);
   }
@@ -37,6 +53,7 @@ export class UserFactionDeckService {
   }
 
   async updateUserFactionDeck(deck: DBUserFactionDeck): Promise<DBUserFactionDeck> {
+    deck.is_valid = isValidDeck(deck);
     return this.repository.update(deck);
   }
 
