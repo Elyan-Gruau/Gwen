@@ -57,7 +57,7 @@ TODO
 - [ ] Game logic
     - [ ] Place a card
     - [ ] Do the "Coin flip" to decide who starts
-    - [ ] End turn
+    - [ ] End turn 
     - [ ] End game
     - [ ] Implement game quit
     - [ ] Implement surrender
