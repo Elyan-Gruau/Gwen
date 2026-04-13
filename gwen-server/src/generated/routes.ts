@@ -168,6 +168,10 @@ const models: TsoaRoute.Models = {
         subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
       },
       elo: { dataType: 'double', required: true },
+      favorite_deck: {
+        dataType: 'union',
+        subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+      },
     },
     additionalProperties: false,
   },

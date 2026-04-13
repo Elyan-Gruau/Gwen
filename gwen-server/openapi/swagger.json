@@ -229,6 +229,10 @@
 					"elo": {
 						"type": "number",
 						"format": "double"
+					},
+					"favorite_deck": {
+						"type": "string",
+						"nullable": true
 					}
 				},
 				"required": [

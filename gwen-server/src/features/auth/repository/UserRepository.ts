@@ -9,6 +9,7 @@ const UserSchema = new Schema<DBUser & Document>({
   bio: { type: String, default: '' },
   profilePictureUrl: { type: String, default: null },
   elo: { type: Number, default: 1200 },
+  favorite_deck: { type: String, default: null },
 });
 
 // Create the Mongoose model for the User
