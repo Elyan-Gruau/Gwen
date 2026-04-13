@@ -64,4 +64,9 @@ export class UserFactionDeckService {
   async deleteAllUserFactionDecks(userId: string): Promise<number> {
     return this.repository.deleteAllByUserId(userId);
   }
+
+  async hasValidDeck(userId: string): Promise<boolean> {
+    const decks = await this.repository.findAllByUserId(userId);
+    return decks.some((deck) => isValidDeck(deck));
+  }
 }

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   Datapack,
-  Faction,
   NeutralCard,
   THE_WITCHER_DATAPACK,
   UnitCard,
@@ -22,7 +21,11 @@ import Spinner from '../../spinner/Spinner';
 
 const AUTOSAVE_DELAY_MS = 1000; // 1 second debounce
 
-const DeckBuilder = () => {
+interface DeckBuilderProps {
+  onDeckValidityChange?: (isValid: boolean) => void;
+}
+
+const DeckBuilder = ({ onDeckValidityChange }: DeckBuilderProps = {}) => {
   const queryClient = useQueryClient();
   const { user } = useAuthContext();
   const { mutate: updateDeck, isPending: isUpdating } = useUpdateUserFactionDeck();
@@ -117,6 +120,17 @@ const DeckBuilder = () => {
       }
     };
   }, [userDeck, hasUserEditedDeck, performAutosave, user?.id]);
+
+  // Notify parent component when deck validity changes
+  useEffect(() => {
+    if (onDeckValidityChange) {
+      const isValid =
+        userDeck.getLeader() !== null &&
+        userDeck.getUnitCards().length >= 25 &&
+        userDeck.getSpecialCards().length <= 10;
+      onDeckValidityChange(isValid);
+    }
+  }, [userDeck, onDeckValidityChange]);
 
   const handleFactionChange = (index: number) => {
     setSelectedFactionIndex(index);

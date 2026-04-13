@@ -8,6 +8,7 @@ import { specs } from './config/swagger.js';
 import { RegisterRoutes } from './generated/routes';
 import { UserService } from './features/auth/services/UserService.js';
 import { UserRepository } from './features/auth/repository/UserRepository.js';
+import { UserFactionDeckService } from './features/auth/services/UserFactionDeckService.js';
 import { GameService } from './features/game/services/GameService.js';
 import { JwtService } from './features/auth/services/JwtService.js';
 import { initializeMatchmaking } from './features/matchmaking/utils/MatchmakingHelper';
@@ -97,10 +98,11 @@ async function startServer() {
     // Initialize services
     const userRepository = new UserRepository();
     const userService = new UserService(userRepository);
+    const userFactionDeckService = new UserFactionDeckService();
     const gameService = new GameService();
 
     // Initialize matchmaking system
-    initializeMatchmaking(io, userService, gameService);
+    initializeMatchmaking(io, userService, gameService, userFactionDeckService);
 
     httpServer.listen(PORT, () => {
       console.log(`Server started on http://localhost:${PORT}`);

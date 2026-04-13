@@ -1,6 +1,7 @@
 import type { Server, Socket } from 'socket.io';
 import type { MatchmakingService } from './services/MatchmakingService.js';
 import type { UserService } from '../auth/services/UserService.js';
+import type { UserFactionDeckService } from '../auth/services/UserFactionDeckService.js';
 import { GameManager } from '../game/services/GameManager.js';
 import {
   MATCHMAKING_FOUND,
@@ -20,6 +21,7 @@ export class MatchmakingGateway {
     private io: Server,
     private matchmakingService: MatchmakingService,
     private userService: UserService,
+    private userFactionDeckService: UserFactionDeckService,
   ) {
     this.gameManager = GameManager.getInstance();
     this.setupListeners();
@@ -39,6 +41,16 @@ export class MatchmakingGateway {
 
           if (!user) {
             socket.emit('error', { message: 'User not found' });
+            return;
+          }
+
+          // Check if user has at least one valid deck
+          const hasValidDeck = await this.userFactionDeckService.hasValidDeck(userId);
+          if (!hasValidDeck) {
+            socket.emit('error', {
+              message: 'You must have at least one valid deck to play',
+              code: 'NO_VALID_DECK',
+            });
             return;
           }
 
