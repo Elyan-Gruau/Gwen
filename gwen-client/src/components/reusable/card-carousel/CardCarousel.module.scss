@@ -11,6 +11,7 @@ $card-height: 192px;
   width: 100%;
   height: calc($card-height + 32px);
   perspective: 800px;
+  overflow: hidden;
 }
 
 .track {

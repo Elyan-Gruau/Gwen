@@ -1,7 +1,7 @@
 @use '@styles/tokens' as tokens;
 
 .navbar {
-  background: tokens.$color-surface-raised;;
+  background: var(--color-surface-raised);
   border-bottom: 2px solid tokens.$color-primary;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   position: sticky;
@@ -41,7 +41,7 @@
 }
 
 
-.navLinksContainer, .authLinksContainer {
+.navLinksContainer, .authLinks, .authButtons {
   display: flex;
   gap: tokens.$spacing-md;
 }
