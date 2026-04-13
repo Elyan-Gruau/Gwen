@@ -43,6 +43,19 @@ export class UserRepository {
     return savedUser.toObject();
   }
 
+  async update(user: DBUser): Promise<DBUser> {
+    const updatedUser = await UserModel.findByIdAndUpdate(user._id, user, {
+      new: true,
+      returnDocument: 'after',
+    })
+      .lean()
+      .exec();
+    if (!updatedUser) {
+      throw new Error('User not found');
+    }
+    return updatedUser;
+  }
+
   async findByUsernameStartingWith(
     username: string,
     options: { page: number; limit: number },

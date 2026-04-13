@@ -572,6 +572,97 @@ export function RegisterRoutes(app: Router) {
     },
   );
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_setFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+    body: {
+      in: 'body',
+      name: 'body',
+      required: true,
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        factionId: {
+          dataType: 'union',
+          subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+          required: true,
+        },
+      },
+    },
+  };
+  app.patch(
+    '/api/user/:userId/favorite',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.setFavoriteDeck),
+
+    async function UserFactionDeckController_setFavoriteDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_setFavoriteDeck,
+          request,
+          response,
+        });
+
+        const controller = new UserFactionDeckController();
+
+        await templateService.apiHandler({
+          methodName: 'setFavoriteDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_getFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/user/:userId/favorite',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getFavoriteDeck),
+
+    async function UserFactionDeckController_getFavoriteDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_getFavoriteDeck,
+          request,
+          response,
+        });
+
+        const controller = new UserFactionDeckController();
+
+        await templateService.apiHandler({
+          methodName: 'getFavoriteDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   const argsAuthController_login: Record<string, TsoaRoute.ParameterSchema> = {
     body: { in: 'body', name: 'body', required: true, ref: 'LoginRequest' },
   };

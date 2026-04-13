@@ -18,12 +18,7 @@ export default function Checkbox({
   className,
   ...props
 }: CheckboxProps) {
-  const classes = [
-    styles.checkbox,
-    styles[variant],
-    error ? styles.error : '',
-    className ?? '',
-  ]
+  const classes = [styles.checkbox, styles[variant], error ? styles.error : '', className ?? '']
     .filter(Boolean)
     .join(' ');
 
@@ -41,4 +36,3 @@ export default function Checkbox({
     </div>
   );
 }
-
