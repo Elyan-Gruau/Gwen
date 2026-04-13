@@ -67,7 +67,9 @@ TODO
     - [ ] Use the IA when no opponent is found after 10seconds
 - [ ] Add light mode / dark mode switch, auto select from the os
 - [ ] Lazyload each route.
-- [ ] Finish the deck builder. 
+- [ ] Finish the deck builder.
+- [ ] Remove the the token when it expires and ask the user to login again.
+- [ ] Add auto token refresh
 
 ## Utilisation de l'IA dans le projet
 
