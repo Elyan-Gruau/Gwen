@@ -27,11 +27,11 @@ const GamePage = () => {
 };
 
 const toModel = (gameWithMetadata: DTOGameWithMetadata): Game => {
+  console.log({ gameWithMetadata });
   const player1 = new Player(gameWithMetadata.metadata.player1_id);
   const player2 = new Player(gameWithMetadata.metadata.player2_id);
   const game = new Game(player1, player2);
   console.log({ game });
-  //todo rebuild the entire game object
   return game;
 };
 

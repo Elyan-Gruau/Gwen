@@ -45,7 +45,7 @@ const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps 
 
   const { data: loadedDeckData, isLoading } = useGetOrCreateUserFactionDeck(
     user?.id || '',
-    faction.getName(),
+    faction.getId(),
     {
       query: {
         enabled: !!user?.id,
@@ -58,9 +58,9 @@ const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps 
       // Chargement depuis l'API → ne pas marquer le deck comme modifié par l'utilisateur
       setUserDeck(fromDTOtoModel(faction, loadedDeckData));
       setHasUserEditedDeck(false);
-      // Notify parent of the deck ID
-      if (onDeckIdChange && loadedDeckData._id) {
-        onDeckIdChange(loadedDeckData._id);
+      // Notify parent of the faction ID (not the deck ID)
+      if (onDeckIdChange) {
+        onDeckIdChange(faction.getId());
       }
     }
   }, [loadedDeckData, isLoading, faction, onDeckIdChange]);
@@ -91,7 +91,7 @@ const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps 
     setIsSavingIndicator(true);
     updateDeck({
       userId: user.id,
-      factionId: faction.getName(),
+      factionId: faction.getId(),
       data: {
         unitCardIds,
         leaderCardId,
@@ -250,7 +250,7 @@ const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps 
               <span>Total cards</span>
               <span className={styles.statValue}>{userDeck.getTotalCards()}</span>
             </div>
-            <FavoriteDeckToggle userId={user?.id} factionName={faction.getName()} />
+            <FavoriteDeckToggle userId={user?.id} factionId={faction.getId()} />
             <span
               className={`${styles.validBadge} ${isValid ? styles.validBadgeOk : styles.validBadgeKo}`}
             >

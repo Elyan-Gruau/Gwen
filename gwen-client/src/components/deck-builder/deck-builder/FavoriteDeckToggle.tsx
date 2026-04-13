@@ -4,10 +4,10 @@ import Checkbox from '../../reusable/checkbox/Checkbox';
 
 interface FavoriteDeckToggleProps {
   userId: string | undefined;
-  factionName: string;
+  factionId: string;
 }
 
-export default function FavoriteDeckToggle({ userId, factionName }: FavoriteDeckToggleProps) {
+export default function FavoriteDeckToggle({ userId, factionId }: FavoriteDeckToggleProps) {
   const [isFavoriteDeck, setIsFavoriteDeck] = useState(false);
 
   const { data: favoriteDeckData, refetch } = useGetFavoriteDeck(userId || '', {
@@ -19,11 +19,11 @@ export default function FavoriteDeckToggle({ userId, factionName }: FavoriteDeck
 
   useEffect(() => {
     if (favoriteDeckData?.favorite_deck !== undefined) {
-      setIsFavoriteDeck(favoriteDeckData.favorite_deck === factionName);
+      setIsFavoriteDeck(favoriteDeckData.favorite_deck === factionId);
     }
     // Refetch to get fresh data when faction changes
     refetch();
-  }, [factionName, refetch, favoriteDeckData?.favorite_deck]);
+  }, [factionId, refetch, favoriteDeckData?.favorite_deck]);
 
   // Set favorite deck mutation
   const { mutate: setFavoriteDeck, isPending: isUpdatingFavorite } = useSetFavoriteDeck();
@@ -37,7 +37,7 @@ export default function FavoriteDeckToggle({ userId, factionName }: FavoriteDeck
     setFavoriteDeck({
       userId,
       data: {
-        factionId: newIsFavorite ? factionName : null,
+        factionId: newIsFavorite ? factionId : null,
       },
     });
   };

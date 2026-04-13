@@ -59,15 +59,20 @@ export class GameManager {
     return gameObj;
   }
 
-  async initializePlayer(playerId: string, selected_deck_id: string): Promise<Player> {
+  async initializePlayer(playerId: string, selected_faction_id: string): Promise<Player> {
     // Fetch the player's selected deck from the database
     const selected_deck = await this.getUserFactionDeckService().getUserFactionDeck(
       playerId,
-      selected_deck_id,
+      selected_faction_id,
     );
 
     if (!selected_deck) {
-      throw new Error('Unable to fetch selected deck for user' + playerId);
+      throw new Error(
+        'Unable to fetch selected deck for user ' +
+          playerId +
+          ' with faction id ' +
+          selected_faction_id,
+      );
     }
     const datapackCardIndex = GwenConfig.getCurrentDatapackCardIndex();
 

@@ -1,5 +1,6 @@
 import type { UserService } from '../../auth/services/UserService.js';
 import type { GameService } from '../../game/services/GameService.js';
+import type { UserFactionDeckService } from '../../auth/services/UserFactionDeckService.js';
 import { GameManager } from '../../game/services/GameManager';
 
 export class MatchmakingService {
@@ -36,13 +37,19 @@ export class MatchmakingService {
       this.matchmakingPool.delete(opponent.userId);
 
       // Create game
+      console.log('Creating game ...');
       const game = await this.gameService.createGame(
         userId,
         deckId || '',
         opponent.userId,
         opponent.deckId || '',
       );
-      GameManager.getInstance().activateGame(game);
+      console.log('Game created with id: ', game._id?.toString());
+
+      console.log('Activate game ...');
+      const activatedGame = await GameManager.getInstance().activateGame(game);
+      console.log('Game activated: ', JSON.stringify(activatedGame));
+      console.log('Game activated');
 
       return {
         player1: userId,
