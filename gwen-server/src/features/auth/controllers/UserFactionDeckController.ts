@@ -55,36 +55,36 @@ export class UserFactionDeckController extends Controller {
     }
   }
 
-   @Put('{userId}/decks/{factionId}')
-   @SuccessResponse('200', 'Faction deck updated')
-   @Response('500', 'Server error')
-   public async updateUserFactionDeck(
-     @Path() userId: string,
-     @Path() factionId: string,
-     @Body() body: DTOUpdateUserFactionDeckRequest,
-   ): Promise<DTOUserFactionDeck> {
-     try {
-       let existingDeck = await userFactionDeckService.getUserFactionDeck(userId, factionId);
-       
-       // Create deck if it doesn't exist
-       if (!existingDeck) {
-         existingDeck = await userFactionDeckService.getOrCreateUserFactionDeck(userId, factionId);
-       }
+  @Put('{userId}/decks/{factionId}')
+  @SuccessResponse('200', 'Faction deck updated')
+  @Response('500', 'Server error')
+  public async updateUserFactionDeck(
+    @Path() userId: string,
+    @Path() factionId: string,
+    @Body() body: DTOUpdateUserFactionDeckRequest,
+  ): Promise<DTOUserFactionDeck> {
+    try {
+      let existingDeck = await userFactionDeckService.getUserFactionDeck(userId, factionId);
 
-       const deckToUpdate: DBUserFactionDeck = {
-         ...existingDeck,
-         leader_card_id: body.leaderCardId ?? existingDeck.leader_card_id,
-         unit_card_ids: body.unitCardIds ?? existingDeck.unit_card_ids,
-         special_card_ids: body.specialCardIds ?? existingDeck.special_card_ids,
-       };
+      // Create deck if it doesn't exist
+      if (!existingDeck) {
+        existingDeck = await userFactionDeckService.getOrCreateUserFactionDeck(userId, factionId);
+      }
 
-       const result = await userFactionDeckService.updateUserFactionDeck(deckToUpdate);
-       return this.toDto(result);
-     } catch (error) {
-       console.error('Error updating user faction deck:', error);
-       return this.throwHttpError('Failed to update user faction deck', 500);
-     }
-   }
+      const deckToUpdate: DBUserFactionDeck = {
+        ...existingDeck,
+        leader_card_id: body.leaderCardId ?? existingDeck.leader_card_id,
+        unit_card_ids: body.unitCardIds ?? existingDeck.unit_card_ids,
+        special_card_ids: body.specialCardIds ?? existingDeck.special_card_ids,
+      };
+
+      const result = await userFactionDeckService.updateUserFactionDeck(deckToUpdate);
+      return this.toDto(result);
+    } catch (error) {
+      console.error('Error updating user faction deck:', error);
+      return this.throwHttpError('Failed to update user faction deck', 500);
+    }
+  }
 
   @Delete('{userId}/decks/{factionId}')
   @SuccessResponse('204', 'Faction deck deleted')
