@@ -28,10 +28,14 @@ export class GameService {
   }
 
   public async finishGame(gameId: string, winnerId: string): Promise<DBGame | null> {
-    return this.gameRepository.update(gameId, { status: 'FINISHED', winner_id: winnerId });
+    return this.gameRepository.update(gameId, {
+      status: 'FINISHED',
+      winner_id: winnerId,
+      updated_at: new Date(),
+    });
   }
 
   public async abandonGame(gameId: string): Promise<DBGame | null> {
-    return this.gameRepository.update(gameId, { status: 'ABANDONED' });
+    return this.gameRepository.update(gameId, { status: 'ABANDONED', updated_at: new Date() });
   }
 }
