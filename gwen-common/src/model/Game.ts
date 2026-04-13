@@ -6,25 +6,31 @@ import { THE_WITCHER_DATAPACK } from '../datapacks/the-witcher/WitcherDatapack';
 
 export class Game {
   private phase: GamePhase;
-  private players: Player[];
-  private playerRows: PlayerRows[];
+  private player1: Player;
+  private player2: Player;
+  private player1Rows: PlayerRows;
+  private player2Rows: PlayerRows;
   private weather: Weather;
 
   constructor(player1: Player, player2: Player) {
-    const datapack = new Datapack(THE_WITCHER_DATAPACK);
     this.phase = 'WAITING_FOR_PLAYERS';
-    this.players = [player1, player2];
-    this.players[0].getDeck().addAllToHands(datapack.getFactions()[2].getUnits());
-    this.playerRows = this.players.map((player) => new PlayerRows(player.getUserId()));
+    this.player1 = player1;
+    this.player2 = player2;
+    this.player1Rows = new PlayerRows(player1.getUserId());
+    this.player2Rows = new PlayerRows(player2.getUserId());
     this.weather = new Weather();
   }
 
   getPlayers(): Player[] {
-    return this.players;
+    return [this.player1, this.player2];
+  }
+
+  getAllPlayerRows(): PlayerRows[] {
+    return [this.player1Rows, this.player2Rows];
   }
 
   getPlayerRows(userId: string): PlayerRows {
-    const maybePlayerRows = this.playerRows.find((pr) => pr.getUserId() === userId);
+    const maybePlayerRows = this.getAllPlayerRows().find((pr) => pr.getUserId() === userId);
     if (!maybePlayerRows) {
       throw new Error(`Player rows for player with id ${userId} not found`);
     }
@@ -37,6 +43,22 @@ export class Game {
 
   getPhase(): GamePhase {
     return this.phase;
+  }
+
+  getPlayer1(): Player {
+    return this.player1;
+  }
+
+  getPlayer2(): Player {
+    return this.player2;
+  }
+
+  getPlayer1Rows(): PlayerRows {
+    return this.player1Rows;
+  }
+
+  getPlayer2Rows(): PlayerRows {
+    return this.player2Rows;
   }
 }
 
