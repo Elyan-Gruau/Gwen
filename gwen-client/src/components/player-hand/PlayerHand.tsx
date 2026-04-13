@@ -1,8 +1,9 @@
-import { UnitCard } from 'gwen-common';
+import { type PlayableCard } from 'gwen-common';
 import UnitCardView from '../card/UnitCardView';
+import CardView from '../card/CardView';
 
 export type PlayerHandProps = {
-  hand: UnitCard[];
+  hand: PlayableCard[];
 };
 
 const PlayerHand = ({ hand }: PlayerHandProps) => {
@@ -11,7 +12,7 @@ const PlayerHand = ({ hand }: PlayerHandProps) => {
       <h2>Player Hand</h2>
       <ul>
         {hand.map((card, index) => (
-          <UnitCardView key={`${card.getName()}-${index}`} card={card} />
+          <CardView key={`${card.getName()}-${index}`} card={card} />
         ))}
       </ul>
     </div>
