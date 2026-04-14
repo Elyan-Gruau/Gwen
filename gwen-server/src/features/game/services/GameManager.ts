@@ -94,7 +94,7 @@ export class GameManager {
     // Shuffle the cards
     shuffle(cards);
 
-    const deck = new Deck(leaderCard);
+    const deck = new Deck(selected_deck.faction_id, leaderCard);
     deck.setDrawPile(cards);
 
     const player = new Player(playerId, deck);

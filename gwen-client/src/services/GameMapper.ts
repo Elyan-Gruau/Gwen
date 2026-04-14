@@ -20,6 +20,7 @@ export abstract class GameMapper {
     const dtoDeck = dtoPlayer.deck as any | undefined;
 
     // Resolve leader card id from the DTO
+    const factionId = dtoDeck?.factionId as string;
     const leaderIdFromDeck = dtoDeck?.leader?.id as string | undefined;
     const leaderIdFromPlayer =
       typeof dtoPlayer.leaderId === 'string' ? dtoPlayer.leaderId : undefined;
@@ -35,7 +36,7 @@ export abstract class GameMapper {
     const leaderCard = cardIndex.findLeaderCardById(leaderId);
 
     // Rebuild deck from card ids using the shared datapack index
-    const deck = new Deck(leaderCard);
+    const deck = new Deck(factionId, leaderCard);
 
     const mapCards = (cards: any[] | undefined) => {
       if (!Array.isArray(cards)) return [];

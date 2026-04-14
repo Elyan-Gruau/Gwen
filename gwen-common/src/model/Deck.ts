@@ -7,8 +7,10 @@ export class Deck {
   private discarded: PlayableCard[];
   private drawPile: PlayableCard[];
   private leader: LeaderCard;
+  private readonly factionId: string;
 
-  constructor(leader: LeaderCard) {
+  constructor(factionId: string, leader: LeaderCard) {
+    this.factionId = factionId;
     this.leader = leader;
     this.hand = [];
     this.discarded = [];
@@ -57,6 +59,10 @@ export class Deck {
 
   getLeader(): LeaderCard {
     return this.leader;
+  }
+
+  getFactionId(): string {
+    return this.factionId;
   }
 
   setDrawPile(newDrawPile: PlayableCard[]) {
