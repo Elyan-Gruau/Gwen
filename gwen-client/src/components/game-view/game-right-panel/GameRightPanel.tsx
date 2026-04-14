@@ -4,14 +4,14 @@ import DrawPile from './draw-pile/DrawPile';
 
 export type GameRightPanelProps = {
   deck: Deck;
+  factionId: string; //TODO use context to avoid props drilling
 };
 
-const GameRightPanel = ({ deck }: GameRightPanelProps) => {
-  // Display the remaining deck & the fosse
+const GameRightPanel = ({ deck, factionId }: GameRightPanelProps) => {
   return (
     <div>
-      <DiscardedPile discarded={deck.getDiscarded()} />
-      <DrawPile drawPile={deck.getDrawPile()} />
+      <DiscardedPile factionId={factionId} discarded={deck.getDiscarded()} />
+      <DrawPile factionId={factionId} drawPile={deck.getDrawPile()} />
     </div>
   );
 };

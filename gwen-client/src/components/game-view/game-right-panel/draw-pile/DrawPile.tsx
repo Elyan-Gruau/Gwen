@@ -1,14 +1,15 @@
 import type { PlayableCard } from 'gwen-common';
 import CardListViewer from '../../../reusable/card-list-viewer/CardListViewer';
 import EmptyDeckSlot from '../../../reusable/empty-deck-slot/EmptyDeckSlot';
+import DeckPile from '../../../reusable/deck-pile/DeckPile';
 import { useDisclosure } from '../../../../hooks/useDisclosure';
-import styles from './DrawPile.module.scss';
 
-export type DeckpileProps = {
+export type DeckPileProps = {
   drawPile: PlayableCard[];
+  factionId: string;
 };
 
-const DrawPile = ({ drawPile }: DeckpileProps) => {
+const DrawPile = ({ drawPile, factionId }: DeckPileProps) => {
   const { isOpen, open, close } = useDisclosure(false);
   const isEmpty = drawPile.length === 0;
 
@@ -17,9 +18,7 @@ const DrawPile = ({ drawPile }: DeckpileProps) => {
       {isEmpty ? (
         <EmptyDeckSlot title="Draw pile is empty" />
       ) : (
-        <div className={styles.container} onClick={open}>
-          drawpile: {drawPile.length}
-        </div>
+        <DeckPile factionId={factionId} count={drawPile.length} onClick={open} />
       )}
       <CardListViewer isOpen={isOpen} cards={drawPile} onClose={close} title="Draw pile" />
     </>

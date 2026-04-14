@@ -9,4 +9,3 @@ const EmptyDeckSlot = ({ title = 'Empty slot' }: EmptyDeckSlotProps) => {
 };
 
 export default EmptyDeckSlot;
-

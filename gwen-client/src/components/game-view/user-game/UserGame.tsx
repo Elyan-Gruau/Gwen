@@ -10,11 +10,12 @@ type UserGameProps = {
 };
 
 const UserGame = ({ isCurrentPlayer, player }: UserGameProps) => {
+  const factionId = 'monsters'; //TODO use real faction id
   return (
     <div className={styles.userGame}>
       <GameLeftPanel isCurrentPlayer={isCurrentPlayer} player={player} />
       <UserBoard />
-      <GameRightPanel deck={player.getDeck()} />
+      <GameRightPanel factionId={factionId} deck={player.getDeck()} />
     </div>
   );
 };
