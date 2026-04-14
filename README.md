@@ -103,14 +103,14 @@ Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `la
 
 - Page de profil
 - [ ] Logique de jeu
-- [ ] Page d'accueil
-- [ ] Theme light / dark
+- [X] Page d'accueil
+- [X] Theme light / dark
 - [ ] hebergement
 - [ ] IA ? 
-- [ ] Ameliorations UI/UX
+- [X] Ameliorations UI/UX
 - [ ] Page de win /lose
 - [ ] Calcul du elo
-- [ ] Theme sonore ?
+- [X] Metadata
 
 
 
@@ -124,3 +124,6 @@ Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `la
 - [X] Page de deck builder
 - [ ] Page de jeu
 
+## For next updates
+
+- [ ] sound effects
