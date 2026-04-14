@@ -8,6 +8,11 @@ A gwent like game with parodic cards.
 - Connexion
 - Matchmaking -> Elo
 
+# Assets
+
+- icons from svgrepo
+- card visuals from https://github.com/matt77hias/Gwent
+
 # Client
 
 React
