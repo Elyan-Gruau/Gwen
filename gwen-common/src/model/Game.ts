@@ -57,8 +57,16 @@ export class Game {
     return this.player1Rows;
   }
 
+  setPlayer1Rows(newPlayerRows: PlayerRows) {
+    this.player1Rows = newPlayerRows;
+  }
+
   getPlayer2Rows(): PlayerRows {
     return this.player2Rows;
+  }
+
+  setPlayer2Rows(newPlayerRows: PlayerRows) {
+    this.player2Rows = newPlayerRows;
   }
 }
 
