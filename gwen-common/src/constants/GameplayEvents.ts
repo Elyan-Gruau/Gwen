@@ -9,4 +9,3 @@ export const GAMEPLAY_EVENTS = {
   GAME_STATE_UPDATED: 'gameplay:game-state-updated',
   PLAY_CARD_RESPONSE: 'gameplay:play-card-response',
 } as const;
-

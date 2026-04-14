@@ -10,4 +10,3 @@ export type PlayCardResponse = {
   success: boolean;
   message?: string;
 };
-

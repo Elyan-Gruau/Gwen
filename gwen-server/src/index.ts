@@ -11,8 +11,8 @@ import { UserRepository } from './features/auth/repository/UserRepository.js';
 import { UserFactionDeckService } from './features/auth/services/UserFactionDeckService.js';
 import { GameService } from './features/game/services/GameService.js';
 import { JwtService } from './features/auth/services/JwtService.js';
-import { initializeMatchmaking } from './features/matchmaking/utils/MatchmakingHelper';
-
+import { initializeMatchmaking } from './features/matchmaking/utils/MatchmakingHelper.js';
+import { GameplayGateway } from './features/game/gateways/GameplayGateway.js';
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -103,6 +103,9 @@ async function startServer() {
 
     // Initialize matchmaking system
     initializeMatchmaking(io, userService, gameService, userFactionDeckService);
+
+    // Initialize gameplay system
+    new GameplayGateway(io);
 
     httpServer.listen(PORT, () => {
       console.log(`Server started on http://localhost:${PORT}`);

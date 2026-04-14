@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { type PlayableCard } from 'gwen-common';
+import { type PlayableCard, type RangeType } from 'gwen-common';
 import CardView from '../card/CardView';
+import { useGameplaySocket } from '../../hooks/useGameplaySocket';
 import styles from './PlayerHand.module.scss';
 
 export type PlayerHandSelectionSource = 'click' | 'keyboard';
 
 export type PlayerHandProps = {
   hand: PlayableCard[];
+  gameId: string;
+  rowType: RangeType;
   /**
    * Called when a card is confirmed (click or Enter key).
    */
@@ -18,9 +21,16 @@ export type PlayerHandProps = {
   autoFocus?: boolean;
 };
 
-const PlayerHand = ({ hand, onCardConfirm, autoFocus = false }: PlayerHandProps) => {
+const PlayerHand = ({
+  hand,
+  gameId,
+  rowType,
+  onCardConfirm,
+  autoFocus = false,
+}: PlayerHandProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { playCard } = useGameplaySocket({ gameId });
 
   useEffect(() => {
     if (autoFocus && containerRef.current) {
@@ -59,8 +69,13 @@ const PlayerHand = ({ hand, onCardConfirm, autoFocus = false }: PlayerHandProps)
 
     if (key === 'Enter' && activeIndex !== null && activeIndex >= 0 && activeIndex < hand.length) {
       const card = hand[activeIndex];
-      if (card && onCardConfirm) {
-        onCardConfirm(card, activeIndex, 'keyboard');
+      if (card) {
+        // Send play card request
+        playCard(card.getId(), rowType);
+        // Call callback if provided
+        if (onCardConfirm) {
+          onCardConfirm(card, activeIndex, 'keyboard');
+        }
       }
       event.preventDefault();
     }
@@ -69,8 +84,13 @@ const PlayerHand = ({ hand, onCardConfirm, autoFocus = false }: PlayerHandProps)
   const handleCardClick = (index: number) => {
     setActiveIndex(index);
     const card = hand[index];
-    if (card && onCardConfirm) {
-      onCardConfirm(card, index, 'click');
+    if (card) {
+      // Send play card request
+      playCard(card.getId(), rowType);
+      // Call callback if provided
+      if (onCardConfirm) {
+        onCardConfirm(card, index, 'click');
+      }
     }
   };
 

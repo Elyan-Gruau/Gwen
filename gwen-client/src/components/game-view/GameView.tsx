@@ -43,6 +43,7 @@ const GameView = ({ game, gameId }: GameViewProps) => {
         playerRows={currentPlayerRows}
         isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
       />
+      <PlayerHand hand={currentPlayer.getDeck().getHand()} gameId={gameId} rowType="MELEE" />
     </div>
   );
 };

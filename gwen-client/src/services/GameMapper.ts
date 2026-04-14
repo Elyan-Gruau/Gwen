@@ -8,14 +8,14 @@ export abstract class GameMapper {
     const player2 = this.mapPlayer(dto.player2 as any);
 
     const game = new Game(player1, player2);
-    
+
     // Map player rows from DTO
     const player1Rows = this.mapPlayerRows(dto.player1Rows as any);
     const player2Rows = this.mapPlayerRows(dto.player2Rows as any);
-    
+
     game.setPlayer1Rows(player1Rows);
     game.setPlayer2Rows(player2Rows);
-    
+
     return game;
   }
 
@@ -89,7 +89,7 @@ export abstract class GameMapper {
   private static mapPlayerRows(dtoPlayerRows: any): PlayerRows {
     // Extract userId from the DTO PlayerRows object
     const userId = dtoPlayerRows?.userId as string;
-    
+
     if (!userId) {
       throw new Error('Unable to extract userId from DTO PlayerRows');
     }
@@ -101,7 +101,7 @@ export abstract class GameMapper {
     // If there are rows in the DTO, populate them with cards
     if (dtoPlayerRows?.rows && Array.isArray(dtoPlayerRows.rows)) {
       const dtoRows = dtoPlayerRows.rows;
-      
+
       dtoRows.forEach((dtoRow: any, index: number) => {
         if (index >= 3) return; // Only MELEE, RANGED, SIEGE (3 rows)
 
