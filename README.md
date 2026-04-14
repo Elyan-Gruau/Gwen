@@ -19,6 +19,12 @@ All rounds of a match must be played with the same starting hand. Mastering how 
 <img src="doc/resources/gwent_rules_3.png" width="270">
 </p>
 
+## Assets
+
+- icons from svgrepo
+- card visuals from https://github.com/matt77hias/Gwent
+
+
 ## Gwent rules
 
 - 2 players
@@ -105,14 +111,14 @@ Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `la
 
 - Page de profil
 - [ ] Logique de jeu
-- [ ] Page d'accueil
-- [ ] Theme light / dark
+- [X] Page d'accueil
+- [X] Theme light / dark
 - [ ] hebergement
 - [ ] IA ? 
-- [ ] Ameliorations UI/UX
+- [X] Ameliorations UI/UX
 - [ ] Page de win /lose
 - [ ] Calcul du elo
-- [ ] Theme sonore ?
+- [X] Metadata
 
 
 
@@ -126,3 +132,6 @@ Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `la
 - [X] Page de deck builder
 - [ ] Page de jeu
 
+## For next updates
+
+- [ ] sound effects
