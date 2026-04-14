@@ -75,12 +75,7 @@ const PlayerHand = ({ hand, onCardConfirm, autoFocus = false }: PlayerHandProps)
   };
 
   return (
-    <div
-      ref={containerRef}
-      className={styles.playerHand}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-    >
+    <div ref={containerRef} className={styles.playerHand} tabIndex={0} onKeyDown={handleKeyDown}>
       <h2 className={styles.title}>Player Hand</h2>
       <div className={styles.cardsRow}>
         {hand.map((card, index) => {
