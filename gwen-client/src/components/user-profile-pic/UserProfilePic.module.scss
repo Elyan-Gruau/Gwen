@@ -1,0 +1,20 @@
+@use '@styles/tokens' as tokens;
+
+.wrapper {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid tokens.$color-primary;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+

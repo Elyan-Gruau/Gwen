@@ -5,6 +5,7 @@ import styles from './GamePage.module.scss';
 import { type DTOGameWithMetadata, useGetGameWithMetadataById } from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
 import { GameMapper } from '../../services/GameMapper';
+import { getGameBackgroundPictureUrl } from '../../utils/URLProvider';
 
 const GamePage = () => {
   const { gameId } = useParams<{ gameId: string }>();
@@ -20,8 +21,7 @@ const GamePage = () => {
   }
 
   const style = {
-    // TODO replace the url with an URL provider
-    backgroundImage: 'url(/data-packs/the-witcher/board/background.png)',
+    backgroundImage: `url(${getGameBackgroundPictureUrl()})`,
   };
 
   return (
