@@ -20,6 +20,25 @@
   gap: 2rem;
 }
 
+.theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+}
+
+.rightButtons {
+  display: flex;
+  gap: tokens.$spacing-md;
+  align-items: center;
+}
+
+.rightBlock {
+  display: block;
+}
+
 .logo {
   cursor: pointer;
   flex-shrink: 0;
