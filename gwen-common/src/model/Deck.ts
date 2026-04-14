@@ -41,6 +41,25 @@ export class Deck {
     this.hand.push(...cards);
   }
 
+  findCardInHandById(cardId: string): PlayableCard {
+    const maybeCard = this.hand.find((c) => c.getId() === cardId);
+    if (!maybeCard) {
+      throw new Error(`Card with id ${cardId} not found in hand`);
+    }
+
+    return maybeCard;
+  }
+
+  playCard(cardId: string): PlayableCard {
+    // find and remove the card from the hand
+    const index = this.hand.findIndex((c) => c.getId() === cardId);
+    if (index === -1) {
+      throw new Error(`Card with id ${cardId} not found in hand`);
+    }
+    const [card] = this.hand.splice(index, 1);
+    return card;
+  }
+
   hasEmptyHand(): boolean {
     return this.hand.length === 0;
   }
