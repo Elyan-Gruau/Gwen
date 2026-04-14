@@ -1,0 +1,9 @@
+@use '@styles/tokens' as tokens;
+
+.separator{
+  height: tokens.$spacing-xs ;
+  background-image: linear-gradient(90deg,rgba(255, 255, 255, 0) 10%, rgba(194, 134, 67, 1) 50%, rgba(255, 255, 255, 0) 90%);
+  margin-bottom: tokens.$spacing-md;
+  margin-top: tokens.$spacing-md;
+
+}

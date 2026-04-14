@@ -5,6 +5,7 @@ import { CategorisedPlayers } from '../../model/CategorisedPlayers';
 import PlayerHand from '../player-hand/PlayerHand';
 import { useAuthContext } from '../../contexts/AuthContext';
 import Spinner from '../spinner/Spinner';
+import Separator from './separator/Separator';
 
 type GameViewProps = {
   game: Game;
@@ -27,7 +28,7 @@ const GameView = ({ game }: GameViewProps) => {
         player={categorisedPlayers.getOpponent()}
         isCurrentPlayer={currentUserId == game.getPlayers()[0].getUserId()}
       />
-      <span>SEPARATOR</span>
+      <Separator />
       <UserGame
         player={categorisedPlayers.getCurrentPlayer()}
         isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
