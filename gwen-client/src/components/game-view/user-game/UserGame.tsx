@@ -13,7 +13,7 @@ type UserGameProps = {
 const UserGame = ({ isCurrentPlayer, player, playerRows }: UserGameProps) => {
   return (
     <div className={styles.userGame}>
-      <GameLeftPanel isCurrentPlayer={isCurrentPlayer} player={player} />
+      <GameLeftPanel playerRows={playerRows} isCurrentPlayer={isCurrentPlayer} player={player} />
       <UserBoard playerRows={playerRows} />
       <GameRightPanel factionId={player.getDeck().getFactionId()} deck={player.getDeck()} />
     </div>

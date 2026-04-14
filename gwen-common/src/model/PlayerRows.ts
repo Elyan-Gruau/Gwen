@@ -12,7 +12,7 @@ export class PlayerRows {
     this.rows = [new Row('MELEE'), new Row('RANGED'), new Row('SIEGE')];
   }
 
-  private updateScore(): number {
+  updateScore(): number {
     let total = 0;
     this.rows.forEach((r) => (total += r.updateScore()));
     this.score = total;
