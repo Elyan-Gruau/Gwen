@@ -1,16 +1,23 @@
 [![CI](https://github.com/Elyan-Gruau/Gwen/actions/workflows/ci.yml/badge.svg)](https://github.com/Elyan-Gruau/Gwen/actions/workflows/ci.yml)
 # Gwen
 
-A gwent like game with parodic cards.
+A gwent like game.
 
-- Inscription sur le site
-- Profil
-- Connexion
-- Matchmaking -> Elo
+## How do you play Gwent?
+Gwent is a card game for two players (originally intended for multiple players). The aim of the game is to beat your opponent using one’s own deck by ensuring that the total strength of your cards on the board is greater than that of your opponent’s in two out of three rounds. During the game, various unit cards can be placed in one of three corresponding tiers:
+1. _Close Combat_;
+2. _Ranged Combat_;
+3. _Siege Combat_.
 
-# Client
+The sum of the played cards strength decides which player wins the round itself. _Bonus_ (including _weater_) cards can also change the strength of the played cards decisively.
 
-React
+All rounds of a match must be played with the same starting hand. Mastering how to use your available cards sparingly is the key to victory.
+
+<p align="center">
+<img src="doc/resources/gwent_rules_1.png" width="270">
+<img src="doc/resources/gwent_rules_2.png" width="270">
+<img src="doc/resources/gwent_rules_3.png" width="270">
+</p>
 
 ## Gwent rules
 
