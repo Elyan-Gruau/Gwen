@@ -11,59 +11,40 @@ import { useGameplaySocket } from '../../hooks/useGameplaySocket';
 
 const GamePage = () => {
   const { gameId } = useParams<{ gameId: string }>();
-
-  const { data: game, isLoading } = useGetGameWithMetadataById(gameId!);
-
+  const { data, isLoading, isError } = useGetGameWithMetadataById(gameId!);
   const [gameModel, setGameModel] = useState<Game | null>(null);
 
   useEffect(() => {
-    if (game) {
-      console.log('[GamePage] HTTP DTOGameWithMetadata reçu :', game);
-      console.log('[GamePage] HTTP game (payload brut) :', game.game);
-      setGameModel(toModel(game));
+    if (data) {
+      setGameModel(GameMapper.toModel(data.game));
     }
-  }, [game]);
+  }, [data]);
 
   const handleGameStateUpdate = useCallback((payload: any) => {
     const updated = payload?.game;
     if (!updated) return;
-
-    // Log de l'objet game reçu via WebSocket
-    console.log('[GamePage] WS GAME_STATE_UPDATED payload complet :', payload);
-    console.log('[GamePage] WS game (payload brut) :', updated);
-
     try {
-      const next = GameMapper.toModel(updated as any);
-      setGameModel(next);
+      setGameModel(GameMapper.toModel(updated));
     } catch (error) {
-      console.error('Failed to map game state update', error, payload);
+      console.error('Game mapping error via WebSocket', error, payload);
     }
   }, []);
 
   useGameplaySocket({ gameId: gameId!, onGameStateUpdate: handleGameStateUpdate });
 
-  if (isLoading || !gameModel) {
-    return <Spinner />;
-  }
-
-  if (!game) {
-    return <div>No game found with id {gameId}</div>;
-  }
-
-  const style = {
-    backgroundImage: `url(${getGameBackgroundPictureUrl()})`,
-  };
+  if (isLoading) return <Spinner />;
+  if (isError || !data) return <div>Aucune partie trouvée avec l'id {gameId}</div>;
+  if (!gameModel) return <Spinner />;
 
   return (
-    <div className={styles.gamePage} style={style}>
+    <div
+      className={styles.gamePage}
+      style={{ backgroundImage: `url(${getGameBackgroundPictureUrl()})` }}
+    >
       <p>gameId : {gameId}</p>
       <GameView game={gameModel} gameId={gameId!} />
     </div>
   );
-};
-
-const toModel = (gameWithMetadata: DTOGameWithMetadata): Game => {
-  return GameMapper.toModel(gameWithMetadata.game);
 };
 
 export default GamePage;
