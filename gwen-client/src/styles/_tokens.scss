@@ -75,19 +75,21 @@ $shadow-md: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
 
 /* Export CSS custom properties for runtime theming */
 :root {
-    --color-surface-raised: #{$color-surface-raised-light};
-    --color-surface: #{$color-surface-light};
-    --color-surface-border: #{$color-surface-border-light};
-    --color-text-light: #{$color-text-dark};
-    --color-text-dark: #{$color-text-light};
-    --color-text-faded: #{$color-text-faded-light};
-}
-
-:global(.dark) {
 	--color-surface-raised: #{$color-surface-raised};
     --color-surface: #{$color-surface};
     --color-surface-border: #{$color-surface-border};
 	--color-text-light: #{$color-text-light};
 	--color-text-dark: #{$color-text-dark};
     --color-text-faded: #{$color-text-faded};
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--color-surface-raised: #{$color-surface-raised-light};
+        --color-surface: #{$color-surface-light};
+		--color-surface-border: #{$color-surface-border-light};
+		--color-text-light: #{$color-text-dark};
+		--color-text-dark: #{$color-text-light};
+        --color-text-faded: #{$color-text-faded-light};
+	}
 }

@@ -5,7 +5,6 @@ import UserProfilePic from '../user-profile-pic/UserProfilePic';
 import Button from '../reusable/button/Button';
 import LinkButton from '../reusable/link-button/LinkButton';
 import styles from './Navbar.module.scss';
-import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -20,31 +19,6 @@ const Navbar = () => {
       navigate(ROUTES.PROFILE_ME);
     }
   };
-
- const [darkMode, setDarkMode] = useState<boolean>(() => {
-  const saved = localStorage.getItem("theme");
-
-  if (saved === "dark") return true;
-  if (saved === "light") return false;
-
-  return window.matchMedia("(prefers-color-scheme: dark)").matches;
-});
-
-useEffect(() => {
-  const root = document.documentElement;
-
-  root.classList.remove("dark");
-
-  if (darkMode) {
-    document.documentElement.classList.add("dark");
-  }
-
-  localStorage.setItem("theme", darkMode ? "dark" : "light");
-}, [darkMode]);
-
-const toggleTheme = () => {
-  setDarkMode((v) => !v);
-};
 
   return (
     <nav className={styles.navbar}>
@@ -77,9 +51,6 @@ const toggleTheme = () => {
             </>
           ) : (
             <div className={styles.authButtons}>
-              <button onClick={toggleTheme}>
-                Toggle {darkMode ? "Light" : "Dark"} Mode
-              </button>
               <LinkButton size="sm" variant="secondary" href={ROUTES.LOGIN}>
                 Login
               </LinkButton>
