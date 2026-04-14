@@ -17,6 +17,8 @@ type CardCarouselProps = {
   onIndexChange: (index: number) => void;
   /** Appelé quand l'utilisateur confirme la sélection (Entrée) */
   onConfirm?: (index: number) => void;
+  /** Visible radius around the active card (center ± radius). Default: 3. */
+  visibleRadius?: number;
 };
 
 // Facteurs visuels selon la distance au centre
@@ -26,7 +28,13 @@ const Z_BY_DISTANCE = [0, -60, -120, -180];
 // Espacement horizontal (px) entre le centre de chaque carte
 const OFFSET_STEP = 96;
 
-const CardCarousel = ({ items, activeIndex, onIndexChange, onConfirm }: CardCarouselProps) => {
+const CardCarousel = ({
+  items,
+  activeIndex,
+  onIndexChange,
+  onConfirm,
+  visibleRadius,
+}: CardCarouselProps) => {
   const count = items.length;
 
   const handlePrev = useCallback(() => {
@@ -58,7 +66,10 @@ const CardCarousel = ({ items, activeIndex, onIndexChange, onConfirm }: CardCaro
           if (dist < -count / 2) dist += count;
 
           const absDist = Math.abs(dist);
-          const maxVisible = SCALE_BY_DISTANCE.length - 1;
+          const maxVisible = Math.min(
+            typeof visibleRadius === 'number' ? visibleRadius : SCALE_BY_DISTANCE.length - 1,
+            SCALE_BY_DISTANCE.length - 1,
+          );
 
           if (absDist > maxVisible) return null;
 
