@@ -1,0 +1,95 @@
+@use '@styles/tokens' as tokens;
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: tokens.$spacing-lg;
+  color: tokens.$text-color-body;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: tokens.$spacing-md;
+  margin-bottom: tokens.$spacing-lg;
+}
+
+.title {
+  font-family: tokens.$font-family-base;
+  font-size: 1.5rem;
+  font-weight: tokens.$font-weight-bold;
+}
+
+.subtitle {
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-sm;
+  color: var(--color-text-faded);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: tokens.$spacing-md;
+}
+
+.username {
+  font-weight: tokens.$font-weight-medium;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: tokens.$spacing-lg;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: tokens.$border-radius-lg;
+  border: 1px solid var(--color-surface-border);
+  padding: tokens.$spacing-lg;
+  box-shadow: tokens.$shadow-sm;
+}
+
+.cardTitle {
+  font-family: tokens.$font-family-base;
+  font-size: tokens.$font-size-md;
+  font-weight: tokens.$font-weight-medium;
+  margin-bottom: tokens.$spacing-sm;
+}
+
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: tokens.$font-size-sm;
+  margin-bottom: tokens.$spacing-xs;
+}
+
+.statLabel {
+  color: var(--color-text-faded);
+}
+
+.statValue {
+  font-weight: tokens.$font-weight-medium;
+}
+
+.hint {
+  font-size: tokens.$font-size-sm;
+  color: var(--color-text-faded);
+}
+
+.notLoggedIn {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: tokens.$spacing-lg;
+  text-align: center;
+}
+
+.actions {
+  margin-top: tokens.$spacing-lg;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+

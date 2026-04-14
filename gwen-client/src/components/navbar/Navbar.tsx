@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { ROUTES } from '../../constants/routes';
 import UserProfilePic from '../user-profile-pic/UserProfilePic';
-import Button from '../reusable/button/Button';
 import LinkButton from '../reusable/link-button/LinkButton';
 import styles from './Navbar.module.scss';
 import { useEffect, useState } from 'react';
@@ -77,10 +76,6 @@ const Navbar = () => {
                 <div className={styles.profilePic} onClick={handleProfile}>
                   <UserProfilePic userId={user.id} />
                 </div>
-
-                <Button size="sm" variant="danger" onClick={logout}>
-                  Logout
-                </Button>
               </div>
             </div>
           ) : (
