@@ -20,8 +20,7 @@ const GamePage = () => {
 
   return (
     <div>
-      <h1>Game</h1>
-      <p>Game page — /play/{gameId}</p>
+      <p>gameId : {gameId}</p>
       <GameView game={toModel(game)} />
     </div>
   );
