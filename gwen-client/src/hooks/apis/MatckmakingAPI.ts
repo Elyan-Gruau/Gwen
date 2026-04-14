@@ -13,7 +13,7 @@ export type UseMatchmakingResult = {
   isSearching: boolean;
   queuePosition: number;
   poolSize: number;
-  joinMatchmakingPool: () => void;
+  joinMatchmakingPool: (deckId?: string) => void;
   leaveMatchmakingPool: () => void;
 };
 
@@ -65,9 +65,10 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
     };
   }, [userId]);
 
-  const joinMatchmakingPool = () => {
+  const joinMatchmakingPool = (deckId?: string) => {
     socket?.emit(MATCHMAKING_JOIN, {
       userId,
+      deckId,
     });
   };
 

@@ -1,7 +1,7 @@
-import { UnitCard } from 'gwen-common';
+import { type PlayableCard, UnitCard } from 'gwen-common';
 
 export type DeckpileProps = {
-  remainingDeck: UnitCard[];
+  remainingDeck: PlayableCard[];
 };
 const Deckpile = ({ remainingDeck }: DeckpileProps) => {
   return <div>remaining: {remainingDeck.length}</div>;

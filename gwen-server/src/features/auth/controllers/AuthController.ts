@@ -109,6 +109,7 @@ export class AuthController extends Controller {
         bio: user.bio || '',
         profilePictureUrl: user.profilePictureUrl,
         elo: user.elo || 1200,
+        favorite_deck: user.favorite_deck || null,
       };
     } catch (error) {
       if (error instanceof UserNotFoundException) {
@@ -133,6 +134,7 @@ export class AuthController extends Controller {
         bio: user.bio || '',
         profilePictureUrl: user.profilePictureUrl,
         elo: user.elo || 1200,
+        favorite_deck: user.favorite_deck || null,
       };
     } catch (error) {
       if (error instanceof UserNotFoundException) {

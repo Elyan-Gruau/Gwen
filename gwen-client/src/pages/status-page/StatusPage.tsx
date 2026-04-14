@@ -1,6 +1,7 @@
 import Button from '../../components/reusable/button/Button';
 import styles from './StatusPage.module.scss';
 import { useGetHealth } from 'gwen-generated-api';
+import Spinner from '../../components/spinner/Spinner';
 
 export default function StatusPage() {
   const { data, isLoading, isError, error, refetch } = useGetHealth();
@@ -17,7 +18,7 @@ export default function StatusPage() {
       <div className={styles.statusCard}>
         <h1 className={styles.title}>Statut du serveur</h1>
 
-        {isLoading && <p className={styles.loading}>Loading...</p>}
+        {isLoading && <Spinner />}
 
         {isError && (
           <div className={styles.error}>
@@ -59,7 +60,7 @@ export default function StatusPage() {
           fullWidth
           disabled={isLoading}
         >
-          {isLoading ? 'Reloading...' : 'Reload'}
+          {isLoading ? <Spinner /> : 'Reload'}
         </Button>
       </div>
     </div>

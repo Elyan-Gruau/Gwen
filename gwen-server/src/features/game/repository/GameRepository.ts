@@ -4,7 +4,9 @@ import type { DBGame } from '../model/DBGame.js';
 // Define the Mongoose schema for the Game model
 const GameSchema = new Schema<DBGame & Document>({
   player1_id: { type: String, required: true },
+  player1_selected_deck_id: { type: String, required: true },
   player2_id: { type: String, required: true },
+  player2_selected_deck_id: { type: String, required: true },
   status: { type: String, enum: ['ACTIVE', 'FINISHED', 'ABANDONED'], default: 'ACTIVE' },
   winner_id: { type: String, default: null },
   created_at: { type: Date, default: Date.now },

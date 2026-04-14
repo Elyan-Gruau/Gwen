@@ -26,6 +26,7 @@ export class UserFactionDeckRepository {
         leader_card_id: deck.leader_card_id,
         unit_card_ids: deck.unit_card_ids,
         special_card_ids: deck.special_card_ids,
+        is_valid: deck.is_valid,
         updated_at: new Date(),
       },
       { new: true },

@@ -37,4 +37,8 @@ export class Player {
   hasPassed(): boolean {
     return this.passed;
   }
+
+  setDeck(newDeck: Deck) {
+    this.deck = newDeck;
+  }
 }

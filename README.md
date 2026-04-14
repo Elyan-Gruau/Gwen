@@ -57,7 +57,7 @@ TODO
 - [ ] Game logic
     - [ ] Place a card
     - [ ] Do the "Coin flip" to decide who starts
-    - [ ] End turn
+    - [ ] End turn 
     - [ ] End game
     - [ ] Implement game quit
     - [ ] Implement surrender
@@ -67,9 +67,9 @@ TODO
     - [ ] Use the IA when no opponent is found after 10seconds
 - [ ] Add light mode / dark mode switch, auto select from the os
 - [ ] Lazyload each route.
-- [ ] Finish the deck builder.
-- [ ] Remove the the token when it expires and ask the user to login again.
 - [ ] Add auto token refresh
+- [ ] Prevent user from joining the matchmaking queue if the deck is not SAVED & valid
+- [ ] Move the deck validation to the backend 
 
 ## Utilisation de l'IA dans le projet
 
@@ -83,3 +83,39 @@ Les ias ont été utilisées pour :
 - Générer des idées de cartes et de factions : On envoit le site avec donnes a ChatGPT avec le modele a suivre (
   datastructure), et on lui demande depuis la page de crawl et de recuperer les infos des cartes.
 - Fix les differents problemes de configuration typescript, scss, open-api ...
+
+
+## Lancement du projet 
+
+Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `launch-project.sh`.
+```bash
+./scripts/launch-project.sh
+```
+
+## Repartition du travail
+
+### Adrien Passeron
+
+- Page de profil
+- [ ] Logique de jeu
+- [ ] Page d'accueil
+- [ ] Theme light / dark
+- [ ] hebergement
+- [ ] IA ? 
+- [ ] Ameliorations UI/UX
+- [ ] Page de win /lose
+- [ ] Calcul du elo
+- [ ] Theme sonore ?
+
+
+
+### Elyan Gruau
+
+- [X] Authentification
+- [X] Matchmaking
+- [X] Dockerisation
+- [X] Page de connexion
+- [X] Page d'inscription
+- [X] Page de deck builder
+- [ ] Page de jeu
+

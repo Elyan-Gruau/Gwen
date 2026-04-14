@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
 import GameView from '../../components/game-view/GameView';
-import { Game, Player } from 'gwen-common';
+import { Game } from 'gwen-common';
 import { type DTOGameWithMetadata, useGetGameWithMetadataById } from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
+import { GameMapper } from '../../services/GameMapper';
 
 const GamePage = () => {
   const { gameId } = useParams<{ gameId: string }>();
@@ -27,11 +28,7 @@ const GamePage = () => {
 };
 
 const toModel = (gameWithMetadata: DTOGameWithMetadata): Game => {
-  const player1 = new Player(gameWithMetadata.metadata.player1_id);
-  const player2 = new Player(gameWithMetadata.metadata.player2_id);
-  const game = new Game(player1, player2);
-  //todo rebuild the entire game object
-  return game;
+  return GameMapper.toModel(gameWithMetadata.game);
 };
 
 export default GamePage;

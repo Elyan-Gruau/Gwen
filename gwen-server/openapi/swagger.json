@@ -84,39 +84,41 @@
 					"END"
 				]
 			},
+			"Player": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PlayerRows": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"DTOGameWithMetadata": {
 				"properties": {
 					"game": {
 						"properties": {
-							"players": {
-								"items": {
-									"properties": {
-										"passed": {
-											"type": "boolean"
-										},
-										"gems": {
-											"type": "number",
-											"format": "double"
-										},
-										"userId": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"passed",
-										"gems",
-										"userId"
-									],
-									"type": "object"
-								},
-								"type": "array"
+							"player2Rows": {
+								"$ref": "#/components/schemas/PlayerRows"
+							},
+							"player1Rows": {
+								"$ref": "#/components/schemas/PlayerRows"
+							},
+							"player2": {
+								"$ref": "#/components/schemas/Player"
+							},
+							"player1": {
+								"$ref": "#/components/schemas/Player"
 							},
 							"phase": {
 								"$ref": "#/components/schemas/DTOGamePhase"
 							}
 						},
 						"required": [
-							"players",
+							"player2Rows",
+							"player1Rows",
+							"player2",
+							"player1",
 							"phase"
 						],
 						"type": "object"
@@ -229,6 +231,10 @@
 					"elo": {
 						"type": "number",
 						"format": "double"
+					},
+					"favorite_deck": {
+						"type": "string",
+						"nullable": true
 					}
 				},
 				"required": [
@@ -587,9 +593,6 @@
 							}
 						}
 					},
-					"404": {
-						"description": "Deck not found"
-					},
 					"500": {
 						"description": "Server error"
 					}
@@ -656,6 +659,109 @@
 					{
 						"in": "path",
 						"name": "factionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/{userId}/favorite": {
+			"patch": {
+				"operationId": "SetFavoriteDeck",
+				"responses": {
+					"200": {
+						"description": "Favorite deck updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"favorite_deck": {
+											"type": "string",
+											"nullable": true
+										}
+									},
+									"type": "object"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"factionId": {
+										"type": "string",
+										"nullable": true
+									}
+								},
+								"required": [
+									"factionId"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetFavoriteDeck",
+				"responses": {
+					"200": {
+						"description": "User favorite deck",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"favorite_deck": {
+											"type": "string",
+											"nullable": true
+										}
+									},
+									"type": "object"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"User Faction Decks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
 						"required": true,
 						"schema": {
 							"type": "string"

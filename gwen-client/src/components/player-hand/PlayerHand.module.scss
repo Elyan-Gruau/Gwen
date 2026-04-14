@@ -1,0 +1,82 @@
+@use '@styles/tokens' as t;
+
+.playerHand {
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-xs;
+  outline: none;
+}
+
+.title {
+  margin: 0 0 t.$spacing-xs;
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-md;
+  font-weight: t.$font-weight-medium;
+  color: var(--color-text-light);
+}
+
+.cardsRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: t.$spacing-sm;
+  overflow-x: auto;
+  padding: t.$spacing-xs 0;
+
+  scrollbar-width: thin;
+  scrollbar-color: t.$color-secondary transparent;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: t.$color-secondary-active;
+    border-radius: t.$border-radius-pill;
+  }
+}
+
+.cardSlot {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: t.$border-radius-md;
+  transition: transform t.$transition-fast, box-shadow t.$transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.cardSelected {
+  outline: 2px solid t.$color-primary;
+  outline-offset: 2px;
+  box-shadow: 0 0 12px rgba(t.$color-primary, 0.5);
+}
+
+.hotkeyBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: t.$border-radius-pill;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: t.$color-text-light;
+  font-family: t.$font-family-base;
+  font-size: t.$font-size-sm;
+  font-weight: t.$font-weight-bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+}
+

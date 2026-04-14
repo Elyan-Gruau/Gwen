@@ -11,7 +11,7 @@ const GameRightPanel = ({ deck }: GameRightPanelProps) => {
   return (
     <div>
       <DiscardedPile discarded={deck.getDiscarded()} />
-      <Deckpile remainingDeck={deck.getPioche()} />
+      <Deckpile remainingDeck={deck.getDrawPile()} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import type { FactionConfig } from '../../../types/game/FactionConfig';
 
 export const MONSTERS: FactionConfig = {
+  id: 'monsters',
   name: 'Monsters',
   iconUrl: '',
   cardBackIconUrl: '/back/monsters_back.png',
