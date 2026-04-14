@@ -100,9 +100,11 @@ Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `la
 - [ ] Page d'accueil
 - [ ] Theme light / dark
 - [ ] hebergement
-- [ ] IA
+- [ ] IA ? 
 - [ ] Ameliorations UI/UX
-- [ ] Theme sonore
+- [ ] Page de win /lose
+- [ ] Calcul du elo
+- [ ] Theme sonore ?
 
 
 
