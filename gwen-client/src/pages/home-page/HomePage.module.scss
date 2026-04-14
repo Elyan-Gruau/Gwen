@@ -12,13 +12,13 @@
 .title {
   font-size: 2rem;
   font-family: tokens.$font-family-base;
-  color: tokens.$color-white;
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .subtitle {
   font-size: tokens.$font-size-md;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-faded);
   margin: 0;
 }
 

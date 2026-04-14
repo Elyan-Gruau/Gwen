@@ -5,6 +5,7 @@ import UserProfilePic from '../user-profile-pic/UserProfilePic';
 import Button from '../reusable/button/Button';
 import LinkButton from '../reusable/link-button/LinkButton';
 import styles from './Navbar.module.scss';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -19,6 +20,31 @@ const Navbar = () => {
       navigate(ROUTES.PROFILE_ME);
     }
   };
+
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+  const saved = localStorage.getItem("theme");
+
+  if (saved === "dark") return true;
+  if (saved === "light") return false;
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+});
+
+useEffect(() => {
+  const root = document.documentElement;
+
+  root.classList.remove("dark");
+
+  if (darkMode) {
+    document.documentElement.classList.add("dark");
+  }
+
+  localStorage.setItem("theme", darkMode ? "dark" : "light");
+}, [darkMode]);
+
+const toggleTheme = () => {
+  setDarkMode((v) => !v);
+};
 
   return (
     <nav className={styles.navbar}>
@@ -37,20 +63,34 @@ const Navbar = () => {
         {/* User Section */}
         <div className={styles.userSection}>
           {isAuthenticated && user ? (
-            <>
-              <div className={styles.userInfo}>
-                <span className={styles.username}>{user.username}</span>
-                <span className={styles.elo}>ELO: {user.elo}</span>
-              </div>
-              <div className={styles.profilePic} onClick={handleProfile}>
-                <UserProfilePic userId={user.id} />
-              </div>
-              <Button size="sm" variant="danger" onClick={logout}>
-                Logout
-              </Button>
-            </>
+              <div className={styles.rightButtons}>
+    <button onClick={toggleTheme} className={styles.theme}>
+      <img
+        src={darkMode ? "/icons/dark.svg" : "/icons/light.svg"}
+        alt="theme icon"
+      />
+    </button>
+
+    <div className={styles.rightBlock}>
+      <div className={styles.userInfo}>
+        <span className={styles.username}>{user.username}</span>
+        <span className={styles.elo}>ELO: {user.elo}</span>
+      </div>
+
+      <div className={styles.profilePic} onClick={handleProfile}>
+        <UserProfilePic userId={user.id} />
+      </div>
+
+      <Button size="sm" variant="danger" onClick={logout}>
+        Logout
+      </Button>
+    </div>
+  </div>
           ) : (
             <div className={styles.authButtons}>
+              <button onClick={toggleTheme}>
+                Toggle {darkMode ? "Light" : "Dark"} Mode
+              </button>
               <LinkButton size="sm" variant="secondary" href={ROUTES.LOGIN}>
                 Login
               </LinkButton>

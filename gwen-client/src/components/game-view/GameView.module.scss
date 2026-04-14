@@ -3,4 +3,10 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  color: #ffffff;
+
+  // Ensure all text elements within game view are white
+  * {
+    color: #ffffff;
+  }
 }
