@@ -2,6 +2,7 @@ import styles from './BoardRowView.module.scss';
 import type { Row } from 'gwen-common';
 import ModifierSlot from './modifier-slot/ModifierSlot';
 import UnitCardView from '../../card/UnitCardView';
+import ScoreBadge from '../score-badge/ScoreBadge';
 
 export type BoardRowViewProps = {
   row: Row;
@@ -15,7 +16,9 @@ export type BoardRowViewProps = {
 const BoardRowView = ({ row }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
-      <div>{row.getScore()}</div>
+      <div>
+        <ScoreBadge value={row.getScore()} />
+      </div>
       <ModifierSlot modifier={row.getModifierCard()} />
       <div></div>
       <div className={styles.cardsContainer}>
