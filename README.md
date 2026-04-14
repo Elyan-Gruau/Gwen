@@ -68,6 +68,8 @@ TODO
 - [ ] Add light mode / dark mode switch, auto select from the os
 - [ ] Lazyload each route.
 - [ ] Add auto token refresh
+- [ ] Prevent user from joining the matchmaking queue if the deck is not SAVED & valid
+- [ ] Move the deck validation to the backend 
 
 ## Utilisation de l'IA dans le projet
 
@@ -89,7 +91,6 @@ Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `la
 ```bash
 ./scripts/launch-project.sh
 ```
-
 
 ## Repartition du travail
 
