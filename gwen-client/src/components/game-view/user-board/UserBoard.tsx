@@ -1,19 +1,19 @@
-import { Row } from 'gwen-common';
+import { type PlayerRows } from 'gwen-common';
 import BoardRowView from '../board-row-view/BoardRowView';
 import styles from './UserBoard.module.scss';
 
-export type UserBoardProps = {};
+export type UserBoardProps = {
+  playerRows: PlayerRows;
+};
 
-type UserBoardView = {};
-
-const UserBoard = ({}: UserBoardView) => {
-  const dummyRows = [new Row('MELEE'), new Row('RANGED'), new Row('SIEGE')];
+const UserBoard = ({ playerRows }: UserBoardProps) => {
+  const rows = playerRows.getRows();
 
   return (
     <div className={styles.userBoard}>
-      <BoardRowView row={dummyRows[0]} />
-      <BoardRowView row={dummyRows[1]} />
-      <BoardRowView row={dummyRows[2]} />
+      <BoardRowView row={rows[0]} />
+      <BoardRowView row={rows[1]} />
+      <BoardRowView row={rows[2]} />
     </div>
   );
 };
