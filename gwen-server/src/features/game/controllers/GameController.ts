@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
-import type { DTOFinishGameRequest, DTOGame, DTOGameWithMetadata } from '../dtos/DTOGame.js';
+import type { DTOFinishGameRequest, DTOGame, DTOGameWithMetadata, DTORoundEndResult, DTOGameEndResult } from '../dtos/DTOGame.js';
 import type { DBGame } from '../model/DBGame.js';
 import { Player } from 'gwen-common';
 
@@ -42,6 +42,28 @@ export class GameController extends Controller {
       return this.toDto(game);
     } catch (error) {
       return this.throwHttpError('Failed to retrieve game', 500);
+    }
+  }
+
+  @Post('{gameId}/end-round')
+  @SuccessResponse('200', 'Round ended, results calculated')
+  @Response('404', 'Game not found')
+  @Response('500', 'Server error')
+  public async endRound(@Path() gameId: string): Promise<DTOGameWithMetadata> {
+    try {
+      const gameManager = GameManager.getInstance();
+      const gameWithMetadata = gameManager.getActiveGameById(gameId);
+      const game = gameWithMetadata.game;
+
+      // Determine round result and advance game state
+      game.determineRoundResult();
+
+      return this.toDTOGameWithMetadata(gameWithMetadata);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        return this.throwHttpError(`Game ${gameId} not found`, 404);
+      }
+      return this.throwHttpError('Failed to end round', 500);
     }
   }
 
@@ -101,14 +123,58 @@ export class GameController extends Controller {
 
   private toDTOGameWithMetadata(gameWithMetadata: GameWithMetadata): DTOGameWithMetadata {
     const { metadata, game } = gameWithMetadata;
+
+    // Build round end result if a round just ended
+    let lastRoundResult: DTORoundEndResult | undefined;
+    const p1RoundResult = game.getLastRoundResult(game.getPlayer1().getUserId());
+    const p2RoundResult = game.getLastRoundResult(game.getPlayer2().getUserId());
+
+    if (p1RoundResult && p2RoundResult) {
+      lastRoundResult = {
+        round: game.getCurrentRound(),
+        player1_result: p1RoundResult,
+        player2_result: p2RoundResult,
+        player1_score: game.getPlayer1Rows().getScore(),
+        player2_score: game.getPlayer2Rows().getScore(),
+        player1_rounds_won: game.getRoundsWon(game.getPlayer1().getUserId()),
+        player2_rounds_won: game.getRoundsWon(game.getPlayer2().getUserId()),
+      };
+    }
+
+    // Build game end result if game has ended
+    let gameEndResult: DTOGameEndResult | undefined;
+    const p1GameResult = game.getGameResult(game.getPlayer1().getUserId());
+    const p2GameResult = game.getGameResult(game.getPlayer2().getUserId());
+
+    if (p1GameResult && p2GameResult) {
+      const player1Id = game.getPlayer1().getUserId();
+      const player2Id = game.getPlayer2().getUserId();
+      const p1Wins = game.getRoundsWon(player1Id);
+      const p2Wins = game.getRoundsWon(player2Id);
+
+      gameEndResult = {
+        player1_id: player1Id,
+        player2_id: player2Id,
+        player1_result: p1GameResult,
+        player2_result: p2GameResult,
+        player1_rounds_won: p1Wins,
+        player2_rounds_won: p2Wins,
+        winner_id: p1GameResult === 'WIN' ? player1Id : p2GameResult === 'WIN' ? player2Id : '',
+        // TODO: Calculate Elo changes when Elo system is implemented
+      };
+    }
+
     return {
       metadata: this.toDto(metadata),
       game: {
         phase: game.getPhase(),
+        currentRound: game.getCurrentRound(),
         player1: game.getPlayer1(),
         player2: game.getPlayer2(),
         player1Rows: game.getPlayer1Rows(),
         player2Rows: game.getPlayer2Rows(),
+        lastRoundResult: lastRoundResult || null,
+        gameEndResult: gameEndResult || null,
       },
     };
   }

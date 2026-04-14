@@ -94,10 +94,124 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"DTOGameResult": {
+				"type": "string",
+				"enum": [
+					"WIN",
+					"LOSS",
+					"DRAW"
+				]
+			},
+			"DTORoundEndResult": {
+				"properties": {
+					"player2_rounds_won": {
+						"type": "number",
+						"format": "double"
+					},
+					"player1_rounds_won": {
+						"type": "number",
+						"format": "double"
+					},
+					"player2_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"player1_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"player2_result": {
+						"$ref": "#/components/schemas/DTOGameResult"
+					},
+					"player1_result": {
+						"$ref": "#/components/schemas/DTOGameResult"
+					},
+					"round": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"player2_rounds_won",
+					"player1_rounds_won",
+					"player2_score",
+					"player1_score",
+					"player2_result",
+					"player1_result",
+					"round"
+				],
+				"type": "object",
+				"description": "Round end event: Shows overlay for ~3 seconds during game\r\nContains each player's result from their perspective"
+			},
+			"DTOGameEndResult": {
+				"properties": {
+					"player2_elo_change": {
+						"type": "number",
+						"format": "double"
+					},
+					"player1_elo_change": {
+						"type": "number",
+						"format": "double",
+						"description": "TODO: Will be populated when Elo system is implemented"
+					},
+					"winner_id": {
+						"type": "string"
+					},
+					"player2_rounds_won": {
+						"type": "number",
+						"format": "double"
+					},
+					"player1_rounds_won": {
+						"type": "number",
+						"format": "double"
+					},
+					"player2_result": {
+						"$ref": "#/components/schemas/DTOGameResult"
+					},
+					"player1_result": {
+						"$ref": "#/components/schemas/DTOGameResult"
+					},
+					"player2_id": {
+						"type": "string"
+					},
+					"player1_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"winner_id",
+					"player2_rounds_won",
+					"player1_rounds_won",
+					"player2_result",
+					"player1_result",
+					"player2_id",
+					"player1_id"
+				],
+				"type": "object",
+				"description": "Game end result: Shows persistent page when game is over\r\nIncludes standings and final results"
+			},
 			"DTOGameWithMetadata": {
 				"properties": {
 					"game": {
 						"properties": {
+							"gameEndResult": {
+								"allOf": [
+									{
+										"$ref": "#/components/schemas/DTOGameEndResult"
+									}
+								],
+								"nullable": true,
+								"description": "Final game result (null if game not ended)"
+							},
+							"lastRoundResult": {
+								"allOf": [
+									{
+										"$ref": "#/components/schemas/DTORoundEndResult"
+									}
+								],
+								"nullable": true,
+								"description": "Result of last completed round (null if no round completed)"
+							},
 							"player2Rows": {
 								"$ref": "#/components/schemas/PlayerRows"
 							},
@@ -110,6 +224,10 @@
 							"player1": {
 								"$ref": "#/components/schemas/Player"
 							},
+							"currentRound": {
+								"type": "number",
+								"format": "double"
+							},
 							"phase": {
 								"$ref": "#/components/schemas/DTOGamePhase"
 							}
@@ -119,6 +237,7 @@
 							"player1Rows",
 							"player2",
 							"player1",
+							"currentRound",
 							"phase"
 						],
 						"type": "object"
@@ -388,6 +507,43 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/DTOGame"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/games/{gameId}/end-round": {
+			"post": {
+				"operationId": "EndRound",
+				"responses": {
+					"200": {
+						"description": "Round ended, results calculated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGameWithMetadata"
 								}
 							}
 						}
