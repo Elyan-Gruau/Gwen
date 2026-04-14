@@ -55,4 +55,28 @@ export class Deck {
   setDrawPile(newDrawPile: PlayableCard[]) {
     this.drawPile = [...newDrawPile];
   }
+
+  /**
+   * Draws multiple cards from the drawPile & puts them in the hand.
+   * @param amount the amount of card to draw
+   */
+  drawCards(amount: number) {
+    for (let i = 0; i < amount; i++) {
+      this.drawCard();
+    }
+  }
+
+  /**
+   * Draws a card from the drawPile & puts it in the hand.
+   */
+  drawCard(): void {
+    const maybeCard = this.drawPile.pop();
+
+    if (!maybeCard) {
+      console.error('Unable to draw card, the drawPile is empty');
+      return;
+    }
+
+    this.hand.push(maybeCard);
+  }
 }
