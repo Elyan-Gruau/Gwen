@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import GameView from '../../components/game-view/GameView';
 import { Game } from 'gwen-common';
+import styles from './GamePage.module.scss';
 import { type DTOGameWithMetadata, useGetGameWithMetadataById } from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
 import { GameMapper } from '../../services/GameMapper';
@@ -18,8 +19,13 @@ const GamePage = () => {
     return <div>No game found with id {gameId}</div>;
   }
 
+  const style = {
+    // TODO replace the url with an URL provider
+    backgroundImage: 'url(/data-packs/the-witcher/board/background.png)',
+  };
+
   return (
-    <div>
+    <div className={styles.gamePage} style={style}>
       <p>gameId : {gameId}</p>
       <GameView game={toModel(game)} />
     </div>
