@@ -1,5 +1,5 @@
 import type { DTOGameWithMetadataGame } from 'gwen-generated-api';
-import { Deck, Game, GwenConfig, Player } from 'gwen-common';
+import { Deck, Game, GwenConfig, Player, PlayerRows, Row, RowModifierCard } from 'gwen-common';
 
 export abstract class GameMapper {
   static toModel(dto: DTOGameWithMetadataGame): Game {
@@ -8,8 +8,14 @@ export abstract class GameMapper {
     const player2 = this.mapPlayer(dto.player2 as any);
 
     const game = new Game(player1, player2);
-    // NOTE: Game phase and rows are currently initialized internally by Game's constructor.
-    // If we later add setters on Game for phase/rows, we can also map dto.phase and dto.player*Rows here.
+    
+    // Map player rows from DTO
+    const player1Rows = this.mapPlayerRows(dto.player1Rows as any);
+    const player2Rows = this.mapPlayerRows(dto.player2Rows as any);
+    
+    game.setPlayer1Rows(player1Rows);
+    game.setPlayer2Rows(player2Rows);
+    
     return game;
   }
 
@@ -78,5 +84,65 @@ export abstract class GameMapper {
     }
 
     return player;
+  }
+
+  private static mapPlayerRows(dtoPlayerRows: any): PlayerRows {
+    // Extract userId from the DTO PlayerRows object
+    const userId = dtoPlayerRows?.userId as string;
+    
+    if (!userId) {
+      throw new Error('Unable to extract userId from DTO PlayerRows');
+    }
+
+    // Create a new PlayerRows instance
+    const playerRows = new PlayerRows(userId);
+    const cardIndex = GwenConfig.getCurrentDatapackCardIndex();
+
+    // If there are rows in the DTO, populate them with cards
+    if (dtoPlayerRows?.rows && Array.isArray(dtoPlayerRows.rows)) {
+      const dtoRows = dtoPlayerRows.rows;
+      
+      dtoRows.forEach((dtoRow: any, index: number) => {
+        if (index >= 3) return; // Only MELEE, RANGED, SIEGE (3 rows)
+
+        const row = playerRows.getRows()[index]; // Get the row at this index
+
+        // Add unit cards to the row
+        if (dtoRow?.cards && Array.isArray(dtoRow.cards)) {
+          dtoRow.cards.forEach((cardData: any) => {
+            try {
+              const id = cardData?.id as string | undefined;
+              if (id) {
+                const card = cardIndex.findPlayableCardById(id);
+                row.addCard(card as any);
+              }
+            } catch {
+              // If a card is not found in the index, just ignore it on the client
+            }
+          });
+        }
+
+        // Add modifier card if present
+        if (dtoRow?.modifierCard) {
+          try {
+            const modifierConfig = dtoRow.modifierCard;
+            if (modifierConfig?.name && modifierConfig?.strategy) {
+              const modifierCard = new RowModifierCard({
+                name: modifierConfig.name,
+                strategy: modifierConfig.strategy,
+              });
+              row.setModifierCard(modifierCard);
+            }
+          } catch {
+            // Silently ignore if modifier card cannot be reconstructed
+          }
+        }
+      });
+    }
+
+    // Update the score after populating rows
+    playerRows.updateScore();
+
+    return playerRows;
   }
 }
