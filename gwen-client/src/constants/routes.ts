@@ -8,6 +8,7 @@ export const ROUTES = {
   PROFILE: '/profile/:userId',
   PROFILE_ME: '/profile/me',
   PLAY: '/play',
+  MATCHMAKING: '/matchmaking',
   GAME: '/game/:gameId',
   DECK_BUILDER: '/deck-builder',
 } as const;

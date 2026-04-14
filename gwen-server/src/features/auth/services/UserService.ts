@@ -90,4 +90,15 @@ export class UserService {
     }
     await this.userRepository.deleteById(id);
   }
+
+  async setFavoriteDeck(userId: string, factionId: string | null): Promise<DBUser> {
+    const user = await this.getUserById(userId);
+    user.favorite_deck = factionId;
+    return this.userRepository.update(user);
+  }
+
+  async getFavoriteDeck(userId: string): Promise<string | null | undefined> {
+    const user = await this.getUserById(userId);
+    return user.favorite_deck;
+  }
 }

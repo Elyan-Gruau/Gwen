@@ -1,7 +1,7 @@
-import { UnitCard } from 'gwen-common';
+import { type PlayableCard, UnitCard } from 'gwen-common';
 
 export type DiscardedPileProps = {
-  discarded: UnitCard[];
+  discarded: PlayableCard[];
 };
 
 const DiscardedPile = ({ discarded }: DiscardedPileProps) => {

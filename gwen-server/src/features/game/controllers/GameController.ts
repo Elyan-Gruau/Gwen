@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
-import { GameManager } from '../services/GameManager.js';
+import { GameManager, GameWithMetadata } from '../services/GameManager.js';
 import type { DTOFinishGameRequest, DTOGame, DTOGameWithMetadata } from '../dtos/DTOGame.js';
 import type { DBGame } from '../model/DBGame.js';
+import { Player } from 'gwen-common';
 
 const gameService = new GameService();
 
@@ -18,7 +19,7 @@ export class GameController extends Controller {
       const gameManager = GameManager.getInstance();
       const gameWithMetadata = gameManager.getActiveGameById(gameId);
 
-      return this.toGameWithMetadataDto(gameWithMetadata);
+      return this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
         return this.throwHttpError(`Active game with ${gameId} not found`, 404);
@@ -98,17 +99,16 @@ export class GameController extends Controller {
     };
   }
 
-  private toGameWithMetadataDto(gameWithMetadata: any): DTOGameWithMetadata {
+  private toDTOGameWithMetadata(gameWithMetadata: GameWithMetadata): DTOGameWithMetadata {
     const { metadata, game } = gameWithMetadata;
     return {
       metadata: this.toDto(metadata),
       game: {
         phase: game.getPhase(),
-        players: game.getPlayers().map((player: any) => ({
-          userId: player.getUserId(),
-          gems: player.getGems(),
-          passed: player.hasPassed(),
-        })),
+        player1: game.getPlayer1(),
+        player2: game.getPlayer2(),
+        player1Rows: game.getPlayer1Rows(),
+        player2Rows: game.getPlayer2Rows(),
       },
     };
   }

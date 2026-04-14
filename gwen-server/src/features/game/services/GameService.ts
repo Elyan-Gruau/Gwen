@@ -8,11 +8,18 @@ export class GameService {
     this.gameRepository = new GameRepository();
   }
 
-  public async createGame(player1Id: string, player2Id: string): Promise<DBGame> {
+  public async createGame(
+    player1Id: string,
+    player1DeckId: string,
+    player2Id: string,
+    player2DeckId: string,
+  ): Promise<DBGame> {
     // Create a new game object for the database
     const newGame: DBGame = {
       player1_id: player1Id,
+      player1_selected_deck_id: player1DeckId,
       player2_id: player2Id,
+      player2_selected_deck_id: player2DeckId,
       status: 'ACTIVE',
       winner_id: null,
       created_at: new Date(),
@@ -28,10 +35,14 @@ export class GameService {
   }
 
   public async finishGame(gameId: string, winnerId: string): Promise<DBGame | null> {
-    return this.gameRepository.update(gameId, { status: 'FINISHED', winner_id: winnerId });
+    return this.gameRepository.update(gameId, {
+      status: 'FINISHED',
+      winner_id: winnerId,
+      updated_at: new Date(),
+    });
   }
 
   public async abandonGame(gameId: string): Promise<DBGame | null> {
-    return this.gameRepository.update(gameId, { status: 'ABANDONED' });
+    return this.gameRepository.update(gameId, { status: 'ABANDONED', updated_at: new Date() });
   }
 }

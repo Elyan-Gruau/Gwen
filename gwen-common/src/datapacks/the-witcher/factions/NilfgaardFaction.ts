@@ -1,7 +1,8 @@
 import type { FactionConfig } from '../../../types/game/FactionConfig';
 
 export const NILFGAARD: FactionConfig = {
-  name: 'Nilfgaard Empire',
+  id: 'nilgaardian_empire',
+  name: 'Nilfgaardian Empire',
   iconUrl: '',
   cardBackIconUrl: '/back/nilfgaardian_empire_back.jpg',
   leaders: [

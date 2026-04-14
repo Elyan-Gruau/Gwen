@@ -17,3 +17,4 @@ export * from './Weather.js';
 export * from './Datapack.js';
 export * from './Faction.js';
 export * from './UserFactionDeck.js';
+export * from './GwenConfig.js';

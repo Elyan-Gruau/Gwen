@@ -1,6 +1,7 @@
 import type { FactionConfig } from '../../../types/game/FactionConfig';
 
 export const NORTHERN_REALMS: FactionConfig = {
+  id: 'northern_realms',
   name: 'Northern Realms',
   iconUrl: '',
   cardBackIconUrl: '/back/northern_realms_back.jpg',

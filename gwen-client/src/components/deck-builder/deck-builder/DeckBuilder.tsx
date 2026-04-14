@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   Datapack,
-  Faction,
   NeutralCard,
   THE_WITCHER_DATAPACK,
   UnitCard,
@@ -14,13 +13,21 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import CardCollection from '../card-collection/CardCollection';
 import FactionLeaderSelector from '../faction-leader-selector/FactionLeaderSelector';
 import FactionSelector from '../faction-selector/FactionSelector';
+import FavoriteDeckToggle from './FavoriteDeckToggle';
 import styles from './DeckBuilder.module.scss';
 import { useGetOrCreateUserFactionDeck, useUpdateUserFactionDeck } from 'gwen-generated-api';
 import { fromDTOtoModel } from './UserFactionDeckMapper';
+import Spinner from '../../spinner/Spinner';
 
 const AUTOSAVE_DELAY_MS = 1000; // 1 second debounce
 
-const DeckBuilder = () => {
+interface DeckBuilderProps {
+  onDeckValidityChange?: (isValid: boolean) => void;
+  onDeckIdChange?: (deckId: string) => void;
+}
+
+// DeckBuilder component
+const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps = {}) => {
   const queryClient = useQueryClient();
   const { user } = useAuthContext();
   const { mutate: updateDeck, isPending: isUpdating } = useUpdateUserFactionDeck();
@@ -38,7 +45,7 @@ const DeckBuilder = () => {
 
   const { data: loadedDeckData, isLoading } = useGetOrCreateUserFactionDeck(
     user?.id || '',
-    faction.getName(),
+    faction.getId(),
     {
       query: {
         enabled: !!user?.id,
@@ -51,8 +58,12 @@ const DeckBuilder = () => {
       // Chargement depuis l'API → ne pas marquer le deck comme modifié par l'utilisateur
       setUserDeck(fromDTOtoModel(faction, loadedDeckData));
       setHasUserEditedDeck(false);
+      // Notify parent of the faction ID (not the deck ID)
+      if (onDeckIdChange) {
+        onDeckIdChange(faction.getId());
+      }
     }
-  }, [loadedDeckData, isLoading, faction]);
+  }, [loadedDeckData, isLoading, faction, onDeckIdChange]);
 
   const unitCount = userDeck.getNumberOfUnits();
   const specialCount = userDeck.getSpecialCards().length;
@@ -80,7 +91,7 @@ const DeckBuilder = () => {
     setIsSavingIndicator(true);
     updateDeck({
       userId: user.id,
-      factionId: faction.getName(),
+      factionId: faction.getId(),
       data: {
         unitCardIds,
         leaderCardId,
@@ -115,6 +126,17 @@ const DeckBuilder = () => {
       }
     };
   }, [userDeck, hasUserEditedDeck, performAutosave, user?.id]);
+
+  // Notify parent component when deck validity changes
+  useEffect(() => {
+    if (onDeckValidityChange) {
+      const isValid =
+        userDeck.getLeader() !== null &&
+        userDeck.getUnitCards().length >= 25 &&
+        userDeck.getSpecialCards().length <= 10;
+      onDeckValidityChange(isValid);
+    }
+  }, [userDeck, onDeckValidityChange]);
 
   const handleFactionChange = (index: number) => {
     setSelectedFactionIndex(index);
@@ -177,7 +199,7 @@ const DeckBuilder = () => {
     <div className={styles.deckBuilder}>
       {isLoading && (
         <div className={styles.loadingOverlay}>
-          <p>Loading deck...</p>
+          <Spinner />
         </div>
       )}
 
@@ -205,29 +227,30 @@ const DeckBuilder = () => {
 
           <div className={styles.deckStats}>
             <div className={styles.statRow}>
-              <span>Unités</span>
+              <span>Units</span>
               <span className={styles.statValue}>
                 {unitCount} / {USER_FACTION_DECK_RULES.MIN_UNIT_CARDS} min
               </span>
             </div>
             <div className={styles.statRow}>
-              <span>Spéciaux</span>
+              <span>Specials</span>
               <span className={styles.statValue}>
                 {specialCount} / {USER_FACTION_DECK_RULES.MAX_SPECIAL_CARDS} max
               </span>
             </div>
             <div className={styles.statRow}>
-              <span>Héros</span>
+              <span>Heros</span>
               <span className={styles.statValue}>{heroCount}</span>
             </div>
             <div className={styles.statRow}>
-              <span>Force totale</span>
+              <span>Total strength</span>
               <span className={styles.statValue}>{totalStrength}</span>
             </div>
             <div className={styles.statRow}>
-              <span>Total cartes</span>
+              <span>Total cards</span>
               <span className={styles.statValue}>{userDeck.getTotalCards()}</span>
             </div>
+            <FavoriteDeckToggle userId={user?.id} factionId={faction.getId()} />
             <span
               className={`${styles.validBadge} ${isValid ? styles.validBadgeOk : styles.validBadgeKo}`}
             >

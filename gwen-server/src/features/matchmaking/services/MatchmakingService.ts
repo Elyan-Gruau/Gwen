@@ -1,26 +1,31 @@
 import type { UserService } from '../../auth/services/UserService.js';
 import type { GameService } from '../../game/services/GameService.js';
-import { DBGame } from '../../game/model/DBGame';
+import type { UserFactionDeckService } from '../../auth/services/UserFactionDeckService.js';
 import { GameManager } from '../../game/services/GameManager';
 
 export class MatchmakingService {
-  // Map: userId → { userId, elo, timestamp }
+  // Map: userId → { userId, elo, timestamp, deckId }
   private readonly matchmakingPool: Map<
     string,
-    { userId: string; elo: number; timestamp: number }
+    { userId: string; elo: number; timestamp: number; deckId?: string }
   > = new Map();
 
   constructor(
     private readonly userService: UserService,
     private readonly gameService: GameService,
-  ) {}
+    private readonly userFactionDeckService: UserFactionDeckService,
+  ) {
+    // Set the UserFactionDeckService on GameManager singleton
+    GameManager.getInstance().setUserFactionDeckService(userFactionDeckService);
+  }
 
-  async joinPool(userId: string, elo: number) {
+  async joinPool(userId: string, elo: number, deckId?: string) {
     // Add user to the pool
     this.matchmakingPool.set(userId, {
       userId,
       elo,
       timestamp: Date.now(),
+      deckId,
     });
 
     // Search for opponent
@@ -32,8 +37,25 @@ export class MatchmakingService {
       this.matchmakingPool.delete(opponent.userId);
 
       // Create game
-      const game = await this.gameService.createGame(userId, opponent.userId);
-      GameManager.getInstance().activateGame(game);
+      console.log('Creating game ...');
+      const game = await this.gameService.createGame(
+        userId,
+        deckId || '',
+        opponent.userId,
+        opponent.deckId || '',
+      );
+      console.log('Game created with id: ', game._id?.toString());
+
+      console.log('Activate game ...');
+      const activatedGame = await GameManager.getInstance().activateGame(game);
+      console.log('Game activated: ', JSON.stringify(activatedGame));
+      console.log('Game activated');
+
+      return {
+        player1: userId,
+        player2: opponent.userId,
+        gameId: game._id?.toString() || '',
+      };
     }
 
     return null;

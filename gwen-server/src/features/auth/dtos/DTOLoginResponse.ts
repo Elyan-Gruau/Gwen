@@ -5,6 +5,7 @@ export interface DTOUser {
   bio: string;
   profilePictureUrl?: string | null;
   elo: number;
+  favorite_deck?: string | null;
 }
 
 export class DTOLoginResponse {
