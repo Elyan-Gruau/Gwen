@@ -1,4 +1,4 @@
-import { Game, Player, Deck, GwenConfig } from 'gwen-common';
+import { Game, Player, Deck, GwenConfig, shuffle } from 'gwen-common';
 import type { DBGame } from '../model/DBGame';
 import type { UserFactionDeckService } from '../../auth/services/UserFactionDeckService.js';
 
@@ -80,13 +80,17 @@ export class GameManager {
       return datapackCardIndex.findPlayableCardById(id);
     });
 
-    //TODO also shufle the cards
+    // Shuffle the cards
+    shuffle(cards);
 
     const deck = new Deck();
     deck.setDrawPile(cards);
 
     const player = new Player(playerId);
     player.setDeck(deck);
+
+    // Draw 10 cards to fill the initial cards
+    deck.drawCards(10);
 
     return player;
   }
