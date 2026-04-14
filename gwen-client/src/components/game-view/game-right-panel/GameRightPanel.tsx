@@ -1,6 +1,6 @@
 import { Deck } from 'gwen-common';
 import DiscardedPile from './discarded-view/DiscardedPile';
-import Deckpile from './deckpile/Deckpile';
+import DrawPile from './draw-pile/DrawPile';
 
 export type GameRightPanelProps = {
   deck: Deck;
@@ -11,7 +11,7 @@ const GameRightPanel = ({ deck }: GameRightPanelProps) => {
   return (
     <div>
       <DiscardedPile discarded={deck.getDiscarded()} />
-      <Deckpile remainingDeck={deck.getDrawPile()} />
+      <DrawPile drawPile={deck.getDrawPile()} />
     </div>
   );
 };
