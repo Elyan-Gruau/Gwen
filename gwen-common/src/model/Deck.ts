@@ -1,12 +1,15 @@
 import type { UnitCard } from './cards/UnitCard';
 import { type PlayableCard } from '../types/Card';
+import { LeaderCard } from './cards/LeaderCard';
 
 export class Deck {
   private hand: PlayableCard[];
   private discarded: PlayableCard[];
   private drawPile: PlayableCard[];
+  private leader: LeaderCard;
 
-  constructor() {
+  constructor(leader: LeaderCard) {
+    this.leader = leader;
     this.hand = [];
     this.discarded = [];
     this.drawPile = [];
@@ -50,6 +53,10 @@ export class Deck {
 
   getDrawPile(): PlayableCard[] {
     return this.drawPile;
+  }
+
+  getLeader(): LeaderCard {
+    return this.leader;
   }
 
   setDrawPile(newDrawPile: PlayableCard[]) {

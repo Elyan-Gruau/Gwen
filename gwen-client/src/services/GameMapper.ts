@@ -14,17 +14,28 @@ export abstract class GameMapper {
   }
 
   private static mapPlayer(dtoPlayer: any): Player {
-    // Create base Player with userId
-    const player = new Player(String(dtoPlayer.userId));
+    console.log({ dtoPlayer });
+    const cardIndex = GwenConfig.getCurrentDatapackCardIndex();
 
-    // Restore "passed" state if needed
-    if (dtoPlayer.passed) {
-      player.pass();
+    const dtoDeck = dtoPlayer.deck as any | undefined;
+
+    // Resolve leader card id from the DTO
+    const leaderIdFromDeck = dtoDeck?.leader?.id as string | undefined;
+    const leaderIdFromPlayer =
+      typeof dtoPlayer.leaderId === 'string' ? dtoPlayer.leaderId : undefined;
+    const leaderIdFromCompressed = typeof dtoPlayer.c === 'string' ? dtoPlayer.c : undefined;
+
+    const leaderId = leaderIdFromDeck ?? leaderIdFromPlayer ?? leaderIdFromCompressed;
+
+    if (!leaderId) {
+      throw new Error('Unable to resolve leader id from DTO player');
     }
 
+    // Find corresponding LeaderCard instance in the shared datapack index
+    const leaderCard = cardIndex.findLeaderCardById(leaderId);
+
     // Rebuild deck from card ids using the shared datapack index
-    const deck = new Deck();
-    const cardIndex = GwenConfig.getCurrentDatapackCardIndex();
+    const deck = new Deck(leaderCard);
 
     const mapCards = (cards: any[] | undefined) => {
       if (!Array.isArray(cards)) return [];
@@ -42,8 +53,6 @@ export abstract class GameMapper {
         .filter((c): c is ReturnType<typeof cardIndex.findPlayableCardById> => c !== null);
     };
 
-    const dtoDeck = dtoPlayer.deck as any | undefined;
-
     // Draw pile
     const drawPileCards = mapCards(dtoDeck?.drawPile);
     if (drawPileCards.length > 0) {
@@ -59,7 +68,14 @@ export abstract class GameMapper {
 
     // Discarded pile is currently not exposed via a setter on Deck, so we ignore it for now.
 
-    player.setDeck(deck);
+    // Create base Player with userId
+    const player = new Player(String(dtoPlayer.userId), deck);
+
+    // Restore "passed" state if needed
+    if (dtoPlayer.passed) {
+      player.pass();
+    }
+
     return player;
   }
 }

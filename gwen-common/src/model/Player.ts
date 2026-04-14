@@ -7,9 +7,9 @@ export class Player {
   private passed: boolean;
   private deck: Deck;
 
-  constructor(id: string) {
+  constructor(id: string, deck: Deck) {
     this.userId = id;
-    this.deck = new Deck();
+    this.deck = deck;
     this.gems = INITIAL_GEMS;
     this.passed = false;
   }

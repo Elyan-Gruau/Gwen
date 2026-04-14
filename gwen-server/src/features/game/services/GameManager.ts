@@ -80,13 +80,24 @@ export class GameManager {
       return datapackCardIndex.findPlayableCardById(id);
     });
 
+    if (!selected_deck.leader_card_id) {
+      throw new Error('Leader id not defined ');
+    }
+
+    const leaderId = selected_deck.leader_card_id;
+    const leaderCard = datapackCardIndex.findLeaderCardById(leaderId);
+
+    if (!leaderCard) {
+      throw new Error(`Leader card with id ${leaderId} not found.`);
+    }
+
     // Shuffle the cards
     shuffle(cards);
 
-    const deck = new Deck();
+    const deck = new Deck(leaderCard);
     deck.setDrawPile(cards);
 
-    const player = new Player(playerId);
+    const player = new Player(playerId, deck);
     player.setDeck(deck);
 
     // Draw 10 cards to fill the initial cards

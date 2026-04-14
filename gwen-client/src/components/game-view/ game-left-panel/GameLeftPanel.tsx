@@ -10,7 +10,6 @@ export type GameLeftPanelProps = {
 };
 
 const GameLeftPanel = ({ isCurrentPlayer, player }: GameLeftPanelProps) => {
-  const fakeNickname = isCurrentPlayer ? 'You' : 'Opponent';
   return (
     <div className={styles.gameLeftPanel}>
       <UserView userId={player.getUserId()} />
