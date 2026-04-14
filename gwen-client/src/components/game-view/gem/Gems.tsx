@@ -1,5 +1,6 @@
 import Gem from './Gem';
 import { INITIAL_GEMS } from 'gwen-common';
+import styles from './Gems.module.scss';
 
 export type GemsProps = {
   activeCount: number;
@@ -7,7 +8,7 @@ export type GemsProps = {
 
 const Gems = ({ activeCount }: GemsProps) => {
   return (
-    <div className="gems">
+    <div className={styles.container}>
       {Array.from({ length: activeCount }, (_, i) => (
         <Gem isActive={true} />
       ))}

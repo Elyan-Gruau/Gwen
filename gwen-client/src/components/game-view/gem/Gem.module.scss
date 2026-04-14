@@ -1,0 +1,17 @@
+@use '@styles/tokens' as tokens;
+
+.wrapper {
+  width: tokens.$spacing-xl;
+  height: tokens.$spacing-xl;
+  border-radius: tokens.$border-radius-md;
+  overflow: hidden;
+  box-shadow: tokens.$shadow-sm;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+

@@ -1,16 +1,15 @@
+import { getGemBrokenPictureUrl, getGemPictureUrl } from '../../../utils/URLProvider';
+import styles from './Gem.module.scss';
+
 export type GemProps = {
   isActive: boolean;
 };
 
 const Gem = ({ isActive }: GemProps) => {
-  const path = isActive ? '/assets/gem-active.png' : '/assets/gem-inactive.png';
+  const path = isActive ? getGemPictureUrl() : getGemBrokenPictureUrl();
   return (
-    <div>
-      <img
-        src={path}
-        alt="Gem"
-        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-      />
+    <div className={styles.wrapper}>
+      <img className={styles.image} src={path} alt="Gem" />
     </div>
   );
 };
