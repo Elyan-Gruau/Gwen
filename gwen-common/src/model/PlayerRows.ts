@@ -1,4 +1,5 @@
 import { Row } from './Row';
+import type { RangeType } from '../types/RangeType';
 
 export class PlayerRows {
   private readonly userId: string;
@@ -24,5 +25,17 @@ export class PlayerRows {
 
   getUserId() {
     return this.userId;
+  }
+
+  getRows(): Row[] {
+    return this.rows;
+  }
+
+  getRow(range: RangeType): Row {
+    const maybeRow = this.rows.find((row) => row.getRange() === range);
+    if (!maybeRow) {
+      throw new Error(`Row with range ${range} not found for player ${this.userId}`);
+    }
+    return maybeRow;
   }
 }

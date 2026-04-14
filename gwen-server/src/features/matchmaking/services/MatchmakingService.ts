@@ -46,9 +46,7 @@ export class MatchmakingService {
       );
       console.log('Game created with id: ', game._id?.toString());
 
-      console.log('Activate game ...');
       const activatedGame = await GameManager.getInstance().activateGame(game);
-      console.log('Game activated: ', JSON.stringify(activatedGame));
       console.log('Game activated');
 
       return {
