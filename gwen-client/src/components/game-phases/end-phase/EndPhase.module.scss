@@ -1,0 +1,152 @@
+@use '@styles/tokens' as tokens;
+
+.roundEndOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 100;
+  animation: fadeIn 300ms ease;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.roundEndContent {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: tokens.$font-weight-bold;
+  animation: pulse 1s ease infinite;
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
+.gameEndContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: tokens.$spacing-lg;
+  padding: tokens.$spacing-lg;
+}
+
+.gameEndCard {
+  background-color: rgba(tokens.$color-surface-raised, 0.95);
+  border-radius: tokens.$border-radius-lg;
+  padding: tokens.$spacing-xl;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 42px 8px rgba(201, 168, 76, 0.25);
+  border: 2px solid #c9a84c;
+}
+
+.gameEndTitle {
+  font-size: 2.5rem;
+  font-weight: tokens.$font-weight-bold;
+  margin: 0 0 tokens.$spacing-lg 0;
+  color: #ffffff;
+
+  &.win {
+    color: #44af4a;
+    text-shadow: 0 0 16px rgba(68, 175, 74, 0.5);
+  }
+
+  &.loss {
+    color: #e03e3e;
+    text-shadow: 0 0 16px rgba(224, 62, 62, 0.5);
+  }
+
+  &.draw {
+    color: #f0a500;
+    text-shadow: 0 0 16px rgba(240, 165, 0, 0.5);
+  }
+}
+
+.resultDetails {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-md;
+  margin: tokens.$spacing-lg 0;
+  padding: tokens.$spacing-lg 0;
+  border-top: 1px solid rgba(201, 168, 76, 0.3);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+}
+
+.resultItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: tokens.$spacing-md 0;
+  font-size: tokens.$font-size-lg;
+}
+
+.resultLabel {
+  color: var(--color-text-light);
+  opacity: 0.8;
+}
+
+.resultValue {
+  color: #ffffff;
+  font-weight: tokens.$font-weight-bold;
+}
+
+.eloChange {
+  font-size: tokens.$font-size-md;
+  margin-top: tokens.$spacing-sm;
+
+  &.positive {
+    color: #44af4a;
+
+    &::before {
+      content: '+';
+    }
+  }
+
+  &.negative {
+    color: #e03e3e;
+
+    &::before {
+      content: '-';
+    }
+  }
+
+  &.neutral {
+    color: var(--color-text-light);
+  }
+}
+
+.actions {
+  display: flex;
+  gap: tokens.$spacing-md;
+  margin-top: tokens.$spacing-lg;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  button {
+    min-width: 150px;
+  }
+}
