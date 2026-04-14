@@ -67,15 +67,8 @@ const Navbar = () => {
                 <img src={darkMode ? '/icons/dark.svg' : '/icons/light.svg'} alt="theme icon" />
               </button>
 
-              <div className={styles.rightBlock}>
-                <div className={styles.userInfo}>
-                  <span className={styles.username}>{user.username}</span>
-                  <span className={styles.elo}>ELO: {user.elo}</span>
-                </div>
-
-                <div className={styles.profilePic} onClick={handleProfile}>
-                  <UserProfilePic userId={user.id} />
-                </div>
+              <div className={styles.profilePic} onClick={handleProfile}>
+                <UserProfilePic userId={user.id} />
               </div>
             </div>
           ) : (
