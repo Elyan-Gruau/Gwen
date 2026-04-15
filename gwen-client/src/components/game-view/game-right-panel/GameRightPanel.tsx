@@ -1,6 +1,7 @@
 import { Deck } from 'gwen-common';
 import DiscardedPile from './discarded-view/DiscardedPile';
 import DrawPile from './draw-pile/DrawPile';
+import styles from './GameRightPanel.module.scss';
 
 export type GameRightPanelProps = {
   deck: Deck;
@@ -9,7 +10,7 @@ export type GameRightPanelProps = {
 
 const GameRightPanel = ({ deck, factionId }: GameRightPanelProps) => {
   return (
-    <div>
+    <div className={styles.container}>
       <DiscardedPile factionId={factionId} discarded={deck.getDiscarded()} />
       <DrawPile factionId={factionId} drawPile={deck.getDrawPile()} />
     </div>

@@ -1,7 +1,7 @@
 @use '@styles/tokens' as tokens;
 
-$card-width: 120px;
-$card-height: 192px;
+$card-width: 5rem; // correspond à $card-width-small
+$card-height: 8rem; // correspond à $card-height-small
 
 .scene {
   position: relative;
@@ -30,8 +30,8 @@ $card-height: 192px;
   border-radius: tokens.$border-radius-md;
   cursor: pointer;
   transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
-  opacity 300ms ease,
-  box-shadow 300ms ease;
+    opacity 300ms ease,
+    box-shadow 300ms ease;
   overflow: hidden;
   user-select: none;
 

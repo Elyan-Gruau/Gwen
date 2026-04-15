@@ -45,7 +45,10 @@ const GameView = ({
   const isYourTurn = currentPlayerTurnUserId === currentUserId;
   const currentPlayerHasPassed = game.hasPlayerPassed(currentUserId);
   const opponentHasPassed = game.hasPlayerPassed(
-    game.getPlayers().find((p) => p.getUserId() !== currentUserId)?.getUserId() ?? '',
+    game
+      .getPlayers()
+      .find((p) => p.getUserId() !== currentUserId)
+      ?.getUserId() ?? '',
   );
 
   /**
@@ -114,7 +117,15 @@ const GameView = ({
     } catch (error) {
       console.error('Failed to pass turn:', error);
     }
-  }, [isYourTurn, currentPlayerHasPassed, currentUserId, gameId, passTurnMutation, onSelectCard, refetchGame]);
+  }, [
+    isYourTurn,
+    currentPlayerHasPassed,
+    currentUserId,
+    gameId,
+    passTurnMutation,
+    onSelectCard,
+    refetchGame,
+  ]);
 
   if (!user) {
     return <Spinner />;

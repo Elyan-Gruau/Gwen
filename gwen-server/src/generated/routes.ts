@@ -2,7 +2,7 @@
 /* eslint-disable */
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import type { TsoaRoute } from '@tsoa/runtime';
-import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
+import { fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { StatusController } from './../features/status/controllers/StatusController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -15,8 +15,12 @@ import { expressAuthentication } from './../index';
 // @ts-ignore - no great way to install types from subpackage
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
-const expressAuthenticationRecasted = expressAuthentication as (req: ExRequest, securityName: string, scopes?: string[], res?: ExResponse) => Promise<any>;
-
+const expressAuthenticationRecasted = expressAuthentication as (
+  req: ExRequest,
+  securityName: string,
+  scopes?: string[],
+  res?: ExResponse,
+) => Promise<any>;
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
@@ -165,675 +169,826 @@ const models: TsoaRoute.Models = {
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
-const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"silently-remove-extras","bodyCoercion":true});
+const templateService = new ExpressTemplateService(models, {
+  noImplicitAdditionalProperties: 'silently-remove-extras',
+  bodyCoercion: true,
+});
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-
-
-
 export function RegisterRoutes(app: Router) {
+  // ###########################################################################################################
+  //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
+  //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
+  // ###########################################################################################################
 
-    // ###########################################################################################################
-    //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
-    //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
-    // ###########################################################################################################
+  const argsStatusController_getHealth: Record<string, TsoaRoute.ParameterSchema> = {};
+  app.get(
+    '/api/status/health',
+    ...fetchMiddlewares<RequestHandler>(StatusController),
+    ...fetchMiddlewares<RequestHandler>(StatusController.prototype.getHealth),
 
+    async function StatusController_getHealth(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-    
-        const argsStatusController_getHealth: Record<string, TsoaRoute.ParameterSchema> = {
-        };
-        app.get('/api/status/health',
-            ...(fetchMiddlewares<RequestHandler>(StatusController)),
-            ...(fetchMiddlewares<RequestHandler>(StatusController.prototype.getHealth)),
-
-            async function StatusController_getHealth(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsStatusController_getHealth, request, response });
-
-                const controller = new StatusController();
-
-              await templateService.apiHandler({
-                methodName: 'getHealth',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsStatusController_getHealth,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_getGameWithMetadataById: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-        };
-        app.get('/api/games/:gameId/active',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.getGameWithMetadataById)),
 
-            async function GameController_getGameWithMetadataById(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new StatusController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_getGameWithMetadataById, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'getGameWithMetadataById',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'getHealth',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_getGame: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-        };
-        app.get('/api/games/:gameId',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.getGame)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_getGameWithMetadataById: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/games/:gameId/active',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.getGameWithMetadataById),
 
-            async function GameController_getGame(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_getGameWithMetadataById(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_getGame, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'getGame',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_getGameWithMetadataById,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_endRound: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-        };
-        app.post('/api/games/:gameId/end-round',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.endRound)),
 
-            async function GameController_endRound(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_endRound, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'endRound',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'getGameWithMetadataById',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_startRound: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-        };
-        app.post('/api/games/:gameId/start-round',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.startRound)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_getGame: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/games/:gameId',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.getGame),
 
-            async function GameController_startRound(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_getGame(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_startRound, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'startRound',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_getGame,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_placeCard: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"ref":"DTOPlaceCardRequest"},
-        };
-        app.post('/api/games/:gameId/place-card',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.placeCard)),
 
-            async function GameController_placeCard(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_placeCard, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'placeCard',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'getGame',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_passTurn: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"ref":"DTOPassTurnRequest"},
-        };
-        app.post('/api/games/:gameId/pass-turn',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.passTurn)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_endRound: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+  };
+  app.post(
+    '/api/games/:gameId/end-round',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.endRound),
 
-            async function GameController_passTurn(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_endRound(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_passTurn, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'passTurn',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_endRound,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_finishGame: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"ref":"DTOFinishGameRequest"},
-        };
-        app.post('/api/games/:gameId/finish',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.finishGame)),
 
-            async function GameController_finishGame(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_finishGame, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'finishGame',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'endRound',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsGameController_abandonGame: Record<string, TsoaRoute.ParameterSchema> = {
-                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
-        };
-        app.post('/api/games/:gameId/abandon',
-            ...(fetchMiddlewares<RequestHandler>(GameController)),
-            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.abandonGame)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_startRound: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+  };
+  app.post(
+    '/api/games/:gameId/start-round',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.startRound),
 
-            async function GameController_abandonGame(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_startRound(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_abandonGame, request, response });
-
-                const controller = new GameController();
-
-              await templateService.apiHandler({
-                methodName: 'abandonGame',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_startRound,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_getUserFactionDecks: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-        };
-        app.get('/api/user/:userId/decks',
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getUserFactionDecks)),
 
-            async function UserFactionDeckController_getUserFactionDecks(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_getUserFactionDecks, request, response });
-
-                const controller = new UserFactionDeckController();
-
-              await templateService.apiHandler({
-                methodName: 'getUserFactionDecks',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'startRound',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_getOrCreateUserFactionDeck: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-                factionId: {"in":"path","name":"factionId","required":true,"dataType":"string"},
-        };
-        app.get('/api/user/:userId/decks/:factionId',
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getOrCreateUserFactionDeck)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_placeCard: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+    body: { in: 'body', name: 'body', required: true, ref: 'DTOPlaceCardRequest' },
+  };
+  app.post(
+    '/api/games/:gameId/place-card',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.placeCard),
 
-            async function UserFactionDeckController_getOrCreateUserFactionDeck(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_placeCard(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_getOrCreateUserFactionDeck, request, response });
-
-                const controller = new UserFactionDeckController();
-
-              await templateService.apiHandler({
-                methodName: 'getOrCreateUserFactionDeck',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_placeCard,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_updateUserFactionDeck: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-                factionId: {"in":"path","name":"factionId","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"ref":"DTOUpdateUserFactionDeckRequest"},
-        };
-        app.put('/api/user/:userId/decks/:factionId',
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.updateUserFactionDeck)),
 
-            async function UserFactionDeckController_updateUserFactionDeck(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_updateUserFactionDeck, request, response });
-
-                const controller = new UserFactionDeckController();
-
-              await templateService.apiHandler({
-                methodName: 'updateUserFactionDeck',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'placeCard',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_deleteUserFactionDeck: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-                factionId: {"in":"path","name":"factionId","required":true,"dataType":"string"},
-        };
-        app.delete('/api/user/:userId/decks/:factionId',
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.deleteUserFactionDeck)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_passTurn: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+    body: { in: 'body', name: 'body', required: true, ref: 'DTOPassTurnRequest' },
+  };
+  app.post(
+    '/api/games/:gameId/pass-turn',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.passTurn),
 
-            async function UserFactionDeckController_deleteUserFactionDeck(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_passTurn(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_deleteUserFactionDeck, request, response });
-
-                const controller = new UserFactionDeckController();
-
-              await templateService.apiHandler({
-                methodName: 'deleteUserFactionDeck',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 204,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_passTurn,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_setFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"factionId":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true}}},
-        };
-        app.patch('/api/user/:userId/favorite',
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.setFavoriteDeck)),
 
-            async function UserFactionDeckController_setFavoriteDeck(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_setFavoriteDeck, request, response });
-
-                const controller = new UserFactionDeckController();
-
-              await templateService.apiHandler({
-                methodName: 'setFavoriteDeck',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'passTurn',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserFactionDeckController_getFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-        };
-        app.get('/api/user/:userId/favorite',
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController)),
-            ...(fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getFavoriteDeck)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_finishGame: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+    body: { in: 'body', name: 'body', required: true, ref: 'DTOFinishGameRequest' },
+  };
+  app.post(
+    '/api/games/:gameId/finish',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.finishGame),
 
-            async function UserFactionDeckController_getFavoriteDeck(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_finishGame(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserFactionDeckController_getFavoriteDeck, request, response });
-
-                const controller = new UserFactionDeckController();
-
-              await templateService.apiHandler({
-                methodName: 'getFavoriteDeck',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_finishGame,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsAuthController_login: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"LoginRequest"},
-        };
-        app.post('/api/auth/login',
-            ...(fetchMiddlewares<RequestHandler>(AuthController)),
-            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.login)),
 
-            async function AuthController_login(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_login, request, response });
-
-                const controller = new AuthController();
-
-              await templateService.apiHandler({
-                methodName: 'login',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'finishGame',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsAuthController_register: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"RegisterRequest"},
-        };
-        app.post('/api/auth/register',
-            ...(fetchMiddlewares<RequestHandler>(AuthController)),
-            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.register)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsGameController_abandonGame: Record<string, TsoaRoute.ParameterSchema> = {
+    gameId: { in: 'path', name: 'gameId', required: true, dataType: 'string' },
+  };
+  app.post(
+    '/api/games/:gameId/abandon',
+    ...fetchMiddlewares<RequestHandler>(GameController),
+    ...fetchMiddlewares<RequestHandler>(GameController.prototype.abandonGame),
 
-            async function AuthController_register(request: ExRequest, response: ExResponse, next: any) {
+    async function GameController_abandonGame(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_register, request, response });
-
-                const controller = new AuthController();
-
-              await templateService.apiHandler({
-                methodName: 'register',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsGameController_abandonGame,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsAuthController_getCurrentUser: Record<string, TsoaRoute.ParameterSchema> = {
-                request: {"in":"request","name":"request","required":true,"dataType":"object"},
-        };
-        app.get('/api/auth/me',
-            authenticateMiddleware([{"jwt":[]}]),
-            ...(fetchMiddlewares<RequestHandler>(AuthController)),
-            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.getCurrentUser)),
 
-            async function AuthController_getCurrentUser(request: ExRequest, response: ExResponse, next: any) {
+        const controller = new GameController();
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_getCurrentUser, request, response });
-
-                const controller = new AuthController();
-
-              await templateService.apiHandler({
-                methodName: 'getCurrentUser',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+        await templateService.apiHandler({
+          methodName: 'abandonGame',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsAuthController_getUser: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"string"},
-        };
-        app.get('/api/auth/users/:userId',
-            ...(fetchMiddlewares<RequestHandler>(AuthController)),
-            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.getUser)),
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_getUserFactionDecks: Record<
+    string,
+    TsoaRoute.ParameterSchema
+  > = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/user/:userId/decks',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getUserFactionDecks),
 
-            async function AuthController_getUser(request: ExRequest, response: ExResponse, next: any) {
+    async function UserFactionDeckController_getUserFactionDecks(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_getUser, request, response });
-
-                const controller = new AuthController();
-
-              await templateService.apiHandler({
-                methodName: 'getUser',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
-              });
-            } catch (err) {
-                return next(err);
-            }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_getUserFactionDecks,
+          request,
+          response,
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const controller = new UserFactionDeckController();
 
+        await templateService.apiHandler({
+          methodName: 'getUserFactionDecks',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_getOrCreateUserFactionDeck: Record<
+    string,
+    TsoaRoute.ParameterSchema
+  > = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+    factionId: { in: 'path', name: 'factionId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/user/:userId/decks/:factionId',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(
+      UserFactionDeckController.prototype.getOrCreateUserFactionDeck,
+    ),
 
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    async function UserFactionDeckController_getOrCreateUserFactionDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-    function authenticateMiddleware(security: TsoaRoute.Security[] = []) {
-        return async function runAuthenticationMiddleware(request: any, response: any, next: any) {
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_getOrCreateUserFactionDeck,
+          request,
+          response,
+        });
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const controller = new UserFactionDeckController();
 
-            // keep track of failed auth attempts so we can hand back the most
-            // recent one.  This behavior was previously existing so preserving it
-            // here
-            const failedAttempts: any[] = [];
-            const pushAndRethrow = (error: any) => {
-                failedAttempts.push(error);
-                throw error;
-            };
+        await templateService.apiHandler({
+          methodName: 'getOrCreateUserFactionDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_updateUserFactionDeck: Record<
+    string,
+    TsoaRoute.ParameterSchema
+  > = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+    factionId: { in: 'path', name: 'factionId', required: true, dataType: 'string' },
+    body: { in: 'body', name: 'body', required: true, ref: 'DTOUpdateUserFactionDeckRequest' },
+  };
+  app.put(
+    '/api/user/:userId/decks/:factionId',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.updateUserFactionDeck),
 
-            const secMethodOrPromises: Promise<any>[] = [];
-            for (const secMethod of security) {
-                if (Object.keys(secMethod).length > 1) {
-                    const secMethodAndPromises: Promise<any>[] = [];
+    async function UserFactionDeckController_updateUserFactionDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-                    for (const name in secMethod) {
-                        secMethodAndPromises.push(
-                            expressAuthenticationRecasted(request, name, secMethod[name], response)
-                                .catch(pushAndRethrow)
-                        );
-                    }
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_updateUserFactionDeck,
+          request,
+          response,
+        });
 
-                    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const controller = new UserFactionDeckController();
 
-                    secMethodOrPromises.push(Promise.all(secMethodAndPromises)
-                        .then(users => { return users[0]; }));
-                } else {
-                    for (const name in secMethod) {
-                        secMethodOrPromises.push(
-                            expressAuthenticationRecasted(request, name, secMethod[name], response)
-                                .catch(pushAndRethrow)
-                        );
-                    }
-                }
-            }
+        await templateService.apiHandler({
+          methodName: 'updateUserFactionDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_deleteUserFactionDeck: Record<
+    string,
+    TsoaRoute.ParameterSchema
+  > = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+    factionId: { in: 'path', name: 'factionId', required: true, dataType: 'string' },
+  };
+  app.delete(
+    '/api/user/:userId/decks/:factionId',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.deleteUserFactionDeck),
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    async function UserFactionDeckController_deleteUserFactionDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            try {
-                request['user'] = await Promise.any(secMethodOrPromises);
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_deleteUserFactionDeck,
+          request,
+          response,
+        });
 
-                // Response was sent in middleware, abort
-                if (response.writableEnded) {
-                    return;
-                }
+        const controller = new UserFactionDeckController();
 
-                next();
-            }
-            catch(err) {
-                // Show most recent error as response
-                const error = failedAttempts.pop();
-                error.status = error.status || 401;
+        await templateService.apiHandler({
+          methodName: 'deleteUserFactionDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 204,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_setFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+    body: {
+      in: 'body',
+      name: 'body',
+      required: true,
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        factionId: {
+          dataType: 'union',
+          subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],
+          required: true,
+        },
+      },
+    },
+  };
+  app.patch(
+    '/api/user/:userId/favorite',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.setFavoriteDeck),
 
-                // Response was sent in middleware, abort
-                if (response.writableEnded) {
-                    return;
-                }
-                next(error);
-            }
+    async function UserFactionDeckController_setFavoriteDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_setFavoriteDeck,
+          request,
+          response,
+        });
+
+        const controller = new UserFactionDeckController();
+
+        await templateService.apiHandler({
+          methodName: 'setFavoriteDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsUserFactionDeckController_getFavoriteDeck: Record<string, TsoaRoute.ParameterSchema> = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/user/:userId/favorite',
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController),
+    ...fetchMiddlewares<RequestHandler>(UserFactionDeckController.prototype.getFavoriteDeck),
+
+    async function UserFactionDeckController_getFavoriteDeck(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsUserFactionDeckController_getFavoriteDeck,
+          request,
+          response,
+        });
+
+        const controller = new UserFactionDeckController();
+
+        await templateService.apiHandler({
+          methodName: 'getFavoriteDeck',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsAuthController_login: Record<string, TsoaRoute.ParameterSchema> = {
+    body: { in: 'body', name: 'body', required: true, ref: 'LoginRequest' },
+  };
+  app.post(
+    '/api/auth/login',
+    ...fetchMiddlewares<RequestHandler>(AuthController),
+    ...fetchMiddlewares<RequestHandler>(AuthController.prototype.login),
+
+    async function AuthController_login(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsAuthController_login,
+          request,
+          response,
+        });
+
+        const controller = new AuthController();
+
+        await templateService.apiHandler({
+          methodName: 'login',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsAuthController_register: Record<string, TsoaRoute.ParameterSchema> = {
+    body: { in: 'body', name: 'body', required: true, ref: 'RegisterRequest' },
+  };
+  app.post(
+    '/api/auth/register',
+    ...fetchMiddlewares<RequestHandler>(AuthController),
+    ...fetchMiddlewares<RequestHandler>(AuthController.prototype.register),
+
+    async function AuthController_register(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsAuthController_register,
+          request,
+          response,
+        });
+
+        const controller = new AuthController();
+
+        await templateService.apiHandler({
+          methodName: 'register',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsAuthController_getCurrentUser: Record<string, TsoaRoute.ParameterSchema> = {
+    request: { in: 'request', name: 'request', required: true, dataType: 'object' },
+  };
+  app.get(
+    '/api/auth/me',
+    authenticateMiddleware([{ jwt: [] }]),
+    ...fetchMiddlewares<RequestHandler>(AuthController),
+    ...fetchMiddlewares<RequestHandler>(AuthController.prototype.getCurrentUser),
+
+    async function AuthController_getCurrentUser(
+      request: ExRequest,
+      response: ExResponse,
+      next: any,
+    ) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsAuthController_getCurrentUser,
+          request,
+          response,
+        });
+
+        const controller = new AuthController();
+
+        await templateService.apiHandler({
+          methodName: 'getCurrentUser',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  const argsAuthController_getUser: Record<string, TsoaRoute.ParameterSchema> = {
+    userId: { in: 'path', name: 'userId', required: true, dataType: 'string' },
+  };
+  app.get(
+    '/api/auth/users/:userId',
+    ...fetchMiddlewares<RequestHandler>(AuthController),
+    ...fetchMiddlewares<RequestHandler>(AuthController.prototype.getUser),
+
+    async function AuthController_getUser(request: ExRequest, response: ExResponse, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsAuthController_getUser,
+          request,
+          response,
+        });
+
+        const controller = new AuthController();
+
+        await templateService.apiHandler({
+          methodName: 'getUser',
+          controller,
+          response,
+          next,
+          validatedArgs,
+          successStatus: 200,
+        });
+      } catch (err) {
+        return next(err);
+      }
+    },
+  );
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+  function authenticateMiddleware(security: TsoaRoute.Security[] = []) {
+    return async function runAuthenticationMiddleware(request: any, response: any, next: any) {
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      // keep track of failed auth attempts so we can hand back the most
+      // recent one.  This behavior was previously existing so preserving it
+      // here
+      const failedAttempts: any[] = [];
+      const pushAndRethrow = (error: any) => {
+        failedAttempts.push(error);
+        throw error;
+      };
+
+      const secMethodOrPromises: Promise<any>[] = [];
+      for (const secMethod of security) {
+        if (Object.keys(secMethod).length > 1) {
+          const secMethodAndPromises: Promise<any>[] = [];
+
+          for (const name in secMethod) {
+            secMethodAndPromises.push(
+              expressAuthenticationRecasted(request, name, secMethod[name], response).catch(
+                pushAndRethrow,
+              ),
+            );
+          }
+
+          // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+          secMethodOrPromises.push(
+            Promise.all(secMethodAndPromises).then((users) => {
+              return users[0];
+            }),
+          );
+        } else {
+          for (const name in secMethod) {
+            secMethodOrPromises.push(
+              expressAuthenticationRecasted(request, name, secMethod[name], response).catch(
+                pushAndRethrow,
+              ),
+            );
+          }
         }
-    }
+      }
 
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+      try {
+        request['user'] = await Promise.any(secMethodOrPromises);
+
+        // Response was sent in middleware, abort
+        if (response.writableEnded) {
+          return;
+        }
+
+        next();
+      } catch (err) {
+        // Show most recent error as response
+        const error = failedAttempts.pop();
+        error.status = error.status || 401;
+
+        // Response was sent in middleware, abort
+        if (response.writableEnded) {
+          return;
+        }
+        next(error);
+      }
+
+      // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    };
+  }
+
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 }
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

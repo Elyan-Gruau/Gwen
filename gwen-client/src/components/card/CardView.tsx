@@ -5,14 +5,19 @@ import UnitCardView from './UnitCardView';
 import NeutralCardView from './NeutralCardView';
 import type { CardSize } from './CardContainer';
 
+export const CARD_SIZE: CardSize = 'small';
+
 type CardViewProps = {
   card: Card;
   size?: CardSize;
 };
 
-export default function CardView({ card, size }: CardViewProps) {
-  if (card instanceof LeaderCard) return <LeaderCardView card={card} size={size} />;
-  if (card instanceof NeutralCard) return <NeutralCardView card={card} size={size} />;
-  if (card instanceof UnitCard) return <UnitCardView card={card} size={size} />;
+const CardView = ({ card, size }: CardViewProps) => {
+  const finalSize = size ?? CARD_SIZE;
+  if (card instanceof LeaderCard) return <LeaderCardView card={card} size={finalSize} />;
+  if (card instanceof NeutralCard) return <NeutralCardView card={card} size={finalSize} />;
+  if (card instanceof UnitCard) return <UnitCardView card={card} size={finalSize} />;
   return null;
-}
+};
+
+export default CardView;

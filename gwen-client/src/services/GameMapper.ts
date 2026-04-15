@@ -21,8 +21,19 @@ export abstract class GameMapper {
     if (lastRoundResult) {
       const p1Id = player1.getUserId();
       const p2Id = player2.getUserId();
-      const winnerId = lastRoundResult.player1_result === 'WIN' ? p1Id : lastRoundResult.player2_result === 'WIN' ? p2Id : null;
-      game.restoreRoundResult(p1Id, lastRoundResult.player1_result, p2Id, lastRoundResult.player2_result, winnerId);
+      const winnerId =
+        lastRoundResult.player1_result === 'WIN'
+          ? p1Id
+          : lastRoundResult.player2_result === 'WIN'
+            ? p2Id
+            : null;
+      game.restoreRoundResult(
+        p1Id,
+        lastRoundResult.player1_result,
+        p2Id,
+        lastRoundResult.player2_result,
+        winnerId,
+      );
     }
 
     // Restore game end result if present
