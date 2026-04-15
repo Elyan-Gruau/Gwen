@@ -10,10 +10,10 @@ const Gems = ({ activeCount }: GemsProps) => {
   return (
     <div className={styles.container}>
       {Array.from({ length: activeCount }, (_, i) => (
-        <Gem isActive={true} />
+        <Gem key={`active-${i}`} isActive={true} />
       ))}
       {Array.from({ length: INITIAL_GEMS - activeCount }, (_, i) => (
-        <Gem isActive={true} />
+        <Gem key={`inactive-${i}`} isActive={false} />
       ))}
     </div>
   );

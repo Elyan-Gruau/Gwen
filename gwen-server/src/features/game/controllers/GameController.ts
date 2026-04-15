@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
+import { UserRepository } from '../../auth/repository/UserRepository.js';
 import type {
   DTOFinishGameRequest,
   DTOGame,
@@ -14,6 +15,7 @@ import type { DBGame } from '../model/DBGame.js';
 import { Player } from 'gwen-common';
 
 const gameService = new GameService();
+const userRepository = new UserRepository();
 
 @Route('games')
 @Tags('Games')
@@ -27,7 +29,7 @@ export class GameController extends Controller {
       const gameManager = GameManager.getInstance();
       const gameWithMetadata = gameManager.getActiveGameById(gameId);
 
-      return this.toDTOGameWithMetadata(gameWithMetadata);
+      return await this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
         return this.throwHttpError(`Active game with ${gameId} not found`, 404);
@@ -66,7 +68,7 @@ export class GameController extends Controller {
       // Determine round result and advance game state
       game.determineRoundResult();
 
-      return this.toDTOGameWithMetadata(gameWithMetadata);
+      return await this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
         return this.throwHttpError(`Game ${gameId} not found`, 404);
@@ -88,7 +90,7 @@ export class GameController extends Controller {
 
       game.startRound();
 
-      return this.toDTOGameWithMetadata(gameWithMetadata);
+      return await this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
         return this.throwHttpError(`Game ${gameId} not found`, 404);
@@ -127,7 +129,7 @@ export class GameController extends Controller {
       game.autoPassIfNoCards(player1.getUserId());
       game.autoPassIfNoCards(player2.getUserId());
 
-      return this.toDTOGameWithMetadata(gameWithMetadata);
+      return await this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
         return this.throwHttpError(`Game ${gameId} not found`, 404);
@@ -166,7 +168,7 @@ export class GameController extends Controller {
       game.autoPassIfNoCards(player1.getUserId());
       game.autoPassIfNoCards(player2.getUserId());
 
-      return this.toDTOGameWithMetadata(gameWithMetadata);
+      return await this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
         return this.throwHttpError(`Game ${gameId} not found`, 404);
@@ -232,13 +234,25 @@ export class GameController extends Controller {
     };
   }
 
-  private toDTOGameWithMetadata(gameWithMetadata: GameWithMetadata): DTOGameWithMetadata {
+  private async toDTOGameWithMetadata(gameWithMetadata: GameWithMetadata): Promise<DTOGameWithMetadata> {
     const { metadata, game } = gameWithMetadata;
+
+    // Fetch usernames
+    const player1Id = game.getPlayer1().getUserId();
+    const player2Id = game.getPlayer2().getUserId();
+    
+    const player1User = await userRepository.findById(player1Id);
+    const player2User = await userRepository.findById(player2Id);
+
+    const usernames: Record<string, string> = {
+      [player1Id]: player1User?.username || player1Id,
+      [player2Id]: player2User?.username || player2Id,
+    };
 
     // Build round end result if a round just ended
     let lastRoundResult: DTORoundEndResult | undefined;
-    const p1RoundResult = game.getLastRoundResult(game.getPlayer1().getUserId());
-    const p2RoundResult = game.getLastRoundResult(game.getPlayer2().getUserId());
+    const p1RoundResult = game.getLastRoundResult(player1Id);
+    const p2RoundResult = game.getLastRoundResult(player2Id);
 
     if (p1RoundResult && p2RoundResult) {
       lastRoundResult = {
@@ -254,12 +268,10 @@ export class GameController extends Controller {
 
     // Build game end result if game has ended
     let gameEndResult: DTOGameEndResult | undefined;
-    const p1GameResult = game.getGameResult(game.getPlayer1().getUserId());
-    const p2GameResult = game.getGameResult(game.getPlayer2().getUserId());
+    const p1GameResult = game.getGameResult(player1Id);
+    const p2GameResult = game.getGameResult(player2Id);
 
     if (p1GameResult && p2GameResult) {
-      const player1Id = game.getPlayer1().getUserId();
-      const player2Id = game.getPlayer2().getUserId();
       const p1Gems = game.getPlayer1().getGems();
       const p2Gems = game.getPlayer2().getGems();
       // Initial gems were 2, so gems lost = 2 - current gems
@@ -291,6 +303,7 @@ export class GameController extends Controller {
         lastRoundResult: lastRoundResult || null,
         gameEndResult: gameEndResult || null,
       },
+      usernames,
     };
   }
 

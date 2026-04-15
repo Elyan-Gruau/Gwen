@@ -43,6 +43,52 @@
   }
 }
 
+.gemsDisplay {
+  display: flex;
+  justify-content: space-around;
+  margin-top: tokens.$spacing-lg;
+  font-size: 1.2rem;
+  color: #ffffff;
+  gap: tokens.$spacing-md;
+  flex-direction: column;
+}
+
+.gemInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: tokens.$spacing-sm;
+  padding: tokens.$spacing-md;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: tokens.$border-radius-md;
+}
+
+.gemsComparison {
+  display: flex;
+  justify-content: space-around;
+  gap: tokens.$spacing-lg;
+  margin-top: tokens.$spacing-md;
+  width: 100%;
+}
+
+.gemColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: tokens.$spacing-sm;
+  padding: tokens.$spacing-md;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: tokens.$border-radius-md;
+  flex: 1;
+}
+
+.gemColumnLabel {
+  font-size: tokens.$font-size-md;
+  color: var(--color-text-light) !important;
+  font-weight: tokens.$font-weight-bold;
+}
+
 .gameEndContainer {
   position: fixed;
   top: 0;

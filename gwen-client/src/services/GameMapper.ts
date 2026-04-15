@@ -95,6 +95,11 @@ export abstract class GameMapper {
     // Create base Player with userId
     const player = new Player(String(dtoPlayer.userId), deck);
 
+    // Restore gem count from DTO
+    if (typeof dtoPlayer.gems === 'number') {
+      player.setGems(dtoPlayer.gems);
+    }
+
     // Restore "passed" state if needed
     if (dtoPlayer.passed) {
       player.pass();

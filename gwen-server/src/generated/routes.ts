@@ -47,11 +47,16 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["WAITING_FOR_PLAYERS"]},{"dataType":"enum","enums":["REDRAW"]},{"dataType":"enum","enums":["FLIP_COIN"]},{"dataType":"enum","enums":["PLAY_CARDS"]},{"dataType":"enum","enums":["END"]}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Player": {
+    "Deck": {
         "dataType": "refObject",
         "properties": {
         },
         "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Player": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"deck":{"ref":"Deck","required":true},"passed":{"dataType":"boolean","required":true},"gems":{"dataType":"double","required":true},"userId":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "PlayerRows": {
@@ -76,9 +81,14 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"player2_elo_change":{"dataType":"double"},"player1_elo_change":{"dataType":"double"},"winner_id":{"dataType":"string","required":true},"player2_gems_lost":{"dataType":"double","required":true},"player1_gems_lost":{"dataType":"double","required":true},"player2_result":{"ref":"DTOGameResult","required":true},"player1_result":{"ref":"DTOGameResult","required":true},"player2_id":{"dataType":"string","required":true},"player1_id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Record_string.string_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{},"additionalProperties":{"dataType":"string"},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOGameWithMetadata": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"game":{"dataType":"nestedObjectLiteral","nestedProperties":{"gameEndResult":{"dataType":"union","subSchemas":[{"ref":"DTOGameEndResult"},{"dataType":"enum","enums":[null]}]},"lastRoundResult":{"dataType":"union","subSchemas":[{"ref":"DTORoundEndResult"},{"dataType":"enum","enums":[null]}]},"player2Rows":{"ref":"PlayerRows","required":true},"player1Rows":{"ref":"PlayerRows","required":true},"player2":{"ref":"Player","required":true},"player1":{"ref":"Player","required":true},"currentPlayerTurnUserId":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"currentRound":{"dataType":"double","required":true},"phase":{"ref":"DTOGamePhase","required":true}},"required":true},"metadata":{"ref":"DTOGame","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"usernames":{"ref":"Record_string.string_","required":true},"game":{"dataType":"nestedObjectLiteral","nestedProperties":{"gameEndResult":{"dataType":"union","subSchemas":[{"ref":"DTOGameEndResult"},{"dataType":"enum","enums":[null]}]},"lastRoundResult":{"dataType":"union","subSchemas":[{"ref":"DTORoundEndResult"},{"dataType":"enum","enums":[null]}]},"player2Rows":{"ref":"PlayerRows","required":true},"player1Rows":{"ref":"PlayerRows","required":true},"player2":{"ref":"Player","required":true},"player1":{"ref":"Player","required":true},"currentPlayerTurnUserId":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"currentRound":{"dataType":"double","required":true},"phase":{"ref":"DTOGamePhase","required":true}},"required":true},"metadata":{"ref":"DTOGame","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOPlaceCardRequest": {

@@ -131,10 +131,18 @@ const GameView = ({
   // Get the current player's game result
   const currentPlayerGameResult = game.getGameResult(currentUserId);
   const opponentUserId = categorisedPlayers.getOpponent().getUserId();
-  const opponentName = opponentUserId || 'Opponent';
+  const opponentName = gameMetadata.usernames?.[opponentUserId] || opponentUserId || 'Opponent';
   const currentUserElo = user?.elo ?? 0;
   const eloChange = 0; // TODO: Calculate ELO change based on game result
   const totalElo = currentUserElo + eloChange;
+  
+  // Get gem counts
+  const currentPlayerGems = game.getPlayer1().getUserId() === currentUserId 
+    ? game.getPlayer1().getGems() 
+    : game.getPlayer2().getGems();
+  const opponentGems = game.getPlayer1().getUserId() === currentUserId 
+    ? game.getPlayer2().getGems() 
+    : game.getPlayer1().getGems();
 
   return (
     <div className={styles.gameView}>
@@ -147,6 +155,8 @@ const GameView = ({
           eloChange={eloChange}
           currentElo={currentUserElo}
           totalElo={totalElo}
+          playerGemsLost={2 - currentPlayerGems}
+          opponentGemsLost={2 - opponentGems}
         />
       )}
 
@@ -157,6 +167,8 @@ const GameView = ({
           result={currentPlayerRoundResult}
           roundEndDuration={3000}
           onRoundEndComplete={onRoundEndComplete}
+          playerGems={currentPlayerGems}
+          opponentGems={opponentGems}
         />
       )}
 
@@ -172,7 +184,7 @@ const GameView = ({
             <h3>⭐ Your Turn</h3>
             <button
               onClick={handlePassTurn}
-              disabled={passTurnMutation.isPending || isPlacingCard}
+              disabled={passTurnMutation.isPending}
               className={styles.passButton}
             >
               {passTurnMutation.isPending ? 'Passing...' : 'Pass Turn'}

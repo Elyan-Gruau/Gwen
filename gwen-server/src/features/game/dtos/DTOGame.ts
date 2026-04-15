@@ -62,6 +62,8 @@ export type DTOGameWithMetadata = {
     /** Final game result (null if game not ended) */
     gameEndResult?: DTOGameEndResult | null;
   };
+  /** Mapping of userId to username for display purposes */
+  usernames: Record<string, string>;
 };
 
 export type DTOFinishGameRequest = {

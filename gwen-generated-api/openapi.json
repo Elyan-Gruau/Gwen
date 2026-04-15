@@ -84,10 +84,34 @@
 					"END"
 				]
 			},
-			"Player": {
+			"Deck": {
 				"properties": {},
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Player": {
+				"properties": {
+					"deck": {
+						"$ref": "#/components/schemas/Deck"
+					},
+					"passed": {
+						"type": "boolean"
+					},
+					"gems": {
+						"type": "number",
+						"format": "double"
+					},
+					"userId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"deck",
+					"passed",
+					"gems",
+					"userId"
+				],
+				"type": "object"
 			},
 			"PlayerRows": {
 				"properties": {},
@@ -190,8 +214,20 @@
 				"type": "object",
 				"description": "Game end result: Shows persistent page when game is over\r\nIncludes standings and final results"
 			},
+			"Record_string.string_": {
+				"properties": {},
+				"additionalProperties": {
+					"type": "string"
+				},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
 			"DTOGameWithMetadata": {
 				"properties": {
+					"usernames": {
+						"$ref": "#/components/schemas/Record_string.string_",
+						"description": "Mapping of userId to username for display purposes"
+					},
 					"game": {
 						"properties": {
 							"gameEndResult": {
@@ -252,6 +288,7 @@
 					}
 				},
 				"required": [
+					"usernames",
 					"game",
 					"metadata"
 				],

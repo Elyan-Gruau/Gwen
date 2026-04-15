@@ -32,6 +32,10 @@ export class Player {
     }
   }
 
+  setGems(gems: number): void {
+    this.gems = Math.max(0, gems);
+  }
+
   getDeck(): Deck {
     return this.deck;
   }
@@ -50,5 +54,14 @@ export class Player {
 
   setDeck(newDeck: Deck) {
     this.deck = newDeck;
+  }
+
+  toJSON() {
+    return {
+      userId: this.userId,
+      gems: this.gems,
+      passed: this.passed,
+      deck: this.deck,
+    };
   }
 }

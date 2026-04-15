@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameResult } from 'gwen-common';
 import Button from '../../reusable/button/Button';
+import Gems from '../../game-view/gem/Gems';
 import { ROUTES } from '../../../constants/routes';
 import styles from './EndPhase.module.scss';
 
@@ -22,6 +23,14 @@ export type EndPhaseProps = {
   totalElo?: number;
   /** For game end: opponent name */
   opponentName?: string;
+  /** For round/game end: Current player's gems left */
+  playerGems?: number;
+  /** For round/game end: Opponent's gems left */
+  opponentGems?: number;
+  /** For game end: Current player's gems lost */
+  playerGemsLost?: number;
+  /** For game end: Opponent's gems lost */
+  opponentGemsLost?: number;
 };
 
 const EndPhase = ({
@@ -33,6 +42,10 @@ const EndPhase = ({
   currentElo = 0,
   totalElo = 0,
   opponentName = 'Opponent',
+  playerGems = 0,
+  opponentGems = 0,
+  playerGemsLost = 0,
+  opponentGemsLost = 0,
 }: EndPhaseProps) => {
   const navigate = useNavigate();
   const [isClosing, setIsClosing] = useState(false);
@@ -82,6 +95,16 @@ const EndPhase = ({
           <div className={`${styles.gameEndTitle} ${styles[result.toLowerCase()]}`}>
             {getResultText()}
           </div>
+          <div className={styles.gemsDisplay}>
+            <div className={styles.gemInfo}>
+              <span>You:</span>
+              <Gems activeCount={playerGems || 0} />
+            </div>
+            <div className={styles.gemInfo}>
+              <span>Opponent:</span>
+              <Gems activeCount={opponentGems || 0} />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -99,6 +122,20 @@ const EndPhase = ({
           <div className={styles.resultItem}>
             <span className={styles.resultLabel}>Opponent:</span>
             <span className={styles.resultValue}>{opponentName}</span>
+          </div>
+
+          <div className={styles.resultItem}>
+            <span className={styles.resultLabel}>Gems Status:</span>
+            <div className={styles.gemsComparison}>
+              <div className={styles.gemColumn}>
+                <div className={styles.gemColumnLabel}>You</div>
+                <Gems activeCount={2 - (playerGemsLost || 0)} />
+              </div>
+              <div className={styles.gemColumn}>
+                <div className={styles.gemColumnLabel}>{opponentName}</div>
+                <Gems activeCount={2 - (opponentGemsLost || 0)} />
+              </div>
+            </div>
           </div>
 
           <div className={styles.resultItem}>
