@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
-import type { DTOFinishGameRequest, DTOGame, DTOGameWithMetadata, DTORoundEndResult, DTOGameEndResult } from '../dtos/DTOGame.js';
+import type { DTOFinishGameRequest, DTOGame, DTOGameWithMetadata, DTORoundEndResult, DTOGameEndResult, DTOPlaceCardRequest, DTOPassTurnRequest } from '../dtos/DTOGame.js';
 import type { DBGame } from '../model/DBGame.js';
 import { Player } from 'gwen-common';
 
@@ -64,6 +64,91 @@ export class GameController extends Controller {
         return this.throwHttpError(`Game ${gameId} not found`, 404);
       }
       return this.throwHttpError('Failed to end round', 500);
+    }
+  }
+
+  @Post('{gameId}/start-round')
+  @SuccessResponse('200', 'Round started successfully')
+  @Response('400', 'Cannot start round')
+  @Response('404', 'Game not found')
+  @Response('500', 'Server error')
+  public async startRound(@Path() gameId: string): Promise<DTOGameWithMetadata> {
+    try {
+      const gameManager = GameManager.getInstance();
+      const gameWithMetadata = gameManager.getActiveGameById(gameId);
+      const game = gameWithMetadata.game;
+
+      game.startRound();
+
+      return this.toDTOGameWithMetadata(gameWithMetadata);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        return this.throwHttpError(`Game ${gameId} not found`, 404);
+      }
+      if (error instanceof Error) {
+        return this.throwHttpError(error.message, 400);
+      }
+      return this.throwHttpError('Failed to start round', 500);
+    }
+  }
+
+  @Post('{gameId}/place-card')
+  @SuccessResponse('200', 'Card placed successfully')
+  @Response('400', 'Invalid placement')
+  @Response('404', 'Game not found')
+  @Response('500', 'Server error')
+  public async placeCard(@Path() gameId: string, @Body() body: DTOPlaceCardRequest): Promise<DTOGameWithMetadata> {
+    try {
+      const gameManager = GameManager.getInstance();
+      const gameWithMetadata = gameManager.getActiveGameById(gameId);
+      const game = gameWithMetadata.game;
+
+      if (!body?.playerId || !body?.cardId || !body?.rowType) {
+        return this.throwHttpError('playerId, cardId, and rowType are required', 400);
+      }
+
+      // Place the card
+      game.placeCard(body.playerId, body.cardId, body.rowType);
+
+      return this.toDTOGameWithMetadata(gameWithMetadata);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        return this.throwHttpError(`Game ${gameId} not found`, 404);
+      }
+      if (error instanceof Error) {
+        return this.throwHttpError(error.message, 400);
+      }
+      return this.throwHttpError('Failed to place card', 500);
+    }
+  }
+
+  @Post('{gameId}/pass-turn')
+  @SuccessResponse('200', 'Turn passed successfully')
+  @Response('400', 'Cannot pass turn')
+  @Response('404', 'Game not found')
+  @Response('500', 'Server error')
+  public async passTurn(@Path() gameId: string, @Body() body: DTOPassTurnRequest): Promise<DTOGameWithMetadata> {
+    try {
+      const gameManager = GameManager.getInstance();
+      const gameWithMetadata = gameManager.getActiveGameById(gameId);
+      const game = gameWithMetadata.game;
+
+      if (!body?.playerId) {
+        return this.throwHttpError('playerId is required', 400);
+      }
+
+      // Pass the turn
+      game.passTurn(body.playerId);
+
+      return this.toDTOGameWithMetadata(gameWithMetadata);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        return this.throwHttpError(`Game ${gameId} not found`, 404);
+      }
+      if (error instanceof Error) {
+        return this.throwHttpError(error.message, 400);
+      }
+      return this.throwHttpError('Failed to pass turn', 500);
     }
   }
 
@@ -169,6 +254,7 @@ export class GameController extends Controller {
       game: {
         phase: game.getPhase(),
         currentRound: game.getCurrentRound(),
+        currentPlayerTurnUserId: game.getCurrentPlayerTurnUserId(),
         player1: game.getPlayer1(),
         player2: game.getPlayer2(),
         player1Rows: game.getPlayer1Rows(),

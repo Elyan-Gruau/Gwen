@@ -52,6 +52,7 @@ export type DTOGameWithMetadata = {
   game: {
     phase: DTOGamePhase;
     currentRound: number;
+    currentPlayerTurnUserId: string | null;
     player1: Player;
     player2: Player;
     player1Rows: PlayerRows;

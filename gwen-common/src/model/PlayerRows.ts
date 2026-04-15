@@ -1,4 +1,5 @@
 import { Row } from './Row';
+import type { RangeType } from '../types/RangeType';
 
 export class PlayerRows {
   private readonly userId: string;
@@ -24,5 +25,23 @@ export class PlayerRows {
 
   getUserId() {
     return this.userId;
+  }
+
+  /**
+   * Get a specific row by type (MELEE, RANGED, or SIEGE)
+   */
+  getRowByType(rangeType: RangeType): Row {
+    const row = this.rows.find((r) => r.getRange() === rangeType);
+    if (!row) {
+      throw new Error(`Row with type ${rangeType} not found`);
+    }
+    return row;
+  }
+
+  /**
+   * Get all rows
+   */
+  getAllRows(): Row[] {
+    return this.rows;
   }
 }

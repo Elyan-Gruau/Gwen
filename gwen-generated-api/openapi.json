@@ -224,6 +224,10 @@
 							"player1": {
 								"$ref": "#/components/schemas/Player"
 							},
+							"currentPlayerTurnUserId": {
+								"type": "string",
+								"nullable": true
+							},
 							"currentRound": {
 								"type": "number",
 								"format": "double"
@@ -237,6 +241,7 @@
 							"player1Rows",
 							"player2",
 							"player1",
+							"currentPlayerTurnUserId",
 							"currentRound",
 							"phase"
 						],
@@ -249,6 +254,41 @@
 				"required": [
 					"game",
 					"metadata"
+				],
+				"type": "object"
+			},
+			"DTOPlaceCardRequest": {
+				"properties": {
+					"rowType": {
+						"type": "string",
+						"enum": [
+							"MELEE",
+							"RANGED",
+							"SIEGE"
+						]
+					},
+					"cardId": {
+						"type": "string"
+					},
+					"playerId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"rowType",
+					"cardId",
+					"playerId"
+				],
+				"type": "object"
+			},
+			"DTOPassTurnRequest": {
+				"properties": {
+					"playerId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"playerId"
 				],
 				"type": "object"
 			},
@@ -569,6 +609,146 @@
 						}
 					}
 				]
+			}
+		},
+		"/games/{gameId}/start-round": {
+			"post": {
+				"operationId": "StartRound",
+				"responses": {
+					"200": {
+						"description": "Round started successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGameWithMetadata"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Cannot start round"
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/games/{gameId}/place-card": {
+			"post": {
+				"operationId": "PlaceCard",
+				"responses": {
+					"200": {
+						"description": "Card placed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGameWithMetadata"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid placement"
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DTOPlaceCardRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/games/{gameId}/pass-turn": {
+			"post": {
+				"operationId": "PassTurn",
+				"responses": {
+					"200": {
+						"description": "Turn passed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGameWithMetadata"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Cannot pass turn"
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DTOPassTurnRequest"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/games/{gameId}/finish": {

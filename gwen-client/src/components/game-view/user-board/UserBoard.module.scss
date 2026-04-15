@@ -6,3 +6,18 @@
   gap: tokens.$spacing-md;
   width: 60%;
 }
+
+.rowWrapper {
+  transition: all 0.2s ease;
+  border-radius: 4px;
+
+  &.placingMode {
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(202, 168, 76, 0.2);
+      transform: scale(1.02);
+      box-shadow: 0 0 12px rgba(202, 168, 76, 0.4);
+    }
+  }
+}

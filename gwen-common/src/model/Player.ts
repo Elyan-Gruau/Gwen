@@ -38,6 +38,10 @@ export class Player {
     return this.passed;
   }
 
+  resetPass(): void {
+    this.passed = false;
+  }
+
   setDeck(newDeck: Deck) {
     this.deck = newDeck;
   }
