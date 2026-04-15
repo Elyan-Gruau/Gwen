@@ -5,6 +5,16 @@
   align-items: center;
 }
 
+.playerInfo{
+  display: flex;
+  padding: tokens.$spacing-md;
+  background-color: #1a1a1a80;
+  gap: tokens.$spacing-sm;
+  $border : 2px solid rgba(0, 0, 0, 0.47);
+  border-bottom: $border ;
+  border-top: $border;
+}
+
 .leftSection {
   display: flex;
   align-items: center;

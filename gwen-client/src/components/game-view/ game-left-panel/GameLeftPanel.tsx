@@ -6,6 +6,7 @@ import Gems from '../gem/Gems';
 import type { Player, PlayerRows } from 'gwen-common';
 import PlayerScore from '../player-score/PlayerScore';
 import { useGetUser } from 'gwen-generated-api';
+import ScoreBadge from '../score-badge/ScoreBadge';
 
 export type GameLeftPanelProps = {
   isCurrentPlayer: boolean;
@@ -19,16 +20,19 @@ const GameLeftPanel = ({ isCurrentPlayer, player, playerRows }: GameLeftPanelPro
 
   return (
     <div className={styles.gameLeftPanel}>
-      <div className={styles.leftSection}>
-        <UserProfilePic userId={player.getUserId()} />
-      </div>
-      <div className={styles.rightSection}>
-        <div className={styles.infoStack}>
-          <div className={styles.handCount}>{player.getDeck().getHand().length}</div>
-          <Gems activeCount={player.getGems()} />
+      <div className={styles.playerInfo}>
+        <div className={styles.leftSection}>
+          <UserProfilePic userId={player.getUserId()} />
         </div>
-        <div className={styles.username}>{user?.username ?? 'Unknown User'}</div>
-        <div className={styles.factionName}>{factionId}</div>
+        <div className={styles.rightSection}>
+          <div className={styles.infoStack}>
+            <div className={styles.handCount}>{player.getDeck().getHand().length}</div>
+            <Gems activeCount={player.getGems()} />
+          </div>
+          <div className={styles.username}>{user?.username ?? 'Unknown User'}</div>
+          <div className={styles.factionName}>{factionId}</div>
+        </div>
+        <ScoreBadge value={playerRows.getScore()} />
       </div>
     </div>
   );
