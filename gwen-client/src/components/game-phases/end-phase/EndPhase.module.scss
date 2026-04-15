@@ -44,17 +44,33 @@
 }
 
 .gameEndContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
   gap: tokens.$spacing-lg;
   padding: tokens.$spacing-lg;
+  z-index: 100;
+  animation: fadeIn 300ms ease;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 .gameEndCard {
-  background-color: rgba(tokens.$color-surface-raised, 0.95);
+  background-color: var(--color-surface-raised);
   border-radius: tokens.$border-radius-lg;
   padding: tokens.$spacing-xl;
   max-width: 600px;
@@ -68,7 +84,6 @@
   font-size: 2.5rem;
   font-weight: tokens.$font-weight-bold;
   margin: 0 0 tokens.$spacing-lg 0;
-  color: #ffffff;
 
   &.win {
     color: #44af4a;
@@ -94,6 +109,7 @@
   padding: tokens.$spacing-lg 0;
   border-top: 1px solid rgba(201, 168, 76, 0.3);
   border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--color-text-light) !important;
 }
 
 .resultItem {
@@ -102,15 +118,15 @@
   align-items: center;
   padding: tokens.$spacing-md 0;
   font-size: tokens.$font-size-lg;
+  color: var(--color-text-light) !important;
 }
 
 .resultLabel {
-  color: var(--color-text-light);
-  opacity: 0.8;
+  color: var(--color-text-light)  !important;
 }
 
 .resultValue {
-  color: #ffffff;
+  color: var(--color-text-light)  !important;
   font-weight: tokens.$font-weight-bold;
 }
 
@@ -135,7 +151,7 @@
   }
 
   &.neutral {
-    color: var(--color-text-light);
+    color: var(--color-text-light) !important;
   }
 }
 

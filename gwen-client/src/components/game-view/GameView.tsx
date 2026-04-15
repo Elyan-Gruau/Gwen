@@ -130,7 +130,11 @@ const GameView = ({
 
   // Get the current player's game result
   const currentPlayerGameResult = game.getGameResult(currentUserId);
-  const opponentName = categorisedPlayers.getOpponent().getDeck().getFactionId() || 'Opponent';
+  const opponentUserId = categorisedPlayers.getOpponent().getUserId();
+  const opponentName = opponentUserId || 'Opponent';
+  const currentUserElo = user?.elo ?? 0;
+  const eloChange = 0; // TODO: Calculate ELO change based on game result
+  const totalElo = currentUserElo + eloChange;
 
   return (
     <div className={styles.gameView}>
@@ -140,7 +144,9 @@ const GameView = ({
           mode="gameEnd"
           result={currentPlayerGameResult}
           opponentName={opponentName}
-          eloChange={0}
+          eloChange={eloChange}
+          currentElo={currentUserElo}
+          totalElo={totalElo}
         />
       )}
 

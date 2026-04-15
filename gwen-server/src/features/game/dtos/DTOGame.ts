@@ -26,8 +26,8 @@ export type DTORoundEndResult = {
   player2_result: DTOGameResult;
   player1_score: number;
   player2_score: number;
-  player1_rounds_won: number;
-  player2_rounds_won: number;
+  player1_gems: number;
+  player2_gems: number;
 };
 
 /**
@@ -39,8 +39,8 @@ export type DTOGameEndResult = {
   player2_id: string;
   player1_result: DTOGameResult;
   player2_result: DTOGameResult;
-  player1_rounds_won: number;
-  player2_rounds_won: number;
+  player1_gems_lost: number;
+  player2_gems_lost: number;
   winner_id: string;
   /** TODO: Will be populated when Elo system is implemented */
   player1_elo_change?: number;

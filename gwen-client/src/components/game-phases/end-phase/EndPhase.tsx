@@ -16,6 +16,10 @@ export type EndPhaseProps = {
   onRoundEndComplete?: () => void;
   /** For game end: ELO change (can be negative) */
   eloChange?: number;
+  /** For game end: Current ELO before game */
+  currentElo?: number;
+  /** For game end: Total ELO after game (current + change) */
+  totalElo?: number;
   /** For game end: opponent name */
   opponentName?: string;
 };
@@ -26,6 +30,8 @@ const EndPhase = ({
   roundEndDuration = 3000,
   onRoundEndComplete,
   eloChange = 0,
+  currentElo = 0,
+  totalElo = 0,
   opponentName = 'Opponent',
 }: EndPhaseProps) => {
   const navigate = useNavigate();
@@ -98,8 +104,10 @@ const EndPhase = ({
           <div className={styles.resultItem}>
             <span className={styles.resultLabel}>ELO Rating:</span>
             <div>
-              <span className={styles.resultValue}>+0 ELO</span>
-              <div className={`${styles.eloChange} ${getEloChangeClass()}`}>{eloChange}</div>
+              <span className={styles.resultValue}>{totalElo}</span>
+              <div className={`${styles.eloChange} ${getEloChangeClass()}`}>
+                {eloChange > 0 ? '+' : ''}{eloChange}
+              </div>
             </div>
           </div>
 

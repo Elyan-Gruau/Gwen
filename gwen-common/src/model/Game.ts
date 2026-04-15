@@ -372,7 +372,8 @@ export class Game {
   /**
    * Calculate round result after round ends
    * This is called when both players have passed
-   * TODO: Implement actual score calculation when card placement logic is ready
+   * Determines winner by score and updates gem counts
+   * Game ends when any player reaches 0 gems
    */
   determineRoundResult(): void {
     const p1Score = this.player1Rows.updateScore();
@@ -385,32 +386,28 @@ export class Game {
       p1Result = GameResult.WIN;
       p2Result = GameResult.LOSS;
       this.lastRoundWinnerId = this.player1.getUserId();
-      this.roundsWonBy.set(
-        this.player1.getUserId(),
-        (this.roundsWonBy.get(this.player1.getUserId()) || 0) + 1,
-      );
+      // Loser loses a gem
+      this.player2.loseGem();
     } else if (p2Score > p1Score) {
       p1Result = GameResult.LOSS;
       p2Result = GameResult.WIN;
       this.lastRoundWinnerId = this.player2.getUserId();
-      this.roundsWonBy.set(
-        this.player2.getUserId(),
-        (this.roundsWonBy.get(this.player2.getUserId()) || 0) + 1,
-      );
+      // Loser loses a gem
+      this.player1.loseGem();
     } else {
       p1Result = GameResult.DRAW;
       p2Result = GameResult.DRAW;
       this.lastRoundWinnerId = null;
+      // Both lose a gem on draw
+      this.player1.loseGem();
+      this.player2.loseGem();
     }
 
     this.lastRoundResult.set(this.player1.getUserId(), p1Result);
     this.lastRoundResult.set(this.player2.getUserId(), p2Result);
 
-    // Check if game should end (first to 2 rounds wins)
-    const p1Wins = this.roundsWonBy.get(this.player1.getUserId()) || 0;
-    const p2Wins = this.roundsWonBy.get(this.player2.getUserId()) || 0;
-
-    if (p1Wins >= 2 || p2Wins >= 2) {
+    // Check if game should end (when any player has 0 gems)
+    if (!this.player1.hasGems() || !this.player2.hasGems()) {
       this.determineGameResult();
     } else {
       // Prepare for next round
@@ -422,21 +419,21 @@ export class Game {
 
   /**
    * Determine final game result and transition to END phase
+   * Winner is determined by who still has gems
    */
   private determineGameResult(): void {
-    const p1Wins = this.roundsWonBy.get(this.player1.getUserId()) || 0;
-    const p2Wins = this.roundsWonBy.get(this.player2.getUserId()) || 0;
-
     let p1Result: GameResult;
     let p2Result: GameResult;
 
-    if (p1Wins > p2Wins) {
+    // Player with gems wins, player without gems loses
+    if (this.player1.hasGems() && !this.player2.hasGems()) {
       p1Result = GameResult.WIN;
       p2Result = GameResult.LOSS;
-    } else if (p2Wins > p1Wins) {
+    } else if (!this.player1.hasGems() && this.player2.hasGems()) {
       p1Result = GameResult.LOSS;
       p2Result = GameResult.WIN;
     } else {
+      // Both have gems or both have no gems (shouldn't happen in normal play)
       p1Result = GameResult.DRAW;
       p2Result = GameResult.DRAW;
     }

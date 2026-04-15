@@ -68,12 +68,12 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTORoundEndResult": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"player2_rounds_won":{"dataType":"double","required":true},"player1_rounds_won":{"dataType":"double","required":true},"player2_score":{"dataType":"double","required":true},"player1_score":{"dataType":"double","required":true},"player2_result":{"ref":"DTOGameResult","required":true},"player1_result":{"ref":"DTOGameResult","required":true},"round":{"dataType":"double","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"player2_gems":{"dataType":"double","required":true},"player1_gems":{"dataType":"double","required":true},"player2_score":{"dataType":"double","required":true},"player1_score":{"dataType":"double","required":true},"player2_result":{"ref":"DTOGameResult","required":true},"player1_result":{"ref":"DTOGameResult","required":true},"round":{"dataType":"double","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOGameEndResult": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"player2_elo_change":{"dataType":"double"},"player1_elo_change":{"dataType":"double"},"winner_id":{"dataType":"string","required":true},"player2_rounds_won":{"dataType":"double","required":true},"player1_rounds_won":{"dataType":"double","required":true},"player2_result":{"ref":"DTOGameResult","required":true},"player1_result":{"ref":"DTOGameResult","required":true},"player2_id":{"dataType":"string","required":true},"player1_id":{"dataType":"string","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"player2_elo_change":{"dataType":"double"},"player1_elo_change":{"dataType":"double"},"winner_id":{"dataType":"string","required":true},"player2_gems_lost":{"dataType":"double","required":true},"player1_gems_lost":{"dataType":"double","required":true},"player2_result":{"ref":"DTOGameResult","required":true},"player1_result":{"ref":"DTOGameResult","required":true},"player2_id":{"dataType":"string","required":true},"player1_id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOGameWithMetadata": {

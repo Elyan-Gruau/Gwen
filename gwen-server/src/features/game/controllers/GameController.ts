@@ -247,8 +247,8 @@ export class GameController extends Controller {
         player2_result: p2RoundResult,
         player1_score: game.getPlayer1Rows().getScore(),
         player2_score: game.getPlayer2Rows().getScore(),
-        player1_rounds_won: game.getRoundsWon(game.getPlayer1().getUserId()),
-        player2_rounds_won: game.getRoundsWon(game.getPlayer2().getUserId()),
+        player1_gems: game.getPlayer1().getGems(),
+        player2_gems: game.getPlayer2().getGems(),
       };
     }
 
@@ -260,16 +260,19 @@ export class GameController extends Controller {
     if (p1GameResult && p2GameResult) {
       const player1Id = game.getPlayer1().getUserId();
       const player2Id = game.getPlayer2().getUserId();
-      const p1Wins = game.getRoundsWon(player1Id);
-      const p2Wins = game.getRoundsWon(player2Id);
+      const p1Gems = game.getPlayer1().getGems();
+      const p2Gems = game.getPlayer2().getGems();
+      // Initial gems were 2, so gems lost = 2 - current gems
+      const p1GemsLost = 2 - p1Gems;
+      const p2GemsLost = 2 - p2Gems;
 
       gameEndResult = {
         player1_id: player1Id,
         player2_id: player2Id,
         player1_result: p1GameResult,
         player2_result: p2GameResult,
-        player1_rounds_won: p1Wins,
-        player2_rounds_won: p2Wins,
+        player1_gems_lost: p1GemsLost,
+        player2_gems_lost: p2GemsLost,
         winner_id: p1GameResult === 'WIN' ? player1Id : p2GameResult === 'WIN' ? player2Id : '',
         // TODO: Calculate Elo changes when Elo system is implemented
       };

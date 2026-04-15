@@ -26,6 +26,12 @@ export class Player {
     return this.gems;
   }
 
+  loseGem(): void {
+    if (this.gems > 0) {
+      this.gems--;
+    }
+  }
+
   getDeck(): Deck {
     return this.deck;
   }

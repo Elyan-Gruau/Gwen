@@ -104,11 +104,11 @@
 			},
 			"DTORoundEndResult": {
 				"properties": {
-					"player2_rounds_won": {
+					"player2_gems": {
 						"type": "number",
 						"format": "double"
 					},
-					"player1_rounds_won": {
+					"player1_gems": {
 						"type": "number",
 						"format": "double"
 					},
@@ -132,8 +132,8 @@
 					}
 				},
 				"required": [
-					"player2_rounds_won",
-					"player1_rounds_won",
+					"player2_gems",
+					"player1_gems",
 					"player2_score",
 					"player1_score",
 					"player2_result",
@@ -157,11 +157,11 @@
 					"winner_id": {
 						"type": "string"
 					},
-					"player2_rounds_won": {
+					"player2_gems_lost": {
 						"type": "number",
 						"format": "double"
 					},
-					"player1_rounds_won": {
+					"player1_gems_lost": {
 						"type": "number",
 						"format": "double"
 					},
@@ -180,8 +180,8 @@
 				},
 				"required": [
 					"winner_id",
-					"player2_rounds_won",
-					"player1_rounds_won",
+					"player2_gems_lost",
+					"player1_gems_lost",
 					"player2_result",
 					"player1_result",
 					"player2_id",
