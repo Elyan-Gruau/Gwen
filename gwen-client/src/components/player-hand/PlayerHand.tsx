@@ -107,7 +107,7 @@ const PlayerHand = ({
               className={`${styles.cardSlot} ${isActive ? styles.cardSelected : ''}`}
               onClick={() => handleCardClick(index)}
             >
-              <CardView card={card} />
+              <CardView card={card} size={'small'} />
             </div>
           );
         })}

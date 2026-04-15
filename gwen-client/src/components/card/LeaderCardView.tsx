@@ -1,14 +1,15 @@
 import type { LeaderCard } from 'gwen-common';
-import CardContainer from './CardContainer';
+import CardContainer, { type CardSize } from './CardContainer';
 import styles from './LeaderCardView.module.scss';
 
 type LeaderCardViewProps = {
   card: LeaderCard;
+  size?: CardSize;
 };
 
-const LeaderCardView = ({ card }: LeaderCardViewProps) => {
+const LeaderCardView = ({ card, size }: LeaderCardViewProps) => {
   return (
-    <CardContainer>
+    <CardContainer size={size}>
       <img
         className={styles.image}
         src={`/data-packs/the-witcher${card.getImageUrl()}`}

@@ -1,6 +1,4 @@
 import UserProfilePic from '../../user-profile-pic/UserProfilePic';
-import UserView from '../../user-view/UserView';
-import LeaderSlot from '../leader-slot/LeaderSlot';
 import styles from './GameLeftPanel.module.scss';
 import Gems from '../gem/Gems';
 import type { Player, PlayerRows } from 'gwen-common';
