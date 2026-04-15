@@ -20,6 +20,7 @@ type GameViewProps = {
   refetchGame: () => void;
   showRoundEnd?: boolean;
   onRoundEndComplete?: () => void;
+  showGameEnd?: boolean;
 };
 
 const GameView = ({
@@ -31,6 +32,7 @@ const GameView = ({
   refetchGame,
   showRoundEnd = false,
   onRoundEndComplete,
+  showGameEnd = false,
 }: GameViewProps) => {
   const { user } = useAuthContext();
   const [isPlacingCard, setIsPlacingCard] = useState(false);
@@ -126,8 +128,22 @@ const GameView = ({
   // Get the current player's round result
   const currentPlayerRoundResult = game.getLastRoundResult(currentUserId);
 
+  // Get the current player's game result
+  const currentPlayerGameResult = game.getGameResult(currentUserId);
+  const opponentName = categorisedPlayers.getOpponent().getDeck().getFactionId() || 'Opponent';
+
   return (
     <div className={styles.gameView}>
+      {/* Game End Page */}
+      {showGameEnd && currentPlayerGameResult && (
+        <EndPhase
+          mode="gameEnd"
+          result={currentPlayerGameResult}
+          opponentName={opponentName}
+          eloChange={0}
+        />
+      )}
+
       {/* Round End Overlay */}
       {showRoundEnd && currentPlayerRoundResult && (
         <EndPhase

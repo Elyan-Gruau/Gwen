@@ -25,6 +25,14 @@ export abstract class GameMapper {
       game.restoreRoundResult(p1Id, lastRoundResult.player1_result, p2Id, lastRoundResult.player2_result, winnerId);
     }
 
+    // Restore game end result if present
+    const gameEndResult = (dto as any)?.gameEndResult;
+    if (gameEndResult) {
+      const p1Id = player1.getUserId();
+      const p2Id = player2.getUserId();
+      game.restoreGameResult(p1Id, gameEndResult.player1_result, p2Id, gameEndResult.player2_result);
+    }
+
     return game;
   }
 

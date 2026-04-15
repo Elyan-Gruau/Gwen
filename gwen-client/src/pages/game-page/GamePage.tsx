@@ -18,6 +18,7 @@ const GamePage = () => {
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [showRoundEnd, setShowRoundEnd] = useState(false);
   const [roundEndPhase, setRoundEndPhase] = useState<string | null>(null);
+  const [showGameEnd, setShowGameEnd] = useState(false);
 
   // Poll game state every 1 second
   const {
@@ -34,17 +35,25 @@ const GamePage = () => {
 
   // Detect when round ends (phase transitions to REDRAW)
   useEffect(() => {
-    if (game?.game.phase === 'REDRAW' && !showRoundEnd) {
+    if (game?.game.phase === 'REDRAW' && !showRoundEnd && !showGameEnd) {
       setShowRoundEnd(true);
       setRoundEndPhase('REDRAW');
     }
-  }, [game?.game.phase, showRoundEnd]);
+  }, [game?.game.phase, showRoundEnd, showGameEnd]);
+
+  // Detect when game ends (phase transitions to END)
+  useEffect(() => {
+    if (game?.game.phase === 'END' && !showGameEnd) {
+      setShowGameEnd(true);
+    }
+  }, [game?.game.phase, showGameEnd]);
 
   useEffect(() => {
     // Auto-start round when both players are present and game is waiting or ready for next round
     if (
       game &&
       !showRoundEnd &&
+      !showGameEnd &&
       ['WAITING_FOR_PLAYERS', 'REDRAW', 'FLIP_COIN'].includes(game.game.phase) &&
       game.game.player1 &&
       game.game.player2
@@ -53,7 +62,7 @@ const GamePage = () => {
         console.error('Failed to start round:', error);
       });
     }
-  }, [game?.game.phase, gameId, showRoundEnd]);
+  }, [game?.game.phase, gameId, showRoundEnd, showGameEnd]);
 
   useEffect(() => {
     // Clear selected card when it's not your turn
@@ -90,6 +99,7 @@ const GamePage = () => {
           setShowRoundEnd(false);
           setRoundEndPhase(null);
         }}
+        showGameEnd={showGameEnd}
       />
     </div>
   );

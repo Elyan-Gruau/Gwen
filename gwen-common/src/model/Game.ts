@@ -108,6 +108,17 @@ export class Game {
   }
 
   /**
+   * Restore game result from DTO (used when reconstructing game state from server)
+   */
+  restoreGameResult(player1Id: string, p1Result: GameResult, player2Id: string, p2Result: GameResult): void {
+    this.gameResult = new Map([
+      [player1Id, p1Result],
+      [player2Id, p2Result],
+    ]);
+    this.phase = 'END';
+  }
+
+  /**
    * Clear round result after it's been displayed
    */
   clearRoundResult(): void {
