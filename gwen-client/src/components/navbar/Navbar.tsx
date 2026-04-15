@@ -73,7 +73,9 @@ const Navbar = () => {
             </div>
           ) : (
             <div className={styles.authButtons}>
-              <button onClick={toggleTheme}>Toggle {darkMode ? 'Light' : 'Dark'} Mode</button>
+              <button onClick={toggleTheme} className={styles.theme}>
+                <img src={darkMode ? '/icons/dark.svg' : '/icons/light.svg'} alt="theme icon" />
+              </button>
               <LinkButton size="sm" variant="secondary" href={ROUTES.LOGIN}>
                 Login
               </LinkButton>

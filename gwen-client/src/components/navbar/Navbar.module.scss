@@ -27,12 +27,29 @@
 
   width: 36px;
   height: 36px;
+
+  &:hover {
+    background-color: tokens.$color-primary-hover;
+  }
+
+  &:active {
+    background-color: tokens.$color-primary-active;
+  }
 }
 
 .rightButtons {
   display: flex;
   gap: tokens.$spacing-md;
   align-items: center;
+}
+
+.profilePic {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 
 .rightBlock {
