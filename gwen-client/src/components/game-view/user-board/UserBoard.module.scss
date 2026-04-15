@@ -20,4 +20,10 @@
       box-shadow: 0 0 12px rgba(202, 168, 76, 0.4);
     }
   }
+
+  &.selectedRow {
+    background: rgba(202, 168, 76, 0.3);
+    box-shadow: 0 0 16px rgba(202, 168, 76, 0.6), inset 0 0 8px rgba(202, 168, 76, 0.3);
+    transform: scale(1.02);
+  }
 }
