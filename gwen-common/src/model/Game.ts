@@ -161,6 +161,18 @@ export class Game {
   }
 
   /**
+   * Check if a specific player has passed this round
+   */
+  hasPlayerPassed(userId: string): boolean {
+    if (userId === this.player1.getUserId()) {
+      return this.player1.hasPassed();
+    } else if (userId === this.player2.getUserId()) {
+      return this.player2.hasPassed();
+    }
+    return false;
+  }
+
+  /**
    * Get the opponent's ID
    */
   private getOtherPlayerId(userId: string): string {
@@ -230,6 +242,12 @@ export class Game {
     }
 
     const player = userId === this.player1.getUserId() ? this.player1 : this.player2;
+
+    // Cannot place card if player has already passed
+    if (player.hasPassed()) {
+      throw new Error(`Cannot place card after passing`);
+    }
+
     const playerRows = userId === this.player1.getUserId() ? this.player1Rows : this.player2Rows;
 
     // Validate card exists in player's hand
@@ -257,8 +275,17 @@ export class Game {
     playedCards.push(cardId);
     this.lastCardsPlayedByUserId.set(userId, playedCards);
 
-    // Switch turn to other player
-    this.currentPlayerTurnUserId = this.getOtherPlayerId(userId);
+    // Switch turn logic: if other player has passed, keep turn with current player
+    const otherPlayerId = this.getOtherPlayerId(userId);
+    const otherPlayer = otherPlayerId === this.player1.getUserId() ? this.player1 : this.player2;
+
+    if (otherPlayer.hasPassed()) {
+      // Other player passed, keep turn with current player
+      this.currentPlayerTurnUserId = userId;
+    } else {
+      // Other player hasn't passed, give them the turn
+      this.currentPlayerTurnUserId = otherPlayerId;
+    }
   }
 
   /**
@@ -293,8 +320,30 @@ export class Game {
     if (this.haveBothPlayersPassed()) {
       this.endRound();
     } else {
-      // Switch turn to other player
+      // Other player hasn't passed, give them continuous turns
       this.currentPlayerTurnUserId = this.getOtherPlayerId(userId);
+    }
+  }
+
+  /**
+   * Auto-pass a player when they have no cards left in hand
+   */
+  autoPassIfNoCards(userId: string): void {
+    const player = userId === this.player1.getUserId() ? this.player1 : this.player2;
+    
+    // Only auto-pass if they haven't already passed and have no cards
+    if (!player.hasPassed() && player.getDeck().getHand().length === 0) {
+      player.pass();
+      
+      // If it's their turn and they're auto-passed, skip to next turn
+      if (userId === this.currentPlayerTurnUserId) {
+        if (this.haveBothPlayersPassed()) {
+          this.endRound();
+        } else {
+          // Switch to other player
+          this.currentPlayerTurnUserId = this.getOtherPlayerId(userId);
+        }
+      }
     }
   }
 

@@ -41,17 +41,21 @@ const GameView = ({
   const currentUserId = user?.id ?? '';
   const currentPlayerTurnUserId = gameMetadata.game.currentPlayerTurnUserId;
   const isYourTurn = currentPlayerTurnUserId === currentUserId;
+  const currentPlayerHasPassed = game.hasPlayerPassed(currentUserId);
+  const opponentHasPassed = game.hasPlayerPassed(
+    game.getPlayers().find((p) => p.getUserId() !== currentUserId)?.getUserId() ?? '',
+  );
 
   /**
    * Handle card selection from hand
    */
   const handleCardSelect = useCallback(
     (card: PlayableCard) => {
-      if (!isYourTurn) return;
+      if (!isYourTurn || currentPlayerHasPassed) return;
       onSelectCard(card.getId());
       setIsPlacingCard(true);
     },
-    [isYourTurn, onSelectCard],
+    [isYourTurn, currentPlayerHasPassed, onSelectCard],
   );
 
   /**
@@ -59,7 +63,7 @@ const GameView = ({
    */
   const handleRowClick = useCallback(
     async (rowType: RangeType) => {
-      if (!selectedCardId || !isYourTurn) return;
+      if (!selectedCardId || !isYourTurn || currentPlayerHasPassed) return;
 
       try {
         setIsPlacingCard(true);
@@ -94,7 +98,7 @@ const GameView = ({
    * Handle pass turn
    */
   const handlePassTurn = useCallback(async () => {
-    if (!isYourTurn) return;
+    if (!isYourTurn || currentPlayerHasPassed) return;
 
     try {
       await passTurnMutation.mutateAsync({
@@ -108,7 +112,7 @@ const GameView = ({
     } catch (error) {
       console.error('Failed to pass turn:', error);
     }
-  }, [isYourTurn, currentUserId, gameId, passTurnMutation, onSelectCard, refetchGame]);
+  }, [isYourTurn, currentPlayerHasPassed, currentUserId, gameId, passTurnMutation, onSelectCard, refetchGame]);
 
   if (!user) {
     return <Spinner />;
@@ -136,7 +140,12 @@ const GameView = ({
 
       {/* Turn indicator */}
       <div className={styles.turnIndicator}>
-        {isYourTurn ? (
+        {currentPlayerHasPassed ? (
+          <div className={styles.hasPassed}>
+            <h3>✋ You Have Passed</h3>
+            <p>Waiting for opponent...</p>
+          </div>
+        ) : isYourTurn ? (
           <div className={styles.yourTurn}>
             <h3>⭐ Your Turn</h3>
             <button
@@ -150,6 +159,7 @@ const GameView = ({
         ) : (
           <div className={styles.opponentTurn}>
             <h3>⏳ Opponent's Turn</h3>
+            {opponentHasPassed && <p>Opponent has passed - they can keep playing</p>}
           </div>
         )}
       </div>
@@ -163,6 +173,7 @@ const GameView = ({
         isPlacingCard={isPlacingCard}
         playerRows={opponentRows}
         isOpponentBoard={true}
+        hasPlayerPassed={opponentHasPassed}
       />
       <Separator />
       <UserGame
@@ -175,6 +186,7 @@ const GameView = ({
         playerRows={currentPlayerRows}
         selectedCard={getSelectedCardFromHand(selectedCardId, currentPlayerHand)}
         isOpponentBoard={false}
+        hasPlayerPassed={currentPlayerHasPassed}
       />
       <PlayerHand
         hand={currentPlayerHand}

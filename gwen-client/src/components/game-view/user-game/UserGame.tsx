@@ -14,6 +14,7 @@ type UserGameProps = {
   isPlacingCard?: boolean;
   selectedCard?: PlayableCard | null;
   isOpponentBoard?: boolean;
+  hasPlayerPassed?: boolean;
 };
 
 const UserGame = ({
@@ -26,9 +27,11 @@ const UserGame = ({
   playerRows,
   selectedCard = null,
   isOpponentBoard = false,
+  hasPlayerPassed = false,
 }: UserGameProps) => {
   return (
     <div className={styles.userGame}>
+      {hasPlayerPassed && <div className={styles.passedBanner}>✋ Passed</div>}
       <GameLeftPanel playerRows={playerRows} isCurrentPlayer={isCurrentPlayer} player={player} />
       <UserBoard
         selectedCardId={selectedCardId}
