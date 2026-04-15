@@ -23,7 +23,7 @@ const BoardRowView = ({ row }: BoardRowViewProps) => {
       <div></div>
       <div className={styles.cardsContainer}>
         {row.getCards().map((card, index) => (
-          <UnitCardView key={`${card.getName()}-${index}`} card={card} />
+          <UnitCardView key={`${card.getName()}-${index}`} card={card} size="x-small" />
         ))}
       </div>
     </div>

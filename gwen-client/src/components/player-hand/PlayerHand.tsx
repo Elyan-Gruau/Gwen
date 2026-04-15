@@ -3,6 +3,7 @@ import { type PlayableCard, type RangeType } from 'gwen-common';
 import CardView from '../card/CardView';
 import { useGameplaySocket } from '../../hooks/useGameplaySocket';
 import styles from './PlayerHand.module.scss';
+import PlayableCardView from '../card/PlayableCardView';
 
 export type PlayerHandSelectionSource = 'click' | 'keyboard';
 
