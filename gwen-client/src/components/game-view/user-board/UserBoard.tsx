@@ -1,5 +1,5 @@
 import { PlayerRows, Row } from 'gwen-common';
-import type { RangeType } from 'gwen-common';
+import type { RangeType, PlayableCard } from 'gwen-common';
 import BoardRowView from '../board-row-view/BoardRowView';
 import styles from './UserBoard.module.scss';
 import { useState, useRef } from 'react';
@@ -9,6 +9,8 @@ export type UserBoardProps = {
   onRowClick?: (rowType: RangeType) => void;
   isPlacingCard?: boolean;
   playerRows: PlayerRows;
+  selectedCard?: PlayableCard | null;
+  isOpponentBoard?: boolean;
 };
 
 const UserBoard = ({
@@ -16,12 +18,25 @@ const UserBoard = ({
   onRowClick,
   isPlacingCard = false,
   playerRows,
+  selectedCard = null,
+  isOpponentBoard = false,
 }: UserBoardProps) => {
   const [activeRowIndex, setActiveRowIndex] = useState<number | null>(null);
   const boardRef = useRef<HTMLDivElement>(null);
   const rows = playerRows.getAllRows();
 
+  /**
+   * Check if a row is valid for the selected card
+   */
+  const isRowValid = (rowRange: RangeType): boolean => {
+    if (!selectedCard) return true; // If no card, all rows are valid
+    return (selectedCard as any).hasRange?.(rowRange) ?? true;
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    // Disable keyboard navigation on opponent board
+    if (isOpponentBoard) return;
+
     const { key } = event;
 
     // Handle row navigation with arrow keys
@@ -43,11 +58,12 @@ const UserBoard = ({
       return;
     }
 
-    // Handle card placement on Enter
-    if (key === 'Enter' && isPlacingCard && selectedCardId && activeRowIndex !== null) {
+    // Handle card placement on Enter (only if row is valid and not opponent board)
+    if (key === 'Enter' && !isOpponentBoard && isPlacingCard && selectedCardId && activeRowIndex !== null) {
       const selectedRow = rows[activeRowIndex];
-      if (selectedRow && onRowClick) {
-        onRowClick(selectedRow.getRange());
+      const rowRange = selectedRow.getRange();
+      if (selectedRow && onRowClick && isRowValid(rowRange)) {
+        onRowClick(rowRange);
         setActiveRowIndex(null);
       }
       event.preventDefault();
@@ -61,22 +77,28 @@ const UserBoard = ({
       onKeyDown={handleKeyDown}
       tabIndex={0}
     >
-      {rows.map((row, index) => (
-        <div
-          key={row.getRange()}
-          onClick={() => {
-            if (isPlacingCard && selectedCardId && onRowClick) {
-              onRowClick(row.getRange());
-              setActiveRowIndex(null);
-            }
-          }}
-          className={`${styles.rowWrapper} ${
-            isPlacingCard && selectedCardId ? styles.placingMode : ''
-          } ${activeRowIndex === index ? styles.selectedRow : ''}`}
-        >
-          <BoardRowView row={row} />
-        </div>
-      ))}
+      {rows.map((row, index) => {
+        const rowRange = row.getRange();
+        const isValid = isRowValid(rowRange);
+        return (
+          <div
+            key={rowRange}
+            onClick={() => {
+              if (!isOpponentBoard && isPlacingCard && selectedCardId && onRowClick && isValid) {
+                onRowClick(rowRange);
+                setActiveRowIndex(null);
+              }
+            }}
+            className={`${
+              styles.rowWrapper
+            } ${!isOpponentBoard && isPlacingCard && selectedCardId ? styles.placingMode : ''} ${
+              !isOpponentBoard && activeRowIndex === index ? styles.selectedRow : ''
+            } ${!isOpponentBoard && isPlacingCard && selectedCardId && !isValid ? styles.invalidRow : ''}`}
+          >
+            <BoardRowView row={row} />
+          </div>
+        );
+      })}
     </div>
   );
 };

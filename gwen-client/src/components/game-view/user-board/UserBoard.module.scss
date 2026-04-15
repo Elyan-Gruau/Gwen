@@ -19,11 +19,30 @@
       transform: scale(1.02);
       box-shadow: 0 0 12px rgba(202, 168, 76, 0.4);
     }
+
+    &.invalidRow {
+      cursor: not-allowed;
+
+      &:hover {
+        background: rgba(220, 53, 69, 0.2);
+        transform: scale(1.02);
+        box-shadow: 0 0 12px rgba(220, 53, 69, 0.4);
+      }
+    }
   }
 
   &.selectedRow {
     background: rgba(202, 168, 76, 0.3);
     box-shadow: 0 0 16px rgba(202, 168, 76, 0.6), inset 0 0 8px rgba(202, 168, 76, 0.3);
     transform: scale(1.02);
+
+    &.invalidRow {
+      background: rgba(220, 53, 69, 0.3);
+      box-shadow: 0 0 16px rgba(220, 53, 69, 0.6), inset 0 0 8px rgba(220, 53, 69, 0.3);
+    }
+  }
+
+  &.invalidRow {
+    opacity: 0.6;
   }
 }

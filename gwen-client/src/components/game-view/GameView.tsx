@@ -144,6 +144,7 @@ const GameView = ({
         isYourTurn={isYourTurn}
         isPlacingCard={isPlacingCard}
         playerRows={opponentRows}
+        isOpponentBoard={true}
       />
       <Separator />
       <UserGame
@@ -154,6 +155,8 @@ const GameView = ({
         isYourTurn={isYourTurn}
         isPlacingCard={isPlacingCard}
         playerRows={currentPlayerRows}
+        selectedCard={getSelectedCardFromHand(selectedCardId, currentPlayerHand)}
+        isOpponentBoard={false}
       />
       <PlayerHand
         hand={currentPlayerHand}
@@ -168,5 +171,10 @@ const GameView = ({
 
 const categorisePlayer = (players: Player[], currentPlayerId: string): CategorisedPlayers =>
   new CategorisedPlayers(players, currentPlayerId);
+
+const getSelectedCardFromHand = (cardId: string | null, hand: PlayableCard[]) => {
+  if (!cardId) return null;
+  return hand.find((card) => card.getId() === cardId) ?? null;
+};
 
 export default GameView;
