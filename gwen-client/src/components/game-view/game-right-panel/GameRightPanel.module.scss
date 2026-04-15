@@ -1,0 +1,7 @@
+@use '@styles/tokens' as tokens;
+
+.container{
+  display: flex;
+  gap: tokens.$spacing-sm ;
+  align-items: center;
+}

@@ -59,7 +59,13 @@ const UserBoard = ({
     }
 
     // Handle card placement on Enter (only if row is valid and not opponent board)
-    if (key === 'Enter' && !isOpponentBoard && isPlacingCard && selectedCardId && activeRowIndex !== null) {
+    if (
+      key === 'Enter' &&
+      !isOpponentBoard &&
+      isPlacingCard &&
+      selectedCardId &&
+      activeRowIndex !== null
+    ) {
       const selectedRow = rows[activeRowIndex];
       const rowRange = selectedRow.getRange();
       if (selectedRow && onRowClick && isRowValid(rowRange)) {
@@ -71,12 +77,7 @@ const UserBoard = ({
   };
 
   return (
-    <div
-      ref={boardRef}
-      className={styles.userBoard}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
-    >
+    <div ref={boardRef} className={styles.userBoard} onKeyDown={handleKeyDown} tabIndex={0}>
       {rows.map((row, index) => {
         const rowRange = row.getRange();
         const isValid = isRowValid(rowRange);

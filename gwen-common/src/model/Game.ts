@@ -101,7 +101,13 @@ export class Game {
   /**
    * Restore round result from DTO (used when reconstructing game state from server)
    */
-  restoreRoundResult(player1Id: string, p1Result: GameResult, player2Id: string, p2Result: GameResult, winnerId: string | null): void {
+  restoreRoundResult(
+    player1Id: string,
+    p1Result: GameResult,
+    player2Id: string,
+    p2Result: GameResult,
+    winnerId: string | null,
+  ): void {
     this.lastRoundResult.set(player1Id, p1Result);
     this.lastRoundResult.set(player2Id, p2Result);
     this.lastRoundWinnerId = winnerId;
@@ -330,11 +336,11 @@ export class Game {
    */
   autoPassIfNoCards(userId: string): void {
     const player = userId === this.player1.getUserId() ? this.player1 : this.player2;
-    
+
     // Only auto-pass if they haven't already passed and have no cards
     if (!player.hasPassed() && player.getDeck().getHand().length === 0) {
       player.pass();
-      
+
       // If it's their turn and they're auto-passed, skip to next turn
       if (userId === this.currentPlayerTurnUserId) {
         if (this.haveBothPlayersPassed()) {
