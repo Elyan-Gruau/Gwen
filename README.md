@@ -33,6 +33,8 @@ All rounds of a match must be played with the same starting hand. Mastering how 
 - Each player can play 1 card per round
 - Each card has a power value and a type (melee, range, siege)
 - The player with the highest total power at the end of the round wins the round
+- To end the round, both players must skip their turn or cannot play any card anymore.
+
 
 Gameplay : https://www.youtube.com/watch?v=sphmZC2U06Y
 

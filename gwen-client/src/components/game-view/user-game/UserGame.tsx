@@ -2,20 +2,34 @@ import GameLeftPanel from '../ game-left-panel/GameLeftPanel';
 import UserBoard from '../user-board/UserBoard';
 import GameRightPanel from '../game-right-panel/GameRightPanel';
 import styles from './UserGame.module.scss';
-import type { Player, PlayerRows } from 'gwen-common';
+import type { Player, RangeType } from 'gwen-common';
 
 type UserGameProps = {
   isCurrentPlayer: boolean;
   player: Player;
-  playerRows: PlayerRows;
+  selectedCardId: string | null;
+  onRowClick?: (rowType: RangeType) => void;
+  isYourTurn?: boolean;
+  isPlacingCard?: boolean;
 };
 
-const UserGame = ({ isCurrentPlayer, player, playerRows }: UserGameProps) => {
+const UserGame = ({
+  isCurrentPlayer,
+  player,
+  selectedCardId,
+  onRowClick,
+  isYourTurn = false,
+  isPlacingCard = false,
+}: UserGameProps) => {
   return (
     <div className={styles.userGame}>
-      <GameLeftPanel playerRows={playerRows} isCurrentPlayer={isCurrentPlayer} player={player} />
-      <UserBoard playerRows={playerRows} />
-      <GameRightPanel factionId={player.getDeck().getFactionId()} deck={player.getDeck()} />
+      <GameLeftPanel isCurrentPlayer={isCurrentPlayer} player={player} />
+      <UserBoard
+        selectedCardId={selectedCardId}
+        onRowClick={onRowClick}
+        isPlacingCard={isPlacingCard && isYourTurn}
+      />
+      <GameRightPanel deck={player.getDeck()} />
     </div>
   );
 };

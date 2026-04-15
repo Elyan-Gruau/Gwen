@@ -111,4 +111,15 @@ export class Deck {
 
     this.hand.push(maybeCard);
   }
+
+  /**
+   * Remove a card from hand (when it's played)
+   */
+  playCard(cardId: string): void {
+    const index = this.hand.findIndex((c) => c.getId() === cardId);
+    if (index === -1) {
+      throw new Error(`Card with id ${cardId} not found in hand`);
+    }
+    this.hand.splice(index, 1);
+  }
 }
