@@ -102,3 +102,6 @@ Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `la
 - [ ] Sound effects
 - [ ] Special card effects
 - [ ] Leader abilities
+- [ ] Timed turns
+- [ ] Resign option
+- [ ] Rules page
