@@ -63,7 +63,7 @@ const FactionLeaderSelector = ({
           <LeaderCardView card={selectedLeader} />
           <span className={styles.selectedLeaderName}>{selectedLeader.getName()}</span>
         </div>
-        <div className={styles.abilityBox}>Ability — à venir</div>
+        <div className={styles.abilityBox}>Ability — not yet implemented</div>
       </div>
     );
   }
