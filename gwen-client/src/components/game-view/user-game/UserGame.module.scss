@@ -1,12 +1,8 @@
+@use '@styles/tokens' as tokens;
+
 .userGame {
   display: flex;
   flex-direction: row;
   width: 100%;
-
-  color: #ffffff;
-
-  // Ensure all text elements within game view are white
-  * {
-    color: #ffffff;
-  }
+  gap: tokens.$spacing-lg;
 }
