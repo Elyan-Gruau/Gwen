@@ -18,7 +18,7 @@ type UserGameProps = {
 };
 
 const UserGame = ({
-  isCurrentPlayer,
+  isCurrentPlayer: _isCurrentPlayer,
   player,
   selectedCardId,
   onRowClick,
@@ -32,7 +32,7 @@ const UserGame = ({
   return (
     <div className={styles.userGame}>
       {hasPlayerPassed && <div className={styles.passedBanner}>✋ Passed</div>}
-      <GameLeftPanel playerRows={playerRows} isCurrentPlayer={isCurrentPlayer} player={player} />
+      <GameLeftPanel playerRows={playerRows} player={player} />
       <UserBoard
         selectedCardId={selectedCardId}
         onRowClick={onRowClick}

@@ -8,6 +8,16 @@ set -o pipefail
 # Error handler
 trap 'echo "❌ Error: Script failed at line $LINENO"; exit 1' ERR
 
+DOCKER_COMPOSE_CMD=""
+if command -v docker-compose >/dev/null 2>&1; then
+  DOCKER_COMPOSE_CMD="docker-compose"
+elif docker compose version >/dev/null 2>&1; then
+  DOCKER_COMPOSE_CMD="docker compose"
+else
+  echo "❌ Docker Compose is required but was not found"
+  exit 1
+fi
+
 echo "🚀 Launching the project..."
 
 # Installing dependencies, showing only errors
@@ -27,7 +37,7 @@ fi
 echo "✓ Build completed successfully"
 
 echo "🐳 Starting Docker containers..."
-if ! docker-compose up -d --build; then
+if ! $DOCKER_COMPOSE_CMD up -d --build; then
   echo "❌ Failed to start Docker containers"
   exit 1
 fi

@@ -259,11 +259,11 @@ describe('AuthService Integration Tests', () => {
       const email = 'bcrypt@example.com';
       const password = 'samePassword123!';
 
-      const result1 = await authService.register('user1', email, password);
+      await authService.register('user1', email, password);
       const user1 = await userService.getUserByEmail(email);
 
       // Register another user with same password (should have different hash)
-      const result2 = await authService.register('user2', 'user2@example.com', password);
+      await authService.register('user2', 'user2@example.com', password);
       const user2 = await userService.getUserByEmail('user2@example.com');
 
       // Hashes should be different even though passwords are same

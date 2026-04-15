@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { type PlayableCard, type RangeType } from 'gwen-common';
+import { type PlayableCard } from 'gwen-common';
 import CardView, { CARD_SIZE } from '../card/CardView';
 import styles from './PlayerHand.module.scss';
 
@@ -7,8 +7,6 @@ export type PlayerHandSelectionSource = 'click' | 'keyboard';
 
 export type PlayerHandProps = {
   hand: PlayableCard[];
-  gameId: string;
-  rowType: RangeType;
   /**
    * Called when a card is confirmed (click or Enter key).
    */
@@ -22,8 +20,6 @@ export type PlayerHandProps = {
 
 const PlayerHand = ({
   hand,
-  gameId,
-  rowType,
   onCardConfirm,
   autoFocus = false,
 }: PlayerHandProps) => {

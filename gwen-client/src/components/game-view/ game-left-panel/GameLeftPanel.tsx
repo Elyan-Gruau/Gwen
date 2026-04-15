@@ -6,13 +6,12 @@ import { useGetUser } from 'gwen-generated-api';
 import ScoreBadge from '../score-badge/ScoreBadge';
 
 export type GameLeftPanelProps = {
-  isCurrentPlayer: boolean;
   player: Player;
   playerRows: PlayerRows;
 };
 
-const GameLeftPanel = ({ isCurrentPlayer, player, playerRows }: GameLeftPanelProps) => {
-  const { data: user, isLoading } = useGetUser(player.getUserId());
+const GameLeftPanel = ({ player, playerRows }: GameLeftPanelProps) => {
+  const { data: user } = useGetUser(player.getUserId());
   const factionId = player.getDeck().getFactionId();
 
   return (

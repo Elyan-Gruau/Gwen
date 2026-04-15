@@ -8,6 +8,9 @@ import {
   MATCHMAKING_POOL_SIZE,
 } from 'gwen-common';
 import { getGameURL } from '../../utils/URLProvider';
+import { API_BASE_URL } from '../../constants/api';
+
+const SOCKET_BASE_URL = import.meta.env.VITE_SOCKET_URL || API_BASE_URL.replace(/\/api\/?$/, '');
 
 export type UseMatchmakingResult = {
   isSearching: boolean;
@@ -34,7 +37,7 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
       return;
     }
 
-    const newSocket = io('http://localhost:3000', {
+    const newSocket = io(SOCKET_BASE_URL, {
       auth: { userId },
     });
 

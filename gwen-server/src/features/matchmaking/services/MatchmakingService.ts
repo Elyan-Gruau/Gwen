@@ -70,7 +70,7 @@ export class MatchmakingService {
           const game = await this.gameService.createGame(userId, deckId, opponent.userId, opponentDeckId);
           console.log('Game created with id: ', game._id?.toString());
 
-          const activatedGame = await GameManager.getInstance().activateGame(game);
+          await GameManager.getInstance().activateGame(game);
           console.log('Game activated');
 
           const match = {
@@ -120,7 +120,7 @@ export class MatchmakingService {
       );
       console.log('Game created with id: ', game._id?.toString());
 
-      const activatedGame = await GameManager.getInstance().activateGame(game);
+      await GameManager.getInstance().activateGame(game);
       console.log('Game activated');
 
       return {

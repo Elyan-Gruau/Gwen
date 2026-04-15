@@ -15,9 +15,10 @@ import { initializeMatchmaking } from './features/matchmaking/utils/MatchmakingH
 import { GameplayGateway } from './features/game/gateways/GameplayGateway.js';
 const app = express();
 const httpServer = createServer(app);
+const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: corsOrigin,
     credentials: true,
   },
 });
@@ -32,7 +33,7 @@ const jwtService = new JwtService(jwtSecret, jwtExpiration);
 
 // CORS Configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  origin: corsOrigin,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -108,7 +109,8 @@ async function startServer() {
     new GameplayGateway(io);
 
     httpServer.listen(PORT, () => {
-      console.log(`Server started on http://localhost:${PORT}`);
+      console.log(`Server started on port ${PORT}`);
+      console.log(`CORS origin: ${corsOrigin}`);
     });
   } catch (error) {
     console.error('MongoDB connection error:', error);

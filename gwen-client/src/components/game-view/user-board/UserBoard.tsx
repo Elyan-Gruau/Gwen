@@ -1,4 +1,4 @@
-import { PlayerRows, Row } from 'gwen-common';
+import { PlayerRows } from 'gwen-common';
 import type { RangeType, PlayableCard } from 'gwen-common';
 import BoardRowView from '../board-row-view/BoardRowView';
 import styles from './UserBoard.module.scss';
@@ -33,7 +33,7 @@ const UserBoard = ({
   const isRowValid = (rowRange: RangeType): boolean => {
     if (!selectedCard) return true; // If no card, all rows are valid
     
-    const card = selectedCard as any;
+    const card = selectedCard as { hasRange?: (range: RangeType | 'AGILE') => boolean };
     
     // Check if card has exact row type (MELEE, RANGED, or SIEGE)
     if (card.hasRange?.(rowRange)) {

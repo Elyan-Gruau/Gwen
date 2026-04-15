@@ -39,7 +39,6 @@ const EndPhase = ({
   roundEndDuration = 3000,
   onRoundEndComplete,
   eloChange = 0,
-  currentElo = 0,
   totalElo = 0,
   opponentName = 'Opponent',
   playerGems = 0,

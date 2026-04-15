@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import type { ComponentProps } from 'react';
 import Button, { type ButtonProps } from '../button/Button';
 import type { MouseEvent } from 'react';
 

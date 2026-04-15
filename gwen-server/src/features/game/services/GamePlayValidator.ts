@@ -7,9 +7,9 @@ export class GamePlayValidator {
    * For now, this always validates successfully and will be enhanced later
    */
   public static validatePlayCard(
-    game: Game,
-    playingPlayer: Player,
-    request: PlayCardRequest,
+    _game: Game,
+    _playingPlayer: Player,
+    _request: PlayCardRequest,
   ): { valid: boolean; error?: string } {
     // TODO: Add actual validation logic
     // - Check if it's the player's turn

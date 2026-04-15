@@ -1,24 +1,34 @@
 [![CI](https://github.com/Elyan-Gruau/Gwen/actions/workflows/ci.yml/badge.svg)](https://github.com/Elyan-Gruau/Gwen/actions/workflows/ci.yml)
 # Gwen
 
-A gwent like game.
+A Gwent-like multiplayer card game.
 
-## How do you play Gwent?
+## Table of contents
 
-Gwent is a card game for two players. The aim of the game is to beat your opponent using one’s own deck by ensuring that the total strength of your cards on the board is greater than that of your opponent’s in two out of three rounds. During the game, various unit cards can be placed in one of three corresponding tiers:
-1. _Close Combat_;
-2. _Ranged Combat_;
-3. _Siege Combat_.
+- [Project overview](#project-overview)
+- [Monorepo structure](#monorepo-structure)
+- [Implemented features](#implemented-features)
+- [Run locally](#run-locally)
+- [Build, lint, test](#build-lint-test)
+- [Assets](#assets)
+- [AI usage in the project](#ai-usage-in-the-project)
+- [Work distribution](#work-distribution)
 
-The sum of the played cards strength decides which player wins the round itself.
+## Project overview
 
-All rounds of a match must be played with the same starting hand. Mastering how to use your available cards sparingly is the key to victory.
+Gwen is a 1v1 card game inspired by Gwent.
 
-- Each player can play 1 card per round
-- Each card has a power value and a type (melee, range, siege, other...)
-- To end the round, both players must skip their turn or cannot play any card anymore.
+Main gameplay rules:
 
-Gameplay : https://www.youtube.com/watch?v=sphmZC2U06Y
+- Two players compete over multiple rounds.
+- Cards are placed on rows: `MELEE`, `RANGED`, `SIEGE`.
+- `AGILE` cards can be placed on `MELEE` or `RANGED` rows.
+- Players can play a card or pass.
+- Gems system: each player starts with 2 gems and loses one on round loss (draw = both lose one).
+- Match ends when a player reaches 0 gems.
+- Ranked matchmaking with ELO and progressively expanding search range.
+
+Gameplay video: https://www.youtube.com/watch?v=sphmZC2U06Y
 
 <p align="center">
 <img src="doc/resources/gwent_rules_1.png" width="270">
@@ -26,82 +36,140 @@ Gameplay : https://www.youtube.com/watch?v=sphmZC2U06Y
 <img src="doc/resources/gwent_rules_3.png" width="270">
 </p>
 
-## Assets
+## Monorepo structure
 
-- icons from svgrepo
-- card visuals from https://github.com/matt77hias/Gwent
+This repository is a monorepo using npm workspaces.
 
-## Backend
-
-- Websockets
-- Authentication
+- `gwen-client`: React + Vite frontend
+- `gwen-server`: Node.js + Express + Socket.IO backend
+- `gwen-common`: shared domain models/types/game logic
+- `gwen-generated-api`: generated API client (OpenAPI)
 
 ## Implemented features
 
-- Builder to build the card objects from the config.
+- Authentication (register/login, JWT)
 - Profile page
-- Elo based matchmaking (Ranked)
-- Game logic
-    - Place a card
-    - Pass turn
-    - Round logic
-    - End game
-- Add light / dark mode switch, auto select from the os at first and then save the prefs
-- Deckbuilder with leader and faction selection
-- Prevent user from joining the matchmaking queue if the deck is not SAVED & valid
-- Possibility to add a favorite deck
+- Deck builder (faction/leader selection, deck validation, favorite deck)
+- Game logic:
+  - place card
+  - pass turn
+  - round resolution
+  - end game
+  - agile card placement (`MELEE` / `RANGED`)
+- ELO system:
+  - ELO gain/loss based on opponent rating and result
+  - persistence in database
+- Matchmaking:
+  - WebSockets events
+  - ELO-aware pairing
+  - expanding search range over time
+  - queue/pool information in UI
+- Theme support:
+  - light/dark toggle
+  - persisted in browser localStorage
+  - first load defaults from `prefers-color-scheme`
 
-## Utilisation de l'IA dans le projet
+### Constraints checklist
 
-### Models
+- Monorepo architecture: ✅
+  - Equivalent to requested `api/client` split through `gwen-server` and `gwen-client`
+- React frontend + Node.js backend: ✅
+- Docker Compose for database: ✅ (`docker-compose.yml` with MongoDB)
+- Responsive UI: ✅ (SCSS modules, responsive layouts/media queries)
+- TypeScript: ✅ (full stack)
+- Request handling (errors + loading states/spinners): ✅
+- SPA + router: ✅ (`react-router-dom`)
+- Client-side form validation: ✅ (Formik + Yup for auth forms)
+- Linter: ✅ configured (ESLint setup is present in all packages)
+- Real-time communication with WebSockets: ✅ matchmaking and gameplay realtime events
 
-- GPT 5.2
-- GPT 4.1
-- Claude haiku 4.5
+## Run locally
 
-Les ias ont été utilisées pour :
+### Full Docker
 
-- Générer des idées de cartes et de factions : On envoit le site avec donnes a ChatGPT avec le modele a suivre (
-  datastructure), et on lui demande depuis la page de crawl et de recuperer les infos des cartes.
-- Fix les differents problemes de configuration typescript, scss, open-api ...
-- implémenter certaines fonctionnalités bien précises mais en aucun cas utilisées pour définir la structure globale du projet
-
-
-## Lancement du projet 
-
-Le projet peut etre lancer en 100% docker, en executant le script ***bash*** `launch-project.sh`.
 ```bash
 ./scripts/launch-project.sh
 ```
 
-## Repartition du travail
+Then open:
+
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:3000`
+
+### Local dev with workspaces
+
+```bash
+npm install
+npm run dev
+```
+
+This starts client + server + common package watchers.
+
+### Clean project artifacts
+
+```bash
+./scripts/clean-project.sh
+```
+
+This removes `dist`, `node_modules`, `tsconfig.tsbuildinfo` and stops docker compose resources.
+
+## Build, lint, test
+
+```bash
+npm run build
+npm run lint
+npm run typecheck
+npm run test
+```
+
+## Assets
+
+- Icons from svgrepo
+- Card visuals from https://github.com/matt77hias/Gwent
+
+## AI usage in the project
+
+Models used:
+
+- GPT 5.2
+- GPT 4.1
+- Claude Haiku 4.5
+
+AI was used for:
+
+- ideation for factions/cards
+- fixing targeted technical issues (TypeScript, SCSS, OpenAPI)
+- implementing isolated features
+
+It was not used to define the full architecture of the project.
+
+## Work distribution
 
 ### Adrien Passeron
 
-- Page de profil
-- [X] Logique de jeu
-- [X] Page d'accueil
-- [X] Theme light / dark
-- [ ] hebergement
-- [X] Ameliorations UI/UX
-- [X] Page de win /lose
-- [X] Calcul du elo
-- [X] Metadata et correctifs finaux
+- Profile page
+- Game logic
+- Home page
+- Light/dark theme
+- UI/UX improvements
+- Win/lose page
+- ELO calculation
+- Metadata and final fixes
 
 ### Elyan Gruau
 
-- [X] Authentification
-- [X] Matchmaking
-- [X] Dockerisation
-- [X] Page de connexion
-- [X] Page d'inscription
-- [X] Page de deck builder
+- Authentication
+- Matchmaking
+- Dockerization
+- Login page
+- Sign-up page
+- Deck builder
 
-## For next updates
+## Next updates
 
-- [ ] Sound effects
-- [ ] Special card effects
-- [ ] Leader abilities
-- [ ] Timed turns
-- [ ] Resign option
-- [ ] Rules page
+- Sound effects
+- Special card effects
+- Leader abilities
+- Timed turns
+- Resign option
+- Rules page

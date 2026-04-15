@@ -36,7 +36,7 @@ interface SignInFormValues {
 export default function SignInForm() {
   const navigate = useNavigate();
   const { setUser } = useAuthContext();
-  const { mutate: register, isPending, isError, error } = useRegister();
+  const { mutate: register, isPending, isError } = useRegister();
 
   const handleSubmit = (values: SignInFormValues) => {
     register(

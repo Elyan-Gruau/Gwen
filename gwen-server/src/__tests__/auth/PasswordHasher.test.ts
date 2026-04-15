@@ -112,7 +112,7 @@ describe('PasswordHasher', () => {
 
     it('should not verify with wrong hash', async () => {
       const plainPassword = 'myPassword';
-      const hashedPassword1 = await passwordHasher.hashPassword(plainPassword);
+      await passwordHasher.hashPassword(plainPassword);
       const hashedPassword2 = await passwordHasher.hashPassword('anotherPassword');
 
       const isValid = await passwordHasher.verifyPassword(plainPassword, hashedPassword2);

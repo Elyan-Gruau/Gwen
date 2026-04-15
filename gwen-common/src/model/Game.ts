@@ -1,10 +1,9 @@
 import { PlayerRows } from './PlayerRows';
 import { Player } from './Player';
 import { Weather } from './Weather';
-import { Datapack } from './Datapack';
-import { THE_WITCHER_DATAPACK } from '../datapacks/the-witcher/WitcherDatapack';
+import type { UnitCard } from './cards/UnitCard';
 import { GameResult } from '../types/GameResultType';
-import type { RangeType } from '../types/RangeType';
+import type { RangeType, UnitsRangeType } from '../types/RangeType';
 import type { PlayableCard } from '../types/Card';
 
 export class Game {
@@ -282,7 +281,7 @@ export class Game {
 
     // Place the card on the row
     const row = playerRows.getRowByType(rowType);
-    row.addCard(card as any); // Type assertion since UnitCard is expected
+    row.addCard(card as UnitCard);
 
     // Remove card from hand
     player.getDeck().playCard(cardId);
@@ -314,7 +313,7 @@ export class Game {
   private canCardBePlacedOnRow(card: PlayableCard, rowType: RangeType): boolean {
     // Check if card has range type (UnitCard)
     if ('hasRange' in card && typeof card.hasRange === 'function') {
-      const unitCard = card as any;
+      const unitCard = card as { hasRange: (range: UnitsRangeType) => boolean };
       
       // Check if card has exact row type (MELEE, RANGED, or SIEGE)
       if (unitCard.hasRange(rowType)) {

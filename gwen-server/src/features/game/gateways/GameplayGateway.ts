@@ -1,5 +1,5 @@
 import type { Server, Socket } from 'socket.io';
-import type { PlayableCard, PlayCardRequest, PlayCardResponse } from 'gwen-common';
+import type { PlayableCard, PlayCardRequest, PlayCardResponse, Player } from 'gwen-common';
 import { GAMEPLAY_EVENTS, UnitCard } from 'gwen-common';
 import { GameManager } from '../services/GameManager.js';
 import { GamePlayValidator } from '../services/GamePlayValidator.js';
@@ -80,7 +80,8 @@ export class GameplayGateway {
       // Apply the move to the game state
       // 1. Remove the card from the player's hand
       const deck = playingPlayer.getDeck();
-      const playedCard: PlayableCard = deck.playCard(cardId);
+      const playedCard = deck.findCardInHandById(cardId);
+      deck.playCard(cardId);
 
       // 2. Place it on the board in the specified row (only UnitCards can be placed on a row)
       if (playedCard instanceof UnitCard) {
@@ -125,7 +126,7 @@ export class GameplayGateway {
    * Finds the player whose hand currently contains the given card id.
    * Falls back to the first player if no direct match is found.
    */
-  private findPlayerOwningCard(players: any[], cardId: string): any {
+  private findPlayerOwningCard(players: Player[], cardId: string): Player {
     for (const player of players) {
       const hand = player.getDeck().getHand();
       if (hand.some((card: PlayableCard) => card.getId() === cardId)) {

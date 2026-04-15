@@ -24,7 +24,7 @@ export class AuthService {
   private async loginByIdentifier(identifier: string, plainPassword: string): Promise<DBUser> {
     // Try to find user by email first
     let userExists = await this.userService.isEmailTaken(identifier);
-    let user: DBUser | null = null;
+    let user: DBUser;
 
     if (userExists) {
       user = await this.userService.getUserByEmail(identifier);

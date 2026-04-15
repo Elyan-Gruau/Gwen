@@ -9,7 +9,7 @@ export type GameWithMetadata = {
 
 export class GameManager {
   private static instance: GameManager;
-  private activeGames: Map<String, GameWithMetadata> = new Map();
+  private activeGames: Map<string, GameWithMetadata> = new Map();
   private userFactionDeckService: UserFactionDeckService | null = null;
 
   private constructor() {}

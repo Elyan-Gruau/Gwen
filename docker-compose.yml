@@ -3,9 +3,9 @@ services:
     image: mongo:7
     container_name: gwen-mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin_password
-      MONGO_INITDB_DATABASE: gwen
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-admin_password}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-gwen}
     ports:
       - "27017:27017"
     volumes:
@@ -26,11 +26,12 @@ services:
     ports:
       - "3000:3000"
     environment:
-      PORT: 3000
-      NODE_ENV: production
-      MONGODB_URI: mongodb://gwen_user:gwen_password@mongo:27017/gwen?authSource=admin
-      JWT_SECRET: your-secret-key-change-in-production
-      JWT_EXPIRATION: 3600  # Token expiration in seconds (3600 = 1 hour)
+      PORT: ${PORT:-3000}
+      NODE_ENV: ${NODE_ENV:-production}
+      MONGODB_URI: ${MONGODB_URI:-mongodb://gwen_user:gwen_password@mongo:27017/gwen?authSource=admin}
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-3600}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
     depends_on:
       mongo:
         condition: service_healthy
@@ -44,7 +45,8 @@ services:
     ports:
       - "5173:5173"
     environment:
-      VITE_API_URL: http://localhost:3000/api
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:3000/api}
+      VITE_SOCKET_URL: ${VITE_SOCKET_URL:-http://localhost:3000}
     depends_on:
       - gwen-server
     restart: unless-stopped

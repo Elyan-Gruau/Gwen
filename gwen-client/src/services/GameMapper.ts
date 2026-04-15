@@ -1,5 +1,5 @@
 import type { DTOGameWithMetadataGame } from 'gwen-generated-api';
-import { Deck, Game, GwenConfig, Player, PlayerRows, Row, RowModifierCard } from 'gwen-common';
+import { Deck, Game, GwenConfig, Player, PlayerRows, RowModifierCard } from 'gwen-common';
 
 export abstract class GameMapper {
   static toModel(dto: DTOGameWithMetadataGame): Game {

@@ -17,7 +17,6 @@ const GamePage = () => {
   const { user } = useAuthContext();
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [showRoundEnd, setShowRoundEnd] = useState(false);
-  const [roundEndPhase, setRoundEndPhase] = useState<string | null>(null);
   const [showGameEnd, setShowGameEnd] = useState(false);
 
   // Poll game state every 1 second
@@ -37,7 +36,6 @@ const GamePage = () => {
   useEffect(() => {
     if (game?.game.phase === 'REDRAW' && !showRoundEnd && !showGameEnd) {
       setShowRoundEnd(true);
-      setRoundEndPhase('REDRAW');
     }
   }, [game?.game.phase, showRoundEnd, showGameEnd]);
 
@@ -62,7 +60,7 @@ const GamePage = () => {
         console.error('Failed to start round:', error);
       });
     }
-  }, [game?.game.phase, gameId, showRoundEnd, showGameEnd]);
+  }, [game, gameId, showRoundEnd, showGameEnd, startRoundMutation]);
 
   useEffect(() => {
     // Clear selected card when it's not your turn
@@ -97,7 +95,6 @@ const GamePage = () => {
         showRoundEnd={showRoundEnd}
         onRoundEndComplete={() => {
           setShowRoundEnd(false);
-          setRoundEndPhase(null);
         }}
         showGameEnd={showGameEnd}
       />

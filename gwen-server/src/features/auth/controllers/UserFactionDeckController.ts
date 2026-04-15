@@ -35,7 +35,7 @@ export class UserFactionDeckController extends Controller {
     try {
       const decks = await userFactionDeckService.getUserFactionDecks(userId);
       return decks.map((deck) => this.toDto(deck));
-    } catch (error) {
+    } catch {
       return this.throwHttpError('Failed to fetch user faction decks', 500);
     }
   }
@@ -50,7 +50,7 @@ export class UserFactionDeckController extends Controller {
     try {
       const deck = await userFactionDeckService.getOrCreateUserFactionDeck(userId, factionId);
       return this.toDto(deck);
-    } catch (error) {
+    } catch {
       return this.throwHttpError('Failed to fetch user faction deck', 500);
     }
   }
@@ -102,7 +102,7 @@ export class UserFactionDeckController extends Controller {
 
       this.setStatus(204);
       return;
-    } catch (error) {
+    } catch {
       return this.throwHttpError('Failed to delete user faction deck', 500);
     }
   }

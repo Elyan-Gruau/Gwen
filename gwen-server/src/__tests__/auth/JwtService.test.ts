@@ -7,7 +7,7 @@ describe('JwtService', () => {
   const expirationMs = 3600000; // 1 hour
 
   const mockUser: DBUser = {
-    _id: { toString: () => 'user-123' } as any,
+    _id: { toString: () => 'user-123' } as unknown as DBUser['_id'],
     username: 'testuser',
     email: 'test@example.com',
     password: 'hashedPassword',

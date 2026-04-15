@@ -1,6 +1,6 @@
 import styles from './GameView.module.scss';
 import UserGame from './user-game/UserGame';
-import { Game, type Player, type PlayerRows } from 'gwen-common';
+import { Game, type Player } from 'gwen-common';
 import { CategorisedPlayers } from '../../model/CategorisedPlayers';
 import PlayerHand from '../player-hand/PlayerHand';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -91,6 +91,7 @@ const GameView = ({
     [
       selectedCardId,
       isYourTurn,
+      currentPlayerHasPassed,
       currentUserId,
       gameId,
       placeCardMutation,
@@ -242,8 +243,6 @@ const GameView = ({
         hand={currentPlayerHand}
         onCardConfirm={handleCardSelect}
         autoFocus={isYourTurn}
-        gameId={gameId}
-        rowType={'MELEE'}
       />
     </div>
   );

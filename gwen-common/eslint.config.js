@@ -16,8 +16,8 @@ export default defineConfig([
       'no-restricted-syntax': [
         'error',
         {
-          selector: 'ImportDeclaration[source.value=/\\.(ts|js)$/]',
-          message: 'Do not include file extensions (.ts, .js) in imports.',
+          selector: 'ImportDeclaration[source.value=/\\.ts$/]',
+          message: 'Do not include TypeScript file extensions (.ts) in imports.',
         },
       ],
     },

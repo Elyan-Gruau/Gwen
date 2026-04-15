@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, user, logout } = useAuthContext();
+  const { isAuthenticated, user } = useAuthContext();
 
   const handleHome = () => {
     navigate(ROUTES.HOME);

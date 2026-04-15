@@ -23,7 +23,7 @@ interface LoginFormValues {
 export default function LoginForm() {
   const navigate = useNavigate();
   const { setUser } = useAuthContext();
-  const { mutate: login, isPending, isError, error } = useLogin();
+  const { mutate: login, isPending, isError } = useLogin();
 
   const handleSubmit = (values: LoginFormValues) => {
     login(
@@ -38,7 +38,6 @@ export default function LoginForm() {
     );
   };
 
-  // @ts-ignore
   return (
     <Formik
       initialValues={{

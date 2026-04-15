@@ -4,7 +4,7 @@ export class CategorisedPlayers {
   private currentPlayer: Player;
   private opponents: Player[];
 
-  constructor(players: Player[], currentPlayerId: String) {
+  constructor(players: Player[], currentPlayerId: string) {
     this.opponents = [];
     let tempCurrentPlayer: Player | undefined;
 

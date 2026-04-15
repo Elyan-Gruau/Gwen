@@ -13,7 +13,6 @@ import type {
   DTOPassTurnRequest,
 } from '../dtos/DTOGame.js';
 import type { DBGame } from '../model/DBGame.js';
-import { Player } from 'gwen-common';
 
 const gameService = new GameService();
 const userRepository = new UserRepository();
@@ -51,7 +50,7 @@ export class GameController extends Controller {
       }
 
       return this.toDto(game);
-    } catch (error) {
+    } catch {
       return this.throwHttpError('Failed to retrieve game', 500);
     }
   }
@@ -201,7 +200,7 @@ export class GameController extends Controller {
       }
 
       return this.toDto(updatedGame);
-    } catch (error) {
+    } catch {
       return this.throwHttpError('Failed to finish game', 500);
     }
   }
@@ -218,7 +217,7 @@ export class GameController extends Controller {
       }
 
       return this.toDto(updatedGame);
-    } catch (error) {
+    } catch {
       return this.throwHttpError('Failed to abandon game', 500);
     }
   }
@@ -285,8 +284,8 @@ export class GameController extends Controller {
       // Check if ELO has already been applied to this game
       const eloAlreadyApplied = await gameService.checkEloApplied(gameId);
 
-      let p1EloChange = 0;
-      let p2EloChange = 0;
+      let p1EloChange: number;
+      let p2EloChange: number;
 
       if (!eloAlreadyApplied) {
         // Calculate ELO changes
