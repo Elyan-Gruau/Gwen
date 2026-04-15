@@ -16,6 +16,15 @@ export abstract class GameMapper {
     game.setPlayer1Rows(player1Rows);
     game.setPlayer2Rows(player2Rows);
 
+    // Restore round result if present
+    const lastRoundResult = (dto as any)?.lastRoundResult;
+    if (lastRoundResult) {
+      const p1Id = player1.getUserId();
+      const p2Id = player2.getUserId();
+      const winnerId = lastRoundResult.player1_result === 'WIN' ? p1Id : lastRoundResult.player2_result === 'WIN' ? p2Id : null;
+      game.restoreRoundResult(p1Id, lastRoundResult.player1_result, p2Id, lastRoundResult.player2_result, winnerId);
+    }
+
     return game;
   }
 

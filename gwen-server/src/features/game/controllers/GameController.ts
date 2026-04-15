@@ -121,6 +121,12 @@ export class GameController extends Controller {
       // Place the card
       game.placeCard(body.playerId, body.cardId, body.rowType);
 
+      // Auto-pass players with no cards left
+      const player1 = game.getPlayer1();
+      const player2 = game.getPlayer2();
+      game.autoPassIfNoCards(player1.getUserId());
+      game.autoPassIfNoCards(player2.getUserId());
+
       return this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {
@@ -153,6 +159,12 @@ export class GameController extends Controller {
 
       // Pass the turn
       game.passTurn(body.playerId);
+
+      // Auto-pass players with no cards left
+      const player1 = game.getPlayer1();
+      const player2 = game.getPlayer2();
+      game.autoPassIfNoCards(player1.getUserId());
+      game.autoPassIfNoCards(player2.getUserId());
 
       return this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {

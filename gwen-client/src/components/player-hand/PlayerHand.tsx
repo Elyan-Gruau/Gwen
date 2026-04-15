@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { type PlayableCard, type RangeType } from 'gwen-common';
 import CardView, { CARD_SIZE } from '../card/CardView';
-import { useGameplaySocket } from '../../hooks/useGameplaySocket';
 import styles from './PlayerHand.module.scss';
 
 export type PlayerHandSelectionSource = 'click' | 'keyboard';
@@ -30,7 +29,6 @@ const PlayerHand = ({
 }: PlayerHandProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const { playCard } = useGameplaySocket({ gameId });
 
   useEffect(() => {
     if (autoFocus && containerRef.current) {
@@ -52,7 +50,6 @@ const PlayerHand = ({
         }
         return Math.min(prev + 1, hand.length - 1);
       });
-      event.preventDefault();
       return;
     }
 
@@ -63,16 +60,12 @@ const PlayerHand = ({
         }
         return Math.max(prev - 1, 0);
       });
-      event.preventDefault();
       return;
     }
 
     if (key === 'Enter' && activeIndex !== null && activeIndex >= 0 && activeIndex < hand.length) {
       const card = hand[activeIndex];
       if (card) {
-        // Send play card request
-        playCard(card.getId(), rowType);
-        // Call callback if provided
         if (onCardConfirm) {
           onCardConfirm(card, activeIndex, 'keyboard');
         }
@@ -86,8 +79,6 @@ const PlayerHand = ({
     const card = hand[index];
     if (card) {
       // Send play card request
-      playCard(card.getId(), rowType);
-      // Call callback if provided
       if (onCardConfirm) {
         onCardConfirm(card, index, 'click');
       }

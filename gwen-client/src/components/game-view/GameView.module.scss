@@ -53,6 +53,19 @@
   }
 }
 
+.hasPassed {
+  h3 {
+    color: #a78bfa;
+    font-style: italic;
+  }
+
+  p {
+    margin: 4px 0 0 0;
+    font-size: 14px;
+    color: #d8b4fe;
+  }
+}
+
 .passButton {
   padding: 8px 16px;
   background: #ef4444;

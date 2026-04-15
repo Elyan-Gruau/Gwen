@@ -17,6 +17,7 @@ export class Game {
   private currentRound: number;
   private roundsWonBy: Map<string, number>; // userId -> rounds won
   private lastRoundResult: Map<string, GameResult>; // userId -> their result (WIN/LOSS/DRAW)
+  private lastRoundWinnerId: string | null; // userId of who won last round (null if draw)
   private gameResult: Map<string, GameResult> | null; // null until game ends, then userId -> result
   private currentPlayerTurnUserId: string | null; // null until round starts, then alternates
   private lastCardsPlayedByUserId: Map<string, string[]>; // userId -> cardIds played this round
@@ -34,6 +35,7 @@ export class Game {
       [player2.getUserId(), 0],
     ]);
     this.lastRoundResult = new Map();
+    this.lastRoundWinnerId = null;
     this.gameResult = null;
     this.currentPlayerTurnUserId = null;
     this.lastCardsPlayedByUserId = new Map([
@@ -90,6 +92,22 @@ export class Game {
   }
 
   /**
+   * Get the winner of the last round (null if draw or no round ended yet)
+   */
+  getLastRoundWinnerId(): string | null {
+    return this.lastRoundWinnerId;
+  }
+
+  /**
+   * Restore round result from DTO (used when reconstructing game state from server)
+   */
+  restoreRoundResult(player1Id: string, p1Result: GameResult, player2Id: string, p2Result: GameResult, winnerId: string | null): void {
+    this.lastRoundResult.set(player1Id, p1Result);
+    this.lastRoundResult.set(player2Id, p2Result);
+    this.lastRoundWinnerId = winnerId;
+  }
+
+  /**
    * Clear round result after it's been displayed
    */
   clearRoundResult(): void {
@@ -143,6 +161,18 @@ export class Game {
   }
 
   /**
+   * Check if a specific player has passed this round
+   */
+  hasPlayerPassed(userId: string): boolean {
+    if (userId === this.player1.getUserId()) {
+      return this.player1.hasPassed();
+    } else if (userId === this.player2.getUserId()) {
+      return this.player2.hasPassed();
+    }
+    return false;
+  }
+
+  /**
    * Get the opponent's ID
    */
   private getOtherPlayerId(userId: string): string {
@@ -174,12 +204,17 @@ export class Game {
     if (
       this.phase !== 'WAITING_FOR_PLAYERS' &&
       this.phase !== 'FLIP_COIN' &&
+      this.phase !== 'REDRAW' &&
       this.phase !== 'PLAY_CARDS'
     ) {
       throw new Error(`Cannot start round during phase: ${this.phase}`);
     }
-    // Player 1 starts (TODO: use coin flip result to determine starter)
-    this.currentPlayerTurnUserId = this.player1.getUserId();
+    // Round winner starts next round, or player1 if it's the first round or a draw
+    if (this.lastRoundWinnerId) {
+      this.currentPlayerTurnUserId = this.lastRoundWinnerId;
+    } else {
+      this.currentPlayerTurnUserId = this.player1.getUserId();
+    }
     this.phase = 'PLAY_CARDS';
     // Reset pass status for new round
     this.player1.resetPass();
@@ -207,6 +242,12 @@ export class Game {
     }
 
     const player = userId === this.player1.getUserId() ? this.player1 : this.player2;
+
+    // Cannot place card if player has already passed
+    if (player.hasPassed()) {
+      throw new Error(`Cannot place card after passing`);
+    }
+
     const playerRows = userId === this.player1.getUserId() ? this.player1Rows : this.player2Rows;
 
     // Validate card exists in player's hand
@@ -234,8 +275,17 @@ export class Game {
     playedCards.push(cardId);
     this.lastCardsPlayedByUserId.set(userId, playedCards);
 
-    // Switch turn to other player
-    this.currentPlayerTurnUserId = this.getOtherPlayerId(userId);
+    // Switch turn logic: if other player has passed, keep turn with current player
+    const otherPlayerId = this.getOtherPlayerId(userId);
+    const otherPlayer = otherPlayerId === this.player1.getUserId() ? this.player1 : this.player2;
+
+    if (otherPlayer.hasPassed()) {
+      // Other player passed, keep turn with current player
+      this.currentPlayerTurnUserId = userId;
+    } else {
+      // Other player hasn't passed, give them the turn
+      this.currentPlayerTurnUserId = otherPlayerId;
+    }
   }
 
   /**
@@ -270,8 +320,30 @@ export class Game {
     if (this.haveBothPlayersPassed()) {
       this.endRound();
     } else {
-      // Switch turn to other player
+      // Other player hasn't passed, give them continuous turns
       this.currentPlayerTurnUserId = this.getOtherPlayerId(userId);
+    }
+  }
+
+  /**
+   * Auto-pass a player when they have no cards left in hand
+   */
+  autoPassIfNoCards(userId: string): void {
+    const player = userId === this.player1.getUserId() ? this.player1 : this.player2;
+    
+    // Only auto-pass if they haven't already passed and have no cards
+    if (!player.hasPassed() && player.getDeck().getHand().length === 0) {
+      player.pass();
+      
+      // If it's their turn and they're auto-passed, skip to next turn
+      if (userId === this.currentPlayerTurnUserId) {
+        if (this.haveBothPlayersPassed()) {
+          this.endRound();
+        } else {
+          // Switch to other player
+          this.currentPlayerTurnUserId = this.getOtherPlayerId(userId);
+        }
+      }
     }
   }
 
@@ -301,6 +373,7 @@ export class Game {
     if (p1Score > p2Score) {
       p1Result = GameResult.WIN;
       p2Result = GameResult.LOSS;
+      this.lastRoundWinnerId = this.player1.getUserId();
       this.roundsWonBy.set(
         this.player1.getUserId(),
         (this.roundsWonBy.get(this.player1.getUserId()) || 0) + 1,
@@ -308,6 +381,7 @@ export class Game {
     } else if (p2Score > p1Score) {
       p1Result = GameResult.LOSS;
       p2Result = GameResult.WIN;
+      this.lastRoundWinnerId = this.player2.getUserId();
       this.roundsWonBy.set(
         this.player2.getUserId(),
         (this.roundsWonBy.get(this.player2.getUserId()) || 0) + 1,
@@ -315,6 +389,7 @@ export class Game {
     } else {
       p1Result = GameResult.DRAW;
       p2Result = GameResult.DRAW;
+      this.lastRoundWinnerId = null;
     }
 
     this.lastRoundResult.set(this.player1.getUserId(), p1Result);
