@@ -4,7 +4,6 @@ import LeaderSlot from '../leader-slot/LeaderSlot';
 import styles from './GameLeftPanel.module.scss';
 import Gems from '../gem/Gems';
 import type { Player, PlayerRows } from 'gwen-common';
-import PlayerScore from '../player-score/PlayerScore';
 import { useGetUser } from 'gwen-generated-api';
 import ScoreBadge from '../score-badge/ScoreBadge';
 

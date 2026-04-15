@@ -17,7 +17,7 @@ const BoardRowView = ({ row }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
       <div>
-        <ScoreBadge value={row.getScore()} />
+        <ScoreBadge size={'SMALL'} value={row.getScore()} />
       </div>
       <ModifierSlot modifier={row.getModifierCard()} />
       <div></div>
