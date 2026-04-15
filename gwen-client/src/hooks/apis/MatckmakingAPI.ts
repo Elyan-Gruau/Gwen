@@ -85,7 +85,7 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
       setSearchTimeMs(elapsedMs);
 
       // Calculate expanding range
-      const range = 100 + Math.floor(elapsedMs / 10000) * 50;
+      const range = 100 + Math.floor(elapsedMs / 5000) * 50;
       setSearchRange({
         minElo: Math.max(0, userElo - range),
         maxElo: userElo + range,

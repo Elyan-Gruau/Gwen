@@ -36,37 +36,20 @@ Gameplay : https://www.youtube.com/watch?v=sphmZC2U06Y
 - Websockets
 - Authentication
 
-TODO
+## Implemented features
 
-- [x] Add a builder to build the real objects from the config.
-- [ ] Cache the images so that we don't have to load them every time.
-- [ ] Profile page
-    - [ ] Change username (if not already taken)
-    - [ ] Change password
-    - [ ] Change avatar
-    - [ ] See elo
-- [ ] Matchmaking
-    - [ ] Elo based matchmaking (Ranked)
-    - [ ] Casual matchmaking
-        - [ ] Find a match
-        - [ ] Create a game
-        - [ ] Join a game
-- [ ] Game logic
-    - [ ] Place a card
-    - [ ] Do the "Coin flip" to decide who starts
-    - [ ] End turn 
-    - [ ] End game
-    - [ ] Implement game quit
-    - [ ] Implement surrender
-    - [ ] Implement rematch
-- [ ] Add IA
-    - [ ] Very basic IA strategy (If, else)
-    - [ ] Use the IA when no opponent is found after 10seconds
-- [ ] Add light mode / dark mode switch, auto select from the os
-- [ ] Lazyload each route.
-- [ ] Add auto token refresh
-- [ ] Prevent user from joining the matchmaking queue if the deck is not SAVED & valid
-- [ ] Move the deck validation to the backend 
+- Builder to build the card objects from the config.
+- Profile page
+- Elo based matchmaking (Ranked)
+- Game logic
+    - Place a card
+    - Pass turn
+    - Round logic
+    - End game
+- Add light / dark mode switch, auto select from the os at first and then save the prefs
+- Deckbuilder with leader and faction selection
+- Prevent user from joining the matchmaking queue if the deck is not SAVED & valid
+- Possibility to add a favorite deck
 
 ## Utilisation de l'IA dans le projet
 

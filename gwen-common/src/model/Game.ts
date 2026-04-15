@@ -307,11 +307,26 @@ export class Game {
 
   /**
    * Validate if a card can be placed on a row
+   * - Regular cards can be placed on their designated row type
+   * - AGILE cards can be placed on MELEE or RANGED rows (but not SIEGE)
+   * - Modifier cards can be placed on any row
    */
   private canCardBePlacedOnRow(card: PlayableCard, rowType: RangeType): boolean {
     // Check if card has range type (UnitCard)
     if ('hasRange' in card && typeof card.hasRange === 'function') {
-      return (card as any).hasRange(rowType) || (card as any).hasRange('AGILE');
+      const unitCard = card as any;
+      
+      // Check if card has exact row type (MELEE, RANGED, or SIEGE)
+      if (unitCard.hasRange(rowType)) {
+        return true;
+      }
+      
+      // Check if card is AGILE and row is MELEE or RANGED (AGILE cannot go on SIEGE)
+      if (unitCard.hasRange('AGILE') && (rowType === 'MELEE' || rowType === 'RANGED')) {
+        return true;
+      }
+      
+      return false;
     }
     // RowModifierCard and other types can be placed on any row
     return true;

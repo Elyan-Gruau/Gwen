@@ -142,7 +142,7 @@ export class MatchmakingService {
     if (!user) return null;
 
     const searchTimeMs = Date.now() - user.timestamp;
-    const range = 100 + Math.floor(searchTimeMs / 10000) * 50;
+    const range = 100 + Math.floor(searchTimeMs / 5000) * 50;
 
     return {
       minElo: Math.max(0, user.elo - range),
@@ -154,7 +154,7 @@ export class MatchmakingService {
   private findOpponent(userId: string, userElo: number, searchTimeMs: number = 0) {
     // Expand ELO range over time: start at 100, increase by 50 every 10 seconds, no limit
     // searchTimeMs is time searched in milliseconds
-    const eloRange = 100 + Math.floor(searchTimeMs / 10000) * 50;
+    const eloRange = 100 + Math.floor(searchTimeMs / 5000) * 50;
 
     // Search for someone with similar ELO
     for (const [, opponent] of this.matchmakingPool) {
@@ -175,7 +175,7 @@ export class MatchmakingService {
 
     const now = Date.now();
     const userSearchTimeMs = now - user.timestamp;
-    const userEloRange = 100 + Math.floor(userSearchTimeMs / 5000) * 100;
+    const userEloRange = 100 + Math.floor(userSearchTimeMs / 5000) * 50;
 
     // Search through all other users
     for (const [opponentId, opponent] of this.matchmakingPool) {
@@ -183,7 +183,7 @@ export class MatchmakingService {
 
       // Calculate opponent's search time
       const opponentSearchTimeMs = now - opponent.timestamp;
-      const opponentEloRange = 100 + Math.floor(opponentSearchTimeMs / 10000) * 50;
+      const opponentEloRange = 100 + Math.floor(opponentSearchTimeMs / 5000) * 50;
 
       const eloDifference = Math.abs(opponent.elo - user.elo);
 

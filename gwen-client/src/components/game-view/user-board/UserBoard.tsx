@@ -27,10 +27,25 @@ const UserBoard = ({
 
   /**
    * Check if a row is valid for the selected card
+   * - Regular cards can be placed on their designated row type
+   * - AGILE cards can be placed on MELEE or RANGED rows (but not SIEGE)
    */
   const isRowValid = (rowRange: RangeType): boolean => {
     if (!selectedCard) return true; // If no card, all rows are valid
-    return (selectedCard as any).hasRange?.(rowRange) ?? true;
+    
+    const card = selectedCard as any;
+    
+    // Check if card has exact row type (MELEE, RANGED, or SIEGE)
+    if (card.hasRange?.(rowRange)) {
+      return true;
+    }
+    
+    // Check if card is AGILE and row is MELEE or RANGED (AGILE cannot go on SIEGE)
+    if (card.hasRange?.('AGILE') && (rowRange === 'MELEE' || rowRange === 'RANGED')) {
+      return true;
+    }
+    
+    return false;
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {

@@ -1,5 +1,5 @@
 export type UnitCardAbilityType =
-  | 'AGILE' // Can be placed on the melee or distance row
+  | 'AGILE' // Can be placed on MELEE or RANGED rows (not SIEGE)
   | 'MEDIC' // Resurrects a card from the discard pile
   | 'MORAL_BOOST' // Gain +1 power for each card in the same row (excluding itself)
   | 'MUSTER' // Place all the cards with the same name from your deck onto the battlefield
