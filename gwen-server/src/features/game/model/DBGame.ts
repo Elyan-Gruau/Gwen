@@ -8,6 +8,7 @@ export interface DBGame {
   player2_selected_deck_id: string;
   status: 'ACTIVE' | 'FINISHED' | 'ABANDONED';
   winner_id?: string | null;
+  elo_applied?: boolean; // Track if ELO changes have been applied to avoid recalculation
   created_at?: Date;
   updated_at?: Date;
 }

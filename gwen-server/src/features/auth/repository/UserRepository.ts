@@ -84,4 +84,17 @@ export class UserRepository {
   async deleteById(id: string): Promise<void> {
     await UserModel.findByIdAndDelete(id).exec();
   }
+
+  async updateElo(id: string, newElo: number): Promise<DBUser> {
+    const updatedUser = await UserModel.findByIdAndUpdate(id, { elo: newElo }, {
+      new: true,
+      returnDocument: 'after',
+    })
+      .lean()
+      .exec();
+    if (!updatedUser) {
+      throw new Error('User not found');
+    }
+    return updatedUser;
+  }
 }

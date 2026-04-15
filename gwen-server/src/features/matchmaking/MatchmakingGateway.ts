@@ -24,6 +24,8 @@ export class MatchmakingGateway {
     private userFactionDeckService: UserFactionDeckService,
   ) {
     this.gameManager = GameManager.getInstance();
+    // Set up callback for when matches are found periodically
+    this.matchmakingService.setOnMatchFoundCallback((match) => this.notifyMatch(match));
     this.setupListeners();
   }
 
@@ -61,18 +63,22 @@ export class MatchmakingGateway {
           // Add user to the pool and search for opponent
           const match = await this.matchmakingService.joinPool(userId, userElo, deckId);
 
-          // Calculate position in queue
+          // Calculate position in queue (getPoolSize includes the just-added user)
           const poolSize = this.matchmakingService.getPoolSize();
-          const position = poolSize + 1;
+          const position = poolSize;
+
+          // Get the current search range for this user
+          const searchRange = this.matchmakingService.getSearchRange(userId);
 
           socket.emit(MATCHMAKING_JOINED, {
             message: 'You are now in the queue',
             position: position,
+            searchRange: searchRange,
           });
 
           // Broadcast the updated pool size to all connected clients
           this.io.emit(MATCHMAKING_POOL_SIZE, {
-            size: poolSize + 1,
+            size: poolSize,
           });
 
           // If a match was found
@@ -123,7 +129,7 @@ export class MatchmakingGateway {
     });
   }
 
-  private notifyMatch(match: { player1: string; player2: string; gameId: string }) {
+  private async notifyMatch(match: { player1: string; player2: string; gameId: string }) {
     const socketId1 = this.userSockets.get(match.player1);
     const socketId2 = this.userSockets.get(match.player2);
 

@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
+import { EloService } from '../services/EloService.js';
 import { UserRepository } from '../../auth/repository/UserRepository.js';
 import type {
   DTOFinishGameRequest,
@@ -278,6 +279,46 @@ export class GameController extends Controller {
       const p1GemsLost = 2 - p1Gems;
       const p2GemsLost = 2 - p2Gems;
 
+      // Get the game ID for checking if ELO has already been applied
+      const gameId = metadata._id?.toString() || '';
+
+      // Check if ELO has already been applied to this game
+      const eloAlreadyApplied = await gameService.checkEloApplied(gameId);
+
+      let p1EloChange = 0;
+      let p2EloChange = 0;
+
+      if (!eloAlreadyApplied) {
+        // Calculate ELO changes
+        const p1CurrentElo = player1User?.elo ?? 1200;
+        const p2CurrentElo = player2User?.elo ?? 1200;
+
+        p1EloChange = EloService.calculateEloChange(p1CurrentElo, p2CurrentElo, p1GameResult);
+        p2EloChange = EloService.calculateEloChange(p2CurrentElo, p1CurrentElo, p2GameResult);
+
+        // Update user ELO in database
+        const p1NewElo = EloService.getNewElo(p1CurrentElo, p1EloChange);
+        const p2NewElo = EloService.getNewElo(p2CurrentElo, p2EloChange);
+
+        if (player1User) {
+          await userRepository.updateElo(player1Id, p1NewElo);
+        }
+        if (player2User) {
+          await userRepository.updateElo(player2Id, p2NewElo);
+        }
+
+        // Mark ELO as applied
+        await gameService.markEloApplied(gameId);
+      } else {
+        // ELO already applied - recalculate for display only (don't update DB)
+        const p1CurrentElo = player1User?.elo ?? 1200;
+        const p2CurrentElo = player2User?.elo ?? 1200;
+        // Subtract back the previously applied changes to get the original values
+        // This ensures consistent display
+        p1EloChange = EloService.calculateEloChange(p1CurrentElo, p2CurrentElo, p1GameResult);
+        p2EloChange = EloService.calculateEloChange(p2CurrentElo, p1CurrentElo, p2GameResult);
+      }
+
       gameEndResult = {
         player1_id: player1Id,
         player2_id: player2Id,
@@ -286,7 +327,8 @@ export class GameController extends Controller {
         player1_gems_lost: p1GemsLost,
         player2_gems_lost: p2GemsLost,
         winner_id: p1GameResult === 'WIN' ? player1Id : p2GameResult === 'WIN' ? player2Id : '',
-        // TODO: Calculate Elo changes when Elo system is implemented
+        player1_elo_change: p1EloChange,
+        player2_elo_change: p2EloChange,
       };
     }
 

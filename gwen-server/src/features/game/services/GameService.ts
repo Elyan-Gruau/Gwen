@@ -45,4 +45,12 @@ export class GameService {
   public async abandonGame(gameId: string): Promise<DBGame | null> {
     return this.gameRepository.update(gameId, { status: 'ABANDONED', updated_at: new Date() });
   }
+
+  public async markEloApplied(gameId: string): Promise<void> {
+    return this.gameRepository.markEloApplied(gameId);
+  }
+
+  public async checkEloApplied(gameId: string): Promise<boolean> {
+    return this.gameRepository.hasEloBeenApplied(gameId);
+  }
 }

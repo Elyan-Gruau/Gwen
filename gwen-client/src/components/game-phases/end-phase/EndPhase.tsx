@@ -143,7 +143,7 @@ const EndPhase = ({
             <div>
               <span className={styles.resultValue}>{totalElo}</span>
               <div className={`${styles.eloChange} ${getEloChangeClass()}`}>
-                {eloChange > 0 ? '+' : ''}{eloChange}
+                {Math.abs(eloChange)}
               </div>
             </div>
           </div>

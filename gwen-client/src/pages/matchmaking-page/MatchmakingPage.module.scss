@@ -1,0 +1,109 @@
+@use '@styles/tokens' as tokens;
+
+.container {
+  padding: tokens.$spacing-lg;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: tokens.$font-weight-bold;
+  margin-bottom: tokens.$spacing-xl;
+  color: var(--color-text-light);
+}
+
+.poolInfo {
+  font-size: 1.1rem;
+  margin-bottom: tokens.$spacing-xl;
+  color: var(--color-text-faded);
+
+  strong {
+    color: var(--color-text-light);
+  }
+}
+
+.searchContainer {
+  margin-top: tokens.$spacing-xl;
+  padding: tokens.$spacing-xl;
+  background-color: var(--color-surface);
+  border-radius: tokens.$border-radius-lg;
+
+  .searchTitle {
+    font-size: 1.5rem;
+    font-weight: tokens.$font-weight-medium;
+    margin-bottom: tokens.$spacing-lg;
+    color: var(--color-text-light);
+  }
+
+  .searchInfo {
+    margin-top: tokens.$spacing-lg;
+    font-size: 1.2rem;
+
+    p {
+      margin: tokens.$spacing-sm 0;
+      color: var(--color-text-faded);
+
+      strong {
+        color: var(--color-text-light);
+      }
+    }
+  }
+
+  .eloRangeBox {
+    margin-top: tokens.$spacing-xl;
+    padding: tokens.$spacing-lg;
+    background-color: rgba(tokens.$color-primary, 0.08);
+    border-left: 3px solid tokens.$color-primary;
+    border-radius: tokens.$border-radius-md;
+
+    h3 {
+      font-size: tokens.$font-size-lg;
+      font-weight: tokens.$font-weight-bold;
+      margin: 0 0 tokens.$spacing-sm 0;
+      color: tokens.$color-primary;
+    }
+
+    .rangeValue {
+      font-size: 1.1rem;
+      margin-top: tokens.$spacing-sm;
+      color: var(--color-text-light);
+
+      strong {
+        color: tokens.$color-primary;
+      }
+    }
+
+    .rangeInfo {
+      font-size: tokens.$font-size-md;
+      color: var(--color-text-faded);
+      margin-top: tokens.$spacing-sm;
+    }
+  }
+
+  .cancelButton {
+    margin-top: tokens.$spacing-xl;
+    padding: tokens.$spacing-md tokens.$spacing-xl;
+    font-size: tokens.$font-size-lg;
+    font-weight: tokens.$font-weight-medium;
+    background-color: tokens.$color-danger;
+    color: tokens.$color-white;
+    border: none;
+    border-radius: tokens.$border-radius-md;
+    cursor: pointer;
+    transition: background-color tokens.$transition-fast;
+
+    &:hover {
+      background-color: tokens.$color-danger-hover;
+    }
+
+    &:active {
+      background-color: tokens.$color-danger-active;
+    }
+  }
+}
+
+.notSearching {
+  padding: tokens.$spacing-xl;
+  color: var(--color-text-faded);
+  font-size: 1.1rem;
+}

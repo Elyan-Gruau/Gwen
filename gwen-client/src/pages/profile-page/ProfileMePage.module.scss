@@ -19,6 +19,7 @@
   font-family: tokens.$font-family-base;
   font-size: 1.5rem;
   font-weight: tokens.$font-weight-bold;
+  color: var(--color-text-light);
 }
 
 .subtitle {
@@ -34,6 +35,7 @@
 }
 
 .username {
+  color: var(--color-text-light);
   font-weight: tokens.$font-weight-medium;
 }
 
@@ -56,6 +58,7 @@
   font-size: tokens.$font-size-md;
   font-weight: tokens.$font-weight-medium;
   margin-bottom: tokens.$spacing-sm;
+  color: var(--color-text-light);
 }
 
 .statRow {
@@ -71,6 +74,7 @@
 
 .statValue {
   font-weight: tokens.$font-weight-medium;
+  color: var(--color-text-light);
 }
 
 .hint {

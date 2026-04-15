@@ -13,6 +13,8 @@ export type UseMatchmakingResult = {
   isSearching: boolean;
   queuePosition: number;
   poolSize: number;
+  searchRange?: { minElo: number; maxElo: number; range: number } | null;
+  searchTimeMs: number;
   joinMatchmakingPool: (deckId?: string) => void;
   leaveMatchmakingPool: () => void;
 };
@@ -22,6 +24,10 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
   const [isSearching, setIsSearching] = useState(false);
   const [queuePosition, setQueuePosition] = useState(0);
   const [poolSize, setPoolSize] = useState(0);
+  const [searchRange, setSearchRange] = useState<{ minElo: number; maxElo: number; range: number } | null>(null);
+  const [searchStartTime, setSearchStartTime] = useState<number | null>(null);
+  const [searchTimeMs, setSearchTimeMs] = useState(0);
+  const [userElo, setUserElo] = useState(1200); // default ELO
 
   useEffect(() => {
     if (!userId) {
@@ -36,6 +42,9 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
     newSocket.on(MATCHMAKING_JOINED, (data) => {
       setIsSearching(true);
       setQueuePosition(data.position);
+      setSearchRange(data.searchRange || null);
+      setUserElo(data.searchRange?.minElo ? (data.searchRange.minElo + data.searchRange.maxElo) / 2 : 1200);
+      setSearchStartTime(Date.now());
     });
 
     newSocket.on(MATCHMAKING_POOL_SIZE, (data) => {
@@ -65,6 +74,28 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
     };
   }, [userId]);
 
+  // Update search time and range every 500ms
+  useEffect(() => {
+    if (!isSearching || !searchStartTime) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      const elapsedMs = Date.now() - searchStartTime;
+      setSearchTimeMs(elapsedMs);
+
+      // Calculate expanding range
+      const range = 100 + Math.floor(elapsedMs / 10000) * 50;
+      setSearchRange({
+        minElo: Math.max(0, userElo - range),
+        maxElo: userElo + range,
+        range,
+      });
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [isSearching, searchStartTime, userElo]);
+
   const joinMatchmakingPool = (deckId?: string) => {
     socket?.emit(MATCHMAKING_JOIN, {
       userId,
@@ -75,6 +106,9 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
   const leaveMatchmakingPool = () => {
     socket?.emit(MATCHMAKING_LEAVE, { userId });
     setIsSearching(false);
+    setSearchStartTime(null);
+    setSearchRange(null);
+    setSearchTimeMs(0);
   };
 
   return {
@@ -83,5 +117,7 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
     joinMatchmakingPool,
     leaveMatchmakingPool,
     poolSize,
+    searchRange,
+    searchTimeMs,
   };
 };

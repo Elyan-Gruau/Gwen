@@ -9,6 +9,7 @@ const GameSchema = new Schema<DBGame & Document>({
   player2_selected_deck_id: { type: String, required: true },
   status: { type: String, enum: ['ACTIVE', 'FINISHED', 'ABANDONED'], default: 'ACTIVE' },
   winner_id: { type: String, default: null },
+  elo_applied: { type: Boolean, default: false },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 });
@@ -31,5 +32,14 @@ export class GameRepository {
     return GameModel.findByIdAndUpdate(id, { ...game, updated_at: new Date() }, { new: true })
       .lean()
       .exec();
+  }
+
+  async markEloApplied(gameId: string): Promise<void> {
+    await GameModel.findByIdAndUpdate(gameId, { elo_applied: true }).exec();
+  }
+
+  async hasEloBeenApplied(gameId: string): Promise<boolean> {
+    const game = await GameModel.findById(gameId).lean().exec();
+    return game?.elo_applied ?? false;
   }
 }
