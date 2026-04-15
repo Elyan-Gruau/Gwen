@@ -1,10 +1,12 @@
 import type { UnitCard } from 'gwen-common';
 import CardContainer from './CardContainer';
+import type { CardSize } from './CardContainer';
 import styles from './UnitCardView.module.scss';
 
-type UnitCardViewProps = {
+export type UnitCardViewProps = {
   card: UnitCard;
   onClick?: (card: UnitCard) => void;
+  size?: CardSize;
 };
 
 const ABILITY_LABELS: Record<string, string> = {
@@ -26,7 +28,7 @@ const RANGE_LABELS: Record<string, string> = {
   AGILE: 'Agile',
 };
 
-export default function UnitCardView({ card, onClick }: UnitCardViewProps) {
+export default function UnitCardView({ card, onClick, size = 'medium' }: UnitCardViewProps) {
   const isHero = card.getIsHero();
   const ability = card.getAbility();
   const ranges = card.getRanges();
@@ -36,7 +38,7 @@ export default function UnitCardView({ card, onClick }: UnitCardViewProps) {
   };
 
   return (
-    <CardContainer>
+    <CardContainer size={size}>
       <div className={`${styles.wrapper} ${isHero ? styles.hero : ''}`} onClick={handleCardClicked}>
         {/* Image */}
         <img
@@ -46,17 +48,17 @@ export default function UnitCardView({ card, onClick }: UnitCardViewProps) {
           alt={card.getName()}
         />
 
-        {/* Bordure dorée hero */}
+        {/* Hero border */}
         {isHero && <div className={styles.heroBorder} />}
 
         {/* Strength badge */}
         <div className={styles.strength}>{card.getStrength()}</div>
 
-        {/* Footer : ability + ranges */}
+        {/* Footer: ability + ranges */}
         <div className={styles.footer}>
           {ability && <span className={styles.ability}>{ABILITY_LABELS[ability] ?? ability}</span>}
           <div className={styles.ranges}>
-            {ranges.map((r) => (
+            {ranges.map((r: string) => (
               <span key={r} className={styles.range}>
                 {RANGE_LABELS[r] ?? r}
               </span>

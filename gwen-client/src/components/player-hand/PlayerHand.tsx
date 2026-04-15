@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { type PlayableCard, type RangeType } from 'gwen-common';
 import CardView from '../card/CardView';
 import styles from './PlayerHand.module.scss';
+import PlayableCardView from '../card/PlayableCardView';
 
 export type PlayerHandSelectionSource = 'click' | 'keyboard';
 
@@ -97,7 +98,7 @@ const PlayerHand = ({
               className={`${styles.cardSlot} ${isActive ? styles.cardSelected : ''}`}
               onClick={() => handleCardClick(index)}
             >
-              <CardView card={card} />
+              <CardView card={card} size={'small'} />
             </div>
           );
         })}

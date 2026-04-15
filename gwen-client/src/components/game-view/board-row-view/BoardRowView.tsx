@@ -17,13 +17,13 @@ const BoardRowView = ({ row }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
       <div>
-        <ScoreBadge value={row.getScore()} />
+        <ScoreBadge size={'SMALL'} value={row.getScore()} />
       </div>
       <ModifierSlot modifier={row.getModifierCard()} />
       <div></div>
       <div className={styles.cardsContainer}>
         {row.getCards().map((card, index) => (
-          <UnitCardView key={`${card.getName()}-${index}`} card={card} />
+          <UnitCardView key={`${card.getName()}-${index}`} card={card} size="small" />
         ))}
       </div>
     </div>

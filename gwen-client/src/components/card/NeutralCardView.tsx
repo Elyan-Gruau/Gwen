@@ -1,9 +1,10 @@
 import type { NeutralCard } from 'gwen-common';
-import CardContainer from './CardContainer';
+import CardContainer, { type CardSize } from './CardContainer';
 import styles from './NeutralCardView.module.scss';
 
 type NeutralCardViewProps = {
   card: NeutralCard;
+  size?: CardSize;
 };
 
 const TYPE_LABELS: Record<string, string> = {
@@ -16,9 +17,9 @@ const TYPE_LABELS: Record<string, string> = {
   DECOY: 'Decoy',
 };
 
-export default function NeutralCardView({ card }: NeutralCardViewProps) {
+export default function NeutralCardView({ card, size }: NeutralCardViewProps) {
   return (
-    <CardContainer>
+    <CardContainer size={size}>
       <div className={styles.wrapper}>
         <img
           draggable={false}
