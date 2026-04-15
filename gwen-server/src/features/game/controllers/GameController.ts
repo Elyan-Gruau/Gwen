@@ -1,7 +1,15 @@
 import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
-import type { DTOFinishGameRequest, DTOGame, DTOGameWithMetadata, DTORoundEndResult, DTOGameEndResult, DTOPlaceCardRequest, DTOPassTurnRequest } from '../dtos/DTOGame.js';
+import type {
+  DTOFinishGameRequest,
+  DTOGame,
+  DTOGameWithMetadata,
+  DTORoundEndResult,
+  DTOGameEndResult,
+  DTOPlaceCardRequest,
+  DTOPassTurnRequest,
+} from '../dtos/DTOGame.js';
 import type { DBGame } from '../model/DBGame.js';
 import { Player } from 'gwen-common';
 
@@ -97,7 +105,10 @@ export class GameController extends Controller {
   @Response('400', 'Invalid placement')
   @Response('404', 'Game not found')
   @Response('500', 'Server error')
-  public async placeCard(@Path() gameId: string, @Body() body: DTOPlaceCardRequest): Promise<DTOGameWithMetadata> {
+  public async placeCard(
+    @Path() gameId: string,
+    @Body() body: DTOPlaceCardRequest,
+  ): Promise<DTOGameWithMetadata> {
     try {
       const gameManager = GameManager.getInstance();
       const gameWithMetadata = gameManager.getActiveGameById(gameId);
@@ -127,7 +138,10 @@ export class GameController extends Controller {
   @Response('400', 'Cannot pass turn')
   @Response('404', 'Game not found')
   @Response('500', 'Server error')
-  public async passTurn(@Path() gameId: string, @Body() body: DTOPassTurnRequest): Promise<DTOGameWithMetadata> {
+  public async passTurn(
+    @Path() gameId: string,
+    @Body() body: DTOPassTurnRequest,
+  ): Promise<DTOGameWithMetadata> {
     try {
       const gameManager = GameManager.getInstance();
       const gameWithMetadata = gameManager.getActiveGameById(gameId);

@@ -4,4 +4,4 @@ export const GameResult = {
   DRAW: 'DRAW',
 } as const;
 
-export type GameResult = typeof GameResult[keyof typeof GameResult];
+export type GameResult = (typeof GameResult)[keyof typeof GameResult];

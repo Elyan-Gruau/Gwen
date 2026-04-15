@@ -2,7 +2,11 @@ import { useParams } from 'react-router-dom';
 import GameView from '../../components/game-view/GameView';
 import { Game } from 'gwen-common';
 import styles from './GamePage.module.scss';
-import { type DTOGameWithMetadata, useGetGameWithMetadataById, useStartRound } from 'gwen-generated-api';
+import {
+  type DTOGameWithMetadata,
+  useGetGameWithMetadataById,
+  useStartRound,
+} from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
 import { GameMapper } from '../../services/GameMapper';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -14,7 +18,11 @@ const GamePage = () => {
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
 
   // Poll game state every 1 second
-  const { data: game, isLoading, refetch } = useGetGameWithMetadataById(gameId!, {
+  const {
+    data: game,
+    isLoading,
+    refetch,
+  } = useGetGameWithMetadataById(gameId!, {
     query: {
       refetchInterval: 1000,
     },
@@ -24,7 +32,12 @@ const GamePage = () => {
 
   useEffect(() => {
     // Auto-start round when both players are present and game is waiting or ready for next round
-    if (game && ['WAITING_FOR_PLAYERS', 'REDRAW', 'FLIP_COIN'].includes(game.game.phase) && game.game.player1 && game.game.player2) {
+    if (
+      game &&
+      ['WAITING_FOR_PLAYERS', 'REDRAW', 'FLIP_COIN'].includes(game.game.phase) &&
+      game.game.player1 &&
+      game.game.player2
+    ) {
       startRoundMutation.mutateAsync({ gameId: gameId! }).catch((error) => {
         console.error('Failed to start round:', error);
       });

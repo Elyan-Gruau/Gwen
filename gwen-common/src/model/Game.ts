@@ -171,7 +171,11 @@ export class Game {
    * TODO: Implement coin flip to determine who starts
    */
   startRound(): void {
-    if (this.phase !== 'WAITING_FOR_PLAYERS' && this.phase !== 'FLIP_COIN' && this.phase !== 'PLAY_CARDS') {
+    if (
+      this.phase !== 'WAITING_FOR_PLAYERS' &&
+      this.phase !== 'FLIP_COIN' &&
+      this.phase !== 'PLAY_CARDS'
+    ) {
       throw new Error(`Cannot start round during phase: ${this.phase}`);
     }
     // Player 1 starts (TODO: use coin flip result to determine starter)
@@ -297,11 +301,17 @@ export class Game {
     if (p1Score > p2Score) {
       p1Result = GameResult.WIN;
       p2Result = GameResult.LOSS;
-      this.roundsWonBy.set(this.player1.getUserId(), (this.roundsWonBy.get(this.player1.getUserId()) || 0) + 1);
+      this.roundsWonBy.set(
+        this.player1.getUserId(),
+        (this.roundsWonBy.get(this.player1.getUserId()) || 0) + 1,
+      );
     } else if (p2Score > p1Score) {
       p1Result = GameResult.LOSS;
       p2Result = GameResult.WIN;
-      this.roundsWonBy.set(this.player2.getUserId(), (this.roundsWonBy.get(this.player2.getUserId()) || 0) + 1);
+      this.roundsWonBy.set(
+        this.player2.getUserId(),
+        (this.roundsWonBy.get(this.player2.getUserId()) || 0) + 1,
+      );
     } else {
       p1Result = GameResult.DRAW;
       p2Result = GameResult.DRAW;

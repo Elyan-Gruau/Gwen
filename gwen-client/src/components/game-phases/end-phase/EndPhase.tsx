@@ -106,24 +106,20 @@ const EndPhase = ({
           <div className={styles.resultItem}>
             <span className={styles.resultLabel}>Status:</span>
             <span className={styles.resultValue}>
-              {result === GameResult.WIN ? '🏆 Victory' : result === GameResult.LOSS ? '💔 Defeat' : '⚖️ Tied'}
+              {result === GameResult.WIN
+                ? '🏆 Victory'
+                : result === GameResult.LOSS
+                  ? '💔 Defeat'
+                  : '⚖️ Tied'}
             </span>
           </div>
         </div>
 
         <div className={styles.actions}>
-          <Button
-            size="lg"
-            variant="secondary"
-            onClick={() => navigate(ROUTES.HOME)}
-          >
+          <Button size="lg" variant="secondary" onClick={() => navigate(ROUTES.HOME)}>
             Main Menu
           </Button>
-          <Button
-            size="lg"
-            variant="primary"
-            onClick={() => navigate(ROUTES.PLAY)}
-          >
+          <Button size="lg" variant="primary" onClick={() => navigate(ROUTES.PLAY)}>
             Rematch
           </Button>
         </div>

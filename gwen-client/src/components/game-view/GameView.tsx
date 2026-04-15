@@ -19,7 +19,14 @@ type GameViewProps = {
   refetchGame: () => void;
 };
 
-const GameView = ({ game, gameMetadata, selectedCardId, onSelectCard, gameId, refetchGame }: GameViewProps) => {
+const GameView = ({
+  game,
+  gameMetadata,
+  selectedCardId,
+  onSelectCard,
+  gameId,
+  refetchGame,
+}: GameViewProps) => {
   const { user } = useAuthContext();
   const [isPlacingCard, setIsPlacingCard] = useState(false);
 
@@ -39,7 +46,7 @@ const GameView = ({ game, gameMetadata, selectedCardId, onSelectCard, gameId, re
       onSelectCard(card.getId());
       setIsPlacingCard(true);
     },
-    [isYourTurn, onSelectCard]
+    [isYourTurn, onSelectCard],
   );
 
   /**
@@ -67,7 +74,15 @@ const GameView = ({ game, gameMetadata, selectedCardId, onSelectCard, gameId, re
         setIsPlacingCard(false);
       }
     },
-    [selectedCardId, isYourTurn, currentUserId, gameId, placeCardMutation, onSelectCard, refetchGame]
+    [
+      selectedCardId,
+      isYourTurn,
+      currentUserId,
+      gameId,
+      placeCardMutation,
+      onSelectCard,
+      refetchGame,
+    ],
   );
 
   /**
@@ -96,6 +111,8 @@ const GameView = ({ game, gameMetadata, selectedCardId, onSelectCard, gameId, re
 
   const categorisedPlayers = categorisePlayer(game.getPlayers(), currentUserId);
   const currentPlayerHand = categorisedPlayers.getCurrentPlayer().getDeck().getHand();
+  const opponentRows = game.getPlayerRows(categorisedPlayers.getOpponent().getUserId());
+  const currentPlayerRows = game.getPlayerRows(categorisedPlayers.getCurrentPlayer().getUserId());
 
   return (
     <div className={styles.gameView}>
@@ -126,6 +143,7 @@ const GameView = ({ game, gameMetadata, selectedCardId, onSelectCard, gameId, re
         onRowClick={handleRowClick}
         isYourTurn={isYourTurn}
         isPlacingCard={isPlacingCard}
+        playerRows={opponentRows}
       />
       <Separator />
       <UserGame
@@ -135,11 +153,14 @@ const GameView = ({ game, gameMetadata, selectedCardId, onSelectCard, gameId, re
         onRowClick={handleRowClick}
         isYourTurn={isYourTurn}
         isPlacingCard={isPlacingCard}
+        playerRows={currentPlayerRows}
       />
       <PlayerHand
         hand={currentPlayerHand}
         onCardConfirm={handleCardSelect}
         autoFocus={isYourTurn}
+        gameId={gameId}
+        rowType={'MELEE'}
       />
     </div>
   );
