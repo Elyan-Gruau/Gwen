@@ -9,6 +9,7 @@ import Separator from './separator/Separator';
 import { usePlaceCard, usePassTurn, type DTOGameWithMetadata } from 'gwen-generated-api';
 import { useCallback, useState } from 'react';
 import type { PlayableCard, RangeType } from 'gwen-common';
+import EndPhase from '../game-phases/end-phase/EndPhase';
 
 type GameViewProps = {
   game: Game;
@@ -17,6 +18,8 @@ type GameViewProps = {
   onSelectCard: (cardId: string | null) => void;
   gameId: string;
   refetchGame: () => void;
+  showRoundEnd?: boolean;
+  onRoundEndComplete?: () => void;
 };
 
 const GameView = ({
@@ -26,6 +29,8 @@ const GameView = ({
   onSelectCard,
   gameId,
   refetchGame,
+  showRoundEnd = false,
+  onRoundEndComplete,
 }: GameViewProps) => {
   const { user } = useAuthContext();
   const [isPlacingCard, setIsPlacingCard] = useState(false);
@@ -114,8 +119,21 @@ const GameView = ({
   const opponentRows = game.getPlayerRows(categorisedPlayers.getOpponent().getUserId());
   const currentPlayerRows = game.getPlayerRows(categorisedPlayers.getCurrentPlayer().getUserId());
 
+  // Get the current player's round result
+  const currentPlayerRoundResult = game.getLastRoundResult(currentUserId);
+
   return (
     <div className={styles.gameView}>
+      {/* Round End Overlay */}
+      {showRoundEnd && currentPlayerRoundResult && (
+        <EndPhase
+          mode="roundEnd"
+          result={currentPlayerRoundResult}
+          roundEndDuration={3000}
+          onRoundEndComplete={onRoundEndComplete}
+        />
+      )}
+
       {/* Turn indicator */}
       <div className={styles.turnIndicator}>
         {isYourTurn ? (

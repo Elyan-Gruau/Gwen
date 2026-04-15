@@ -16,6 +16,8 @@ const GamePage = () => {
   const { gameId } = useParams<{ gameId: string }>();
   const { user } = useAuthContext();
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
+  const [showRoundEnd, setShowRoundEnd] = useState(false);
+  const [roundEndPhase, setRoundEndPhase] = useState<string | null>(null);
 
   // Poll game state every 1 second
   const {
@@ -30,10 +32,19 @@ const GamePage = () => {
 
   const startRoundMutation = useStartRound();
 
+  // Detect when round ends (phase transitions to REDRAW)
+  useEffect(() => {
+    if (game?.game.phase === 'REDRAW' && !showRoundEnd) {
+      setShowRoundEnd(true);
+      setRoundEndPhase('REDRAW');
+    }
+  }, [game?.game.phase, showRoundEnd]);
+
   useEffect(() => {
     // Auto-start round when both players are present and game is waiting or ready for next round
     if (
       game &&
+      !showRoundEnd &&
       ['WAITING_FOR_PLAYERS', 'REDRAW', 'FLIP_COIN'].includes(game.game.phase) &&
       game.game.player1 &&
       game.game.player2
@@ -42,7 +53,7 @@ const GamePage = () => {
         console.error('Failed to start round:', error);
       });
     }
-  }, [game?.game.phase, gameId]);
+  }, [game?.game.phase, gameId, showRoundEnd]);
 
   useEffect(() => {
     // Clear selected card when it's not your turn
@@ -74,6 +85,11 @@ const GamePage = () => {
         onSelectCard={setSelectedCardId}
         gameId={gameId!}
         refetchGame={refetch}
+        showRoundEnd={showRoundEnd}
+        onRoundEndComplete={() => {
+          setShowRoundEnd(false);
+          setRoundEndPhase(null);
+        }}
       />
     </div>
   );

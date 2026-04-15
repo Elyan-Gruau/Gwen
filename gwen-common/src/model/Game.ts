@@ -17,6 +17,7 @@ export class Game {
   private currentRound: number;
   private roundsWonBy: Map<string, number>; // userId -> rounds won
   private lastRoundResult: Map<string, GameResult>; // userId -> their result (WIN/LOSS/DRAW)
+  private lastRoundWinnerId: string | null; // userId of who won last round (null if draw)
   private gameResult: Map<string, GameResult> | null; // null until game ends, then userId -> result
   private currentPlayerTurnUserId: string | null; // null until round starts, then alternates
   private lastCardsPlayedByUserId: Map<string, string[]>; // userId -> cardIds played this round
@@ -34,6 +35,7 @@ export class Game {
       [player2.getUserId(), 0],
     ]);
     this.lastRoundResult = new Map();
+    this.lastRoundWinnerId = null;
     this.gameResult = null;
     this.currentPlayerTurnUserId = null;
     this.lastCardsPlayedByUserId = new Map([
@@ -87,6 +89,22 @@ export class Game {
    */
   isRoundJustEnded(): boolean {
     return this.lastRoundResult.size > 0;
+  }
+
+  /**
+   * Get the winner of the last round (null if draw or no round ended yet)
+   */
+  getLastRoundWinnerId(): string | null {
+    return this.lastRoundWinnerId;
+  }
+
+  /**
+   * Restore round result from DTO (used when reconstructing game state from server)
+   */
+  restoreRoundResult(player1Id: string, p1Result: GameResult, player2Id: string, p2Result: GameResult, winnerId: string | null): void {
+    this.lastRoundResult.set(player1Id, p1Result);
+    this.lastRoundResult.set(player2Id, p2Result);
+    this.lastRoundWinnerId = winnerId;
   }
 
   /**
@@ -174,12 +192,17 @@ export class Game {
     if (
       this.phase !== 'WAITING_FOR_PLAYERS' &&
       this.phase !== 'FLIP_COIN' &&
+      this.phase !== 'REDRAW' &&
       this.phase !== 'PLAY_CARDS'
     ) {
       throw new Error(`Cannot start round during phase: ${this.phase}`);
     }
-    // Player 1 starts (TODO: use coin flip result to determine starter)
-    this.currentPlayerTurnUserId = this.player1.getUserId();
+    // Round winner starts next round, or player1 if it's the first round or a draw
+    if (this.lastRoundWinnerId) {
+      this.currentPlayerTurnUserId = this.lastRoundWinnerId;
+    } else {
+      this.currentPlayerTurnUserId = this.player1.getUserId();
+    }
     this.phase = 'PLAY_CARDS';
     // Reset pass status for new round
     this.player1.resetPass();
@@ -301,6 +324,7 @@ export class Game {
     if (p1Score > p2Score) {
       p1Result = GameResult.WIN;
       p2Result = GameResult.LOSS;
+      this.lastRoundWinnerId = this.player1.getUserId();
       this.roundsWonBy.set(
         this.player1.getUserId(),
         (this.roundsWonBy.get(this.player1.getUserId()) || 0) + 1,
@@ -308,6 +332,7 @@ export class Game {
     } else if (p2Score > p1Score) {
       p1Result = GameResult.LOSS;
       p2Result = GameResult.WIN;
+      this.lastRoundWinnerId = this.player2.getUserId();
       this.roundsWonBy.set(
         this.player2.getUserId(),
         (this.roundsWonBy.get(this.player2.getUserId()) || 0) + 1,
@@ -315,6 +340,7 @@ export class Game {
     } else {
       p1Result = GameResult.DRAW;
       p2Result = GameResult.DRAW;
+      this.lastRoundWinnerId = null;
     }
 
     this.lastRoundResult.set(this.player1.getUserId(), p1Result);
