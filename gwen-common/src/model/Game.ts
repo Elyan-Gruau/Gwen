@@ -303,9 +303,9 @@ export class Game {
     const otherPlayer = otherPlayerId === this.player1.getUserId() ? this.player1 : this.player2;
 
     if (otherPlayer.hasPassed()) {
-      // Other player passed, keep turn with current player, do NOT reset timer
-      // so the solo-play window stays at 30s total, not 30s per card
+      // Other player passed, keep turn with current player and reset timer per card
       this.currentPlayerTurnUserId = userId;
+      this.turnStartedAt = new Date();
     } else {
       // Other player hasn't passed, give them the turn and reset their timer
       this.currentPlayerTurnUserId = otherPlayerId;
@@ -493,7 +493,31 @@ export class Game {
   }
 
   /**
-   * Resign from the game: the resigning player loses, the opponent wins
+   * Skip the current player's action due to timeout.
+   * Unlike passTurn(), this does NOT mark the player as having passed the round,
+   * it simply transfers the turn to the opponent with a fresh timer.
+   * If the opponent has already passed the round, the player has no one to pass to,
+   * so they pass the round as well, ending it.
+   */
+  skipTurn(userId: string): void {
+    if (this.phase !== 'PLAY_CARDS') return;
+    if (userId !== this.currentPlayerTurnUserId) return;
+
+    const otherPlayerId = this.getOtherPlayerId(userId);
+    const otherPlayer = this.getOtherPlayer(otherPlayerId);
+
+    if (otherPlayer.hasPassed()) {
+      // Opponent already passed the round → timing out here ends the round
+      this.passTurn(userId);
+    } else {
+      // Normal skip: transfer turn without marking as round-passed
+      this.currentPlayerTurnUserId = otherPlayerId;
+      this.turnStartedAt = new Date();
+    }
+  }
+
+  /**
+   * Resign from the game - the resigning player loses, the opponent wins
    */
   resign(resigningPlayerId: string): void {
     const opponentId = this.getOtherPlayerId(resigningPlayerId);

@@ -43,7 +43,7 @@ export class GameController extends Controller {
       ) {
         const elapsedSeconds = (Date.now() - turnStartedAt.getTime()) / 1000;
         if (elapsedSeconds >= TURN_DURATION_SECONDS) {
-          game.passTurn(currentPlayerId);
+          game.skipTurn(currentPlayerId);
           game.autoPassIfNoCards(game.getPlayer1().getUserId());
           game.autoPassIfNoCards(game.getPlayer2().getUserId());
         }
