@@ -2,6 +2,7 @@ import type { Player, PlayerRows, PlayableCard, RangeType } from 'gwen-common';
 import PlayerHand from '../../../player-hand/PlayerHand';
 import Separator from '../../separator/Separator';
 import UserGame from '../../user-game/UserGame';
+import styles from './BoardPanel.module.scss';
 
 export type BoardPanelProps = {
   opponent: Player;
@@ -37,7 +38,7 @@ const BoardPanel = ({
   getSelectedCardFromHand,
 }: BoardPanelProps) => {
   return (
-    <div>
+    <div className={styles.boardPanelLayout}>
       <UserGame
         player={opponent}
         isCurrentPlayer={currentUserId == opponent.getUserId()}

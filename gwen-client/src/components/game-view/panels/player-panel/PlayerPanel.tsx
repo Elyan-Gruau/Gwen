@@ -48,6 +48,13 @@ const PlayerPanel = ({
           hasPlayerPassed={topHasPassed}
         />
       </div>
+      <div className={styles.turnStatus}>
+        {bottomIsActiveTurn ? (
+          <span className={styles.yourTurn}>Your Turn</span>
+        ) : (
+          <span className={styles.waiting}>Waiting for opponent...</span>
+        )}
+      </div>
       <div className={styles.actionButtons}>
         <Button className={styles.passButton} onClick={onPass} disabled={passDisabled}>
           Pass

@@ -48,3 +48,18 @@
   background: #a8a29e;
 }
 
+.turnStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 18px 0 0 0;
+  min-height: 32px;
+}
+.yourTurn {
+  color: #4ade80;
+}
+.waiting {
+  color: #fbbf24;
+}

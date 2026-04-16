@@ -18,9 +18,9 @@ export type BoardRowViewProps = {
 const BoardRowView = ({ row, isOpponent = false }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
-      <BoardRowTypeIcon type={row.getRange()} />
-      <div>
+      <div className={styles.boardInfo}>
         <ScoreBadge size={'SMALL'} value={row.getScore()} isOpponent={isOpponent} />
+        <BoardRowTypeIcon type={row.getRange()} />
       </div>
       <ModifierSlot modifier={row.getModifierCard()} />
       <div></div>

@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  justify-content: center;
   gap: t.$spacing-sm;
   overflow-x: auto;
   padding: t.$spacing-xs 0;
