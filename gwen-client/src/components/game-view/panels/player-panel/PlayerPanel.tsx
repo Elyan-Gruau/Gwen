@@ -1,5 +1,6 @@
 import styles from './PlayerPanel.module.scss';
 import Button from '../../../reusable/button/Button';
+import TurnTimer from '../../turn-timer/TurnTimer';
 
 import type { Player, PlayerRows } from 'gwen-common';
 import GameLeftPanel from '../../ game-left-panel/GameLeftPanel';
@@ -19,6 +20,7 @@ export type PlayerPanelProps = {
   bottomIsActiveTurn?: boolean;
   topHasPassed?: boolean;
   bottomHasPassed?: boolean;
+  turnStartedAt?: string | null;
 };
 
 const PlayerPanel = ({
@@ -36,6 +38,7 @@ const PlayerPanel = ({
   bottomIsActiveTurn = false,
   topHasPassed = false,
   bottomHasPassed = false,
+  turnStartedAt = null,
 }: PlayerPanelProps) => {
   return (
     <div className={styles.playerPanelLayout}>
@@ -49,11 +52,11 @@ const PlayerPanel = ({
         />
       </div>
       <div className={styles.turnStatus}>
-        {bottomIsActiveTurn ? (
-          <span className={styles.yourTurn}>Your Turn</span>
-        ) : (
-          <span className={styles.waiting}>Waiting for opponent...</span>
-        )}
+        <TurnTimer
+          turnStartedAt={turnStartedAt}
+          label={bottomIsActiveTurn ? 'Your Turn' : 'Opponent Turn'}
+          playTickSound={bottomIsActiveTurn}
+        />
       </div>
       <div className={styles.actionButtons}>
         <Button className={styles.passButton} onClick={onPass} disabled={passDisabled}>

@@ -195,7 +195,9 @@ const MatchHistory = ({ userId }: { userId: string }) => {
         </table>
       )}
       {data && data.total > data.limit && (
-        <p className={styles.hint}>{data.total} games total — showing last {data.limit}</p>
+        <p className={styles.hint}>
+          {data.total} games total — showing last {data.limit}
+        </p>
       )}
     </section>
   );

@@ -19,6 +19,7 @@ export class GameMapper {
         phase: game.getPhase(),
         currentRound: game.getCurrentRound(),
         currentPlayerTurnUserId: game.getCurrentPlayerTurnUserId(),
+        turnStartedAt: game.getTurnStartedAt()?.toISOString() ?? null,
         player1: PlayerMapper.toDTO(game.getPlayer1()),
         player2: PlayerMapper.toDTO(game.getPlayer2()),
         player1Rows: PlayerRowMapper.toDTO(game.getPlayer1Rows()),

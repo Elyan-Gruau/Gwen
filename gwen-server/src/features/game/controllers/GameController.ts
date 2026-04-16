@@ -1,4 +1,15 @@
-import { Body, Controller, Get, Path, Post, Query, Response, Route, SuccessResponse, Tags } from 'tsoa';
+import {
+  Body,
+  Controller,
+  Get,
+  Path,
+  Post,
+  Query,
+  Response,
+  Route,
+  SuccessResponse,
+  Tags,
+} from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
 import { EloService } from '../services/EloService.js';
@@ -286,9 +297,9 @@ export class GameController extends Controller {
       const l = Math.min(limit ?? 10, 50);
       const { content, total } = await gameService.getGameHistory(userId, p, l);
 
-      const opponentIds = [...new Set(
-        content.map((g) => (g.player1_id === userId ? g.player2_id : g.player1_id)),
-      )];
+      const opponentIds = [
+        ...new Set(content.map((g) => (g.player1_id === userId ? g.player2_id : g.player1_id))),
+      ];
       const opponentUsers = await Promise.all(opponentIds.map((id) => userRepository.findById(id)));
       const opponentMap: Record<string, string> = {};
       opponentIds.forEach((id, i) => {

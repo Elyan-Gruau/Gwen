@@ -229,13 +229,14 @@ const GameView = ({
           bottomIsActiveTurn={isYourTurn}
           topHasPassed={opponentHasPassed}
           bottomHasPassed={currentPlayerHasPassed}
+          turnStartedAt={gameMetadata.game.turnStartedAt}
         />
         <BoardPanel
           opponent={categorisedPlayers.getOpponent()}
           current={categorisedPlayers.getCurrentPlayer()}
           opponentRows={opponentRows}
           currentRows={currentPlayerRows}
-          selectedCardId={selectedCardId}
+          selectedCardId={selectedCardId || ''}
           onRowClick={handleRowClick}
           isPlacingCard={isPlacingCard}
           currentPlayerTurnUserId={currentPlayerTurnUserId}
