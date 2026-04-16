@@ -269,7 +269,9 @@ const GameView = ({
             isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
             selectedCardId={selectedCardId}
             onRowClick={handleRowClick}
-            isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getCurrentPlayer().getUserId()}
+            isYourTurn={
+              currentPlayerTurnUserId === categorisedPlayers.getCurrentPlayer().getUserId()
+            }
             isPlacingCard={isPlacingCard}
             playerRows={currentPlayerRows}
             selectedCard={getSelectedCardFromHand(selectedCardId, currentPlayerHand)}
