@@ -9,11 +9,11 @@ const MatchmakingPage = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
-  const { 
-    isSearching, 
-    queuePosition, 
-    poolSize, 
-    leaveMatchmakingPool, 
+  const {
+    isSearching,
+    queuePosition,
+    poolSize,
+    leaveMatchmakingPool,
     joinMatchmakingPool,
     searchRange,
     searchTimeMs,
@@ -51,29 +51,30 @@ const MatchmakingPage = () => {
       {isSearching ? (
         <div className={styles.searchContainer}>
           <h2 className={styles.searchTitle}>Searching for opponent...</h2>
-          
+
           <div className={styles.searchInfo}>
-            <p>Time searching: <strong>{formatTime(searchTimeMs)}</strong></p>
-            <p>Queue position: <strong>{queuePosition}</strong></p>
+            <p>
+              Time searching: <strong>{formatTime(searchTimeMs)}</strong>
+            </p>
+            <p>
+              Queue position: <strong>{queuePosition}</strong>
+            </p>
           </div>
 
           {searchRange && (
             <div className={styles.eloRangeBox}>
               <h3>Current ELO Range</h3>
               <div className={styles.rangeValue}>
-                Looking for: <strong>{searchRange.minElo} - {searchRange.maxElo}</strong>
+                Looking for:{' '}
+                <strong>
+                  {searchRange.minElo} - {searchRange.maxElo}
+                </strong>
               </div>
-              <div className={styles.rangeInfo}>
-                Range: ±{searchRange.range}
-              </div>
+              <div className={styles.rangeInfo}>Range: ±{searchRange.range}</div>
             </div>
           )}
 
-          <button 
-            type="button" 
-            onClick={handleCancel}
-            className={styles.cancelButton}
-          >
+          <button type="button" onClick={handleCancel} className={styles.cancelButton}>
             Cancel matchmaking
           </button>
         </div>

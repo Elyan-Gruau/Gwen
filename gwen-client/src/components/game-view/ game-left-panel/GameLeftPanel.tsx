@@ -8,17 +8,26 @@ import ScoreBadge from '../score-badge/ScoreBadge';
 export type GameLeftPanelProps = {
   player: Player;
   playerRows: PlayerRows;
+  isOpponent?: boolean;
+  isActiveTurn?: boolean;
+  hasPlayerPassed?: boolean;
 };
 
-const GameLeftPanel = ({ player, playerRows }: GameLeftPanelProps) => {
+const GameLeftPanel = ({
+  player,
+  playerRows,
+  isOpponent = false,
+  isActiveTurn = false,
+  hasPlayerPassed = false,
+}: GameLeftPanelProps) => {
   const { data: user } = useGetUser(player.getUserId());
   const factionId = player.getDeck().getFactionId();
 
   return (
     <div className={styles.gameLeftPanel}>
-      <div className={styles.playerInfo}>
+      <div className={`${styles.playerInfo} ${isActiveTurn ? styles.activeGlow : ''}`}>
         <div className={styles.leftSection}>
-          <UserProfilePic userId={player.getUserId()} />
+          <UserProfilePic userId={player.getUserId()} size={'large'} />
         </div>
         <div className={styles.rightSection}>
           <div className={styles.infoStack}>
@@ -27,8 +36,9 @@ const GameLeftPanel = ({ player, playerRows }: GameLeftPanelProps) => {
           </div>
           <div className={styles.username}>{user?.username ?? 'Unknown User'}</div>
           <div className={styles.factionName}>{factionId}</div>
+          {hasPlayerPassed && <div className={styles.passedPill}>Passed</div>}
         </div>
-        <ScoreBadge value={playerRows.getScore()} />
+        <ScoreBadge value={playerRows.getScore()} isOpponent={isOpponent} />
       </div>
     </div>
   );

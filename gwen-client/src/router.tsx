@@ -58,13 +58,13 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: ROUTES.GAME,
-        element: <GamePage />,
-      },
-      {
         path: ROUTES.DECK_BUILDER,
         element: <DeckBuilder />,
       },
     ],
+  },
+  {
+    path: ROUTES.GAME,
+    element: <GamePage />,
   },
 ]);

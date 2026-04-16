@@ -112,7 +112,6 @@ const GamePage = () => {
 
   return (
     <div className={styles.gamePage} style={style}>
-      <p>gameId : {gameId}</p>
       <GameView
         game={toModel(game)}
         gameMetadata={game}
