@@ -10,6 +10,7 @@ import { usePlaceCard, type DTOGameWithMetadata, usePassTurn } from 'gwen-genera
 import { useCallback, useState } from 'react';
 import { useResignGame } from '../../hooks/apis/GameAPI';
 import TurnTimer from './turn-timer/TurnTimer';
+import { soundService } from '../../services/SoundService';
 import type { PlayableCard, RangeType } from 'gwen-common';
 import EndPhase from '../game-phases/end-phase/EndPhase';
 
@@ -83,6 +84,7 @@ const GameView = ({
             rowType,
           },
         });
+        soundService.playCardPlace();
         onSelectCard(null);
         setIsPlacingCard(false);
         refetchGame();
@@ -129,6 +131,7 @@ const GameView = ({
           playerId: currentUserId,
         },
       });
+      soundService.playPassTurn();
       onSelectCard(null);
       refetchGame();
     } catch (error) {
@@ -223,6 +226,7 @@ const GameView = ({
             <TurnTimer
               turnStartedAt={gameMetadata.game.turnStartedAt ?? null}
               label="Your time"
+              playTickSound
             />
             <h3>⭐ Your Turn</h3>
             <button

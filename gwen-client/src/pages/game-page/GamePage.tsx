@@ -10,7 +10,8 @@ import {
 import Spinner from '../../components/spinner/Spinner';
 import { GameMapper } from '../../services/GameMapper';
 import { useAuthContext } from '../../contexts/AuthContext';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { soundService } from '../../services/SoundService';
 
 const GamePage = () => {
   const { gameId } = useParams<{ gameId: string }>();
@@ -32,19 +33,42 @@ const GamePage = () => {
 
   const startRoundMutation = useStartRound();
 
+  const soundedRoundRef = useRef(false);
+  const soundedGameRef = useRef(false);
+
   // Detect when round ends (phase transitions to REDRAW)
   useEffect(() => {
     if (game?.game.phase === 'REDRAW' && !showRoundEnd && !showGameEnd) {
       setShowRoundEnd(true);
+      if (!soundedRoundRef.current) {
+        soundedRoundRef.current = true;
+        const myResult = game.game.lastRoundResult;
+        const isWin = user && myResult?.player1_result &&
+          (game.game.player1?.userId === user.id
+            ? myResult.player1_result === 'WIN'
+            : myResult.player2_result === 'WIN');
+        isWin ? soundService.playRoundWin() : soundService.playRoundLoss();
+      }
+    } else if (game?.game.phase !== 'REDRAW') {
+      soundedRoundRef.current = false;
     }
-  }, [game?.game.phase, showRoundEnd, showGameEnd]);
+  }, [game?.game.phase, showRoundEnd, showGameEnd, game?.game.lastRoundResult, user]);
 
   // Detect when game ends (phase transitions to END)
   useEffect(() => {
     if (game?.game.phase === 'END' && !showGameEnd) {
       setShowGameEnd(true);
+      if (!soundedGameRef.current) {
+        soundedGameRef.current = true;
+        const endResult = game.game.gameEndResult;
+        const isWin = user && endResult &&
+          (endResult.player1_id === user.id
+            ? endResult.player1_result === 'WIN'
+            : endResult.player2_result === 'WIN');
+        isWin ? soundService.playGameWin() : soundService.playGameLoss();
+      }
     }
-  }, [game?.game.phase, showGameEnd]);
+  }, [game?.game.phase, showGameEnd, game?.game.gameEndResult, user]);
 
   useEffect(() => {
     // Auto-start round when both players are present and game is waiting or ready for next round
