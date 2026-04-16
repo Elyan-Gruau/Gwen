@@ -207,75 +207,82 @@ const GameView = ({
         />
       )}
 
-      {/* Turn indicator */}
-      <div className={styles.turnIndicator}>
-        {currentPlayerHasPassed ? (
-          <div className={styles.hasPassed}>
-            <h3>✋ You Have Passed</h3>
-            <p>Waiting for opponent...</p>
+      <div className={styles.layout}>
+        {/* Left panel: turn indicator and actions */}
+        <div className={styles.leftPanel}>
+          <div className={styles.turnIndicator}>
+            {currentPlayerHasPassed ? (
+              <div className={styles.hasPassed}>
+                <h3>✋ You Have Passed</h3>
+                <p>Waiting for opponent...</p>
+              </div>
+            ) : isYourTurn ? (
+              <div className={styles.yourTurn}>
+                <h3>⭐ Your Turn</h3>
+                <button
+                  onClick={handlePassTurn}
+                  disabled={passTurnMutation.isPending}
+                  className={styles.passButton}
+                >
+                  {passTurnMutation.isPending ? 'Passing...' : 'Pass Turn'}
+                </button>
+                <button
+                  onClick={handleResign}
+                  disabled={resignMutation.isPending}
+                  className={styles.resignButton}
+                >
+                  {resignMutation.isPending ? 'Resigning...' : 'Resign'}
+                </button>
+              </div>
+            ) : (
+              <div className={styles.opponentTurn}>
+                <h3>⏳ Opponent's Turn</h3>
+                {opponentHasPassed && <p>Opponent has passed - they can keep playing</p>}
+                <button
+                  onClick={handleResign}
+                  disabled={resignMutation.isPending}
+                  className={styles.resignButton}
+                >
+                  {resignMutation.isPending ? 'Resigning...' : 'Resign'}
+                </button>
+              </div>
+            )}
           </div>
-        ) : isYourTurn ? (
-          <div className={styles.yourTurn}>
-            <h3>⭐ Your Turn</h3>
-            <button
-              onClick={handlePassTurn}
-              disabled={passTurnMutation.isPending}
-              className={styles.passButton}
-            >
-              {passTurnMutation.isPending ? 'Passing...' : 'Pass Turn'}
-            </button>
-            <button
-              onClick={handleResign}
-              disabled={resignMutation.isPending}
-              className={styles.resignButton}
-            >
-              {resignMutation.isPending ? 'Resigning...' : 'Resign'}
-            </button>
-          </div>
-        ) : (
-          <div className={styles.opponentTurn}>
-            <h3>⏳ Opponent's Turn</h3>
-            {opponentHasPassed && <p>Opponent has passed - they can keep playing</p>}
-            <button
-              onClick={handleResign}
-              disabled={resignMutation.isPending}
-              className={styles.resignButton}
-            >
-              {resignMutation.isPending ? 'Resigning...' : 'Resign'}
-            </button>
-          </div>
-        )}
-      </div>
+        </div>
 
-      <UserGame
-        player={categorisedPlayers.getOpponent()}
-        isCurrentPlayer={currentUserId == game.getPlayers()[0].getUserId()}
-        selectedCardId={selectedCardId}
-        onRowClick={handleRowClick}
-        isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getOpponent().getUserId()}
-        isPlacingCard={isPlacingCard}
-        playerRows={opponentRows}
-        isOpponentBoard={true}
-        hasPlayerPassed={opponentHasPassed}
-      />
-      <Separator />
-      <UserGame
-        player={categorisedPlayers.getCurrentPlayer()}
-        isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
-        selectedCardId={selectedCardId}
-        onRowClick={handleRowClick}
-        isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getCurrentPlayer().getUserId()}
-        isPlacingCard={isPlacingCard}
-        playerRows={currentPlayerRows}
-        selectedCard={getSelectedCardFromHand(selectedCardId, currentPlayerHand)}
-        isOpponentBoard={false}
-        hasPlayerPassed={currentPlayerHasPassed}
-      />
-      <PlayerHand
-        hand={currentPlayerHand}
-        onCardConfirm={handleCardSelect}
-        autoFocus={isYourTurn}
-      />
+        {/* Right panel: board and hand */}
+        <div className={styles.rightPanel}>
+          <UserGame
+            player={categorisedPlayers.getOpponent()}
+            isCurrentPlayer={currentUserId == game.getPlayers()[0].getUserId()}
+            selectedCardId={selectedCardId}
+            onRowClick={handleRowClick}
+            isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getOpponent().getUserId()}
+            isPlacingCard={isPlacingCard}
+            playerRows={opponentRows}
+            isOpponentBoard={true}
+            hasPlayerPassed={opponentHasPassed}
+          />
+          <Separator />
+          <UserGame
+            player={categorisedPlayers.getCurrentPlayer()}
+            isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
+            selectedCardId={selectedCardId}
+            onRowClick={handleRowClick}
+            isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getCurrentPlayer().getUserId()}
+            isPlacingCard={isPlacingCard}
+            playerRows={currentPlayerRows}
+            selectedCard={getSelectedCardFromHand(selectedCardId, currentPlayerHand)}
+            isOpponentBoard={false}
+            hasPlayerPassed={currentPlayerHasPassed}
+          />
+          <PlayerHand
+            hand={currentPlayerHand}
+            onCardConfirm={handleCardSelect}
+            autoFocus={isYourTurn}
+          />
+        </div>
+      </div>
     </div>
   );
 };
