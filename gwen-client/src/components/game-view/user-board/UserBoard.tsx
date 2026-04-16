@@ -23,10 +23,7 @@ const UserBoard = ({
 }: UserBoardProps) => {
   const [activeRowIndex, setActiveRowIndex] = useState<number | null>(null);
   const boardRef = useRef<HTMLDivElement>(null);
-  let rows = playerRows.getAllRows();
-  if (isOpponentBoard) {
-    rows = [...rows].reverse();
-  }
+  const rows = playerRows.getAllRows();
 
   /**
    * Check if a row is valid for the selected card
@@ -35,19 +32,19 @@ const UserBoard = ({
    */
   const isRowValid = (rowRange: RangeType): boolean => {
     if (!selectedCard) return true; // If no card, all rows are valid
-
+    
     const card = selectedCard as { hasRange?: (range: RangeType | 'AGILE') => boolean };
-
+    
     // Check if card has exact row type (MELEE, RANGED, or SIEGE)
     if (card.hasRange?.(rowRange)) {
       return true;
     }
-
+    
     // Check if card is AGILE and row is MELEE or RANGED (AGILE cannot go on SIEGE)
     if (card.hasRange?.('AGILE') && (rowRange === 'MELEE' || rowRange === 'RANGED')) {
       return true;
     }
-
+    
     return false;
   };
 
@@ -114,7 +111,7 @@ const UserBoard = ({
               !isOpponentBoard && activeRowIndex === index ? styles.selectedRow : ''
             } ${!isOpponentBoard && isPlacingCard && selectedCardId && !isValid ? styles.invalidRow : ''}`}
           >
-            <BoardRowView row={row} isOpponent={isOpponentBoard} />
+            <BoardRowView row={row} />
           </div>
         );
       })}

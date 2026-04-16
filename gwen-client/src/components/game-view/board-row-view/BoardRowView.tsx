@@ -3,11 +3,9 @@ import type { Row } from 'gwen-common';
 import ModifierSlot from './modifier-slot/ModifierSlot';
 import UnitCardView from '../../card/UnitCardView';
 import ScoreBadge from '../score-badge/ScoreBadge';
-import BoardRowTypeIcon from './BoardRowTypeIcon';
 
 export type BoardRowViewProps = {
   row: Row;
-  isOpponent?: boolean;
 };
 
 /**
@@ -15,12 +13,11 @@ export type BoardRowViewProps = {
  * @param boardRow
  * @constructor
  */
-const BoardRowView = ({ row, isOpponent = false }: BoardRowViewProps) => {
+const BoardRowView = ({ row }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
-      <div className={styles.boardInfo}>
-        <ScoreBadge size={'SMALL'} value={row.getScore()} isOpponent={isOpponent} />
-        <BoardRowTypeIcon type={row.getRange()} />
+      <div>
+        <ScoreBadge size={'SMALL'} value={row.getScore()} />
       </div>
       <ModifierSlot modifier={row.getModifierCard()} />
       <div></div>

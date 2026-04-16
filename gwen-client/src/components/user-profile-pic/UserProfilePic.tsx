@@ -3,20 +3,11 @@ import { useGetUser } from 'gwen-generated-api';
 import { getProfilePictureUrl } from '../../utils/URLProvider';
 import styles from './UserProfilePic.module.scss';
 
-export type UserProfilePicSize = 'small' | 'medium' | 'large';
-
 export type UserProfilePicProps = {
   userId: string;
-  size?: UserProfilePicSize;
 };
 
-const sizeClassMap: Record<UserProfilePicSize, string> = {
-  small: styles.small,
-  medium: styles.medium,
-  large: styles.large,
-};
-
-const UserProfilePic = ({ userId, size = 'medium' }: UserProfilePicProps) => {
+const UserProfilePic = ({ userId }: UserProfilePicProps) => {
   const { data: user, isLoading, isError } = useGetUser(userId);
 
   if (isLoading) {
@@ -29,7 +20,7 @@ const UserProfilePic = ({ userId, size = 'medium' }: UserProfilePicProps) => {
 
   const url = user.profilePictureUrl ?? getProfilePictureUrl();
   return (
-    <div className={`${styles.wrapper} ${sizeClassMap[size]}`}>
+    <div className={styles.wrapper}>
       <img
         className={styles.image}
         draggable={false}

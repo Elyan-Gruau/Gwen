@@ -3,8 +3,8 @@
 .userBoard {
   display: flex;
   flex-direction: column;
-  gap: tokens.$spacing-sm;
-  width: 100%;
+  gap: tokens.$spacing-md;
+  width: 60%;
 }
 
 .rowWrapper {
@@ -16,6 +16,7 @@
 
     &:hover {
       background: rgba(202, 168, 76, 0.2);
+      transform: scale(1.02);
       box-shadow: 0 0 12px rgba(202, 168, 76, 0.4);
     }
 
@@ -24,6 +25,7 @@
 
       &:hover {
         background: rgba(220, 53, 69, 0.2);
+        transform: scale(1.02);
         box-shadow: 0 0 12px rgba(220, 53, 69, 0.4);
       }
     }

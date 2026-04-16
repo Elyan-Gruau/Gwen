@@ -9,22 +9,26 @@
   border-radius: 50%;
   font-size: 2rem;
   font-weight: bold;
-  font-family: tokens.$font-family-score;
+  font-family: 'Cinzel', serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 4px var(--badge-shadow);
+  border: 3px solid var(--badge-border);
   background: var(--badge-bg);
+  color: var(--badge-color);
   transition: box-shadow 0.2s, border 0.2s;
-  color: #000000 !important;
-  text-shadow: 1px 1px 2px white;
 }
 
 .playerBadge {
-  --badge-bg: linear-gradient(135deg, rgb(250, 220, 131) 60%, #bea32e 100%);
+  --badge-bg: linear-gradient(135deg, #ffe066 60%, #bfa100 100%);
   --badge-color: #2d1a00;
+  --badge-border: #bfa100;
+  --badge-shadow: #bfa10044;
 }
 
 .opponentBadge {
-  --badge-bg: linear-gradient(135deg, #bac4d9 60%, #495069 100%);
+  --badge-bg: linear-gradient(135deg, #b0c4de 60%, #3a506b 100%);
   --badge-color: #1a2636;
+  --badge-border: #3a506b;
+  --badge-shadow: #3a506b44;
 }
 
 .size-small {
@@ -50,3 +54,5 @@
   border-width: 4px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 0 0 6px var(--badge-shadow);
 }
+
+

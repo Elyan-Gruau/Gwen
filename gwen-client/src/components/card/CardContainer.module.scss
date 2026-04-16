@@ -1,27 +1,38 @@
 @use '@styles/tokens' as t;
 
+// Official dimensions ratio 5/8
+$card-width-x-small: 3.75rem;
+$card-height-x-small: 6rem;
+$card-width-small: 5rem;
+$card-height-small: 8rem;
+$card-width-medium: 6.25rem;
+$card-height-medium: 10rem;
+$card-width-large: 7.5rem;
+$card-height-large: 12rem;
+$card-border-radius: t.$border-radius-md;
+$card-border-radius: t.$border-radius-md;
 
 
 .cardContainer {
   position: relative;
-  border-radius: t.$card-border-radius;
+  border-radius: $card-border-radius;
   overflow: hidden;
   flex-shrink: 0;
   background-color: rgb(26 26 26 / 6%);
 }
 
 .cardContainer--small {
-  width: t.$card-width-small;
-  height: t.$card-height-small;
+  width: $card-width-small;
+  height: $card-height-small;
 }
 
 .cardContainer--medium {
-  width: t.$card-width-medium;
-  height: t.$card-height-medium;
+  width: $card-width-medium;
+  height: $card-height-medium;
 }
 
 .cardContainer--large {
-  width: t.$card-width-large;
-  height: t.$card-height-large;
+  width: $card-width-large;
+  height: $card-height-large;
 }
 

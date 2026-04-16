@@ -78,10 +78,6 @@ export class Deck {
     this.drawPile = [...newDrawPile];
   }
 
-  setDiscarded(newDiscarded: PlayableCard[]) {
-    this.discarded = [...newDiscarded];
-  }
-
   /**
    * Draws multiple cards from the drawPile & puts them in the hand.
    * @param amount the amount of card to draw

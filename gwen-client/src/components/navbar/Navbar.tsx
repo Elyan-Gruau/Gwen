@@ -5,7 +5,6 @@ import UserProfilePic from '../user-profile-pic/UserProfilePic';
 import LinkButton from '../reusable/link-button/LinkButton';
 import styles from './Navbar.module.scss';
 import { useEffect, useState } from 'react';
-import Button from '../reusable/button/Button';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -56,12 +55,8 @@ const Navbar = () => {
 
         {/* Nav Links */}
         <div className={styles.navLinksContainer}>
-          <LinkButton href={ROUTES.PLAY} variant={'secondary'}>
-            Matchmaking
-          </LinkButton>
-          <LinkButton href={ROUTES.DECK_BUILDER} variant={'secondary'}>
-            Deck Builder
-          </LinkButton>
+          <LinkButton href={ROUTES.PLAY}>Matchmaking</LinkButton>
+          <LinkButton href={ROUTES.DECK_BUILDER}>Deck Builder</LinkButton>
         </div>
 
         {/* User Section */}
@@ -78,9 +73,9 @@ const Navbar = () => {
             </div>
           ) : (
             <div className={styles.authButtons}>
-              <Button onClick={toggleTheme} className={styles.theme}>
+              <button onClick={toggleTheme} className={styles.theme}>
                 <img src={darkMode ? '/icons/dark.svg' : '/icons/light.svg'} alt="theme icon" />
-              </Button>
+              </button>
               <LinkButton size="sm" variant="secondary" href={ROUTES.LOGIN}>
                 Login
               </LinkButton>

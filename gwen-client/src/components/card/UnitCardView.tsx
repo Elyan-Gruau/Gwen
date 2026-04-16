@@ -2,7 +2,6 @@ import type { UnitCard } from 'gwen-common';
 import CardContainer from './CardContainer';
 import type { CardSize } from './CardContainer';
 import styles from './UnitCardView.module.scss';
-import UnitAbilityIcon from './UnitAbilityIcon';
 
 export type UnitCardViewProps = {
   card: UnitCard;
@@ -22,11 +21,11 @@ const ABILITY_LABELS: Record<string, string> = {
   COMMANDER_HORN: 'Commander Horn',
 };
 
-const RANGE_ICONS: Record<string, string> = {
-  MELEE: '/icons/melee.png',
-  RANGED: '/icons/range.png',
-  SIEGE: '/icons/siege.png',
-  AGILE: '/icons/agile.png',
+const RANGE_LABELS: Record<string, string> = {
+  MELEE: 'Melee',
+  RANGED: 'Ranged',
+  SIEGE: 'Siege',
+  AGILE: 'Agile',
 };
 
 export default function UnitCardView({ card, onClick, size = 'medium' }: UnitCardViewProps) {
@@ -55,26 +54,16 @@ export default function UnitCardView({ card, onClick, size = 'medium' }: UnitCar
         {/* Strength badge */}
         <div className={styles.strength}>{card.getStrength()}</div>
 
-        {/* Range icon (affiche la première range, ou AGILE si plusieurs) */}
-        {ranges.length > 0 && (
-          <div className={styles.rangeIcon}>
-            <img
-              src={RANGE_ICONS[ranges.length > 1 ? 'AGILE' : ranges[0]]}
-              alt={ranges.length > 1 ? 'Agile' : ranges[0]}
-            />
-          </div>
-        )}
-
-        {/* Ability icon (à gauche de RangeIcon) */}
-        {ability && (
-          <span className={styles.abilityIcon}>
-            <UnitAbilityIcon ability={ability} size="100%" />
-          </span>
-        )}
-
-        {/* Footer: ability */}
+        {/* Footer: ability + ranges */}
         <div className={styles.footer}>
           {ability && <span className={styles.ability}>{ABILITY_LABELS[ability] ?? ability}</span>}
+          <div className={styles.ranges}>
+            {ranges.map((r: string) => (
+              <span key={r} className={styles.range}>
+                {RANGE_LABELS[r] ?? r}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </CardContainer>

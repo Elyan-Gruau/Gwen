@@ -1,15 +1,7 @@
 @use '@styles/tokens' as tokens;
 
-$card-width-x-small: tokens.$card-width-x-small;
-$card-width-small: tokens.$card-width-small;
-$card-width-medium: tokens.$card-width-medium;
-$card-width-large: tokens.$card-width-large;
-$card-height-x-small: tokens.$card-height-x-small;
-$card-height-small: tokens.$card-height-small;
-$card-height-medium: tokens.$card-height-medium;
-$card-height-large: tokens.$card-height-large;
-
-$scene-padding: tokens.$spacing-200;
+$card-width: 5rem; // correspond à $card-width-small
+$card-height: 8rem; // correspond à $card-height-small
 
 .scene {
   position: relative;
@@ -17,14 +9,9 @@ $scene-padding: tokens.$spacing-200;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc($card-height-small + $scene-padding);
+  height: calc($card-height + 32px);
   perspective: 800px;
   overflow: hidden;
-
-  &.scene--x-small { height: calc($card-height-x-small + $scene-padding); }
-  &.scene--small { height: calc($card-height-small + $scene-padding); }
-  &.scene--medium { height: calc($card-height-medium + $scene-padding); }
-  &.scene--large { height: calc($card-height-large + $scene-padding); }
 }
 
 .track {
@@ -38,8 +25,8 @@ $scene-padding: tokens.$spacing-200;
 
 .slot {
   position: absolute;
-  //width: $card-width;
-  //height: $card-height;
+  width: $card-width;
+  height: $card-height;
   border-radius: tokens.$border-radius-md;
   cursor: pointer;
   transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -47,11 +34,6 @@ $scene-padding: tokens.$spacing-200;
     box-shadow 300ms ease;
   overflow: hidden;
   user-select: none;
-
-  &.slot--x-small { width: $card-width-x-small; height: $card-height-x-small; }
-  &.slot--small { width: $card-width-small; height: $card-height-small; }
-  &.slot--medium { width: $card-width-medium; height: $card-height-medium; }
-  &.slot--large { width: $card-width-large; height: $card-height-large; }
 
   img {
     width: 100%;
@@ -74,3 +56,4 @@ $scene-padding: tokens.$spacing-200;
     opacity: 0.9;
   }
 }
+

@@ -10,8 +10,8 @@
 
 .cardStack {
   position: relative;
-  width: tokens.$card-width-small;
-  height: tokens.$card-height-small;
+  width: 5rem; // correspond à $card-width-small
+  height: 8rem; // correspond à $card-height-small
 }
 
 .card {

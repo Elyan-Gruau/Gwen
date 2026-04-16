@@ -1,7 +1,0 @@
-@use '@styles/tokens' as tokens;
-
-.boardPanelLayout{
-  display: flex;
-  flex-direction: column;
-  padding-top: tokens.$spacing-100 ;
-}

@@ -10,9 +10,7 @@ export class MatchmakingService {
     { userId: string; elo: number; timestamp: number; deckId?: string }
   > = new Map();
   private matchCheckInterval: NodeJS.Timeout | null = null;
-  private onMatchFound:
-    | ((match: { player1: string; player2: string; gameId: string }) => Promise<void>)
-    | null = null;
+  private onMatchFound: ((match: { player1: string; player2: string; gameId: string }) => Promise<void>) | null = null;
 
   constructor(
     private readonly userService: UserService,
@@ -27,7 +25,9 @@ export class MatchmakingService {
   private startMatchCheckInterval() {
     // Check for matches every 2 seconds
     this.matchCheckInterval = setInterval(() => {
-      this.checkForMatches().catch((error) => console.error('Error checking for matches:', error));
+      this.checkForMatches().catch((error) =>
+        console.error('Error checking for matches:', error),
+      );
     }, 2000);
   }
 
@@ -38,9 +38,7 @@ export class MatchmakingService {
     }
   }
 
-  setOnMatchFoundCallback(
-    callback: (match: { player1: string; player2: string; gameId: string }) => Promise<void>,
-  ) {
+  setOnMatchFoundCallback(callback: (match: { player1: string; player2: string; gameId: string }) => Promise<void>) {
     this.onMatchFound = callback;
   }
 
@@ -69,12 +67,7 @@ export class MatchmakingService {
           const opponentDeckId = opponent.deckId || '';
 
           console.log('Creating game from periodic check...');
-          const game = await this.gameService.createGame(
-            userId,
-            deckId,
-            opponent.userId,
-            opponentDeckId,
-          );
+          const game = await this.gameService.createGame(userId, deckId, opponent.userId, opponentDeckId);
           console.log('Game created with id: ', game._id?.toString());
 
           await GameManager.getInstance().activateGame(game);

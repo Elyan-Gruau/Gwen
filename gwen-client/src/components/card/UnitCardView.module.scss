@@ -9,7 +9,6 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: tokens.$card-border-radius;
 }
 
 .image {
@@ -36,50 +35,28 @@ $gold-glow: rgba(201, 168, 76, 0.6);
 
 .strength {
   position: absolute;
-  top: tokens.$spacing-025;
-  left: tokens.$spacing-025;
+  top: 5px;
+  left: 5px;
   z-index: 4;
-  width: 1em;
-  height: 1em;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: #dcdcdb;
-  border: 1px solid $gold;
-  color: black !important;
-  font-family: tokens.$font-family-score;
-  font-size: clamp(0.6rem, 2.5vw, 1rem);
+  background: #1a1a1a;
+  border: 2px solid $gold;
+  color: $gold-light;
+  font-family: tokens.$font-family-base;
+  font-size: 0.7rem;
   font-weight: tokens.$font-weight-bold;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
 
-
   .hero & {
-    background: #1a1a1a;
-    color:  white !important;
+    background: $gold;
+    color: #1a1a1a;
     border-color: $gold-light;
   }
-}
-
-.cardContainer--x-small .strength {
-  font-size: 0.7rem;
-  width: 1.3em;
-  height: 1.3em;
-}
-.cardContainer--small .strength {
-  font-size: 0.85rem;
-  width: 1.5em;
-  height: 1.5em;
-}
-.cardContainer--medium .strength {
-  font-size: 1rem;
-  width: 1.7em;
-  height: 1.7em;
-}
-.cardContainer--large .strength {
-  font-size: 1.25rem;
-  width: 2em;
-  height: 2em;
 }
 
 
@@ -94,7 +71,7 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   align-items: center;
   gap: 2px;
   padding: 4px 4px 5px;
-  background: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 70%, transparent);
 }
 
 .ability {
@@ -125,61 +102,3 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   letter-spacing: 0.03em;
 }
 
-.rangeIcon {
-  display: flex;
-  position: absolute;
-  bottom: tokens.$spacing-025;
-  right: tokens.$spacing-025;
-  z-index: 5;
-  background: #dcdcdb;
-  border-radius: 50%;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-  width: 1em;
-  height: 1em;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    display: block;
-    margin: auto;
-  }
-}
-.cardContainer--x-small .rangeIcon { width: 1em; height: 1em; }
-.cardContainer--small .rangeIcon { width: 1.1em; height: 1.1em; }
-.cardContainer--medium .rangeIcon { width: 1.2em; height: 1.2em; }
-.cardContainer--large .rangeIcon { width: 1.5em; height: 1.5em; }
-
-.abilityIcon {
-  position: absolute;
-  bottom: tokens.$spacing-025;
-  right: calc(1.2em + 0.18em + tokens.$spacing-025);
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1em !important;
-  height: 1em !important;
-  min-width: 1em;
-  min-height: 1em;
-  max-width: 1em;
-  max-height: 1em;
-  background: #dcdcdb;
-  border-radius: 50%;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-
-  img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    display: block;
-    margin: auto;
-  }
-}
-.cardContainer--x-small .abilityIcon { width: 1em !important; height: 1em !important; min-width: 1em; min-height: 1em; max-width: 1em; max-height: 1em; right: calc(1em + 0.14em + tokens.$spacing-025); }
-.cardContainer--small .abilityIcon { width: 1.1em !important; height: 1.1em !important; min-width: 1.1em; min-height: 1.1em; max-width: 1.1em; max-height: 1.1em; right: calc(1.1em + 0.16em + tokens.$spacing-025); }
-.cardContainer--medium .abilityIcon { width: 1.2em !important; height: 1.2em !important; min-width: 1.2em; min-height: 1.2em; max-width: 1.2em; max-height: 1.2em; right: calc(1.2em + 0.18em + tokens.$spacing-025); }
-.cardContainer--large .abilityIcon { width: 1.5em !important; height: 1.5em !important; min-width: 1.5em; min-height: 1.5em; max-width: 1.5em; max-height: 1.5em; right: calc(1.5em + 0.22em + tokens.$spacing-025); }

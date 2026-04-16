@@ -2,6 +2,7 @@ import styles from './GameView.module.scss';
 import UserGame from './user-game/UserGame';
 import { Game, type Player } from 'gwen-common';
 import { CategorisedPlayers } from '../../model/CategorisedPlayers';
+import PlayerHand from '../player-hand/PlayerHand';
 import { useAuthContext } from '../../contexts/AuthContext';
 import Spinner from '../spinner/Spinner';
 import Separator from './separator/Separator';
@@ -12,9 +13,6 @@ import TurnTimer from './turn-timer/TurnTimer';
 import { soundService } from '../../services/SoundService';
 import type { PlayableCard, RangeType } from 'gwen-common';
 import EndPhase from '../game-phases/end-phase/EndPhase';
-import PlayerPanel from './panels/player-panel/PlayerPanel';
-import BoardPanel from './panels/board-panel/BoardPanel';
-import DeckPanel from './panels/deck-panel/DeckPanel';
 
 type GameViewProps = {
   game: Game;
@@ -169,21 +167,18 @@ const GameView = ({
 
   // Get ELO change from game end result
   const gameEndResult = gameMetadata.game.gameEndResult;
-  const eloChange =
-    currentUserId === gameEndResult?.player1_id
-      ? (gameEndResult?.player1_elo_change ?? 0)
-      : (gameEndResult?.player2_elo_change ?? 0);
+  const eloChange = currentUserId === gameEndResult?.player1_id
+    ? (gameEndResult?.player1_elo_change ?? 0)
+    : (gameEndResult?.player2_elo_change ?? 0);
   const totalElo = currentUserElo + eloChange;
 
   // Get gem counts
-  const currentPlayerGems =
-    game.getPlayer1().getUserId() === currentUserId
-      ? game.getPlayer1().getGems()
-      : game.getPlayer2().getGems();
-  const opponentGems =
-    game.getPlayer1().getUserId() === currentUserId
-      ? game.getPlayer2().getGems()
-      : game.getPlayer1().getGems();
+  const currentPlayerGems = game.getPlayer1().getUserId() === currentUserId
+    ? game.getPlayer1().getGems()
+    : game.getPlayer2().getGems();
+  const opponentGems = game.getPlayer1().getUserId() === currentUserId
+    ? game.getPlayer2().getGems()
+    : game.getPlayer1().getGems();
 
   return (
     <div className={styles.gameView}>

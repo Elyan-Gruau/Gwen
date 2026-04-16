@@ -86,14 +86,10 @@ export class UserRepository {
   }
 
   async updateElo(id: string, newElo: number): Promise<DBUser> {
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      id,
-      { elo: newElo },
-      {
-        new: true,
-        returnDocument: 'after',
-      },
-    )
+    const updatedUser = await UserModel.findByIdAndUpdate(id, { elo: newElo }, {
+      new: true,
+      returnDocument: 'after',
+    })
       .lean()
       .exec();
     if (!updatedUser) {

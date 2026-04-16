@@ -8,11 +8,8 @@
   min-height: tokens.$spacing-xl;
   min-width: 200px;
   width: 100%;
-}
-
-.boardInfo{
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0px 1px 7px 4px inset #0000008c;
+  border-radius: tokens.$spacing-sm;
 }
 
 .cardsContainer {
@@ -23,8 +20,5 @@
   gap: tokens.$spacing-sm;
   width: 100%;
   height: 100%;
-  min-height: tokens.$board-card-height;
-  box-shadow: tokens.$board-carved-shadow;
-  background-color: tokens.$color-board-carved;
-  border-radius: tokens.$spacing-sm;
+  min-height: tokens.$spacing-400;
 }

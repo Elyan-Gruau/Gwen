@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react';
 import type { Card } from 'gwen-common';
 import CardView from '../../card/CardView';
 import styles from './CardCarousel.module.scss';
-import type { CardSize } from '../../card/CardContainer';
 
 export type CarouselItem = {
   id: string;
@@ -20,7 +19,6 @@ type CardCarouselProps = {
   onConfirm?: (index: number) => void;
   /** Visible radius around the active card (center ± radius). Default: 3. */
   visibleRadius?: number;
-  cardSize?: CardSize;
 };
 
 // Facteurs visuels selon la distance au centre
@@ -36,7 +34,6 @@ const CardCarousel = ({
   onIndexChange,
   onConfirm,
   visibleRadius,
-  cardSize = 'medium',
 }: CardCarouselProps) => {
   const count = items.length;
 
@@ -60,7 +57,7 @@ const CardCarousel = ({
   }, [handlePrev, handleNext, onConfirm, activeIndex]);
 
   return (
-    <div className={`${styles.scene} ${styles[`scene--${cardSize}`]}`}>
+    <div className={styles.scene}>
       <div className={styles.track}>
         {items.map((item, i) => {
           // distance circulaire au centre
@@ -85,7 +82,7 @@ const CardCarousel = ({
           return (
             <div
               key={item.id}
-              className={`${styles.slot} ${styles[`slot--${cardSize}`]} ${isActive ? styles.slotActive : styles.slotInactive}`}
+              className={`${styles.slot} ${isActive ? styles.slotActive : styles.slotInactive}`}
               style={{
                 transform: `translateX(${translateX}px) translateZ(${translateZ}px) scale(${scale})`,
                 opacity,
@@ -96,7 +93,7 @@ const CardCarousel = ({
               }}
             >
               {item.card ? (
-                <CardView card={item.card} size={cardSize} />
+                <CardView card={item.card} />
               ) : (
                 <img src={item.imageUrl} alt={item.name} />
               )}

@@ -18,13 +18,7 @@ const DiscardedPile = ({ discarded, factionId }: DiscardedPileProps) => {
       {isEmpty ? (
         <EmptyDeckSlot title="Discarded pile is empty" />
       ) : (
-        <DeckPile
-          factionId={factionId}
-          count={discarded.length}
-          onClick={open}
-          visibleSide="front"
-          cards={discarded}
-        />
+        <DeckPile factionId={factionId} count={discarded.length} onClick={open} />
       )}
       <CardListViewer isOpen={isOpen} cards={discarded} onClose={close} title="Discard pile" />
     </>

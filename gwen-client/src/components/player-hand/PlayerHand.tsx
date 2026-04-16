@@ -18,7 +18,11 @@ export type PlayerHandProps = {
   autoFocus?: boolean;
 };
 
-const PlayerHand = ({ hand, onCardConfirm, autoFocus = false }: PlayerHandProps) => {
+const PlayerHand = ({
+  hand,
+  onCardConfirm,
+  autoFocus = false,
+}: PlayerHandProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 

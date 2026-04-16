@@ -117,12 +117,7 @@ export class Game {
   /**
    * Restore game result from DTO (used when reconstructing game state from server)
    */
-  restoreGameResult(
-    player1Id: string,
-    p1Result: GameResult,
-    player2Id: string,
-    p2Result: GameResult,
-  ): void {
+  restoreGameResult(player1Id: string, p1Result: GameResult, player2Id: string, p2Result: GameResult): void {
     this.gameResult = new Map([
       [player1Id, p1Result],
       [player2Id, p2Result],
@@ -328,17 +323,17 @@ export class Game {
     // Check if card has range type (UnitCard)
     if ('hasRange' in card && typeof card.hasRange === 'function') {
       const unitCard = card as { hasRange: (range: UnitsRangeType) => boolean };
-
+      
       // Check if card has exact row type (MELEE, RANGED, or SIEGE)
       if (unitCard.hasRange(rowType)) {
         return true;
       }
-
+      
       // Check if card is AGILE and row is MELEE or RANGED (AGILE cannot go on SIEGE)
       if (unitCard.hasRange('AGILE') && (rowType === 'MELEE' || rowType === 'RANGED')) {
         return true;
       }
-
+      
       return false;
     }
     // RowModifierCard and other types can be placed on any row
@@ -486,26 +481,7 @@ export class Game {
    * TODO: Handle card redraw logic
    */
   private resetRoundState(): void {
-    // Move board cards to the discard pile
-    const p1Deck = this.player1.getDeck();
-    const p2Deck = this.player2.getDeck();
-
-    this.player1Rows.getAllRows().forEach((row) => {
-      const cards = row.getCards();
-      if (cards.length > 0) {
-        p1Deck.getDiscarded().push(...cards);
-        cards.length = 0;
-      }
-    });
-    this.player2Rows.getAllRows().forEach((row) => {
-      const cards = row.getCards();
-      if (cards.length > 0) {
-        p2Deck.getDiscarded().push(...cards);
-        cards.length = 0;
-      }
-    });
-
-    // Reset the lines
+    // Clear board but keep hands
     this.player1Rows = new PlayerRows(this.player1.getUserId());
     this.player2Rows = new PlayerRows(this.player2.getUserId());
     this.currentPlayerTurnUserId = null;

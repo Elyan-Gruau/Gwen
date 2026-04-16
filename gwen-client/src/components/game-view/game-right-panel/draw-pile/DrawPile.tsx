@@ -20,13 +20,7 @@ const DrawPile = ({ drawPile, factionId }: DeckPileProps) => {
       ) : (
         <DeckPile factionId={factionId} count={drawPile.length} onClick={open} />
       )}
-      <CardListViewer
-        cardSize={'large'}
-        isOpen={isOpen}
-        cards={drawPile}
-        onClose={close}
-        title="Draw pile"
-      />
+      <CardListViewer isOpen={isOpen} cards={drawPile} onClose={close} title="Draw pile" />
     </>
   );
 };

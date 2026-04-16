@@ -84,133 +84,39 @@
 					"END"
 				]
 			},
-			"DTOPlayableCard": {
-				"properties": {
-					"id": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id"
-				],
+			"Deck": {
+				"properties": {},
 				"type": "object",
 				"additionalProperties": false
 			},
-			"DTODeck": {
+			"Player": {
 				"properties": {
-					"drawPile": {
-						"items": {
-							"$ref": "#/components/schemas/DTOPlayableCard"
-						},
-						"type": "array"
+					"deck": {
+						"$ref": "#/components/schemas/Deck"
 					},
-					"hand": {
-						"items": {
-							"$ref": "#/components/schemas/DTOPlayableCard"
-						},
-						"type": "array"
-					},
-					"discardPile": {
-						"items": {
-							"$ref": "#/components/schemas/DTOPlayableCard"
-						},
-						"type": "array"
-					},
-					"leader": {
-						"$ref": "#/components/schemas/DTOPlayableCard"
-					},
-					"factionId": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"drawPile",
-					"hand",
-					"discardPile",
-					"leader",
-					"factionId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"DTOPlayer": {
-				"properties": {
-					"userId": {
-						"type": "string"
+					"passed": {
+						"type": "boolean"
 					},
 					"gems": {
 						"type": "number",
 						"format": "double"
 					},
-					"passed": {
-						"type": "boolean"
-					},
-					"deck": {
-						"$ref": "#/components/schemas/DTODeck"
-					}
-				},
-				"required": [
-					"userId",
-					"gems",
-					"passed",
-					"deck"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RangeType": {
-				"type": "string",
-				"enum": [
-					"MELEE",
-					"RANGED",
-					"SIEGE"
-				]
-			},
-			"DTORow": {
-				"properties": {
-					"score": {
-						"type": "number",
-						"format": "double"
-					},
-					"cardsIds": {
-						"items": {
-							"$ref": "#/components/schemas/DTOPlayableCard"
-						},
-						"type": "array"
-					},
-					"range": {
-						"$ref": "#/components/schemas/RangeType"
-					}
-				},
-				"required": [
-					"score",
-					"cardsIds",
-					"range"
-				],
-				"type": "object"
-			},
-			"DTOPlayerRows": {
-				"properties": {
-					"rows": {
-						"items": {
-							"$ref": "#/components/schemas/DTORow"
-						},
-						"type": "array"
-					},
-					"score": {
-						"type": "number",
-						"format": "double"
-					},
 					"userId": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"rows",
-					"score",
+					"deck",
+					"passed",
+					"gems",
 					"userId"
 				],
 				"type": "object"
+			},
+			"PlayerRows": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
 			},
 			"DTOGameResult": {
 				"type": "string",
@@ -259,7 +165,7 @@
 					"round"
 				],
 				"type": "object",
-				"description": "Round end event: Shows overlay for ~3 seconds during game\nContains each player's result from their perspective"
+				"description": "Round end event: Shows overlay for ~3 seconds during game\r\nContains each player's result from their perspective"
 			},
 			"DTOGameEndResult": {
 				"properties": {
@@ -306,7 +212,7 @@
 					"player1_id"
 				],
 				"type": "object",
-				"description": "Game end result: Shows persistent page when game is over\nIncludes standings and final results"
+				"description": "Game end result: Shows persistent page when game is over\r\nIncludes standings and final results"
 			},
 			"Record_string.string_": {
 				"properties": {},
@@ -343,16 +249,16 @@
 								"description": "Result of last completed round (null if no round completed)"
 							},
 							"player2Rows": {
-								"$ref": "#/components/schemas/DTOPlayerRows"
+								"$ref": "#/components/schemas/PlayerRows"
 							},
 							"player1Rows": {
-								"$ref": "#/components/schemas/DTOPlayerRows"
+								"$ref": "#/components/schemas/PlayerRows"
 							},
 							"player2": {
-								"$ref": "#/components/schemas/DTOPlayer"
+								"$ref": "#/components/schemas/Player"
 							},
 							"player1": {
-								"$ref": "#/components/schemas/DTOPlayer"
+								"$ref": "#/components/schemas/Player"
 							},
 							"turnStartedAt": {
 								"type": "string",
