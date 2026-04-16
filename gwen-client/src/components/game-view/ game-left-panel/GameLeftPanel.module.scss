@@ -78,3 +78,8 @@
   color: tokens.$color-secondary;
   font-style: italic;
 }
+
+.passedPill{
+  color: tokens.$color-primary !important;
+  text-shadow: 0px 0px 1px black;
+}

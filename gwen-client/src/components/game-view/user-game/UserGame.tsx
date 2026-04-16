@@ -31,12 +31,12 @@ const UserGame = ({
 }: UserGameProps) => {
   return (
     <div className={styles.userGame}>
-      {hasPlayerPassed && <div className={styles.passedBanner}>✋ Passed</div>}
       <GameLeftPanel
         playerRows={playerRows}
         player={player}
         isOpponent={isOpponentBoard}
         isActiveTurn={isYourTurn}
+        hasPlayerPassed={hasPlayerPassed}
       />
       <UserBoard
         selectedCardId={selectedCardId}
