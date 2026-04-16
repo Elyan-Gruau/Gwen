@@ -48,6 +48,11 @@
 }
 
 .opponentTurn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+
   h3 {
     color: #fbbf24;
   }

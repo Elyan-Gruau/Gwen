@@ -303,13 +303,14 @@ export class Game {
     const otherPlayer = otherPlayerId === this.player1.getUserId() ? this.player1 : this.player2;
 
     if (otherPlayer.hasPassed()) {
-      // Other player passed, keep turn with current player
+      // Other player passed, keep turn with current player, do NOT reset timer
+      // so the solo-play window stays at 30s total, not 30s per card
       this.currentPlayerTurnUserId = userId;
     } else {
-      // Other player hasn't passed, give them the turn
+      // Other player hasn't passed, give them the turn and reset their timer
       this.currentPlayerTurnUserId = otherPlayerId;
+      this.turnStartedAt = new Date();
     }
-    this.turnStartedAt = new Date();
   }
 
   /**
