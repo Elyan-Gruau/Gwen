@@ -26,7 +26,7 @@ export class StatusController {
       status: 'ok',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
-      environment: process.env.NODE_ENV || 'development',
+      environment: SERVER_URL.NODE_ENV || 'development',
     };
   }
 }

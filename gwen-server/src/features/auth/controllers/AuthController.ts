@@ -24,6 +24,7 @@ import { IllegalEmailException } from '../exceptions/IllegalEmailException.js';
 import { DuplicateUsernameException } from '../exceptions/DuplicateUsernameException.js';
 import { DuplicateEmailException } from '../exceptions/DuplicateEmailException.js';
 import type { DTOLoginResponse, DTOUser } from '../dtos/DTOLoginResponse.js';
+import { JWT_EXPIRATION, JWT_SECRET } from '../../../index';
 
 type LoginRequest = {
   username: string;
@@ -36,13 +37,11 @@ type RegisterRequest = {
   password: string;
 };
 
-const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
-const jwtExpiration = parseInt(process.env.JWT_EXPIRATION || '3600000', 10);
 const userRepository = new UserRepository();
 const userService = new UserService(userRepository);
 const passwordHasher = new PasswordHasher();
-const jwtService = new JwtService(jwtSecret, jwtExpiration);
-const authService = new AuthService(userService, passwordHasher, jwtService, jwtExpiration);
+const jwtService = new JwtService(JWT_SECRET, JWT_EXPIRATION);
+const authService = new AuthService(userService, passwordHasher, jwtService, JWT_EXPIRATION);
 
 @Route('auth')
 @Tags('Auth')

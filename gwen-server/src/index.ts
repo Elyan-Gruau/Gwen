@@ -13,27 +13,41 @@ import { GameService } from './features/game/services/GameService.js';
 import { JwtService } from './features/auth/services/JwtService.js';
 import { initializeMatchmaking } from './features/matchmaking/utils/MatchmakingHelper.js';
 import { GameplayGateway } from './features/game/gateways/GameplayGateway.js';
+import { getEnvVariableWithFallback } from 'gwen-common';
+
+// Default env variables configuration
+
+const DEFAULT_CORS_ORIGIN = 'http://localhost:5173';
+const DEFAULT_PORT = '3000';
+const DEFAULT_MONGODB_URI =
+  'mongodb://gwen_user:gwen_password@localhost:27017/gwen?authSource=admin';
+const DEFAULT_JWT_SECRET = 'GWEN_SERVER_2026_GRUAU_PASSERON_POTHIN_SECRET';
+const DEFAULT_JWT_EXPIRATION = '3600000';
+
+// Actual env variables
+export const CORS_ORIGIN = getEnvVariableWithFallback('CORS_ORIGIN', DEFAULT_CORS_ORIGIN);
+export const PORT = getEnvVariableWithFallback('PORT', DEFAULT_PORT);
+export const MONGODB_URI = getEnvVariableWithFallback('MONGODB_URI', DEFAULT_MONGODB_URI);
+export const JWT_SECRET = getEnvVariableWithFallback('JWT_SECRET', DEFAULT_JWT_SECRET);
+export const JWT_EXPIRATION = parseInt(
+  getEnvVariableWithFallback('JWT_EXPIRATION', DEFAULT_JWT_EXPIRATION),
+  10,
+);
+
 const app = express();
 const httpServer = createServer(app);
-const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
 const io = new Server(httpServer, {
   cors: {
-    origin: corsOrigin,
+    origin: CORS_ORIGIN,
     credentials: true,
   },
 });
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  'mongodb://gwen_user:gwen_password@localhost:27017/gwen?authSource=admin';
 
-const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
-const jwtExpiration = parseInt(process.env.JWT_EXPIRATION || '3600000', 10);
-const jwtService = new JwtService(jwtSecret, jwtExpiration);
+const jwtService = new JwtService(JWT_SECRET, JWT_EXPIRATION);
 
 // CORS Configuration
 const corsOptions = {
-  origin: corsOrigin,
+  origin: CORS_ORIGIN,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -111,7 +125,7 @@ async function startServer() {
 
     httpServer.listen(PORT, () => {
       console.log(`Server started on port ${PORT}`);
-      console.log(`CORS origin: ${corsOrigin}`);
+      console.log(`CORS origin: ${CORS_ORIGIN}`);
     });
   } catch (error) {
     console.error('MongoDB connection error:', error);
