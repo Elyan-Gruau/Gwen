@@ -53,10 +53,12 @@ export class AuthController extends Controller {
     try {
       return await authService.login(body.username, body.password);
     } catch (error) {
+      // Log the real error for debug purposes
+      // eslint-disable-next-line no-console
+      console.error('[AUTH][LOGIN][ERROR]', error);
       if (error instanceof InvalidCredentialException || error instanceof UserNotFoundException) {
         return this.throwHttpError('Invalid credentials', 401);
       }
-
       return this.throwHttpError('Unexpected error while logging in', 500);
     }
   }
