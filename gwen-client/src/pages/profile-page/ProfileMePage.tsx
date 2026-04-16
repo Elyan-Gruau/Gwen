@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 import { useAuthContext } from '../../contexts/AuthContext';
 import { ROUTES } from '../../constants/routes';
@@ -6,7 +7,26 @@ import { useGetCurrentUser } from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
 import UserProfilePic from '../../components/user-profile-pic/UserProfilePic';
 import Button from '../../components/reusable/button/Button';
+import { API_BASE_URL } from '../../constants/api';
 import styles from './ProfileMePage.module.scss';
+
+type MatchHistoryResult = 'WIN' | 'LOSS' | 'DRAW' | 'ABANDONED';
+
+type MatchHistoryEntry = {
+  _id: string;
+  opponent_id: string;
+  opponent_username: string;
+  result: MatchHistoryResult;
+  status: 'ACTIVE' | 'FINISHED' | 'ABANDONED';
+  created_at?: string;
+};
+
+type MatchHistoryPage = {
+  content: MatchHistoryEntry[];
+  total: number;
+  page: number;
+  limit: number;
+};
 
 const ProfileMePage = () => {
   const { user } = useAuthContext();
@@ -103,12 +123,81 @@ const UserProfile = ({ userId }: UserProfileProps) => {
         </section>
       </div>
 
+      <MatchHistory userId={userId} />
+
       <div className={styles.actions}>
         <Button variant="danger" onClick={logout}>
           Logout
         </Button>
       </div>
     </div>
+  );
+};
+
+const RESULT_LABEL: Record<MatchHistoryResult, string> = {
+  WIN: 'Win',
+  LOSS: 'Loss',
+  DRAW: 'Draw',
+  ABANDONED: 'Abandoned',
+};
+
+const MatchHistory = ({ userId }: { userId: string }) => {
+  const { data, isLoading } = useQuery<MatchHistoryPage>({
+    queryKey: ['matchHistory', userId],
+    queryFn: async () => {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_BASE_URL}/games/history/${userId}?page=0&limit=10`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (!res.ok) throw new Error('Failed to fetch match history');
+      return res.json() as Promise<MatchHistoryPage>;
+    },
+    enabled: !!userId,
+  });
+
+  return (
+    <section className={styles.historySection}>
+      <h2 className={styles.cardTitle}>Match History</h2>
+      {isLoading && <Spinner />}
+      {!isLoading && (!data || data.content.length === 0) && (
+        <p className={styles.hint}>No games played yet.</p>
+      )}
+      {data && data.content.length > 0 && (
+        <table className={styles.historyTable}>
+          <thead>
+            <tr>
+              <th>Opponent</th>
+              <th>Result</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.content.map((entry) => (
+              <tr key={entry._id} className={styles[`result${entry.result}`]}>
+                <td>{entry.opponent_username}</td>
+                <td>
+                  <span className={`${styles.resultBadge} ${styles[`resultBadge${entry.result}`]}`}>
+                    {RESULT_LABEL[entry.result]}
+                  </span>
+                </td>
+                <td className={styles.historyDate}>
+                  {entry.created_at
+                    ? new Date(entry.created_at).toLocaleDateString(undefined, {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      })
+                    : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {data && data.total > data.limit && (
+        <p className={styles.hint}>{data.total} games total — showing last {data.limit}</p>
+      )}
+    </section>
   );
 };
 

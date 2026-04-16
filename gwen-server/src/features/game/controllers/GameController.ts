@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Path, Post, Response, Route, SuccessResponse, Tags } from 'tsoa';
+import { Body, Controller, Get, Path, Post, Query, Response, Route, SuccessResponse, Tags } from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
 import { EloService } from '../services/EloService.js';
@@ -12,6 +12,9 @@ import type {
   DTOPlaceCardRequest,
   DTOPassTurnRequest,
   DTOSurrenderRequest,
+  DTOGameHistoryEntry,
+  DTOGameHistoryPage,
+  DTOGameHistoryResult,
 } from '../dtos/DTOGame.js';
 import { TURN_DURATION_SECONDS } from 'gwen-common';
 import type { DBGame } from '../model/DBGame.js';
@@ -264,6 +267,56 @@ export class GameController extends Controller {
       return this.toDto(updatedGame);
     } catch {
       return this.throwHttpError('Failed to finish game', 500);
+    }
+  }
+
+  @Get('history/{userId}')
+  @SuccessResponse('200', 'Match history')
+  @Response('500', 'Server error')
+  public async getGameHistory(
+    @Path() userId: string,
+    @Query() page?: number,
+    @Query() limit?: number,
+  ): Promise<DTOGameHistoryPage> {
+    try {
+      const p = page ?? 0;
+      const l = Math.min(limit ?? 10, 50);
+      const { content, total } = await gameService.getGameHistory(userId, p, l);
+
+      const opponentIds = [...new Set(
+        content.map((g) => (g.player1_id === userId ? g.player2_id : g.player1_id)),
+      )];
+      const opponentUsers = await Promise.all(opponentIds.map((id) => userRepository.findById(id)));
+      const opponentMap: Record<string, string> = {};
+      opponentIds.forEach((id, i) => {
+        opponentMap[id] = opponentUsers[i]?.username ?? id;
+      });
+
+      const entries: DTOGameHistoryEntry[] = content.map((g) => {
+        const opponentId = g.player1_id === userId ? g.player2_id : g.player1_id;
+        let result: DTOGameHistoryResult;
+        if (g.status === 'ABANDONED') {
+          result = 'ABANDONED';
+        } else if (!g.winner_id) {
+          result = 'DRAW';
+        } else if (g.winner_id === userId) {
+          result = 'WIN';
+        } else {
+          result = 'LOSS';
+        }
+        return {
+          _id: g._id?.toString() ?? '',
+          opponent_id: opponentId,
+          opponent_username: opponentMap[opponentId] ?? opponentId,
+          result,
+          status: g.status,
+          created_at: g.created_at?.toISOString(),
+        };
+      });
+
+      return { content: entries, total, page: p, limit: l };
+    } catch {
+      return this.throwHttpError('Failed to fetch match history', 500);
     }
   }
 

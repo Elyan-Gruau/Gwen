@@ -42,4 +42,24 @@ export class GameRepository {
     const game = await GameModel.findById(gameId).lean().exec();
     return game?.elo_applied ?? false;
   }
+
+  async findByPlayerId(
+    playerId: string,
+    options: { page: number; limit: number },
+  ): Promise<{ content: DBGame[]; total: number }> {
+    const filter = {
+      $or: [{ player1_id: playerId }, { player2_id: playerId }],
+      status: { $in: ['FINISHED', 'ABANDONED'] },
+    };
+    const [content, total] = await Promise.all([
+      GameModel.find(filter)
+        .sort({ created_at: -1 })
+        .skip(options.page * options.limit)
+        .limit(options.limit)
+        .lean()
+        .exec(),
+      GameModel.countDocuments(filter).exec(),
+    ]);
+    return { content, total };
+  }
 }

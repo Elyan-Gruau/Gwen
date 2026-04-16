@@ -53,4 +53,12 @@ export class GameService {
   public async checkEloApplied(gameId: string): Promise<boolean> {
     return this.gameRepository.hasEloBeenApplied(gameId);
   }
+
+  public async getGameHistory(
+    playerId: string,
+    page: number,
+    limit: number,
+  ): Promise<{ content: DBGame[]; total: number }> {
+    return this.gameRepository.findByPlayerId(playerId, { page, limit });
+  }
 }

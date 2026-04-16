@@ -95,5 +95,71 @@
   justify-content: flex-end;
 }
 
+.historySection {
+  margin-top: tokens.$spacing-lg;
+  background: var(--color-surface);
+  border-radius: tokens.$border-radius-lg;
+  border: 1px solid var(--color-surface-border);
+  padding: tokens.$spacing-lg;
+  box-shadow: tokens.$shadow-sm;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: tokens.$spacing-sm;
+  font-size: tokens.$font-size-sm;
+
+  th {
+    text-align: left;
+    color: var(--color-text-faded);
+    font-weight: tokens.$font-weight-medium;
+    padding: tokens.$spacing-xs tokens.$spacing-sm;
+    border-bottom: 1px solid var(--color-surface-border);
+  }
+
+  td {
+    padding: tokens.$spacing-xs tokens.$spacing-sm;
+    color: var(--color-text-light);
+    border-bottom: 1px solid var(--color-surface-border);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.historyDate {
+  color: var(--color-text-faded) !important;
+}
+
+.resultBadge {
+  display: inline-block;
+  padding: 2px tokens.$spacing-xs;
+  border-radius: tokens.$border-radius-sm;
+  font-size: tokens.$font-size-sm;
+  font-weight: tokens.$font-weight-bold;
+}
+
+.resultBadgeWIN {
+  background: rgba(46, 168, 74, 0.15);
+  color: #2ea84a;
+}
+
+.resultBadgeLOSS {
+  background: rgba(220, 38, 38, 0.15);
+  color: #dc2626;
+}
+
+.resultBadgeDRAW {
+  background: rgba(var(--color-text-faded-rgb, 150, 150, 150), 0.15);
+  color: var(--color-text-faded);
+}
+
+.resultBadgeABANDONED {
+  background: rgba(234, 88, 12, 0.15);
+  color: #ea580c;
+}
+
 
 

@@ -93,3 +93,21 @@ export type DTOSurrenderRequest = {
 export type DTORematchRequest = {
   gameId: string;
 };
+
+export type DTOGameHistoryResult = 'WIN' | 'LOSS' | 'DRAW' | 'ABANDONED';
+
+export type DTOGameHistoryEntry = {
+  _id: string;
+  opponent_id: string;
+  opponent_username: string;
+  result: DTOGameHistoryResult;
+  status: DTOGameStatus;
+  created_at?: string;
+};
+
+export type DTOGameHistoryPage = {
+  content: DTOGameHistoryEntry[];
+  total: number;
+  page: number;
+  limit: number;
+};
