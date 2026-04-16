@@ -5,9 +5,10 @@ const TURN_DURATION_SECONDS = 30;
 
 type TurnTimerProps = {
   turnStartedAt: string | null;
+  label: string;
 };
 
-const TurnTimer = ({ turnStartedAt }: TurnTimerProps) => {
+const TurnTimer = ({ turnStartedAt, label }: TurnTimerProps) => {
   const [secondsLeft, setSecondsLeft] = useState<number>(TURN_DURATION_SECONDS);
 
   useEffect(() => {
@@ -26,8 +27,9 @@ const TurnTimer = ({ turnStartedAt }: TurnTimerProps) => {
   const isUrgent = secondsLeft <= 10;
 
   return (
-    <div className={`${styles.timer} ${isUrgent ? styles.urgent : ''}`}>
-      {secondsLeft}s
+    <div className={`${styles.timerBlock} ${isUrgent ? styles.urgent : ''}`}>
+      <span className={styles.label}>{label}</span>
+      <span className={styles.value}>{secondsLeft}s</span>
     </div>
   );
 };

@@ -207,16 +207,23 @@ const GameView = ({
 
       {/* Turn indicator */}
       <div className={styles.turnIndicator}>
-        {game.getPhase() === 'PLAY_CARDS' && !currentPlayerHasPassed && (
-          <TurnTimer turnStartedAt={gameMetadata.game.turnStartedAt ?? null} />
-        )}
         {currentPlayerHasPassed ? (
           <div className={styles.hasPassed}>
             <h3>✋ You Have Passed</h3>
             <p>Waiting for opponent...</p>
+            {game.getPhase() === 'PLAY_CARDS' && (
+              <TurnTimer
+                turnStartedAt={gameMetadata.game.turnStartedAt ?? null}
+                label="Opponent's time"
+              />
+            )}
           </div>
         ) : isYourTurn ? (
           <div className={styles.yourTurn}>
+            <TurnTimer
+              turnStartedAt={gameMetadata.game.turnStartedAt ?? null}
+              label="Your time"
+            />
             <h3>⭐ Your Turn</h3>
             <button
               onClick={handlePassTurn}
@@ -235,6 +242,10 @@ const GameView = ({
           </div>
         ) : (
           <div className={styles.opponentTurn}>
+            <TurnTimer
+              turnStartedAt={gameMetadata.game.turnStartedAt ?? null}
+              label="Opponent's time"
+            />
             <h3>⏳ Opponent's Turn</h3>
             {opponentHasPassed && <p>Opponent has passed - they can keep playing</p>}
             <button
