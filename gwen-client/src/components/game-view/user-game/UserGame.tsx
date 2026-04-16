@@ -31,13 +31,13 @@ const UserGame = ({
 }: UserGameProps) => {
   return (
     <div className={styles.userGame}>
-      <GameLeftPanel
-        playerRows={playerRows}
-        player={player}
-        isOpponent={isOpponentBoard}
-        isActiveTurn={isYourTurn}
-        hasPlayerPassed={hasPlayerPassed}
-      />
+      {/*<GameLeftPanel*/}
+      {/*  playerRows={playerRows}*/}
+      {/*  player={player}*/}
+      {/*  isOpponent={isOpponentBoard}*/}
+      {/*  isActiveTurn={isYourTurn}*/}
+      {/*  hasPlayerPassed={hasPlayerPassed}*/}
+      {/*/>*/}
       <UserBoard
         selectedCardId={selectedCardId}
         onRowClick={onRowClick}
@@ -46,7 +46,6 @@ const UserGame = ({
         selectedCard={selectedCard}
         isOpponentBoard={isOpponentBoard}
       />
-      <GameRightPanel deck={player.getDeck()} factionId={player.getDeck().getFactionId()} />
     </div>
   );
 };

@@ -1,0 +1,51 @@
+.playerPanelLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 100%;
+  min-width: 220px;
+  gap: 0;
+}
+
+.topPanel, .bottomPanel {
+  flex: 0 0 auto;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin: 32px 0;
+}
+
+.passButton, .resignButton {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  background: #222;
+  color: #fff;
+  transition: background 0.2s;
+  width: 120px;
+}
+.passButton:disabled, .resignButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.passButton {
+  background: #ef4444;
+}
+.passButton:hover:not(:disabled) {
+  background: #dc2626;
+}
+.resignButton {
+  background: #444;
+}
+.resignButton:hover:not(:disabled) {
+  background: #a8a29e;
+}
+

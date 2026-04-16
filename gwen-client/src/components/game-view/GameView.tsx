@@ -2,7 +2,6 @@ import styles from './GameView.module.scss';
 import UserGame from './user-game/UserGame';
 import { Game, type Player } from 'gwen-common';
 import { CategorisedPlayers } from '../../model/CategorisedPlayers';
-import PlayerHand from '../player-hand/PlayerHand';
 import { useAuthContext } from '../../contexts/AuthContext';
 import Spinner from '../spinner/Spinner';
 import Separator from './separator/Separator';
@@ -11,6 +10,9 @@ import { useCallback, useState } from 'react';
 import { useResignGame } from '../../hooks/apis/GameAPI';
 import type { PlayableCard, RangeType } from 'gwen-common';
 import EndPhase from '../game-phases/end-phase/EndPhase';
+import PlayerPanel from './panels/player-panel/PlayerPanel';
+import BoardPanel from './panels/board-panel/BoardPanel';
+import DeckPanel from './panels/deck-panel/DeckPanel';
 
 type GameViewProps = {
   game: Game;
@@ -208,82 +210,42 @@ const GameView = ({
       )}
 
       <div className={styles.layout}>
-        {/* Left panel: turn indicator and actions */}
-        <div className={styles.leftPanel}>
-          <div className={styles.turnIndicator}>
-            {currentPlayerHasPassed ? (
-              <div className={styles.hasPassed}>
-                <h3>✋ You Have Passed</h3>
-                <p>Waiting for opponent...</p>
-              </div>
-            ) : isYourTurn ? (
-              <div className={styles.yourTurn}>
-                <h3>⭐ Your Turn</h3>
-                <button
-                  onClick={handlePassTurn}
-                  disabled={passTurnMutation.isPending}
-                  className={styles.passButton}
-                >
-                  {passTurnMutation.isPending ? 'Passing...' : 'Pass Turn'}
-                </button>
-                <button
-                  onClick={handleResign}
-                  disabled={resignMutation.isPending}
-                  className={styles.resignButton}
-                >
-                  {resignMutation.isPending ? 'Resigning...' : 'Resign'}
-                </button>
-              </div>
-            ) : (
-              <div className={styles.opponentTurn}>
-                <h3>⏳ Opponent's Turn</h3>
-                {opponentHasPassed && <p>Opponent has passed - they can keep playing</p>}
-                <button
-                  onClick={handleResign}
-                  disabled={resignMutation.isPending}
-                  className={styles.resignButton}
-                >
-                  {resignMutation.isPending ? 'Resigning...' : 'Resign'}
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Right panel: board and hand */}
-        <div className={styles.rightPanel}>
-          <UserGame
-            player={categorisedPlayers.getOpponent()}
-            isCurrentPlayer={currentUserId == game.getPlayers()[0].getUserId()}
-            selectedCardId={selectedCardId}
-            onRowClick={handleRowClick}
-            isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getOpponent().getUserId()}
-            isPlacingCard={isPlacingCard}
-            playerRows={opponentRows}
-            isOpponentBoard={true}
-            hasPlayerPassed={opponentHasPassed}
-          />
-          <Separator />
-          <UserGame
-            player={categorisedPlayers.getCurrentPlayer()}
-            isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
-            selectedCardId={selectedCardId}
-            onRowClick={handleRowClick}
-            isYourTurn={
-              currentPlayerTurnUserId === categorisedPlayers.getCurrentPlayer().getUserId()
-            }
-            isPlacingCard={isPlacingCard}
-            playerRows={currentPlayerRows}
-            selectedCard={getSelectedCardFromHand(selectedCardId, currentPlayerHand)}
-            isOpponentBoard={false}
-            hasPlayerPassed={currentPlayerHasPassed}
-          />
-          <PlayerHand
-            hand={currentPlayerHand}
-            onCardConfirm={handleCardSelect}
-            autoFocus={isYourTurn}
-          />
-        </div>
+        <PlayerPanel
+          topPlayer={categorisedPlayers.getOpponent()}
+          topPlayerRows={opponentRows}
+          bottomPlayer={categorisedPlayers.getCurrentPlayer()}
+          bottomPlayerRows={currentPlayerRows}
+          onPass={handlePassTurn}
+          onResign={handleResign}
+          passDisabled={passTurnMutation.isPending || !isYourTurn || currentPlayerHasPassed}
+          resignDisabled={resignMutation.isPending}
+          topIsOpponent={true}
+          bottomIsOpponent={false}
+          topIsActiveTurn={currentPlayerTurnUserId === categorisedPlayers.getOpponent().getUserId()}
+          bottomIsActiveTurn={isYourTurn}
+          topHasPassed={opponentHasPassed}
+          bottomHasPassed={currentPlayerHasPassed}
+        />
+        <BoardPanel
+          opponent={categorisedPlayers.getOpponent()}
+          current={categorisedPlayers.getCurrentPlayer()}
+          opponentRows={opponentRows}
+          currentRows={currentPlayerRows}
+          selectedCardId={selectedCardId}
+          onRowClick={handleRowClick}
+          isPlacingCard={isPlacingCard}
+          currentPlayerTurnUserId={currentPlayerTurnUserId}
+          currentUserId={currentUserId}
+          hasPlayerPassed={currentPlayerHasPassed}
+          opponentHasPassed={opponentHasPassed}
+          currentPlayerHand={currentPlayerHand}
+          onCardConfirm={handleCardSelect}
+          getSelectedCardFromHand={getSelectedCardFromHand}
+        />
+        <DeckPanel
+          opponent={categorisedPlayers.getOpponent()}
+          player={categorisedPlayers.getCurrentPlayer()}
+        />
       </div>
     </div>
   );
