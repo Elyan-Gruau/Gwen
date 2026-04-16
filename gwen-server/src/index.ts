@@ -93,6 +93,7 @@ export async function expressAuthentication(
 // Initialize MongoDB and start server
 async function startServer() {
   try {
+    console.log('Connecting to database @ ', MONGODB_URI);
     await mongoose.connect(MONGODB_URI);
     console.log('MongoDB connected successfully');
 
