@@ -93,6 +93,59 @@
   color: var(--color-text-light);
 }
 
+.rowDistribution {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-xs;
+  padding-top: tokens.$spacing-sm;
+  border-top: 1px solid var(--color-surface-border);
+}
+
+.distTitle {
+  font-size: tokens.$font-size-sm;
+  color: var(--color-text-faded);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: tokens.$spacing-xs;
+}
+
+.distRow {
+  display: flex;
+  align-items: center;
+  gap: tokens.$spacing-xs;
+}
+
+.distLabel {
+  font-size: tokens.$font-size-sm;
+  color: var(--color-text-faded);
+  width: 46px;
+  flex-shrink: 0;
+}
+
+.distBarWrapper {
+  flex: 1;
+  height: 6px;
+  background: var(--color-surface-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.distBar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  min-width: 2px;
+}
+
+.distCount {
+  font-size: tokens.$font-size-sm;
+  font-weight: tokens.$font-weight-bold;
+  color: var(--color-text-light);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 .validBadge {
   display: inline-flex;
   align-items: center;

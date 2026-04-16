@@ -70,6 +70,8 @@ const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps 
   const totalStrength = userDeck.getTotalUnitCardStrength();
   const heroCount = userDeck.getHeroCards().length;
   const isValid = userDeck.isValid();
+  const rowDist = userDeck.getRowDistribution();
+  const totalUnitsForBar = unitCount || 1;
 
   const performAutosave = useCallback(() => {
     if (!user || !userDeck) {
@@ -249,6 +251,31 @@ const DeckBuilder = ({ onDeckValidityChange, onDeckIdChange }: DeckBuilderProps 
             <div className={styles.statRow}>
               <span>Total cards</span>
               <span className={styles.statValue}>{userDeck.getTotalCards()}</span>
+            </div>
+            <div className={styles.rowDistribution}>
+              <span className={styles.distTitle}>Row distribution</span>
+              {[
+                { label: 'Melee', count: rowDist.melee, color: '#e85d04' },
+                { label: 'Ranged', count: rowDist.ranged, color: '#4cc9f0' },
+                { label: 'Siege', count: rowDist.siege, color: '#7209b7' },
+                ...(rowDist.agile > 0
+                  ? [{ label: 'Agile', count: rowDist.agile, color: '#2ea84a' }]
+                  : []),
+              ].map(({ label, count, color }) => (
+                <div key={label} className={styles.distRow}>
+                  <span className={styles.distLabel}>{label}</span>
+                  <div className={styles.distBarWrapper}>
+                    <div
+                      className={styles.distBar}
+                      style={{
+                        width: `${(count / totalUnitsForBar) * 100}%`,
+                        backgroundColor: color,
+                      }}
+                    />
+                  </div>
+                  <span className={styles.distCount}>{count}</span>
+                </div>
+              ))}
             </div>
             <FavoriteDeckToggle userId={user?.id} factionId={faction.getId()} />
             <span

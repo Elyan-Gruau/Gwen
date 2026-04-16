@@ -108,6 +108,26 @@ export class UserFactionDeck {
     return leaderCount + this.unitCards.length + this.specialCards.length;
   }
 
+  getRowDistribution(): { melee: number; ranged: number; siege: number; agile: number } {
+    let melee = 0;
+    let ranged = 0;
+    let siege = 0;
+    let agile = 0;
+    for (const card of this.unitCards) {
+      const ranges = card.getRanges();
+      if (ranges.includes('AGILE')) {
+        agile++;
+      } else if (ranges.includes('MELEE')) {
+        melee++;
+      } else if (ranges.includes('RANGED')) {
+        ranged++;
+      } else if (ranges.includes('SIEGE')) {
+        siege++;
+      }
+    }
+    return { melee, ranged, siege, agile };
+  }
+
   // ─── Validation ───────────────────────────────────────────────────────────
 
   isValid(): boolean {
