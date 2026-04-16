@@ -115,7 +115,12 @@ export class Game {
   /**
    * Restore game result from DTO (used when reconstructing game state from server)
    */
-  restoreGameResult(player1Id: string, p1Result: GameResult, player2Id: string, p2Result: GameResult): void {
+  restoreGameResult(
+    player1Id: string,
+    p1Result: GameResult,
+    player2Id: string,
+    p2Result: GameResult,
+  ): void {
     this.gameResult = new Map([
       [player1Id, p1Result],
       [player2Id, p2Result],
@@ -314,17 +319,17 @@ export class Game {
     // Check if card has range type (UnitCard)
     if ('hasRange' in card && typeof card.hasRange === 'function') {
       const unitCard = card as { hasRange: (range: UnitsRangeType) => boolean };
-      
+
       // Check if card has exact row type (MELEE, RANGED, or SIEGE)
       if (unitCard.hasRange(rowType)) {
         return true;
       }
-      
+
       // Check if card is AGILE and row is MELEE or RANGED (AGILE cannot go on SIEGE)
       if (unitCard.hasRange('AGILE') && (rowType === 'MELEE' || rowType === 'RANGED')) {
         return true;
       }
-      
+
       return false;
     }
     // RowModifierCard and other types can be placed on any row

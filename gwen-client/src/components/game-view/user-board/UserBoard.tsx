@@ -32,19 +32,19 @@ const UserBoard = ({
    */
   const isRowValid = (rowRange: RangeType): boolean => {
     if (!selectedCard) return true; // If no card, all rows are valid
-    
+
     const card = selectedCard as { hasRange?: (range: RangeType | 'AGILE') => boolean };
-    
+
     // Check if card has exact row type (MELEE, RANGED, or SIEGE)
     if (card.hasRange?.(rowRange)) {
       return true;
     }
-    
+
     // Check if card is AGILE and row is MELEE or RANGED (AGILE cannot go on SIEGE)
     if (card.hasRange?.('AGILE') && (rowRange === 'MELEE' || rowRange === 'RANGED')) {
       return true;
     }
-    
+
     return false;
   };
 

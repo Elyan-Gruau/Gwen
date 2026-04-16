@@ -277,13 +277,15 @@ export class GameController extends Controller {
     };
   }
 
-  private async toDTOGameWithMetadata(gameWithMetadata: GameWithMetadata): Promise<DTOGameWithMetadata> {
+  private async toDTOGameWithMetadata(
+    gameWithMetadata: GameWithMetadata,
+  ): Promise<DTOGameWithMetadata> {
     const { metadata, game } = gameWithMetadata;
 
     // Fetch usernames
     const player1Id = game.getPlayer1().getUserId();
     const player2Id = game.getPlayer2().getUserId();
-    
+
     const player1User = await userRepository.findById(player1Id);
     const player2User = await userRepository.findById(player2Id);
 
