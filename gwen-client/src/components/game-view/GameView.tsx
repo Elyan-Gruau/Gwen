@@ -1,14 +1,11 @@
 import styles from './GameView.module.scss';
-import UserGame from './user-game/UserGame';
 import { Game, type Player } from 'gwen-common';
 import { CategorisedPlayers } from '../../model/CategorisedPlayers';
 import { useAuthContext } from '../../contexts/AuthContext';
 import Spinner from '../spinner/Spinner';
-import Separator from './separator/Separator';
 import { usePlaceCard, type DTOGameWithMetadata, usePassTurn } from 'gwen-generated-api';
 import { useCallback, useState } from 'react';
 import { useResignGame } from '../../hooks/apis/GameAPI';
-import TurnTimer from './turn-timer/TurnTimer';
 import { soundService } from '../../services/SoundService';
 import type { PlayableCard, RangeType } from 'gwen-common';
 import EndPhase from '../game-phases/end-phase/EndPhase';
@@ -239,7 +236,7 @@ const GameView = ({
           selectedCardId={selectedCardId || ''}
           onRowClick={handleRowClick}
           isPlacingCard={isPlacingCard}
-          currentPlayerTurnUserId={currentPlayerTurnUserId}
+          currentPlayerTurnUserId={currentPlayerTurnUserId || ''}
           currentUserId={currentUserId}
           hasPlayerPassed={currentPlayerHasPassed}
           opponentHasPassed={opponentHasPassed}
