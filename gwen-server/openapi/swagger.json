@@ -356,6 +356,74 @@
 				],
 				"type": "object"
 			},
+			"DTOGameHistoryResult": {
+				"type": "string",
+				"enum": [
+					"WIN",
+					"LOSS",
+					"DRAW",
+					"ABANDONED"
+				]
+			},
+			"DTOGameHistoryEntry": {
+				"properties": {
+					"created_at": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/DTOGameStatus"
+					},
+					"result": {
+						"$ref": "#/components/schemas/DTOGameHistoryResult"
+					},
+					"opponent_username": {
+						"type": "string"
+					},
+					"opponent_id": {
+						"type": "string"
+					},
+					"_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"result",
+					"opponent_username",
+					"opponent_id",
+					"_id"
+				],
+				"type": "object"
+			},
+			"DTOGameHistoryPage": {
+				"properties": {
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"content": {
+						"items": {
+							"$ref": "#/components/schemas/DTOGameHistoryEntry"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"limit",
+					"page",
+					"total",
+					"content"
+				],
+				"type": "object"
+			},
 			"DTOUserFactionDeck": {
 				"properties": {
 					"_id": {
@@ -902,6 +970,58 @@
 						}
 					}
 				}
+			}
+		},
+		"/games/history/{userId}": {
+			"get": {
+				"operationId": "GetGameHistory",
+				"responses": {
+					"200": {
+						"description": "Match history",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGameHistoryPage"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/games/{gameId}/abandon": {
