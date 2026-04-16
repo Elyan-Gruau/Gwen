@@ -32,7 +32,12 @@ const UserGame = ({
   return (
     <div className={styles.userGame}>
       {hasPlayerPassed && <div className={styles.passedBanner}>✋ Passed</div>}
-      <GameLeftPanel playerRows={playerRows} player={player} isOpponent={isOpponentBoard} />
+      <GameLeftPanel
+        playerRows={playerRows}
+        player={player}
+        isOpponent={isOpponentBoard}
+        isActiveTurn={isYourTurn}
+      />
       <UserBoard
         selectedCardId={selectedCardId}
         onRowClick={onRowClick}

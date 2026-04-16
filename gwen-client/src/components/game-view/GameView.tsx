@@ -252,7 +252,7 @@ const GameView = ({
         isCurrentPlayer={currentUserId == game.getPlayers()[0].getUserId()}
         selectedCardId={selectedCardId}
         onRowClick={handleRowClick}
-        isYourTurn={isYourTurn}
+        isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getOpponent().getUserId()}
         isPlacingCard={isPlacingCard}
         playerRows={opponentRows}
         isOpponentBoard={true}
@@ -264,7 +264,7 @@ const GameView = ({
         isCurrentPlayer={currentUserId == game.getPlayers()[1].getUserId()}
         selectedCardId={selectedCardId}
         onRowClick={handleRowClick}
-        isYourTurn={isYourTurn}
+        isYourTurn={currentPlayerTurnUserId === categorisedPlayers.getCurrentPlayer().getUserId()}
         isPlacingCard={isPlacingCard}
         playerRows={currentPlayerRows}
         selectedCard={getSelectedCardFromHand(selectedCardId, currentPlayerHand)}

@@ -9,15 +9,21 @@ export type GameLeftPanelProps = {
   player: Player;
   playerRows: PlayerRows;
   isOpponent?: boolean;
+  isActiveTurn?: boolean;
 };
 
-const GameLeftPanel = ({ player, playerRows, isOpponent = false }: GameLeftPanelProps) => {
+const GameLeftPanel = ({
+  player,
+  playerRows,
+  isOpponent = false,
+  isActiveTurn = false,
+}: GameLeftPanelProps) => {
   const { data: user } = useGetUser(player.getUserId());
   const factionId = player.getDeck().getFactionId();
 
   return (
     <div className={styles.gameLeftPanel}>
-      <div className={styles.playerInfo}>
+      <div className={`${styles.playerInfo} ${isActiveTurn ? styles.activeGlow : ''}`}>
         <div className={styles.leftSection}>
           <UserProfilePic userId={player.getUserId()} size={'large'} />
         </div>
