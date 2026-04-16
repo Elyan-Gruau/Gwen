@@ -3,6 +3,7 @@ import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
 import { EloService } from '../services/EloService.js';
 import { UserRepository } from '../../auth/repository/UserRepository.js';
+
 import type {
   DTOFinishGameRequest,
   DTOGame,
@@ -18,6 +19,8 @@ import type {
 } from '../dtos/DTOGame.js';
 import { TURN_DURATION_SECONDS } from 'gwen-common';
 import type { DBGame } from '../model/DBGame.js';
+import { PlayerMapper } from '../mappers/PlayerMapper';
+import { PlayerRowMapper } from '../mappers/PlayerRowMapper';
 
 const gameService = new GameService();
 const userRepository = new UserRepository();
@@ -455,10 +458,10 @@ export class GameController extends Controller {
         currentRound: game.getCurrentRound(),
         currentPlayerTurnUserId: game.getCurrentPlayerTurnUserId(),
         turnStartedAt: game.getTurnStartedAt()?.toISOString() ?? null,
-        player1: game.getPlayer1(),
-        player2: game.getPlayer2(),
-        player1Rows: game.getPlayer1Rows(),
-        player2Rows: game.getPlayer2Rows(),
+        player1: PlayerMapper.toDTO(game.getPlayer1()),
+        player2: PlayerMapper.toDTO(game.getPlayer2()),
+        player1Rows: PlayerRowMapper.toDTO(game.getPlayer1Rows()),
+        player2Rows: PlayerRowMapper.toDTO(game.getPlayer2Rows()),
         lastRoundResult: lastRoundResult || null,
         gameEndResult: gameEndResult || null,
       },

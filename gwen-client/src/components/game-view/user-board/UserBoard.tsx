@@ -23,7 +23,10 @@ const UserBoard = ({
 }: UserBoardProps) => {
   const [activeRowIndex, setActiveRowIndex] = useState<number | null>(null);
   const boardRef = useRef<HTMLDivElement>(null);
-  const rows = playerRows.getAllRows();
+  let rows = playerRows.getAllRows();
+  if (isOpponentBoard) {
+    rows = [...rows].reverse();
+  }
 
   /**
    * Check if a row is valid for the selected card
@@ -111,7 +114,7 @@ const UserBoard = ({
               !isOpponentBoard && activeRowIndex === index ? styles.selectedRow : ''
             } ${!isOpponentBoard && isPlacingCard && selectedCardId && !isValid ? styles.invalidRow : ''}`}
           >
-            <BoardRowView row={row} />
+            <BoardRowView row={row} isOpponent={isOpponentBoard} />
           </div>
         );
       })}

@@ -3,6 +3,7 @@ import type { Card } from 'gwen-common';
 import CardCarousel from '../card-carousel/CardCarousel';
 import Button from '../button/Button';
 import styles from './CardListViewer.module.scss';
+import type { CardSize } from '../../card/CardContainer';
 
 export type CardListViewerProps = {
   isOpen: boolean;
@@ -12,6 +13,7 @@ export type CardListViewerProps = {
   subtitle?: string;
   onClose: () => void;
   onCardConfirm?: (card: Card, index: number) => void;
+  cardSize?: CardSize;
 };
 
 const VISIBLE_RADIUS = 3; // 7 cards visible at a time (center ±2)
@@ -24,6 +26,7 @@ const CardListViewer = ({
   subtitle,
   onClose,
   onCardConfirm,
+  cardSize = 'medium',
 }: CardListViewerProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -101,11 +104,20 @@ const CardListViewer = ({
               onIndexChange={setActiveIndex}
               onConfirm={handleConfirm}
               visibleRadius={VISIBLE_RADIUS}
+              cardSize={cardSize}
             />
           </div>
 
           <p className={styles.keyHint}>
-            <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Enter</kbd> select · <kbd>Esc</kbd> close
+            <kbd>←</kbd> <kbd>→</kbd> navigate
+            {onCardConfirm && (
+              <>
+                <span> · </span>
+                <kbd>Enter</kbd> select
+              </>
+            )}
+            <span> · </span>
+            <kbd>Esc</kbd> close
           </p>
         </div>
       </div>

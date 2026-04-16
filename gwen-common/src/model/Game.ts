@@ -486,7 +486,26 @@ export class Game {
    * TODO: Handle card redraw logic
    */
   private resetRoundState(): void {
-    // Clear board but keep hands
+    // Move board cards to the discard pile
+    const p1Deck = this.player1.getDeck();
+    const p2Deck = this.player2.getDeck();
+
+    this.player1Rows.getAllRows().forEach((row) => {
+      const cards = row.getCards();
+      if (cards.length > 0) {
+        p1Deck.getDiscarded().push(...cards);
+        cards.length = 0;
+      }
+    });
+    this.player2Rows.getAllRows().forEach((row) => {
+      const cards = row.getCards();
+      if (cards.length > 0) {
+        p2Deck.getDiscarded().push(...cards);
+        cards.length = 0;
+      }
+    });
+
+    // Reset the lines
     this.player1Rows = new PlayerRows(this.player1.getUserId());
     this.player2Rows = new PlayerRows(this.player2.getUserId());
     this.currentPlayerTurnUserId = null;

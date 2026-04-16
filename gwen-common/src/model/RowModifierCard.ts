@@ -5,9 +5,11 @@ import { RowModifierStrategyFactory } from './RowModifierStrategyFactory';
 export class RowModifierCard {
   private readonly name: string;
   private readonly stategy: RowModifierStrategy;
+  private readonly strategyType: RowModifierStrategyType;
 
   constructor(config: RowModifierCardConfig) {
     this.name = config.name;
+    this.strategyType = config.strategy;
     this.stategy = RowModifierStrategyFactory.createStrategy(config.strategy);
   }
 
@@ -17,6 +19,10 @@ export class RowModifierCard {
 
   public getName(): string {
     return this.name;
+  }
+
+  public getStrategyType(): RowModifierStrategyType {
+    return this.strategyType;
   }
 }
 
