@@ -54,7 +54,9 @@ $font-weight-bold: 600;
 
 // ─── Spacing ─────────────────────────────────────────────────────────────────
 
-$spacing-xs: 0.25rem;
+$spacing-025: 0.25rem;
+$spacing-050: 0.50rem;
+$spacing-xs: $spacing-025;
 $spacing-sm: 0.5rem;
 $spacing-md: 0.75rem;
 $spacing-lg: 1rem;
@@ -103,6 +105,10 @@ $card-width-large: 7.5rem;
 $card-height-large: 12rem;
 $card-border-radius: $border-radius-md;
 $card-border-radius: $border-radius-md;
+
+// The current card size
+$board-card-width : $card-width-small;
+$board-card-height : $card-height-small;
 
 /* Export CSS custom properties for runtime theming */
 :root {
