@@ -4,7 +4,8 @@ type ServerEnvVariable =
   | 'JWT_EXPIRATION'
   | 'JWT_SECRET'
   | 'CORS_ORIGIN'
-  | 'NODE_ENV';
+  | 'NODE_ENV'
+  | 'GWEN_LOGS';
 
 type ClientEnvVariable = 'VITE_API_BASE_URL';
 
