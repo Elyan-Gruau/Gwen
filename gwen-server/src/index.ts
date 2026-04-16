@@ -23,6 +23,7 @@ const DEFAULT_MONGODB_URI =
   'mongodb://gwen_user:gwen_password@localhost:27017/gwen?authSource=admin';
 const DEFAULT_JWT_SECRET = 'GWEN_SERVER_2026_GRUAU_PASSERON_POTHIN_SECRET';
 const DEFAULT_JWT_EXPIRATION = '3600000';
+const DEFAULT_NODE_ENV = 'development';
 
 // Actual env variables
 export const CORS_ORIGIN = getEnvVariableWithFallback('CORS_ORIGIN', DEFAULT_CORS_ORIGIN);
@@ -33,6 +34,7 @@ export const JWT_EXPIRATION = parseInt(
   getEnvVariableWithFallback('JWT_EXPIRATION', DEFAULT_JWT_EXPIRATION),
   10,
 );
+export const NODE_ENV = getEnvVariableWithFallback('NODE_ENV', DEFAULT_NODE_ENV);
 
 const app = express();
 const httpServer = createServer(app);

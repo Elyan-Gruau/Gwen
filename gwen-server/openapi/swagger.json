@@ -7,31 +7,6 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"HealthStatus": {
-				"properties": {
-					"status": {
-						"type": "string"
-					},
-					"timestamp": {
-						"type": "string"
-					},
-					"uptime": {
-						"type": "number",
-						"format": "double"
-					},
-					"environment": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"status",
-					"timestamp",
-					"uptime",
-					"environment"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"DTOGameStatus": {
 				"type": "string",
 				"enum": [
@@ -670,6 +645,31 @@
 					"username"
 				],
 				"type": "object"
+			},
+			"HealthStatus": {
+				"properties": {
+					"status": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"uptime": {
+						"type": "number",
+						"format": "double"
+					},
+					"environment": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"timestamp",
+					"uptime",
+					"environment"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -683,38 +683,6 @@
 		}
 	},
 	"paths": {
-		"/status/health": {
-			"get": {
-				"operationId": "GetHealth",
-				"responses": {
-					"200": {
-						"description": "Server is healthy",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/HealthStatus"
-								},
-								"examples": {
-									"Example 1": {
-										"value": {
-											"status": "ok",
-											"uptime": 123.45,
-											"environment": "development"
-										}
-									}
-								}
-							}
-						}
-					}
-				},
-				"description": "Health check endpoint",
-				"tags": [
-					"Status"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
 		"/games/{gameId}/active": {
 			"get": {
 				"operationId": "GetGameWithMetadataById",
@@ -1557,6 +1525,38 @@
 						}
 					}
 				]
+			}
+		},
+		"/status/health": {
+			"get": {
+				"operationId": "GetHealth",
+				"responses": {
+					"200": {
+						"description": "Server is healthy",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthStatus"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"status": "ok",
+											"uptime": 123.45,
+											"environment": "development"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Health check endpoint",
+				"tags": [
+					"Status"
+				],
+				"security": [],
+				"parameters": []
 			}
 		}
 	},

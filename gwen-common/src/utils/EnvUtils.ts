@@ -1,6 +1,14 @@
-type ServerEnvVariable = 'MONGODB_URI' | 'PORT' | 'JWT_EXPIRATION' | 'JWT_SECRET' | 'CORS_ORIGIN';
+type ServerEnvVariable =
+  | 'MONGODB_URI'
+  | 'PORT'
+  | 'JWT_EXPIRATION'
+  | 'JWT_SECRET'
+  | 'CORS_ORIGIN'
+  | 'NODE_ENV';
 
-export type EnvVariable = ServerEnvVariable;
+type ClientEnvVariable = 'API_BASE_URL';
+
+export type EnvVariable = ServerEnvVariable | ClientEnvVariable;
 
 export const getEnvVariable = (name: EnvVariable): string => {
   const value = process.env[name];
