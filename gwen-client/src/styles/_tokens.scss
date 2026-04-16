@@ -34,6 +34,8 @@ $color-gold-1: #4e4330;
 $color-icon-default: #453f37;
 $color-board-default: #391a09;
 
+$color-board-carved: rgba(26, 26, 26, 0.16);
+
 $color-surface: #FFFFFF11;
 $color-surface-light: #00000011;
 
@@ -86,6 +88,21 @@ $transition-base: 200ms ease;
 
 $shadow-sm: 0 1px 0.25rem rgba(0, 0, 0, 0.15);
 $shadow-md: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+$board-carved-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.64), inset 0 -1px 4px rgba(0, 0, 0, 0.1);
+$board-carved-shadow-2: inset 0px 1px 7px 4px  rgba(0, 0, 0, 0.4);
+
+
+// Official dimensions ratio 5/8
+$card-width-x-small: 3.75rem;
+$card-height-x-small: 6rem;
+$card-width-small: 5rem;
+$card-height-small: 8rem;
+$card-width-medium: 6.25rem;
+$card-height-medium: 10rem;
+$card-width-large: 7.5rem;
+$card-height-large: 12rem;
+$card-border-radius: $border-radius-md;
+$card-border-radius: $border-radius-md;
 
 /* Export CSS custom properties for runtime theming */
 :root {

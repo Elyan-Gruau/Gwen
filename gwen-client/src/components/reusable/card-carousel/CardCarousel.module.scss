@@ -1,7 +1,7 @@
 @use '@styles/tokens' as tokens;
 
-$card-width: 5rem; // correspond à $card-width-small
-$card-height: 8rem; // correspond à $card-height-small
+$card-width: tokens.$card-width-small;
+$card-height:  tokens.$card-height-small;
 
 .scene {
   position: relative;

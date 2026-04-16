@@ -8,7 +8,8 @@
   min-height: tokens.$spacing-xl;
   min-width: 200px;
   width: 100%;
-  box-shadow: 0px 1px 7px 4px inset rgba(0, 0, 0, 0.4);
+  box-shadow: tokens.$board-carved-shadow;
+  background-color: tokens.$color-board-carved;
   border-radius: tokens.$spacing-sm;
 }
 
