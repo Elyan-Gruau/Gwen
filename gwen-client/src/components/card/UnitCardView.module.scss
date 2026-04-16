@@ -35,17 +35,17 @@ $gold-glow: rgba(201, 168, 76, 0.6);
 
 .strength {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: tokens.$spacing-025;
+  left: tokens.$spacing-025;
   z-index: 4;
-  width: 26px;
-  height: 26px;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   background: #1a1a1a;
   border: 2px solid $gold;
   color: $gold-light;
-  font-family: tokens.$font-family-base;
-  font-size: 0.7rem;
+  font-family: tokens.$font-family-score;
+  font-size: clamp(0.6rem, 2.5vw, 1rem);
   font-weight: tokens.$font-weight-bold;
   display: flex;
   align-items: center;
@@ -57,6 +57,27 @@ $gold-glow: rgba(201, 168, 76, 0.6);
     color: #1a1a1a;
     border-color: $gold-light;
   }
+}
+
+.cardContainer--x-small .strength {
+  font-size: 0.7rem;
+  width: 1.3em;
+  height: 1.3em;
+}
+.cardContainer--small .strength {
+  font-size: 0.85rem;
+  width: 1.5em;
+  height: 1.5em;
+}
+.cardContainer--medium .strength {
+  font-size: 1rem;
+  width: 1.7em;
+  height: 1.7em;
+}
+.cardContainer--large .strength {
+  font-size: 1.25rem;
+  width: 2em;
+  height: 2em;
 }
 
 
@@ -101,4 +122,3 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
-
