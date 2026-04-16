@@ -11,6 +11,7 @@ import type {
   DTOGameEndResult,
   DTOPlaceCardRequest,
   DTOPassTurnRequest,
+  DTOSurrenderRequest,
 } from '../dtos/DTOGame.js';
 import type { DBGame } from '../model/DBGame.js';
 
@@ -177,6 +178,48 @@ export class GameController extends Controller {
         return this.throwHttpError(error.message, 400);
       }
       return this.throwHttpError('Failed to pass turn', 500);
+    }
+  }
+
+  @Post('{gameId}/resign')
+  @SuccessResponse('200', 'Player resigned, opponent wins')
+  @Response('400', 'Missing playerId')
+  @Response('404', 'Game not found')
+  @Response('500', 'Server error')
+  public async resignGame(
+    @Path() gameId: string,
+    @Body() body: DTOSurrenderRequest,
+  ): Promise<DTOGameWithMetadata> {
+    try {
+      if (!body?.playerId) {
+        return this.throwHttpError('playerId is required', 400);
+      }
+
+      const gameManager = GameManager.getInstance();
+      const gameWithMetadata = gameManager.getActiveGameById(gameId);
+      const { game, metadata } = gameWithMetadata;
+
+      // Resign in-memory game
+      game.resign(body.playerId);
+
+      // Determine the opponent
+      const opponentId =
+        game.getPlayer1().getUserId() === body.playerId
+          ? game.getPlayer2().getUserId()
+          : game.getPlayer1().getUserId();
+
+      // Database
+      await gameService.finishGame(metadata._id?.toString() || '', opponentId);
+
+      return await this.toDTOGameWithMetadata(gameWithMetadata);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        return this.throwHttpError(`Game ${gameId} not found`, 404);
+      }
+      if (error instanceof Error) {
+        return this.throwHttpError(error.message, 400);
+      }
+      return this.throwHttpError('Failed to resign', 500);
     }
   }
 

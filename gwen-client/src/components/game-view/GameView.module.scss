@@ -66,6 +66,29 @@
   }
 }
 
+.resignButton {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  color: #9ca3af;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
+
+  &:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
 .passButton {
   padding: 8px 16px;
   background: #ef4444;

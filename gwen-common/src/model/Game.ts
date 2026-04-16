@@ -488,6 +488,20 @@ export class Game {
   }
 
   /**
+   * Resign from the game: the resigning player loses, the opponent wins
+   */
+  resign(resigningPlayerId: string): void {
+    const opponentId = this.getOtherPlayerId(resigningPlayerId);
+
+    this.gameResult = new Map([
+      [resigningPlayerId, GameResult.LOSS],
+      [opponentId, GameResult.WIN],
+    ]);
+
+    this.phase = 'END';
+  }
+
+  /**
    * Start a rematch - reset all game state
    */
   rematch(): void {

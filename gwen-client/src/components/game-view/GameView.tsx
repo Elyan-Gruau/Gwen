@@ -8,6 +8,7 @@ import Spinner from '../spinner/Spinner';
 import Separator from './separator/Separator';
 import { usePlaceCard, type DTOGameWithMetadata, usePassTurn } from 'gwen-generated-api';
 import { useCallback, useState } from 'react';
+import { useResignGame } from '../../hooks/apis/GameAPI';
 import type { PlayableCard, RangeType } from 'gwen-common';
 import EndPhase from '../game-phases/end-phase/EndPhase';
 
@@ -39,6 +40,7 @@ const GameView = ({
 
   const placeCardMutation = usePlaceCard();
   const passTurnMutation = usePassTurn();
+  const resignMutation = useResignGame();
 
   const currentUserId = user?.id ?? '';
   const currentPlayerTurnUserId = gameMetadata.game.currentPlayerTurnUserId;
@@ -99,6 +101,19 @@ const GameView = ({
       refetchGame,
     ],
   );
+
+  /**
+   * Handle resign
+   */
+  const handleResign = useCallback(async () => {
+    if (!window.confirm('Are you sure you want to resign? You will lose the game.')) return;
+    try {
+      await resignMutation.mutateAsync({ gameId, playerId: currentUserId });
+      refetchGame();
+    } catch (error) {
+      console.error('Failed to resign:', error);
+    }
+  }, [currentUserId, gameId, resignMutation, refetchGame]);
 
   /**
    * Handle pass turn
@@ -209,11 +224,25 @@ const GameView = ({
             >
               {passTurnMutation.isPending ? 'Passing...' : 'Pass Turn'}
             </button>
+            <button
+              onClick={handleResign}
+              disabled={resignMutation.isPending}
+              className={styles.resignButton}
+            >
+              {resignMutation.isPending ? 'Resigning...' : 'Resign'}
+            </button>
           </div>
         ) : (
           <div className={styles.opponentTurn}>
             <h3>⏳ Opponent's Turn</h3>
             {opponentHasPassed && <p>Opponent has passed - they can keep playing</p>}
+            <button
+              onClick={handleResign}
+              disabled={resignMutation.isPending}
+              className={styles.resignButton}
+            >
+              {resignMutation.isPending ? 'Resigning...' : 'Resign'}
+            </button>
           </div>
         )}
       </div>
