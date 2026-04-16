@@ -12,7 +12,7 @@ export type BoardPanelProps = {
   selectedCardId: string | null;
   onRowClick: (rowType: RangeType) => void;
   isPlacingCard: boolean;
-  currentPlayerTurnUserId: string;
+  currentPlayerTurnUserId: string | null;
   currentUserId: string;
   hasPlayerPassed: boolean;
   opponentHasPassed: boolean;

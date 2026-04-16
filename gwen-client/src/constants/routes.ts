@@ -11,4 +11,5 @@ export const ROUTES = {
   MATCHMAKING: '/matchmaking',
   GAME: '/game/:gameId',
   DECK_BUILDER: '/deck-builder',
+  RULES: '/rules',
 } as const;

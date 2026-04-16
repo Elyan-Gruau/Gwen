@@ -1,0 +1,258 @@
+@use '@styles/tokens' as tokens;
+
+// ─── Color palette ───────────────────────────────────────────────────────────
+// Gold: #c9a84c / #e8c97a / #7a5c1e
+// Parchment dark: #1a1510
+// Ink: #f0e6c8
+// Border faint: rgba(201, 168, 76, 0.25)
+
+.rulesPage {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: tokens.$spacing-400 tokens.$spacing-200 tokens.$spacing-400;
+  color: #f0e6c8;
+  position: relative;
+
+  // Subtle vignette grain at top
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────────────────
+.heroWrap {
+  text-align: center;
+  padding: tokens.$spacing-400 0 tokens.$spacing-300;
+  position: relative;
+}
+
+.heroBadge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 2px;
+  padding: 4px 14px;
+  margin-bottom: tokens.$spacing-md;
+  opacity: 0.85;
+}
+
+.pageTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 0 0 tokens.$spacing-md;
+  line-height: 1;
+  // Import a gothic/serif font via @import in a global css,
+  // or fall back to a system serif
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'IM Fell English', serif;
+}
+
+.titleLine {
+  font-size: 2.75rem;
+  font-weight: 400;
+  color: #f0e6c8;
+  letter-spacing: 0.08em;
+}
+
+.titleAccent {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #e8c97a;
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 0 60px rgba(201, 168, 76, 0.25),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-top: -0.1em;
+}
+
+.intro {
+  font-size: tokens.$font-size-md;
+  color: rgba(240, 230, 200, 0.55);
+  margin: tokens.$spacing-md auto 0;
+  max-width: 500px;
+  line-height: 1.75;
+  font-style: italic;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+// ─── Ornament SVG ─────────────────────────────────────────────────────────────
+.ornament {
+  width: 200px;
+  height: 20px;
+  color: rgba(201, 168, 76, 0.45);
+  margin: tokens.$spacing-md auto;
+  display: block;
+}
+
+// ─── Sections ─────────────────────────────────────────────────────────────────
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$spacing-200;
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  position: relative;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 245, 215, 0.04) 0%,
+      rgba(255, 245, 215, 0.015) 50%,
+      rgba(255, 245, 215, 0.04) 100%
+    );
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 2px;
+  padding: tokens.$spacing-xl tokens.$spacing-xl;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  animation: fadeSlideIn 0.5s ease both;
+  animation-delay: var(--delay, 0s);
+
+  &:hover {
+    border-color: rgba(201, 168, 76, 0.45);
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 245, 215, 0.065) 0%,
+        rgba(255, 245, 215, 0.025) 50%,
+        rgba(255, 245, 215, 0.065) 100%
+      );
+
+    .corner {
+      color: rgba(201, 168, 76, 0.8);
+    }
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionInner {
+  position: relative;
+  z-index: 1;
+}
+
+// ─── Corner decorations ───────────────────────────────────────────────────────
+.corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  color: rgba(201, 168, 76, 0.35);
+  transition: color 0.3s ease;
+
+  &--tl { top: 6px; left: 6px; }
+  &--tr { top: 6px; right: 6px; transform: scaleX(-1); }
+  &--bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
+  &--br { bottom: 6px; right: 6px; transform: scale(-1); }
+}
+
+// ─── Section titles ───────────────────────────────────────────────────────────
+.sectionTitle {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #e8c97a;
+  margin: 0 0 tokens.$spacing-md;
+  display: flex;
+  align-items: center;
+  gap: tokens.$spacing-sm;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(201, 168, 76, 0.3), transparent);
+    margin-left: tokens.$spacing-sm;
+  }
+}
+
+.sectionIcon {
+  font-size: 1rem;
+  filter: saturate(0.6) brightness(1.1);
+}
+
+// ─── Section content ──────────────────────────────────────────────────────────
+.sectionContent {
+  font-size: tokens.$font-size-md;
+  color: rgba(240, 230, 200, 0.75);
+  line-height: 1.8;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+
+  p {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: tokens.$spacing-xs;
+  }
+
+  li {
+    position: relative;
+    padding-left: tokens.$spacing-xl;
+
+    &::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      top: 0.15em;
+      font-size: 0.45rem;
+      color: #c9a84c;
+      opacity: 0.7;
+    }
+  }
+
+  strong {
+    color: #f0e6c8;
+    font-weight: 700;
+  }
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+.footer {
+  text-align: center;
+  padding: tokens.$spacing-300 0 tokens.$spacing-200;
+  color: rgba(201, 168, 76, 0.45);
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  font-style: italic;
+  font-size: tokens.$font-size-sm;
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .titleLine { font-size: 2rem; }
+  .titleAccent { font-size: 3.2rem; }
+
+  .section {
+    padding: tokens.$spacing-lg tokens.$spacing-md;
+  }
+}

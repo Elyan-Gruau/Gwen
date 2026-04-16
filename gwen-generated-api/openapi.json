@@ -259,7 +259,7 @@
 					"round"
 				],
 				"type": "object",
-				"description": "Round end event: Shows overlay for ~3 seconds during game\nContains each player's result from their perspective"
+				"description": "Round end event: Shows overlay for ~3 seconds during game\r\nContains each player's result from their perspective"
 			},
 			"DTOGameEndResult": {
 				"properties": {
@@ -306,7 +306,7 @@
 					"player1_id"
 				],
 				"type": "object",
-				"description": "Game end result: Shows persistent page when game is over\nIncludes standings and final results"
+				"description": "Game end result: Shows persistent page when game is over\r\nIncludes standings and final results"
 			},
 			"Record_string.string_": {
 				"properties": {},
