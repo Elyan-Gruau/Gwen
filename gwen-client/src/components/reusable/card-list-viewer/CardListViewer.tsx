@@ -110,8 +110,14 @@ const CardListViewer = ({
 
           <p className={styles.keyHint}>
             <kbd>←</kbd> <kbd>→</kbd> navigate
-            {onCardConfirm && <><span> · </span><kbd>Enter</kbd> select</>}
-            <span> · </span><kbd>Esc</kbd> close
+            {onCardConfirm && (
+              <>
+                <span> · </span>
+                <kbd>Enter</kbd> select
+              </>
+            )}
+            <span> · </span>
+            <kbd>Esc</kbd> close
           </p>
         </div>
       </div>

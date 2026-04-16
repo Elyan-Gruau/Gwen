@@ -122,3 +122,62 @@ $gold-glow: rgba(201, 168, 76, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
+
+.rangeIcon {
+  display: flex;
+  position: absolute;
+  bottom: tokens.$spacing-025;
+  right: tokens.$spacing-025;
+  z-index: 5;
+  background: #dcdcdb;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+  }
+}
+.cardContainer--x-small .rangeIcon { width: 1em; height: 1em; }
+.cardContainer--small .rangeIcon { width: 1.1em; height: 1.1em; }
+.cardContainer--medium .rangeIcon { width: 1.2em; height: 1.2em; }
+.cardContainer--large .rangeIcon { width: 1.5em; height: 1.5em; }
+
+.abilityIcon {
+  position: absolute;
+  bottom: tokens.$spacing-025;
+  right: calc(1.2em + 0.18em + tokens.$spacing-025);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em !important;
+  height: 1em !important;
+  min-width: 1em;
+  min-height: 1em;
+  max-width: 1em;
+  max-height: 1em;
+  background: #dcdcdb;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+
+  img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+  }
+}
+.cardContainer--x-small .abilityIcon { width: 1em !important; height: 1em !important; min-width: 1em; min-height: 1em; max-width: 1em; max-height: 1em; right: calc(1em + 0.14em + tokens.$spacing-025); }
+.cardContainer--small .abilityIcon { width: 1.1em !important; height: 1.1em !important; min-width: 1.1em; min-height: 1.1em; max-width: 1.1em; max-height: 1.1em; right: calc(1.1em + 0.16em + tokens.$spacing-025); }
+.cardContainer--medium .abilityIcon { width: 1.2em !important; height: 1.2em !important; min-width: 1.2em; min-height: 1.2em; max-width: 1.2em; max-height: 1.2em; right: calc(1.2em + 0.18em + tokens.$spacing-025); }
+.cardContainer--large .abilityIcon { width: 1.5em !important; height: 1.5em !important; min-width: 1.5em; min-height: 1.5em; max-width: 1.5em; max-height: 1.5em; right: calc(1.5em + 0.22em + tokens.$spacing-025); }
