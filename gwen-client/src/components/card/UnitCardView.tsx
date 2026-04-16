@@ -73,9 +73,7 @@ export default function UnitCardView({ card, onClick, size = 'medium' }: UnitCar
         )}
 
         {/* Footer: ability */}
-        <div className={styles.footer}>
-          {ability && <span className={styles.ability}>{ABILITY_LABELS[ability] ?? ability}</span>}
-        </div>
+        {/* {ability && <span className={styles.ability}>{ABILITY_LABELS[ability] ?? ability}</span>} */}
       </div>
     </CardContainer>
   );

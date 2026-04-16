@@ -12,9 +12,8 @@ const sections: Section[] = [
     title: 'Objective',
     content: (
       <p>
-        Win <strong>2 rounds</strong> out of 3. Each player starts with{' '}
-        <strong>2 gems</strong>. You lose a gem when you lose a round. The
-        player who runs out of gems first loses the game.
+        Win <strong>2 rounds</strong> out of 3. Each player starts with <strong>2 gems</strong>. You
+        lose a gem when you lose a round. The player who runs out of gems first loses the game.
       </p>
     ),
   },
@@ -23,10 +22,20 @@ const sections: Section[] = [
     title: 'Turn Structure',
     content: (
       <ul>
-        <li>Players alternate turns. On your turn, you must either <strong>play a card</strong> or <strong>pass the round</strong>.</li>
-        <li>If you do not act within <strong>30 seconds</strong>, your turn is automatically skipped.</li>
-        <li>Once you pass, you cannot play any more cards that round. Your opponent may continue playing.</li>
-        <li>A round ends when <strong>both players have passed</strong>.</li>
+        <li>
+          Players alternate turns. On your turn, you must either <strong>play a card</strong> or{' '}
+          <strong>pass the round</strong>.
+        </li>
+        <li>
+          If you do not act within <strong>30 seconds</strong>, your turn is automatically skipped.
+        </li>
+        <li>
+          Once you pass, you cannot play any more cards that round. Your opponent may continue
+          playing.
+        </li>
+        <li>
+          A round ends when <strong>both players have passed</strong>.
+        </li>
       </ul>
     ),
   },
@@ -35,9 +44,17 @@ const sections: Section[] = [
     title: 'Scoring',
     content: (
       <ul>
-        <li>Each unit card has a <strong>power value</strong>. The sum of all your cards on the board is your score.</li>
-        <li>The player with the <strong>highest score</strong> at the end of a round wins it. The loser loses a gem.</li>
-        <li>In case of a <strong>draw</strong>, both players lose a gem.</li>
+        <li>
+          Each unit card has a <strong>power value</strong>. The sum of all your cards on the board
+          is your score.
+        </li>
+        <li>
+          The player with the <strong>highest score</strong> at the end of a round wins it. The
+          loser loses a gem.
+        </li>
+        <li>
+          In case of a <strong>draw</strong>, both players lose a gem.
+        </li>
       </ul>
     ),
   },
@@ -46,10 +63,19 @@ const sections: Section[] = [
     title: 'Card Types',
     content: (
       <ul>
-        <li><strong>Unit cards</strong> — Placed on a row (Melee, Ranged or Siege). Each has a power value.</li>
-        <li><strong>Agile cards</strong> — Can be placed on either the Melee or Ranged row.</li>
-        <li><strong>Leader card</strong> — Each faction has a unique leader with a special ability.</li>
-        <li><strong>Neutral cards</strong> — Special cards with effects that work for any faction.</li>
+        <li>
+          <strong>Unit cards</strong> — Placed on a row (Melee, Ranged or Siege). Each has a power
+          value.
+        </li>
+        <li>
+          <strong>Agile cards</strong> — Can be placed on either the Melee or Ranged row.
+        </li>
+        <li>
+          <strong>Leader card</strong> — Each faction has a unique leader with a special ability.
+        </li>
+        <li>
+          <strong>Neutral cards</strong> — Special cards with effects that work for any faction.
+        </li>
       </ul>
     ),
   },
@@ -58,9 +84,15 @@ const sections: Section[] = [
     title: 'Rows',
     content: (
       <ul>
-        <li><strong>Melee</strong> — Front row, for close-combat units.</li>
-        <li><strong>Ranged</strong> — Middle row, for archers and ranged units.</li>
-        <li><strong>Siege</strong> — Back row, for catapults and siege weapons.</li>
+        <li>
+          <strong>Melee</strong> — Front row, for close-combat units.
+        </li>
+        <li>
+          <strong>Ranged</strong> — Middle row, for archers and ranged units.
+        </li>
+        <li>
+          <strong>Siege</strong> — Back row, for catapults and siege weapons.
+        </li>
       </ul>
     ),
   },
@@ -69,10 +101,18 @@ const sections: Section[] = [
     title: 'Factions',
     content: (
       <ul>
-        <li><strong>Northern Realms</strong> — Balanced faction with solid unit cards.</li>
-        <li><strong>Nilfgaard</strong> — Tactical faction with control effects.</li>
-        <li><strong>Monsters</strong> — Aggressive faction with high-power units.</li>
-        <li><strong>Scoia'tael</strong> — Agile faction with flexible card placement.</li>
+        <li>
+          <strong>Northern Realms</strong> — Balanced faction with solid unit cards.
+        </li>
+        <li>
+          <strong>Nilfgaard</strong> — Tactical faction with control effects.
+        </li>
+        <li>
+          <strong>Monsters</strong> — Aggressive faction with high-power units.
+        </li>
+        <li>
+          <strong>Scoia'tael</strong> — Agile faction with flexible card placement.
+        </li>
       </ul>
     ),
   },
@@ -81,8 +121,8 @@ const sections: Section[] = [
     title: 'Resign',
     content: (
       <p>
-        You can <strong>resign</strong> at any time during a game. Resigning immediately ends
-        the game and counts as a loss. Your ELO will be updated accordingly.
+        You can <strong>resign</strong> at any time during a game. Resigning immediately ends the
+        game and counts as a loss. Your ELO will be updated accordingly.
       </p>
     ),
   },
@@ -91,22 +131,31 @@ const sections: Section[] = [
     title: 'ELO Rating',
     content: (
       <p>
-        Winning or losing a game updates your <strong>ELO rating</strong>. Beating a
-        higher-ranked opponent grants more ELO. Losing to a lower-ranked opponent
-        costs more ELO.
+        Winning or losing a game updates your <strong>ELO rating</strong>. Beating a higher-ranked
+        opponent grants more ELO. Losing to a lower-ranked opponent costs more ELO.
       </p>
     ),
   },
 ];
 
 const Ornament = () => (
-  <svg className={styles.ornament} viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    className={styles.ornament}
+    viewBox="0 0 200 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <line x1="0" y1="10" x2="80" y2="10" stroke="currentColor" strokeWidth="0.75" />
-    <path d="M85 10 L90 4 L95 10 L100 4 L105 10 L110 4 L115 10" stroke="currentColor" strokeWidth="0.75" fill="none"/>
+    <path
+      d="M85 10 L90 4 L95 10 L100 4 L105 10 L110 4 L115 10"
+      stroke="currentColor"
+      strokeWidth="0.75"
+      fill="none"
+    />
     <line x1="120" y1="10" x2="200" y2="10" stroke="currentColor" strokeWidth="0.75" />
-    <circle cx="100" cy="10" r="2" fill="currentColor"/>
-    <circle cx="85" cy="10" r="1.5" fill="currentColor"/>
-    <circle cx="115" cy="10" r="1.5" fill="currentColor"/>
+    <circle cx="100" cy="10" r="2" fill="currentColor" />
+    <circle cx="85" cy="10" r="1.5" fill="currentColor" />
+    <circle cx="115" cy="10" r="1.5" fill="currentColor" />
   </svg>
 );
 
@@ -139,7 +188,11 @@ const RulesPage = () => (
 
     <div className={styles.sections}>
       {sections.map((section, i) => (
-        <section key={section.title} className={styles.section} style={{ '--delay': `${i * 0.06}s` } as React.CSSProperties}>
+        <section
+          key={section.title}
+          className={styles.section}
+          style={{ '--delay': `${i * 0.06}s` } as React.CSSProperties}
+        >
           <CornerDecor position="tl" />
           <CornerDecor position="tr" />
           <CornerDecor position="bl" />

@@ -62,7 +62,9 @@ const Navbar = () => {
           <LinkButton href={ROUTES.DECK_BUILDER} variant={'secondary'}>
             Deck Builder
           </LinkButton>
-          <LinkButton href={ROUTES.RULES} variant={'secondary'}>Rules</LinkButton>
+          <LinkButton href={ROUTES.RULES} variant={'secondary'}>
+            Rules
+          </LinkButton>
         </div>
 
         {/* User Section */}
