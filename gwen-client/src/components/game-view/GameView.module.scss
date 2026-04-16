@@ -1,3 +1,5 @@
+@use '@styles/tokens' as tokens;
+
 .gameView {
   display: flex;
   flex-direction: column;
@@ -112,4 +114,5 @@
 
 .layout{
   display: flex;
+  gap: tokens.$spacing-100;
 }

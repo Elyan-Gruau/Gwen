@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: t.$spacing-xs;
   outline: none;
+  min-width: calc(t.$board-card-width * 10)
 }
 
 .cardsRow {

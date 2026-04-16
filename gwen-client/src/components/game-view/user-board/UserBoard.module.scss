@@ -3,8 +3,8 @@
 .userBoard {
   display: flex;
   flex-direction: column;
-  gap: tokens.$spacing-md;
-  width: 60%;
+  gap: tokens.$spacing-sm;
+  width: 100%;
 }
 
 .rowWrapper {
