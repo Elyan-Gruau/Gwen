@@ -9,6 +9,7 @@ import Separator from './separator/Separator';
 import { usePlaceCard, type DTOGameWithMetadata, usePassTurn } from 'gwen-generated-api';
 import { useCallback, useState } from 'react';
 import { useResignGame } from '../../hooks/apis/GameAPI';
+import TurnTimer from './turn-timer/TurnTimer';
 import type { PlayableCard, RangeType } from 'gwen-common';
 import EndPhase from '../game-phases/end-phase/EndPhase';
 
@@ -206,6 +207,9 @@ const GameView = ({
 
       {/* Turn indicator */}
       <div className={styles.turnIndicator}>
+        {game.getPhase() === 'PLAY_CARDS' && !currentPlayerHasPassed && (
+          <TurnTimer turnStartedAt={gameMetadata.game.turnStartedAt ?? null} />
+        )}
         {currentPlayerHasPassed ? (
           <div className={styles.hasPassed}>
             <h3>✋ You Have Passed</h3>

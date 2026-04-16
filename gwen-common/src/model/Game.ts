@@ -19,6 +19,7 @@ export class Game {
   private lastRoundWinnerId: string | null; // userId of who won last round (null if draw)
   private gameResult: Map<string, GameResult> | null; // null until game ends, then userId -> result
   private currentPlayerTurnUserId: string | null; // null until round starts, then alternates
+  private turnStartedAt: Date | null; // when the current player's turn began
   private lastCardsPlayedByUserId: Map<string, string[]>; // userId -> cardIds played this round
 
   constructor(player1: Player, player2: Player) {
@@ -37,6 +38,7 @@ export class Game {
     this.lastRoundWinnerId = null;
     this.gameResult = null;
     this.currentPlayerTurnUserId = null;
+    this.turnStartedAt = null;
     this.lastCardsPlayedByUserId = new Map([
       [player1.getUserId(), []],
       [player2.getUserId(), []],
@@ -176,6 +178,10 @@ export class Game {
     return this.currentPlayerTurnUserId;
   }
 
+  getTurnStartedAt(): Date | null {
+    return this.turnStartedAt;
+  }
+
   /**
    * Check if a specific player has passed this round
    */
@@ -232,6 +238,7 @@ export class Game {
       this.currentPlayerTurnUserId = this.player1.getUserId();
     }
     this.phase = 'PLAY_CARDS';
+    this.turnStartedAt = new Date();
     // Reset pass status for new round
     this.player1.resetPass();
     this.player2.resetPass();
@@ -302,6 +309,7 @@ export class Game {
       // Other player hasn't passed, give them the turn
       this.currentPlayerTurnUserId = otherPlayerId;
     }
+    this.turnStartedAt = new Date();
   }
 
   /**
@@ -353,6 +361,7 @@ export class Game {
     } else {
       // Other player hasn't passed, give them continuous turns
       this.currentPlayerTurnUserId = this.getOtherPlayerId(userId);
+      this.turnStartedAt = new Date();
     }
   }
 

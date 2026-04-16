@@ -13,6 +13,9 @@ export const MAX_REDRAW_COUNT = 2;
 /** Taille minimale d'un deck */
 export const MIN_DECK_SIZE = 22;
 
+/** Durée maximale d'un tour en secondes avant auto-pass */
+export const TURN_DURATION_SECONDS = 30;
+
 // --- Scores ---
 
 /** Valeur d'une carte affectee par la meteo (non-heros) */

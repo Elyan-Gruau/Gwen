@@ -13,6 +13,7 @@ import type {
   DTOPassTurnRequest,
   DTOSurrenderRequest,
 } from '../dtos/DTOGame.js';
+import { TURN_DURATION_SECONDS } from 'gwen-common';
 import type { DBGame } from '../model/DBGame.js';
 
 const gameService = new GameService();
@@ -29,6 +30,24 @@ export class GameController extends Controller {
     try {
       const gameManager = GameManager.getInstance();
       const gameWithMetadata = gameManager.getActiveGameById(gameId);
+      const { game } = gameWithMetadata;
+
+      // Auto-pass if the current player's turn has exceeded the time limit
+      const turnStartedAt = game.getTurnStartedAt();
+      const currentPlayerId = game.getCurrentPlayerTurnUserId();
+      if (
+        turnStartedAt &&
+        currentPlayerId &&
+        game.getPhase() === 'PLAY_CARDS' &&
+        !game.hasPlayerPassed(currentPlayerId)
+      ) {
+        const elapsedSeconds = (Date.now() - turnStartedAt.getTime()) / 1000;
+        if (elapsedSeconds >= TURN_DURATION_SECONDS) {
+          game.passTurn(currentPlayerId);
+          game.autoPassIfNoCards(game.getPlayer1().getUserId());
+          game.autoPassIfNoCards(game.getPlayer2().getUserId());
+        }
+      }
 
       return await this.toDTOGameWithMetadata(gameWithMetadata);
     } catch (error) {
@@ -380,6 +399,7 @@ export class GameController extends Controller {
         phase: game.getPhase(),
         currentRound: game.getCurrentRound(),
         currentPlayerTurnUserId: game.getCurrentPlayerTurnUserId(),
+        turnStartedAt: game.getTurnStartedAt()?.toISOString() ?? null,
         player1: game.getPlayer1(),
         player2: game.getPlayer2(),
         player1Rows: game.getPlayer1Rows(),

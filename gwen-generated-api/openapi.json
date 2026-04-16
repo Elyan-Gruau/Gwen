@@ -260,6 +260,10 @@
 							"player1": {
 								"$ref": "#/components/schemas/Player"
 							},
+							"turnStartedAt": {
+								"type": "string",
+								"nullable": true
+							},
 							"currentPlayerTurnUserId": {
 								"type": "string",
 								"nullable": true
@@ -277,6 +281,7 @@
 							"player1Rows",
 							"player2",
 							"player1",
+							"turnStartedAt",
 							"currentPlayerTurnUserId",
 							"currentRound",
 							"phase"
@@ -319,6 +324,17 @@
 				"type": "object"
 			},
 			"DTOPassTurnRequest": {
+				"properties": {
+					"playerId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"playerId"
+				],
+				"type": "object"
+			},
+			"DTOSurrenderRequest": {
 				"properties": {
 					"playerId": {
 						"type": "string"
@@ -782,6 +798,56 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/DTOPassTurnRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/games/{gameId}/resign": {
+			"post": {
+				"operationId": "ResignGame",
+				"responses": {
+					"200": {
+						"description": "Player resigned, opponent wins",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DTOGameWithMetadata"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Missing playerId"
+					},
+					"404": {
+						"description": "Game not found"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				},
+				"tags": [
+					"Games"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "gameId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DTOSurrenderRequest"
 							}
 						}
 					}

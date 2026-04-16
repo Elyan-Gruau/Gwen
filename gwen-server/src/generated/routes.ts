@@ -88,7 +88,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOGameWithMetadata": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"usernames":{"ref":"Record_string.string_","required":true},"game":{"dataType":"nestedObjectLiteral","nestedProperties":{"gameEndResult":{"dataType":"union","subSchemas":[{"ref":"DTOGameEndResult"},{"dataType":"enum","enums":[null]}]},"lastRoundResult":{"dataType":"union","subSchemas":[{"ref":"DTORoundEndResult"},{"dataType":"enum","enums":[null]}]},"player2Rows":{"ref":"PlayerRows","required":true},"player1Rows":{"ref":"PlayerRows","required":true},"player2":{"ref":"Player","required":true},"player1":{"ref":"Player","required":true},"currentPlayerTurnUserId":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"currentRound":{"dataType":"double","required":true},"phase":{"ref":"DTOGamePhase","required":true}},"required":true},"metadata":{"ref":"DTOGame","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"usernames":{"ref":"Record_string.string_","required":true},"game":{"dataType":"nestedObjectLiteral","nestedProperties":{"gameEndResult":{"dataType":"union","subSchemas":[{"ref":"DTOGameEndResult"},{"dataType":"enum","enums":[null]}]},"lastRoundResult":{"dataType":"union","subSchemas":[{"ref":"DTORoundEndResult"},{"dataType":"enum","enums":[null]}]},"player2Rows":{"ref":"PlayerRows","required":true},"player1Rows":{"ref":"PlayerRows","required":true},"player2":{"ref":"Player","required":true},"player1":{"ref":"Player","required":true},"turnStartedAt":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"currentPlayerTurnUserId":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"currentRound":{"dataType":"double","required":true},"phase":{"ref":"DTOGamePhase","required":true}},"required":true},"metadata":{"ref":"DTOGame","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOPlaceCardRequest": {
@@ -97,6 +97,11 @@ const models: TsoaRoute.Models = {
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "DTOPassTurnRequest": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"playerId":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "DTOSurrenderRequest": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"playerId":{"dataType":"string","required":true}},"validators":{}},
     },
@@ -381,6 +386,37 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'passTurn',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: 200,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsGameController_resignGame: Record<string, TsoaRoute.ParameterSchema> = {
+                gameId: {"in":"path","name":"gameId","required":true,"dataType":"string"},
+                body: {"in":"body","name":"body","required":true,"ref":"DTOSurrenderRequest"},
+        };
+        app.post('/api/games/:gameId/resign',
+            ...(fetchMiddlewares<RequestHandler>(GameController)),
+            ...(fetchMiddlewares<RequestHandler>(GameController.prototype.resignGame)),
+
+            async function GameController_resignGame(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsGameController_resignGame, request, response });
+
+                const controller = new GameController();
+
+              await templateService.apiHandler({
+                methodName: 'resignGame',
                 controller,
                 response,
                 next,
