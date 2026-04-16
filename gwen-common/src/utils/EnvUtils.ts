@@ -6,7 +6,7 @@ type ServerEnvVariable =
   | 'CORS_ORIGIN'
   | 'NODE_ENV';
 
-type ClientEnvVariable = 'API_BASE_URL';
+type ClientEnvVariable = 'VITE_API_BASE_URL';
 
 export type EnvVariable = ServerEnvVariable | ClientEnvVariable;
 
