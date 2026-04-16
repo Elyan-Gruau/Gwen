@@ -19,7 +19,7 @@ const GameLeftPanel = ({ player, playerRows, isOpponent = false }: GameLeftPanel
     <div className={styles.gameLeftPanel}>
       <div className={styles.playerInfo}>
         <div className={styles.leftSection}>
-          <UserProfilePic userId={player.getUserId()} />
+          <UserProfilePic userId={player.getUserId()} size={'large'} />
         </div>
         <div className={styles.rightSection}>
           <div className={styles.infoStack}>
