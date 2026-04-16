@@ -27,7 +27,11 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
   const [isSearching, setIsSearching] = useState(false);
   const [queuePosition, setQueuePosition] = useState(0);
   const [poolSize, setPoolSize] = useState(0);
-  const [searchRange, setSearchRange] = useState<{ minElo: number; maxElo: number; range: number } | null>(null);
+  const [searchRange, setSearchRange] = useState<{
+    minElo: number;
+    maxElo: number;
+    range: number;
+  } | null>(null);
   const [searchStartTime, setSearchStartTime] = useState<number | null>(null);
   const [searchTimeMs, setSearchTimeMs] = useState(0);
   const [userElo, setUserElo] = useState(1200); // default ELO
@@ -46,7 +50,9 @@ export const useMatchmaking = (userId: string | null): UseMatchmakingResult => {
       setIsSearching(true);
       setQueuePosition(data.position);
       setSearchRange(data.searchRange || null);
-      setUserElo(data.searchRange?.minElo ? (data.searchRange.minElo + data.searchRange.maxElo) / 2 : 1200);
+      setUserElo(
+        data.searchRange?.minElo ? (data.searchRange.minElo + data.searchRange.maxElo) / 2 : 1200,
+      );
       setSearchStartTime(Date.now());
     });
 

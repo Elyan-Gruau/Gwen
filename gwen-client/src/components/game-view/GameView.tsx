@@ -145,21 +145,24 @@ const GameView = ({
   const opponentUserId = categorisedPlayers.getOpponent().getUserId();
   const opponentName = gameMetadata.usernames?.[opponentUserId] || opponentUserId || 'Opponent';
   const currentUserElo = user?.elo ?? 0;
-  
+
   // Get ELO change from game end result
   const gameEndResult = gameMetadata.game.gameEndResult;
-  const eloChange = currentUserId === gameEndResult?.player1_id 
-    ? (gameEndResult?.player1_elo_change ?? 0)
-    : (gameEndResult?.player2_elo_change ?? 0);
+  const eloChange =
+    currentUserId === gameEndResult?.player1_id
+      ? (gameEndResult?.player1_elo_change ?? 0)
+      : (gameEndResult?.player2_elo_change ?? 0);
   const totalElo = currentUserElo + eloChange;
-  
+
   // Get gem counts
-  const currentPlayerGems = game.getPlayer1().getUserId() === currentUserId 
-    ? game.getPlayer1().getGems() 
-    : game.getPlayer2().getGems();
-  const opponentGems = game.getPlayer1().getUserId() === currentUserId 
-    ? game.getPlayer2().getGems() 
-    : game.getPlayer1().getGems();
+  const currentPlayerGems =
+    game.getPlayer1().getUserId() === currentUserId
+      ? game.getPlayer1().getGems()
+      : game.getPlayer2().getGems();
+  const opponentGems =
+    game.getPlayer1().getUserId() === currentUserId
+      ? game.getPlayer2().getGems()
+      : game.getPlayer1().getGems();
 
   return (
     <div className={styles.gameView}>
