@@ -7,6 +7,7 @@ import BoardRowTypeIcon from './BoardRowTypeIcon';
 
 export type BoardRowViewProps = {
   row: Row;
+  isOpponent?: boolean;
 };
 
 /**
@@ -14,12 +15,12 @@ export type BoardRowViewProps = {
  * @param boardRow
  * @constructor
  */
-const BoardRowView = ({ row }: BoardRowViewProps) => {
+const BoardRowView = ({ row, isOpponent = false }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
       <BoardRowTypeIcon type={row.getRange()} />
       <div>
-        <ScoreBadge size={'SMALL'} value={row.getScore()} />
+        <ScoreBadge size={'SMALL'} value={row.getScore()} isOpponent={isOpponent} />
       </div>
       <ModifierSlot modifier={row.getModifierCard()} />
       <div></div>

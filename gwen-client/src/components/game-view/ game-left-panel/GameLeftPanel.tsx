@@ -8,9 +8,10 @@ import ScoreBadge from '../score-badge/ScoreBadge';
 export type GameLeftPanelProps = {
   player: Player;
   playerRows: PlayerRows;
+  isOpponent?: boolean;
 };
 
-const GameLeftPanel = ({ player, playerRows }: GameLeftPanelProps) => {
+const GameLeftPanel = ({ player, playerRows, isOpponent = false }: GameLeftPanelProps) => {
   const { data: user } = useGetUser(player.getUserId());
   const factionId = player.getDeck().getFactionId();
 
@@ -28,7 +29,7 @@ const GameLeftPanel = ({ player, playerRows }: GameLeftPanelProps) => {
           <div className={styles.username}>{user?.username ?? 'Unknown User'}</div>
           <div className={styles.factionName}>{factionId}</div>
         </div>
-        <ScoreBadge value={playerRows.getScore()} />
+        <ScoreBadge value={playerRows.getScore()} isOpponent={isOpponent} />
       </div>
     </div>
   );

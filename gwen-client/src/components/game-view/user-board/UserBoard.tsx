@@ -114,7 +114,7 @@ const UserBoard = ({
               !isOpponentBoard && activeRowIndex === index ? styles.selectedRow : ''
             } ${!isOpponentBoard && isPlacingCard && selectedCardId && !isValid ? styles.invalidRow : ''}`}
           >
-            <BoardRowView row={row} />
+            <BoardRowView row={row} isOpponent={isOpponentBoard} />
           </div>
         );
       })}
