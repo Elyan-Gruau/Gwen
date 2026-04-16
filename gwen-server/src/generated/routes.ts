@@ -85,30 +85,90 @@ const models: TsoaRoute.Models = {
     },
   },
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  Deck: {
+  DTOPlayableCard: {
     dataType: 'refObject',
-    properties: {},
+    properties: {
+      id: { dataType: 'string', required: true },
+    },
     additionalProperties: false,
   },
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  Player: {
+  DTODeck: {
+    dataType: 'refObject',
+    properties: {
+      drawPile: {
+        dataType: 'array',
+        array: { dataType: 'refObject', ref: 'DTOPlayableCard' },
+        required: true,
+      },
+      hand: {
+        dataType: 'array',
+        array: { dataType: 'refObject', ref: 'DTOPlayableCard' },
+        required: true,
+      },
+      discardPile: {
+        dataType: 'array',
+        array: { dataType: 'refObject', ref: 'DTOPlayableCard' },
+        required: true,
+      },
+      leader: { ref: 'DTOPlayableCard', required: true },
+      factionId: { dataType: 'string', required: true },
+    },
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTOPlayer: {
+    dataType: 'refObject',
+    properties: {
+      userId: { dataType: 'string', required: true },
+      gems: { dataType: 'double', required: true },
+      passed: { dataType: 'boolean', required: true },
+      deck: { ref: 'DTODeck', required: true },
+    },
+    additionalProperties: false,
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  RangeType: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'union',
+      subSchemas: [
+        { dataType: 'enum', enums: ['MELEE'] },
+        { dataType: 'enum', enums: ['RANGED'] },
+        { dataType: 'enum', enums: ['SIEGE'] },
+      ],
+      validators: {},
+    },
+  },
+  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+  DTORow: {
     dataType: 'refAlias',
     type: {
       dataType: 'nestedObjectLiteral',
       nestedProperties: {
-        deck: { ref: 'Deck', required: true },
-        passed: { dataType: 'boolean', required: true },
-        gems: { dataType: 'double', required: true },
-        userId: { dataType: 'string', required: true },
+        score: { dataType: 'double', required: true },
+        cardsIds: {
+          dataType: 'array',
+          array: { dataType: 'refObject', ref: 'DTOPlayableCard' },
+          required: true,
+        },
+        range: { ref: 'RangeType', required: true },
       },
       validators: {},
     },
   },
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  PlayerRows: {
-    dataType: 'refObject',
-    properties: {},
-    additionalProperties: false,
+  DTOPlayerRows: {
+    dataType: 'refAlias',
+    type: {
+      dataType: 'nestedObjectLiteral',
+      nestedProperties: {
+        rows: { dataType: 'array', array: { dataType: 'refAlias', ref: 'DTORow' }, required: true },
+        score: { dataType: 'double', required: true },
+        userId: { dataType: 'string', required: true },
+      },
+      validators: {},
+    },
   },
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   DTOGameResult: {
@@ -187,10 +247,10 @@ const models: TsoaRoute.Models = {
               dataType: 'union',
               subSchemas: [{ ref: 'DTORoundEndResult' }, { dataType: 'enum', enums: [null] }],
             },
-            player2Rows: { ref: 'PlayerRows', required: true },
-            player1Rows: { ref: 'PlayerRows', required: true },
-            player2: { ref: 'Player', required: true },
-            player1: { ref: 'Player', required: true },
+            player2Rows: { ref: 'DTOPlayerRows', required: true },
+            player1Rows: { ref: 'DTOPlayerRows', required: true },
+            player2: { ref: 'DTOPlayer', required: true },
+            player1: { ref: 'DTOPlayer', required: true },
             currentPlayerTurnUserId: {
               dataType: 'union',
               subSchemas: [{ dataType: 'string' }, { dataType: 'enum', enums: [null] }],

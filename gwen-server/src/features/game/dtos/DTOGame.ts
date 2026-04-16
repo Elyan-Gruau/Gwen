@@ -1,4 +1,5 @@
-import { Player, PlayerRows } from 'gwen-common';
+import { DTOPlayer } from './DTOPlayer';
+import { DTOPlayerRows } from './DTOPlayerRows';
 
 export type DTOGameStatus = 'ACTIVE' | 'FINISHED' | 'ABANDONED';
 
@@ -53,10 +54,10 @@ export type DTOGameWithMetadata = {
     phase: DTOGamePhase;
     currentRound: number;
     currentPlayerTurnUserId: string | null;
-    player1: Player;
-    player2: Player;
-    player1Rows: PlayerRows;
-    player2Rows: PlayerRows;
+    player1: DTOPlayer;
+    player2: DTOPlayer;
+    player1Rows: DTOPlayerRows;
+    player2Rows: DTOPlayerRows;
     /** Result of last completed round (null if no round completed) */
     lastRoundResult?: DTORoundEndResult | null;
     /** Final game result (null if game not ended) */

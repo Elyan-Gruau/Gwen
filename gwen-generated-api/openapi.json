@@ -84,20 +84,120 @@
 					"END"
 				]
 			},
-			"Deck": {
-				"properties": {},
+			"DTOPlayableCard": {
+				"properties": {
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Player": {
+			"DTODeck": {
 				"properties": {
-					"deck": {
-						"$ref": "#/components/schemas/Deck"
+					"drawPile": {
+						"items": {
+							"$ref": "#/components/schemas/DTOPlayableCard"
+						},
+						"type": "array"
+					},
+					"hand": {
+						"items": {
+							"$ref": "#/components/schemas/DTOPlayableCard"
+						},
+						"type": "array"
+					},
+					"discardPile": {
+						"items": {
+							"$ref": "#/components/schemas/DTOPlayableCard"
+						},
+						"type": "array"
+					},
+					"leader": {
+						"$ref": "#/components/schemas/DTOPlayableCard"
+					},
+					"factionId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"drawPile",
+					"hand",
+					"discardPile",
+					"leader",
+					"factionId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DTOPlayer": {
+				"properties": {
+					"userId": {
+						"type": "string"
+					},
+					"gems": {
+						"type": "number",
+						"format": "double"
 					},
 					"passed": {
 						"type": "boolean"
 					},
-					"gems": {
+					"deck": {
+						"$ref": "#/components/schemas/DTODeck"
+					}
+				},
+				"required": [
+					"userId",
+					"gems",
+					"passed",
+					"deck"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RangeType": {
+				"type": "string",
+				"enum": [
+					"MELEE",
+					"RANGED",
+					"SIEGE"
+				]
+			},
+			"DTORow": {
+				"properties": {
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"cardsIds": {
+						"items": {
+							"$ref": "#/components/schemas/DTOPlayableCard"
+						},
+						"type": "array"
+					},
+					"range": {
+						"$ref": "#/components/schemas/RangeType"
+					}
+				},
+				"required": [
+					"score",
+					"cardsIds",
+					"range"
+				],
+				"type": "object"
+			},
+			"DTOPlayerRows": {
+				"properties": {
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/DTORow"
+						},
+						"type": "array"
+					},
+					"score": {
 						"type": "number",
 						"format": "double"
 					},
@@ -106,17 +206,11 @@
 					}
 				},
 				"required": [
-					"deck",
-					"passed",
-					"gems",
+					"rows",
+					"score",
 					"userId"
 				],
 				"type": "object"
-			},
-			"PlayerRows": {
-				"properties": {},
-				"type": "object",
-				"additionalProperties": false
 			},
 			"DTOGameResult": {
 				"type": "string",
@@ -249,16 +343,16 @@
 								"description": "Result of last completed round (null if no round completed)"
 							},
 							"player2Rows": {
-								"$ref": "#/components/schemas/PlayerRows"
+								"$ref": "#/components/schemas/DTOPlayerRows"
 							},
 							"player1Rows": {
-								"$ref": "#/components/schemas/PlayerRows"
+								"$ref": "#/components/schemas/DTOPlayerRows"
 							},
 							"player2": {
-								"$ref": "#/components/schemas/Player"
+								"$ref": "#/components/schemas/DTOPlayer"
 							},
 							"player1": {
-								"$ref": "#/components/schemas/Player"
+								"$ref": "#/components/schemas/DTOPlayer"
 							},
 							"currentPlayerTurnUserId": {
 								"type": "string",
