@@ -1,8 +1,8 @@
 @use '@styles/tokens' as tokens;
 
 .icon {
-  margin-right: var(--space-xs, 0.5rem);
   display: inline-block;
+  filter: saturate(0.0);
 }
 
 .small {

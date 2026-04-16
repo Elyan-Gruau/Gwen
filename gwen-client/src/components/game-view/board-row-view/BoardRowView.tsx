@@ -3,6 +3,7 @@ import type { Row } from 'gwen-common';
 import ModifierSlot from './modifier-slot/ModifierSlot';
 import UnitCardView from '../../card/UnitCardView';
 import ScoreBadge from '../score-badge/ScoreBadge';
+import BoardRowTypeIcon from './BoardRowTypeIcon';
 
 export type BoardRowViewProps = {
   row: Row;
@@ -16,6 +17,7 @@ export type BoardRowViewProps = {
 const BoardRowView = ({ row }: BoardRowViewProps) => {
   return (
     <div className={styles.boardRow}>
+      <BoardRowTypeIcon type={row.getRange()} />
       <div>
         <ScoreBadge size={'SMALL'} value={row.getScore()} />
       </div>

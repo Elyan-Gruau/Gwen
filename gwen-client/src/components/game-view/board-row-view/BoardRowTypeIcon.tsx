@@ -13,6 +13,7 @@ export interface BoardRowTypeIconProps {
 
 /**
  * Displays the icon for a board row type (MELEE, RANGED, SIEGE).
+ * The icon is rendered in black using CSS filter.
  * @param type The type of the board row.
  * @param size The size of the icon: SMALL, MEDIUM, LARGE. Default is MEDIUM.
  */
