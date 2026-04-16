@@ -9,6 +9,7 @@ import DeckSelectionPage from './pages/deck-selection-page/DeckSelectionPage';
 import HomePage from './pages/home-page/HomePage';
 import StatusPage from './pages/status-page/StatusPage';
 import DeckBuilder from './components/deck-builder/deck-builder/DeckBuilder';
+import RulesPage from './pages/rules-page/RulesPage';
 import ProfileMePage from './pages/profile-page/ProfileMePage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import NavbarLayout from './components/layouts/navbar-layout/NavbarLayout';
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.DECK_BUILDER,
         element: <DeckBuilder />,
+      },
+      {
+        path: ROUTES.RULES,
+        element: <RulesPage />,
       },
     ],
   },

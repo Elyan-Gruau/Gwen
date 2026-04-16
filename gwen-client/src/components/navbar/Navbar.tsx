@@ -57,6 +57,7 @@ const Navbar = () => {
         <div className={styles.navLinksContainer}>
           <LinkButton href={ROUTES.PLAY}>Matchmaking</LinkButton>
           <LinkButton href={ROUTES.DECK_BUILDER}>Deck Builder</LinkButton>
+          <LinkButton href={ROUTES.RULES}>Rules</LinkButton>
         </div>
 
         {/* User Section */}

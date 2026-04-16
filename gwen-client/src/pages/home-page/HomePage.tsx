@@ -21,6 +21,9 @@ export default function HomePage() {
         <Button size="lg" variant="secondary" onClick={() => navigate(ROUTES.PROFILE_ME)}>
           My Profile
         </Button>
+        <Button size="lg" variant="secondary" onClick={() => navigate(ROUTES.RULES)}>
+          Rules
+        </Button>
       </div>
     </div>
   );
