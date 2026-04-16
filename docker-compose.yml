@@ -45,7 +45,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      VITE_API_URL: ${VITE_API_URL:-http://localhost:3000/api}
+      SERVER_URL: ${SERVER_URL:-http://localhost:3000/api}
       VITE_SOCKET_URL: ${VITE_SOCKET_URL:-http://localhost:3000}
     depends_on:
       - gwen-server
