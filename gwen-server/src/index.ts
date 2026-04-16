@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
