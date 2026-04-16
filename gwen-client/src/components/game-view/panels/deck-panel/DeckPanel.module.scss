@@ -1,0 +1,26 @@
+@use '@styles/tokens' as tokens;
+
+.deckPanelLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  min-width: 180px;
+  max-width: 240px;
+  padding: tokens.$spacing-xl 0  ;
+}
+
+.topPanel {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 0 0 auto;
+}
+
+.bottomPanel {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
+

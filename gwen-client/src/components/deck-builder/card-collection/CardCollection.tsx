@@ -75,7 +75,7 @@ const CardCollection = ({ faction, cards, onCardClick, selectedCardIds }: CardCo
             onClick={() => onCardClick?.(c)}
             className={`${styles.cardWrapper} ${selectedCardIds?.has(c.getId()) ? styles.cardSelected : ''} ${onCardClick ? styles.cardClickable : ''}`}
           >
-            <PlayableCardView card={c} />
+            <PlayableCardView card={c} size={'medium'} />
           </div>
         ))}
       </div>

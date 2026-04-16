@@ -1,8 +1,20 @@
-import { Body, Controller, Get, Path, Post, Query, Response, Route, SuccessResponse, Tags } from 'tsoa';
+import {
+  Body,
+  Controller,
+  Get,
+  Path,
+  Post,
+  Query,
+  Response,
+  Route,
+  SuccessResponse,
+  Tags,
+} from 'tsoa';
 import { GameService } from '../services/GameService.js';
 import { GameManager, GameWithMetadata } from '../services/GameManager.js';
 import { EloService } from '../services/EloService.js';
 import { UserRepository } from '../../auth/repository/UserRepository.js';
+
 import type {
   DTOFinishGameRequest,
   DTOGame,
@@ -18,6 +30,8 @@ import type {
 } from '../dtos/DTOGame.js';
 import { TURN_DURATION_SECONDS } from 'gwen-common';
 import type { DBGame } from '../model/DBGame.js';
+import { PlayerMapper } from '../mappers/PlayerMapper';
+import { PlayerRowMapper } from '../mappers/PlayerRowMapper';
 
 const gameService = new GameService();
 const userRepository = new UserRepository();
@@ -283,9 +297,9 @@ export class GameController extends Controller {
       const l = Math.min(limit ?? 10, 50);
       const { content, total } = await gameService.getGameHistory(userId, p, l);
 
-      const opponentIds = [...new Set(
-        content.map((g) => (g.player1_id === userId ? g.player2_id : g.player1_id)),
-      )];
+      const opponentIds = [
+        ...new Set(content.map((g) => (g.player1_id === userId ? g.player2_id : g.player1_id))),
+      ];
       const opponentUsers = await Promise.all(opponentIds.map((id) => userRepository.findById(id)));
       const opponentMap: Record<string, string> = {};
       opponentIds.forEach((id, i) => {
@@ -349,13 +363,15 @@ export class GameController extends Controller {
     };
   }
 
-  private async toDTOGameWithMetadata(gameWithMetadata: GameWithMetadata): Promise<DTOGameWithMetadata> {
+  private async toDTOGameWithMetadata(
+    gameWithMetadata: GameWithMetadata,
+  ): Promise<DTOGameWithMetadata> {
     const { metadata, game } = gameWithMetadata;
 
     // Fetch usernames
     const player1Id = game.getPlayer1().getUserId();
     const player2Id = game.getPlayer2().getUserId();
-    
+
     const player1User = await userRepository.findById(player1Id);
     const player2User = await userRepository.findById(player2Id);
 
@@ -453,10 +469,10 @@ export class GameController extends Controller {
         currentRound: game.getCurrentRound(),
         currentPlayerTurnUserId: game.getCurrentPlayerTurnUserId(),
         turnStartedAt: game.getTurnStartedAt()?.toISOString() ?? null,
-        player1: game.getPlayer1(),
-        player2: game.getPlayer2(),
-        player1Rows: game.getPlayer1Rows(),
-        player2Rows: game.getPlayer2Rows(),
+        player1: PlayerMapper.toDTO(game.getPlayer1()),
+        player2: PlayerMapper.toDTO(game.getPlayer2()),
+        player1Rows: PlayerRowMapper.toDTO(game.getPlayer1Rows()),
+        player2Rows: PlayerRowMapper.toDTO(game.getPlayer2Rows()),
         lastRoundResult: lastRoundResult || null,
         gameEndResult: gameEndResult || null,
       },

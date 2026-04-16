@@ -59,10 +59,6 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: ROUTES.GAME,
-        element: <GamePage />,
-      },
-      {
         path: ROUTES.DECK_BUILDER,
         element: <DeckBuilder />,
       },
@@ -71,5 +67,9 @@ export const router = createBrowserRouter([
         element: <RulesPage />,
       },
     ],
+  },
+  {
+    path: ROUTES.GAME,
+    element: <GamePage />,
   },
 ]);

@@ -5,12 +5,14 @@
   flex-direction: column;
   gap: t.$spacing-xs;
   outline: none;
+  min-width: calc(t.$board-card-width * 10)
 }
 
 .cardsRow {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  justify-content: center;
   gap: t.$spacing-sm;
   overflow-x: auto;
   padding: t.$spacing-xs 0;

@@ -47,43 +47,58 @@ class SoundService {
   }
 
   playPassTurn(): void {
-    this.playSequence([
-      { freq: 330, duration: 0.15, type: 'sine' },
-      { freq: 262, duration: 0.2, delay: 0.1, type: 'sine' },
-    ], 0.2);
+    this.playSequence(
+      [
+        { freq: 330, duration: 0.15, type: 'sine' },
+        { freq: 262, duration: 0.2, delay: 0.1, type: 'sine' },
+      ],
+      0.2,
+    );
   }
 
   playRoundWin(): void {
-    this.playSequence([
-      { freq: 523, duration: 0.15, type: 'triangle' },
-      { freq: 659, duration: 0.15, delay: 0.15, type: 'triangle' },
-      { freq: 784, duration: 0.3, delay: 0.3, type: 'triangle' },
-    ], 0.3);
+    this.playSequence(
+      [
+        { freq: 523, duration: 0.15, type: 'triangle' },
+        { freq: 659, duration: 0.15, delay: 0.15, type: 'triangle' },
+        { freq: 784, duration: 0.3, delay: 0.3, type: 'triangle' },
+      ],
+      0.3,
+    );
   }
 
   playRoundLoss(): void {
-    this.playSequence([
-      { freq: 392, duration: 0.15, type: 'sine' },
-      { freq: 330, duration: 0.15, delay: 0.15, type: 'sine' },
-      { freq: 262, duration: 0.3, delay: 0.3, type: 'sine' },
-    ], 0.25);
+    this.playSequence(
+      [
+        { freq: 392, duration: 0.15, type: 'sine' },
+        { freq: 330, duration: 0.15, delay: 0.15, type: 'sine' },
+        { freq: 262, duration: 0.3, delay: 0.3, type: 'sine' },
+      ],
+      0.25,
+    );
   }
 
   playGameWin(): void {
-    this.playSequence([
-      { freq: 523, duration: 0.12, type: 'triangle' },
-      { freq: 659, duration: 0.12, delay: 0.13, type: 'triangle' },
-      { freq: 784, duration: 0.12, delay: 0.26, type: 'triangle' },
-      { freq: 1047, duration: 0.4, delay: 0.39, type: 'triangle' },
-    ], 0.35);
+    this.playSequence(
+      [
+        { freq: 523, duration: 0.12, type: 'triangle' },
+        { freq: 659, duration: 0.12, delay: 0.13, type: 'triangle' },
+        { freq: 784, duration: 0.12, delay: 0.26, type: 'triangle' },
+        { freq: 1047, duration: 0.4, delay: 0.39, type: 'triangle' },
+      ],
+      0.35,
+    );
   }
 
   playGameLoss(): void {
-    this.playSequence([
-      { freq: 392, duration: 0.2, type: 'sine' },
-      { freq: 311, duration: 0.2, delay: 0.22, type: 'sine' },
-      { freq: 262, duration: 0.4, delay: 0.44, type: 'sine' },
-    ], 0.3);
+    this.playSequence(
+      [
+        { freq: 392, duration: 0.2, type: 'sine' },
+        { freq: 311, duration: 0.2, delay: 0.22, type: 'sine' },
+        { freq: 262, duration: 0.4, delay: 0.44, type: 'sine' },
+      ],
+      0.3,
+    );
   }
 
   playTimerTick(): void {

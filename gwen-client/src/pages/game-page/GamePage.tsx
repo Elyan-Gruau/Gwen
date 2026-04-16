@@ -43,7 +43,9 @@ const GamePage = () => {
       if (!soundedRoundRef.current) {
         soundedRoundRef.current = true;
         const myResult = game.game.lastRoundResult;
-        const isWin = user && myResult?.player1_result &&
+        const isWin =
+          user &&
+          myResult?.player1_result &&
           (game.game.player1?.userId === user.id
             ? myResult.player1_result === 'WIN'
             : myResult.player2_result === 'WIN');
@@ -61,7 +63,9 @@ const GamePage = () => {
       if (!soundedGameRef.current) {
         soundedGameRef.current = true;
         const endResult = game.game.gameEndResult;
-        const isWin = user && endResult &&
+        const isWin =
+          user &&
+          endResult &&
           (endResult.player1_id === user.id
             ? endResult.player1_result === 'WIN'
             : endResult.player2_result === 'WIN');
@@ -108,7 +112,6 @@ const GamePage = () => {
 
   return (
     <div className={styles.gamePage} style={style}>
-      <p>gameId : {gameId}</p>
       <GameView
         game={toModel(game)}
         gameMetadata={game}
