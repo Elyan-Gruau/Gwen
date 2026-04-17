@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -40,7 +41,6 @@ export const GWEN_LOGS = getEnvVariableWithFallback('GWEN_LOGS', 'true') === 'tr
 // Load local .env file only in non-production environments.
 // On platforms like Render, environment variables should be configured in the dashboard.
 if (NODE_ENV !== 'production') {
-  const { default: dotenv } = await import('dotenv');
   dotenv.config({ path: '../.env' });
 }
 
