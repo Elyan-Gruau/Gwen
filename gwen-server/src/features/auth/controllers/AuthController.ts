@@ -24,7 +24,6 @@ import { IllegalEmailException } from '../exceptions/IllegalEmailException.js';
 import { DuplicateUsernameException } from '../exceptions/DuplicateUsernameException.js';
 import { DuplicateEmailException } from '../exceptions/DuplicateEmailException.js';
 import type { DTOLoginResponse, DTOUser } from '../dtos/DTOLoginResponse.js';
-import { JWT_EXPIRATION, JWT_SECRET } from '../../../index';
 
 type LoginRequest = {
   username: string;
@@ -37,11 +36,13 @@ type RegisterRequest = {
   password: string;
 };
 
+const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
+const jwtExpiration = parseInt(process.env.JWT_EXPIRATION || '3600000', 10);
 const userRepository = new UserRepository();
 const userService = new UserService(userRepository);
 const passwordHasher = new PasswordHasher();
-const jwtService = new JwtService(JWT_SECRET, JWT_EXPIRATION);
-const authService = new AuthService(userService, passwordHasher, jwtService, JWT_EXPIRATION);
+const jwtService = new JwtService(jwtSecret, jwtExpiration);
+const authService = new AuthService(userService, passwordHasher, jwtService, jwtExpiration);
 
 @Route('auth')
 @Tags('Auth')
@@ -53,12 +54,10 @@ export class AuthController extends Controller {
     try {
       return await authService.login(body.username, body.password);
     } catch (error) {
-      // Log the real error for debug purposes
-      // eslint-disable-next-line no-console
-      console.error('[AUTH][LOGIN][ERROR]', error);
       if (error instanceof InvalidCredentialException || error instanceof UserNotFoundException) {
         return this.throwHttpError('Invalid credentials', 401);
       }
+
       return this.throwHttpError('Unexpected error while logging in', 500);
     }
   }

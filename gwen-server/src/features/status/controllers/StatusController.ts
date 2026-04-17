@@ -1,5 +1,4 @@
 import { Example, Get, Route, SuccessResponse, Tags } from 'tsoa';
-import { NODE_ENV } from '../../../index';
 
 interface HealthStatus {
   status: string;
@@ -27,7 +26,7 @@ export class StatusController {
       status: 'ok',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
-      environment: NODE_ENV,
+      environment: process.env.NODE_ENV || 'development',
     };
   }
 }

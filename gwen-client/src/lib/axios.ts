@@ -7,52 +7,31 @@ import { ROUTES } from '../constants/routes';
 
 axios.defaults.baseURL = API_BASE_URL;
 
-// Log every outgoing request
+// Inject the jwt token on every request based on localStorage
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('authToken');
-  const hasToken = !!token;
-  console.log('[AXIOS][REQUEST]', config.method?.toUpperCase(), config.url, {
-    hasToken,
-    headers: config.headers,
-  });
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Log every received response (success or error)
+// Global handler for 401 errors (expired/invalid token)
 axios.interceptors.response.use(
-  (response) => {
-    console.log(
-      '[AXIOS][RESPONSE][SUCCESS]',
-      response.config.method?.toUpperCase(),
-      response.config.url,
-      {
-        status: response.status,
-        data: response.data,
-      },
-    );
-    return response;
-  },
+  (response) => response,
   (error) => {
     const status = error.response?.status;
-    const requestUrl: string | undefined = error.config?.url;
-    console.error('[AXIOS][RESPONSE][ERROR]', error.config?.method?.toUpperCase(), requestUrl, {
-      status,
-      message: error.message,
-      data: error.response?.data,
-    });
     if (status === 401) {
-      // Do not handle normal errors from auth endpoints (login / register)
+      const requestUrl: string | undefined = error.config?.url;
+
+      // Ne pas traiter les erreurs "normales" des endpoints d'auth (login / register)
       if (requestUrl && /\/auth\/(login|register)/.test(requestUrl)) {
         return Promise.reject(error);
       }
 
-      // Clean up the token on the client side
+      // Nettoyer le token côté client
       logoutUser();
 
-      // Redirect the user to the login page if not already there
+      // Rediriger l'utilisateur vers la page de login si ce n'est pas déjà le cas
       if (window.location.pathname !== ROUTES.LOGIN) {
-        console.warn('[AXIOS][401] Redirecting to login page');
         router.navigate(ROUTES.LOGIN, { replace: true });
       }
     }
