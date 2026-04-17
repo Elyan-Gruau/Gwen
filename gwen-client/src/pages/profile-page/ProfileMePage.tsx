@@ -7,7 +7,7 @@ import { useGetCurrentUser } from 'gwen-generated-api';
 import Spinner from '../../components/spinner/Spinner';
 import UserProfilePic from '../../components/user-profile-pic/UserProfilePic';
 import Button from '../../components/reusable/button/Button';
-import { API_BASE_URL } from '../../constants/api';
+import axios from 'axios';
 import styles from './ProfileMePage.module.scss';
 
 type MatchHistoryResult = 'WIN' | 'LOSS' | 'DRAW' | 'ABANDONED';
@@ -145,12 +145,8 @@ const MatchHistory = ({ userId }: { userId: string }) => {
   const { data, isLoading } = useQuery<MatchHistoryPage>({
     queryKey: ['matchHistory', userId],
     queryFn: async () => {
-      const token = localStorage.getItem('token');
-      const res = await fetch(`${API_BASE_URL}/games/history/${userId}?page=0&limit=10`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-      if (!res.ok) throw new Error('Failed to fetch match history');
-      return res.json() as Promise<MatchHistoryPage>;
+      const res = await axios.get<MatchHistoryPage>(`/games/history/${userId}?page=0&limit=10`);
+      return res.data;
     },
     enabled: !!userId,
   });
