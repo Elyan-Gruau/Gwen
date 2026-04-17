@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' });
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -38,6 +36,27 @@ export const JWT_EXPIRATION = parseInt(
 );
 export const NODE_ENV = getEnvVariableWithFallback('NODE_ENV', DEFAULT_NODE_ENV);
 export const GWEN_LOGS = getEnvVariableWithFallback('GWEN_LOGS', 'true') === 'true';
+
+// Load local .env file only in non-production environments.
+// On platforms like Render, environment variables should be configured in the dashboard.
+if (NODE_ENV !== 'production') {
+  const { default: dotenv } = await import('dotenv');
+  dotenv.config({ path: '../.env' });
+}
+
+if (GWEN_LOGS) {
+  console.log('[BOOT][ENV]', {
+    nodeEnv: NODE_ENV,
+    jwtSecretPresent: !!process.env.JWT_SECRET,
+    jwtSecretLength: process.env.JWT_SECRET?.length ?? 0,
+  });
+}
+
+// Fail fast in production if JWT_SECRET is missing/empty.
+if (NODE_ENV === 'production' && !process.env.JWT_SECRET) {
+  console.error('[BOOT][FATAL] JWT_SECRET is missing in production environment.');
+  process.exit(1);
+}
 
 const app = express();
 const httpServer = createServer(app);
