@@ -49,13 +49,15 @@ This repository is a monorepo using npm workspaces.
 
 - Authentication (register/login, JWT)
 - Profile page
-- Deck builder (faction/leader selection, deck validation, favorite deck)
+- Deck builder (faction/leader selection, deck validation, favorite deck, row distribution)
 - Game logic:
   - place card
   - pass turn
   - round resolution
   - end game
   - agile card placement (`MELEE` / `RANGED`)
+  - timed turns
+  - resign option
 - ELO system:
   - ELO gain/loss based on opponent rating and result
   - persistence in database
@@ -68,6 +70,9 @@ This repository is a monorepo using npm workspaces.
   - light/dark toggle
   - persisted in browser localStorage
   - first load defaults from `prefers-color-scheme`
+- Sound effects:
+  - card placement, pass turn, round win/loss, game win/loss, timer tick
+- Rules page
 
 ### Constraints checklist
 
@@ -140,6 +145,7 @@ AI was used for:
 - ideation for factions/cards
 - fixing targeted technical issues (TypeScript, SCSS, OpenAPI)
 - implementing isolated features
+- narration and Gwent inspired scss for Rules page
 
 It was not used to define the full architecture of the project.
 
@@ -165,11 +171,20 @@ It was not used to define the full architecture of the project.
 - Sign-up page
 - Deck builder
 
+### Delphine Pothin (from 15/04 to 17/04)
+
+- Resign option 
+- Timed turns
+- Sound effects
+- Row distribution in deck builder
+- Match history on profile page
+- Rules page
+
 ## Next updates
 
-- Sound effects
 - Special card effects
 - Leader abilities
-- Timed turns
-- Resign option
-- Rules page
+- More decks stats in deck building
+- Profile edit
+- Card animation
+- AI opponent
