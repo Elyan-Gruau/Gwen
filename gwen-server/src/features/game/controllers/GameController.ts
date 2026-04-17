@@ -437,6 +437,10 @@ export class GameController extends Controller {
           await userRepository.updateElo(player2Id, p2NewElo);
         }
 
+      // Save winner to database
+      const winnerId = p1GameResult === 'WIN' ? player1Id : p2GameResult === 'WIN' ? player2Id : '';
+      await gameService.finishGame(gameId, winnerId);
+
         // Mark ELO as applied
         await gameService.markEloApplied(gameId);
       } else {
